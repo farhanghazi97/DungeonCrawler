@@ -48,26 +48,76 @@ public abstract class DungeonLoader {
         int y = json.getInt("y");
 
         Entity entity = null;
+        
         switch (type) {
         case "player":
-            Player player = new Player(dungeon, x, y);
+           
+        	Player player = new Player(dungeon, x, y);
             dungeon.setPlayer(player);
             onLoad(player);
             entity = player;
             break;
+        
         case "wall":
-            Wall wall = new Wall(x, y);
+            
+        	Wall wall = new Wall(x, y);
             onLoad(wall);
             entity = wall;
             break;
-        // TODO Handle other possible entities
+        
+        case "boulder":
+        	
+        	Boulder boulder = new Boulder(x, y);
+        	onLoad(boulder);
+        	entity = boulder;
+        	break;
+        
+        case "switch":
+        	
+        	Switch swi = new Switch(x,y);
+        	onLoad(swi);
+        	entity = swi;
+        	break;
+        
+        case "sword":
+        	
+        	Sword swo = new Sword(x,y);
+        	onLoad(swo);
+        	entity = swo;
+        	break;
+        
+        case "treasure":
+        	
+        	Treasure t = new Treasure(x,y);
+        	onLoad(t);
+        	entity = t;
+        	break;
+        
+        case "invincibility":
+        	
+        	Potion p = new Potion(x,y);
+        	onLoad(p);
+        	entity = p;
+        	break;
+        	
+        case "bomb":
+        	
+        	Bomb b = new Bomb(x,y);
+        	onLoad(b);
+        	entity = b;
+        	break;
         }
         dungeon.addEntity(entity);
     }
 
-    public abstract void onLoad(Entity player);
-
-    public abstract void onLoad(Wall wall);
+    public abstract void onLoad (Entity player);
+    public abstract void onLoad (Wall wall);
+	public abstract void onLoad (Boulder boulder);
+	public abstract void onLoad (Switch s) ;
+	public abstract void onLoad (Sword s);
+	public abstract void onLoad (Treasure s);
+	public abstract void onLoad (Potion s);
+	public abstract void onLoad (Bomb b);
 
     // TODO Create additional abstract methods for the other entities
 

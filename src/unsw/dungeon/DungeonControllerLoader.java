@@ -24,13 +24,27 @@ public class DungeonControllerLoader extends DungeonLoader {
     //Images
     private Image playerImage;
     private Image wallImage;
+    private Image boulderimage;
+    private Image switchimage;
+    private Image swordimage;
+    private Image treasureimage;
+    private Image potionimage;
+    private Image bombimage_unlit;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
         super(filename);
+        
         entities = new ArrayList<>();
         playerImage = new Image("/human_new.png");
         wallImage = new Image("/brick_brown_0.png");
+        boulderimage = new Image("/boulder.png");
+        switchimage = new Image("/pressure_plate.png");
+        swordimage = new Image("/greatsword_1_new.png");
+        treasureimage = new Image("/gold_pile.png");
+        potionimage = new Image("/brilliant_blue_new.png");
+        bombimage_unlit = new Image("/bomb_unlit.png");
+        
     }
 
     @Override
@@ -44,7 +58,43 @@ public class DungeonControllerLoader extends DungeonLoader {
         ImageView view = new ImageView(wallImage);
         addEntity(wall, view);
     }
+    
+    @Override
+    public void onLoad(Boulder boulder) {
+    	ImageView view = new ImageView(boulderimage);
+    	addEntity(boulder, view);
+    }
 
+    @Override
+    public void onLoad(Switch s) {
+    	ImageView view = new ImageView(switchimage);
+    	addEntity(s , view);
+    }
+    
+    @Override
+    public void onLoad(Sword s) {
+    	ImageView view = new ImageView(swordimage);
+    	addEntity(s , view);
+    }
+    
+    @Override
+    public void onLoad(Treasure t) {
+    	ImageView view = new ImageView(treasureimage);
+    	addEntity(t , view);
+    }
+    
+    @Override
+    public void onLoad(Potion p) {
+    	ImageView view = new ImageView(potionimage);
+    	addEntity(p , view);
+    }
+    
+    @Override
+    public void onLoad(Bomb b) {
+    	ImageView view = new ImageView(bombimage_unlit);
+    	addEntity(b , view);
+    }
+    
     private void addEntity(Entity entity, ImageView view) {
         trackPosition(entity, view);
         entities.add(view);
