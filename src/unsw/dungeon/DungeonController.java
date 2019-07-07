@@ -42,8 +42,9 @@ public class DungeonController {
             }
         }
 
-        for (ImageView entity : initialEntities)
+        for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
+        }
         
 
     }
@@ -51,17 +52,25 @@ public class DungeonController {
     @FXML
     public void handleKeyPress(KeyEvent event) {
         switch (event.getCode()) {
-        case UP:
-            player.moveUp();
+        case UP:    	
+        	if(!player.checkWallCollision("UP" , dungeon.getEntities())) {
+        		player.moveUp();
+        	}
             break;
         case DOWN:
-            player.moveDown();
+            if(!player.checkWallCollision("DOWN" , dungeon.getEntities())) {
+                player.moveDown();
+            }
             break;
         case LEFT:
-            player.moveLeft();
+            if(!player.checkWallCollision("LEFT" , dungeon.getEntities())) {
+            	 player.moveLeft();
+            }
             break;
         case RIGHT:
-            player.moveRight();
+        	if(!player.checkWallCollision("RIGHT" , dungeon.getEntities())) {
+        		player.moveRight();
+        	}
             break;
         default:
             break;
