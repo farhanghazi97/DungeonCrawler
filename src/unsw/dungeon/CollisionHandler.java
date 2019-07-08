@@ -1,10 +1,35 @@
 package unsw.dungeon;
 
-import java.awt.Rectangle;
+import java.util.List;
 
-public interface CollisionHandler {
+public class CollisionHandler {
 
-	 public Rectangle getBounds(String direction);
-	 public Entity getObjectByType(String name);
+	public static boolean PlayerToWallCollision(String direction , Player p , List<Entity> entities) {
+		
+		boolean collision = false;
+		for(int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i).getObjectByType("Wall object");
+			if(e != null) {
+				if(p.getBounds(direction).contains(e.getBounds(direction))) {
+					collision = true;
+					break;
+				}
+			}
+		}
+		return collision;
+	}
 	
+	public static boolean PlayerToBoulderCollision(String direction , Player p , List<Entity> entities) {
+		boolean collision = false;
+		for(int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i).getObjectByType("Boulder object");
+			if(e != null) {
+				if(p.getBounds(direction).contains(e.getBounds(direction))) {
+					collision = true;
+					break;
+				}
+			}
+		}
+		return collision;
+	}
 }

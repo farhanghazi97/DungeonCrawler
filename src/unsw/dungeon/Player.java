@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
  * @author Robert Clifton-Everest
  *
  */
-public class Player extends Entity implements CollisionHandler {
+public class Player extends Entity implements CollisionDetector {
 
     private Dungeon dungeon;
 
@@ -44,9 +44,26 @@ public class Player extends Entity implements CollisionHandler {
             x().set(getX() + 1);
     }
     
+    public boolean checkCollision (String direction , List<Entity> entities) {
+    	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(direction, entities)) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
+    
     public boolean checkWallCollision(String direction , List<Entity> entities) {
-    	if(CollisionDetector.WallCollision(direction , this , entities)) {
-    		System.out.println("Collision detected!");
+    	if(CollisionHandler.PlayerToWallCollision(direction , this , entities)) {
+    		System.out.println("Collision: PLAYER - WALL");
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    public boolean checkBoulderCollision(String direction , List<Entity> entities) {
+    	if(CollisionHandler.PlayerToBoulderCollision(direction, this, entities)) {
+    		System.out.println("Collision: PLAYER - BOULDER");
     		return true;
     	} else {
     		return false;
@@ -55,17 +72,7 @@ public class Player extends Entity implements CollisionHandler {
     
     @Override
     public Rectangle getBounds(String direction) {
-    	if(direction.equals("RIGHT")) {
-    		return new Rectangle(this.getX() + 1 , this.getY() , 32 , 32);
-    	} else if(direction.equals("LEFT")) {
-    		return new Rectangle(this.getX() - 1 , this.getY() , 32 , 32);
-    	} else if(direction.equals("UP")){
-    		return new Rectangle(this.getX() , this.getY() - 1, 32 , 32);
-    	} else if(direction.equals("DOWN")){
-    		return new Rectangle(this.getX() , this.getY() + 1, 32 ,32);
-    	} else {
-    		return null;
-    	}
+    	return new Rectangle(this.getX(), this.getY() , 32 , 32);
     }
     
     @Override

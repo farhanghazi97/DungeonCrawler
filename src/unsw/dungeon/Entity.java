@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  * @author Robert Clifton-Everest
  *
  */
-public class Entity implements CollisionHandler {
+public class Entity implements CollisionDetector {
 
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
