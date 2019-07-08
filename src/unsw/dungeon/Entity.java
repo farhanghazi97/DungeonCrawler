@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -10,7 +11,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  * @author Robert Clifton-Everest
  *
  */
-public class Entity implements CollisionHandler {
+public class Entity implements CollisionDetector {
 
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
@@ -42,16 +43,40 @@ public class Entity implements CollisionHandler {
         return x().get();
     }
     
-    public Entity getObjectByType(String name) {
+    public void setX(int x) {
+		x().set(x);
+	}
+
+	public void setY(int y) {
+		y().set(y);
+	}
+
+	public Entity getObjectByType(String name) {
     	if(this.toString().equals(name)) {
     		return this;
     	} else {
     		return null;
     	}
     }
-    
+	
     public Rectangle getBounds(String direction) {
 		return null;
     }
+    
+    public boolean checkWallCollision(String direction , List<Entity> entities) {
+    	return false;
+    }
+    
+    public boolean checkBoulderCollision(String direction , List<Entity> entities) {
+    	return false;
+    }
+    
+    public boolean checkBoulderToWallCollision(String direction , List<Entity> entities) {
+    	return false;
+    }
+    
+    public boolean checkBouldertoBoulderCollision(String direction , List<Entity> entities) {
+		return false;
+	}
     
 }

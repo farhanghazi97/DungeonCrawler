@@ -53,22 +53,22 @@ public class DungeonController {
     public void handleKeyPress(KeyEvent event) {
         switch (event.getCode()) {
         case UP:    	
-        	if(!player.checkWallCollision("UP" , dungeon.getEntities())) {
+        	if(!player.checkWallCollision("UP" , dungeon.getEntities()) && !player.checkBoulderCollision("UP" , dungeon.getEntities())) {
         		player.moveUp();
         	}
             break;
         case DOWN:
-            if(!player.checkWallCollision("DOWN" , dungeon.getEntities())) {
+            if(!player.checkWallCollision("DOWN" , dungeon.getEntities()) && !player.checkBoulderCollision("DOWN" , dungeon.getEntities())) {
                 player.moveDown();
             }
             break;
         case LEFT:
-            if(!player.checkWallCollision("LEFT" , dungeon.getEntities())) {
+            if(!player.checkWallCollision("LEFT" , dungeon.getEntities()) && !player.checkBoulderCollision("LEFT" , dungeon.getEntities())) {
             	 player.moveLeft();
             }
             break;
         case RIGHT:
-        	if(!player.checkWallCollision("RIGHT" , dungeon.getEntities())) {
+        	if(!player.checkWallCollision("RIGHT" , dungeon.getEntities()) && !player.checkBoulderCollision("RIGHT" , dungeon.getEntities())) {
         		player.moveRight();
         	}
             break;
