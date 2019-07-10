@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.List;
 
 public class Boulder extends Entity{
 
@@ -18,23 +19,28 @@ public class Boulder extends Entity{
     }
 	
 	@Override
+	public boolean checkBoulderCollision(String direction , List<Entity> entities) {
+    	if(CollisionHandler.BoulderToBoulderCollision(direction , this , entities)) {
+    		System.out.println("Collision: BOULDER - BOULDER");
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+	
+	@Override
     public String toString() {
 		return String.format("Boulder object");
     }
 	
 	@Override
     public Rectangle getBounds(String direction) {
-    	if(direction.equals("RIGHT")) {
-    		return new Rectangle(this.getX() - 1 , this.getY() , 32 , 32);
-    	} else if(direction.equals("LEFT")) {
-    		return new Rectangle(this.getX() + 1 , this.getY() , 32 , 32);
-    	} else if(direction.equals("UP")){
-    		return new Rectangle(this.getX() , this.getY() + 1, 32 , 32);
-    	} else if(direction.equals("DOWN")){
-    		return new Rectangle(this.getX() , this.getY() - 1, 32 ,32);
-    	} else {
-    		return null;
-    	}
+		return new Rectangle(this.getX(), this.getY() , 32 , 32);
+    }
+	
+	@Override
+    public Rectangle setBounds(Rectangle r) {
+		return new Rectangle(r);
     }
 	
 }

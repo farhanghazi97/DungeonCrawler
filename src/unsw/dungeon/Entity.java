@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -42,6 +43,14 @@ public class Entity implements CollisionDetector {
         return x().get();
     }
     
+    public void setY(int y) {
+    	 y().set(y);
+    }
+    
+    public void setX(int x) {
+    	x().set(x);
+    }
+
     public Entity getObjectByType(String name) {
     	if(this.toString().equals(name)) {
     		return this;
@@ -50,8 +59,16 @@ public class Entity implements CollisionDetector {
     	}
     }
     
+    public boolean checkBoulderCollision(String direction , List<Entity> entities) {
+		return false;
+    }
+    
     public Rectangle getBounds(String direction) {
 		return null;
+    }
+    
+    public Rectangle setBounds(Rectangle r) {
+		return new Rectangle(r);
     }
     
 }
