@@ -55,7 +55,12 @@ public class CollisionHandler {
 	
 	public static boolean PlayerToBoulderCollision(String direction , Player p , List<Entity> entities) {
 		
-		// This function also handles BoulderToBoulderCollision
+		// If the player is in "front" of a boulder, the player can move into the position of the boulder
+		// (overlaps into boulder at the moment - should not overlap) in order to change its position.
+		// Based on the direction the player is facing, the position of the boulder is updated. This 
+		// function also calls "BoulderToBoulderCollision" to check if the "current" boulder overlaps
+		// into another boulder. If overlap can occur, we restrict the player from moving the boulder.
+		// Otherwise, the boulder's position is updated.
 		
 		boolean collision = false;
 		for(int i = 0; i < entities.size(); i++) {

@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.List;
 
 public class Wall extends Entity implements CollisionDetector {
 
@@ -8,6 +9,11 @@ public class Wall extends Entity implements CollisionDetector {
         super(x, y);
     }
 
+    @Override
+    public String toString() {
+		return String.format("Wall object");
+    }
+    
     @Override
     public Rectangle getBounds(String direction) {
     	if(direction.equals("RIGHT")) {
@@ -24,11 +30,6 @@ public class Wall extends Entity implements CollisionDetector {
     }
     
     @Override
-    public String toString() {
-		return String.format("Wall object");
-    }
-    
-    @Override
     public Wall getObjectByType(String name) {
     	if(this.toString().equals(name)) {
     		return this;
@@ -37,4 +38,14 @@ public class Wall extends Entity implements CollisionDetector {
     	}
     }
     
+    @Override
+    public boolean checkWallCollision(String direction , List<Entity> entities) {
+		return false;
+    }
+    
+    @Override
+    public boolean checkBoulderCollision(String direction , List<Entity> entities) {
+		return false;
+    }
+
 }

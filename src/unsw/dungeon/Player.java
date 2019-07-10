@@ -44,14 +44,26 @@ public class Player extends Entity implements CollisionDetector {
             x().set(getX() + 1);
     }
     
-    public boolean checkCollision (String direction , List<Entity> entities) {
-    	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(direction, entities)) {
-    		return false;
+    @Override
+    public String toString() {
+		return String.format("Player object");
+    }
+    
+    @Override
+    public Rectangle getBounds(String direction) {
+    	return new Rectangle(this.getX(), this.getY() , 32 , 32);
+    }
+    
+    @Override
+    public Player getObjectByType(String name) {
+    	if(this.toString().equals(name)) {
+    		return this;
     	} else {
-    		return true;
+    		return null;
     	}
     }
     
+    @Override
     public boolean checkWallCollision(String direction , List<Entity> entities) {
     	if(CollisionHandler.PlayerToWallCollision(direction , this , entities)) {
     		System.out.println("Collision: PLAYER - WALL");
@@ -61,6 +73,7 @@ public class Player extends Entity implements CollisionDetector {
     	}
     }
     
+    @Override
     public boolean checkBoulderCollision(String direction , List<Entity> entities) {
     	if(CollisionHandler.PlayerToBoulderCollision(direction, this, entities)) {
     		System.out.println("Collision: PLAYER - BOULDER");
@@ -70,22 +83,11 @@ public class Player extends Entity implements CollisionDetector {
     	}
     }
     
-    @Override
-    public Rectangle getBounds(String direction) {
-    	return new Rectangle(this.getX(), this.getY() , 32 , 32);
-    }
-    
-    @Override
-    public String toString() {
-		return String.format("Player object");
-    }
-    
-    @Override
-    public Player getObjectByType(String name) {
-    	if(this.toString().equals(name)) {
-    		return this;
+    public boolean checkCollision (String direction , List<Entity> entities) {
+    	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(direction, entities)) {
+    		return false;
     	} else {
-    		return null;
+    		return true;
     	}
     }
     

@@ -59,6 +59,10 @@ public class Entity implements CollisionDetector {
     	}
     }
     
+    public boolean checkWallCollision(String direction , List<Entity> entities) {
+		return false;
+    }
+    
     public boolean checkBoulderCollision(String direction , List<Entity> entities) {
 		return false;
     }
