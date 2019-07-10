@@ -83,4 +83,13 @@ public class Player extends Entity implements CollisionDetector {
     	}
     }
     
+    public boolean checkCollision (String direction , List<Entity> entities) {
+    	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(direction, entities)) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
+
+    
 }
