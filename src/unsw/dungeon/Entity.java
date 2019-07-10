@@ -71,8 +71,4 @@ public class Entity implements CollisionDetector {
 		return null;
     }
     
-    public Rectangle setBounds(Rectangle r) {
-		return new Rectangle(r);
-    }
-    
 }
