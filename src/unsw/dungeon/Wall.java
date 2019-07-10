@@ -10,6 +10,11 @@ public class Wall extends Entity implements CollisionDetector {
     }
 
     @Override
+    public String toString() {
+		return String.format("Wall object");
+    }
+    
+    @Override
     public Rectangle getBounds(String direction) {
     	if(direction.equals("RIGHT")) {
     		return new Rectangle(this.getX() - 1 , this.getY() , 32 , 32);
@@ -22,11 +27,6 @@ public class Wall extends Entity implements CollisionDetector {
     	} else {
     		return null;
     	}
-    }
-    
-    @Override
-    public String toString() {
-		return String.format("Wall object");
     }
     
     @Override
