@@ -20,6 +20,20 @@ public class CollisionHandler {
 		return collision;
 	}
 	
+	public static boolean BoulderOnPressurePlate(String direction , Boulder b , List<Entity> entities) {
+		boolean collision = false;
+		for(int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i).getObjectByType("Switch object");
+			if(e != null) {
+				if(e.getBounds(direction).contains(b.getBounds(direction))) {
+					collision = true;
+					break;
+				}
+			}
+		}
+		return collision;
+	}
+	
 	public static boolean BoulderToBoulderCollision(String direction , Boulder b , List<Entity> entities) {
 		
 		Rectangle r = new Rectangle();
@@ -71,18 +85,30 @@ public class CollisionHandler {
 					if(direction.equals("RIGHT")) {
 						if(!e.checkBoulderCollision(direction, entities)) {
 							e.setX(e.getX() + 1);
+							if(!e.checkBoulderOnPressurePlate(direction, entities)) {
+								
+							}
 						}
 					} else if (direction.equals("LEFT")) {
 						if(!e.checkBoulderCollision(direction, entities)) {
 							e.setX(e.getX() - 1);
+							if(!e.checkBoulderOnPressurePlate(direction, entities)) {
+								
+							}
 						}
 					} else if (direction.equals("UP")) {
 						if(!e.checkBoulderCollision(direction, entities)) {
 							e.setY(e.getY() - 1);
+							if(!e.checkBoulderOnPressurePlate(direction, entities)) {
+								
+							}
 						}
 					} else if (direction.equals("DOWN")) {
 						if(!e.checkBoulderCollision(direction, entities)) {
 							e.setY(e.getY() + 1);
+							if(!e.checkBoulderOnPressurePlate(direction, entities)) {
+								
+							}
 						}
 					}
 					break;

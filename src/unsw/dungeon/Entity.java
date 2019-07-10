@@ -67,6 +67,10 @@ public class Entity implements CollisionDetector {
 		return false;
     }
     
+    public boolean checkBoulderOnPressurePlate(String direction , List<Entity> entities) {
+		return false;
+	}
+    
     public Rectangle getBounds(String direction) {
 		return null;
     }

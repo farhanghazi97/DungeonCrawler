@@ -42,9 +42,14 @@ public class Boulder extends Entity implements CollisionDetector {
     		return false;
     	}
     }
-
-    public Rectangle setBounds(Rectangle r) {
-		return new Rectangle(r);
-    }
+	
+	public boolean checkBoulderOnPressurePlate(String direction , List<Entity> entities) {
+		if(CollisionHandler.BoulderOnPressurePlate(direction , this , entities)) {
+			System.out.println("Collision: BOULDER - SWITCH");
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 }
