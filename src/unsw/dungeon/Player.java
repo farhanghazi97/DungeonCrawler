@@ -44,20 +44,26 @@ public class Player extends Entity implements CollisionDetector {
             x().set(getX() + 1);
     }
     
-    @Override
+    public boolean checkCollision (String direction , List<Entity> entities) {
+    	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(direction, entities)) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
+    
     public boolean checkWallCollision(String direction , List<Entity> entities) {
-    	if(CollsionHandler.WallCollision(direction , this , entities)) {
-    		System.out.println("Collision detected with WALL!");
+    	if(CollisionHandler.PlayerToWallCollision(direction , this , entities)) {
+    		System.out.println("Collision: PLAYER - WALL");
     		return true;
     	} else {
     		return false;
     	}
     }
     
-    @Override
     public boolean checkBoulderCollision(String direction , List<Entity> entities) {
-    	if(CollsionHandler.BoulderCollision(direction , this , entities)) {
-    		System.out.println("Collision detected with BOULDER");
+    	if(CollisionHandler.PlayerToBoulderCollision(direction, this, entities)) {
+    		System.out.println("Collision: PLAYER - BOULDER");
     		return true;
     	} else {
     		return false;
@@ -66,7 +72,7 @@ public class Player extends Entity implements CollisionDetector {
     
     @Override
     public Rectangle getBounds(String direction) {
-    	return new Rectangle(this.getX() , this.getY() , 32 , 32);
+    	return new Rectangle(this.getX(), this.getY() , 32 , 32);
     }
     
     @Override

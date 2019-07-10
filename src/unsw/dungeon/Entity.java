@@ -42,41 +42,33 @@ public class Entity implements CollisionDetector {
     public int getX() {
         return x().get();
     }
+
+    public void setY(int y) {
+    	 y().set(y);
+    }
     
     public void setX(int x) {
-		x().set(x);
-	}
+    	x().set(x);
+    }
 
-	public void setY(int y) {
-		y().set(y);
-	}
-
-	public Entity getObjectByType(String name) {
+    public Entity getObjectByType(String name) {
     	if(this.toString().equals(name)) {
     		return this;
     	} else {
     		return null;
     	}
     }
-	
+    
+    public boolean checkBoulderCollision(String direction , List<Entity> entities) {
+		return false;
+    }
+    
     public Rectangle getBounds(String direction) {
 		return null;
     }
     
-    public boolean checkWallCollision(String direction , List<Entity> entities) {
-    	return false;
+    public Rectangle setBounds(Rectangle r) {
+		return new Rectangle(r);
     }
-    
-    public boolean checkBoulderCollision(String direction , List<Entity> entities) {
-    	return false;
-    }
-    
-    public boolean checkBoulderToWallCollision(String direction , List<Entity> entities) {
-    	return false;
-    }
-    
-    public boolean checkBouldertoBoulderCollision(String direction , List<Entity> entities) {
-		return false;
-	}
     
 }

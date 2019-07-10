@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 import java.util.List;
 
 public class Wall extends Entity implements CollisionDetector {
-	
+
     public Wall(int x, int y) {
         super(x, y);
     }
@@ -37,7 +37,5 @@ public class Wall extends Entity implements CollisionDetector {
     		return null;
     	}
     }
-    
-    
-    
+
 }
