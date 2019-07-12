@@ -3,6 +3,10 @@ package unsw.dungeon;
 import java.awt.Rectangle;
 import java.util.List;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+
 public class CollisionHandler {
 
 	public static boolean PlayerToWallCollision(String direction , Player p , List<Entity> entities) {
@@ -12,6 +16,20 @@ public class CollisionHandler {
 			Entity e = entities.get(i).getObjectByType("Wall object");
 			if(e != null) {
 				if(p.getBounds(direction).contains(e.getBounds(direction))) {
+					collision = true;
+					break;
+				}
+			}
+		}
+		return collision;
+	}
+	
+	public static boolean BoulderOnPressurePlate(String direction , Boulder b , List<Entity> entities) {
+		boolean collision = false;
+		for(int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i).getObjectByType("Switch object");
+			if(e != null) {
+				if(e.getBounds(direction).contains(b.getBounds(direction))) {
 					collision = true;
 					break;
 				}
@@ -49,11 +67,23 @@ public class CollisionHandler {
 			}
 		}
 		
+		if(!collision) {
+			if(direction.equals("RIGHT")) {
+				b.setX(b.getX() + 1);
+			} else if(direction.equals("LEFT")) {
+				b.setX(b.getX() - 1);
+			} else if(direction.equals("UP")) {
+				b.setY(b.getY() - 1);
+			} else if(direction.equals("DOWN")) {
+				b.setY(b.getY() + 1);
+			}
+		}
+		
 		return collision;
 		
 	}
 	
-	public static boolean PlayerToBoulderCollision(String direction , Player p , List<Entity> entities) {
+	public static boolean PlayerToBoulderCollision(GridPane squares , String direction , Player p , List<Entity> entities) {
 		
 		// If the player is in "front" of a boulder, the player can move into the position of the boulder
 		// (overlaps into boulder at the moment - should not overlap) in order to change its position.
@@ -62,27 +92,22 @@ public class CollisionHandler {
 		// into another boulder. If overlap can occur, we restrict the player from moving the boulder.
 		// Otherwise, the boulder's position is updated.
 		
-		boolean collision = false;
+		// If a boulder is moved into a floor switch, an event is triggered (new tresure is spawned)
+		
+		boolean collision = false; 
+		ObjectGenerator o = new ObjectGenerator();
+		
+		int width = p.getDungeon().getWidth();
+		int height = p.getDungeon().getHeight();
+		
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i).getObjectByType("Boulder object");
 			if(e != null) {
 				if(p.getBounds(direction).contains(e.getBounds(direction))) {
 					collision = true;
-					if(direction.equals("RIGHT")) {
-						if(!e.checkBoulderCollision(direction, entities)) {
-							e.setX(e.getX() + 1);
-						}
-					} else if (direction.equals("LEFT")) {
-						if(!e.checkBoulderCollision(direction, entities)) {
-							e.setX(e.getX() - 1);
-						}
-					} else if (direction.equals("UP")) {
-						if(!e.checkBoulderCollision(direction, entities)) {
-							e.setY(e.getY() - 1);
-						}
-					} else if (direction.equals("DOWN")) {
-						if(!e.checkBoulderCollision(direction, entities)) {
-							e.setY(e.getY() + 1);
+					if(!e.checkBoulderCollision(squares , direction, entities)) {
+						if(e.checkBoulderOnPressurePlate(direction, entities)) {
+							o.GenerateTreasure(squares , width , height);
 						}
 					}
 					break;

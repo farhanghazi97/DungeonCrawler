@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.layout.GridPane;
 
 /**
  * An entity in the dungeon.
@@ -63,13 +64,19 @@ public class Entity implements CollisionDetector {
 		return false;
     }
     
-    public boolean checkBoulderCollision(String direction , List<Entity> entities) {
+	public boolean checkBoulderCollision(GridPane squares, String direction, List<Entity> entities) {
 		return false;
-    }
+	}
+    
+    public boolean checkBoulderOnPressurePlate(String direction , List<Entity> entities) {
+		return false;
+	}
     
     public Rectangle getBounds(String direction) {
 		return null;
     }
+
+
     
     public boolean checkSwordCollision(String direction , List<Entity> entities) {
 		return false;

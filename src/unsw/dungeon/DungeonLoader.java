@@ -74,9 +74,9 @@ public abstract class DungeonLoader {
         
         case "switch":
         	
-        	Switch swi = new Switch(x,y);
-        	onLoad(swi);
-        	entity = swi;
+        	PressurePlate p = new PressurePlate(x,y);
+        	onLoad(p);
+        	entity = p;
         	break;
         
         case "sword":
@@ -95,9 +95,9 @@ public abstract class DungeonLoader {
         
         case "invincibility":
         	
-        	Potion p = new Potion(x,y);
-        	onLoad(p);
-        	entity = p;
+        	Potion po = new Potion(x,y);
+        	onLoad(po);
+        	entity = po;
         	break;
         	
         case "bomb":
@@ -113,7 +113,7 @@ public abstract class DungeonLoader {
     public abstract void onLoad (Entity player);
     public abstract void onLoad (Wall wall);
 	public abstract void onLoad (Boulder boulder);
-	public abstract void onLoad (Switch s) ;
+	public abstract void onLoad (PressurePlate p) ;
 	public abstract void onLoad (Sword s);
 	public abstract void onLoad (Treasure s);
 	public abstract void onLoad (Potion s);

@@ -66,7 +66,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     }
 
     @Override
-    public void onLoad(Switch s) {
+    public void onLoad(PressurePlate s) {
     	ImageView view = new ImageView(switchimage);
     	addEntity(s , view);
     }

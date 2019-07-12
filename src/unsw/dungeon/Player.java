@@ -52,49 +52,52 @@ public class Player extends Entity implements CollisionDetector {
 		return String.format("Player object");
 	}
 
-	@Override
-	public Rectangle getBounds(String direction) {
-		return new Rectangle(this.getX(), this.getY(), 32, 32);
-	}
 
-	@Override
-	public Player getObjectByType(String name) {
-		if (this.toString().equals(name)) {
-			return this;
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public boolean checkWallCollision(String direction, List<Entity> entities) {
-		if (CollisionHandler.PlayerToWallCollision(direction, this, entities)) {
-			System.out.println("Collision: PLAYER - WALL");
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean checkBoulderCollision(String direction, List<Entity> entities) {
-		if (CollisionHandler.PlayerToBoulderCollision(direction, this, entities)) {
-			System.out.println("Collision: PLAYER - BOULDER");
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean checkCollision(String direction, List<Entity> entities) {
-		if (!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(direction, entities)) {
-			return false;
-		} else {
-			return true;
-		}
-	}
 	
-	@Override
+    
+    @Override
+    public Rectangle getBounds(String direction) {
+    	return new Rectangle(this.getX(), this.getY() , 32 , 32);
+    }
+    
+    @Override
+    public Player getObjectByType(String name) {
+    	if(this.toString().equals(name)) {
+    		return this;
+    	} else {
+    		return null;
+    	}
+    }
+    
+    @Override
+    public boolean checkWallCollision(String direction , List<Entity> entities) {
+    	if(CollisionHandler.PlayerToWallCollision(direction , this , entities)) {
+    		System.out.println("Collision: PLAYER - WALL");
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    @Override
+    public boolean checkBoulderCollision(GridPane squares , String direction , List<Entity> entities) {
+    	if(CollisionHandler.PlayerToBoulderCollision(squares , direction, this, entities)) {
+    		System.out.println("Collision: PLAYER - BOULDER");
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    public boolean checkCollision (GridPane squares , String direction , List<Entity> entities) {
+    	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(squares , direction, entities)) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
+    
+    @Override
 	public boolean checkSwordCollision(String direction , List<Entity> entities) {
 		if (CollisionHandler.PlayerToSwordCollision(direction, this, entities)) {
 			System.out.println("Collision: PLAYER - SWORD");
@@ -104,21 +107,12 @@ public class Player extends Entity implements CollisionDetector {
 		}
 	}
 
-//	public boolean pickupSword(String direction, List<Entity> entities) {
-//		if (CollisionHandler.PlayerToSwordCollision(direction, this, entities)) {
-//			System.out.println("Collision: PLAYER - SWORD");
-//			return true;
-////    		if (sword == null) {
-////        		System.out.println("Picked Sword Up");
-////    			//ObjectCollector.pickSword();
-////    			return true;
-////    		}else {
-////        		System.out.println("Player already has a sword");
-////        		return false;
-////    		}
-//		} else {
-//			return false;
-//		}
-//	}
+	public Dungeon getDungeon() {
+		return dungeon;
+	}
+
+	public void setDungeon(Dungeon dungeon) {
+		this.dungeon = dungeon;
+	}
 
 }
