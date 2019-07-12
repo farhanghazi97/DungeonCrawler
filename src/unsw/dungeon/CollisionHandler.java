@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.awt.Rectangle;
 import java.util.List;
+import java.util.Random;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -97,6 +98,7 @@ public class CollisionHandler {
 		boolean collision = false; 
 		ObjectGenerator o = new ObjectGenerator();
 		
+		Random rand = new Random();
 		int width = p.getDungeon().getWidth();
 		int height = p.getDungeon().getHeight();
 		
@@ -107,7 +109,7 @@ public class CollisionHandler {
 					collision = true;
 					if(!e.checkBoulderCollision(squares , direction, entities)) {
 						if(e.checkBoulderOnPressurePlate(direction, entities)) {
-							o.GenerateTreasure(squares , width , height);
+							if(rand.nextInt(3) == 1) o.GenerateTreasure(squares , width , height);
 						}
 					}
 					break;
