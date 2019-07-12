@@ -3,6 +3,8 @@ package unsw.dungeon;
 import java.awt.Rectangle;
 import java.util.List;
 
+import javafx.scene.layout.GridPane;
+
 public class Boulder extends Entity implements CollisionDetector {
 
 	public Boulder(int x , int y) {
@@ -34,7 +36,7 @@ public class Boulder extends Entity implements CollisionDetector {
     }
 	
 	@Override
-	public boolean checkBoulderCollision(String direction , List<Entity> entities) {
+	public boolean checkBoulderCollision(GridPane squares , String direction , List<Entity> entities) {
     	if(CollisionHandler.BoulderToBoulderCollision(direction , this , entities)) {
     		System.out.println("Collision: BOULDER - BOULDER");
     		return true;

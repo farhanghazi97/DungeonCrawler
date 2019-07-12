@@ -74,8 +74,8 @@ public class Player extends Entity implements CollisionDetector {
     }
     
     @Override
-    public boolean checkBoulderCollision(String direction , List<Entity> entities) {
-    	if(CollisionHandler.PlayerToBoulderCollision(direction, this, entities)) {
+    public boolean checkBoulderCollision(GridPane squares , String direction , List<Entity> entities) {
+    	if(CollisionHandler.PlayerToBoulderCollision(squares , direction, this, entities)) {
     		System.out.println("Collision: PLAYER - BOULDER");
     		return true;
     	} else {
@@ -83,13 +83,20 @@ public class Player extends Entity implements CollisionDetector {
     	}
     }
     
-    public boolean checkCollision (String direction , List<Entity> entities) {
-    	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(direction, entities)) {
+    public boolean checkCollision (GridPane squares , String direction , List<Entity> entities) {
+    	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(squares , direction, entities)) {
     		return false;
     	} else {
     		return true;
     	}
     }
 
+	public Dungeon getDungeon() {
+		return dungeon;
+	}
+
+	public void setDungeon(Dungeon dungeon) {
+		this.dungeon = dungeon;
+	}
     
 }

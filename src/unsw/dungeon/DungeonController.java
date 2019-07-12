@@ -53,22 +53,23 @@ public class DungeonController {
     public void handleKeyPress(KeyEvent event) {
         switch (event.getCode()) {
         case UP:    	
-        	if(!player.checkCollision("UP" , dungeon.getEntities())) {
+        	if(!player.checkCollision(squares , "UP" , dungeon.getEntities())) {
         		player.moveUp();
         	}
+        	
             break;
         case DOWN:
-            if(!player.checkCollision("DOWN" , dungeon.getEntities())) {
+            if(!player.checkCollision(squares ,"DOWN" , dungeon.getEntities())) {
                 player.moveDown();
             }
             break;
         case LEFT:
-            if(!player.checkCollision("LEFT" , dungeon.getEntities())) {
+            if(!player.checkCollision(squares , "LEFT" , dungeon.getEntities())) {
             	 player.moveLeft();
             }
             break;
         case RIGHT:
-        	if(!player.checkCollision("RIGHT" , dungeon.getEntities())) {
+        	if(!player.checkCollision(squares , "RIGHT" , dungeon.getEntities())) {
         		player.moveRight();
         	}
             break;
