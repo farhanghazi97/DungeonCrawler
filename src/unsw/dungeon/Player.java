@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javafx.scene.layout.GridPane;
@@ -13,7 +14,8 @@ import javafx.scene.layout.GridPane;
 public class Player extends Entity implements CollisionDetector {
 
     private Dungeon dungeon;
-
+    private String type = "PLAYER";
+    
     /**
      * Create a player positioned in square (x,y)
      * @param x
@@ -74,7 +76,7 @@ public class Player extends Entity implements CollisionDetector {
     }
     
     @Override
-    public boolean checkBoulderCollision(GridPane squares , String direction , List<Entity> entities) {
+    public boolean checkBoulderCollision(GridPane squares , String direction , List<Entity> entities) throws FileNotFoundException {
     	if(CollisionHandler.PlayerToBoulderCollision(squares , direction, this, entities)) {
     		System.out.println("Collision: PLAYER - BOULDER");
     		return true;
@@ -83,11 +85,20 @@ public class Player extends Entity implements CollisionDetector {
     	}
     }
     
-    public boolean checkCollision (GridPane squares , String direction , List<Entity> entities) {
+    public boolean checkCollision (GridPane squares , String direction , List<Entity> entities) throws FileNotFoundException {
     	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(squares , direction, entities)) {
     		return false;
     	} else {
     		return true;
+    	}
+    }
+    
+    public boolean checkTreasureCollision(String direction , List<Entity> entities) {
+    	if(CollisionHandler.PlayerToTreasureCollision(direction , this , entities)) {
+    		System.out.println("Collision: PLAYER - TREASURE");
+    		return true;
+    	} else {
+    		return false;
     	}
     }
 
@@ -98,5 +109,15 @@ public class Player extends Entity implements CollisionDetector {
 	public void setDungeon(Dungeon dungeon) {
 		this.dungeon = dungeon;
 	}
-    
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }

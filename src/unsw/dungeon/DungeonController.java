@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,27 +51,38 @@ public class DungeonController {
     }
 
     @FXML
-    public void handleKeyPress(KeyEvent event) {
+    public void handleKeyPress(KeyEvent event) throws FileNotFoundException {
         switch (event.getCode()) {
         case UP:    	
         	if(!player.checkCollision(squares , "UP" , dungeon.getEntities())) {
         		player.moveUp();
+        	} 
+        	if(player.checkTreasureCollision("UP", dungeon.getEntities())) {
+        		
         	}
-        	
             break;
         case DOWN:
             if(!player.checkCollision(squares ,"DOWN" , dungeon.getEntities())) {
                 player.moveDown();
             }
+            if(player.checkTreasureCollision("UP", dungeon.getEntities())) {
+        		
+        	}
             break;
         case LEFT:
             if(!player.checkCollision(squares , "LEFT" , dungeon.getEntities())) {
             	 player.moveLeft();
-            }
+            } 
+            if(player.checkTreasureCollision("UP", dungeon.getEntities())) {
+        		
+        	}
             break;
         case RIGHT:
         	if(!player.checkCollision(squares , "RIGHT" , dungeon.getEntities())) {
         		player.moveRight();
+        	} 
+        	if(player.checkTreasureCollision("UP", dungeon.getEntities())) {
+        		
         	}
             break;
         default:

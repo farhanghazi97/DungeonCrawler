@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Wall extends Entity implements CollisionDetector {
 
+	private String type = "WALL";
+	
     public Wall(int x, int y) {
         super(x, y);
     }
@@ -38,4 +40,14 @@ public class Wall extends Entity implements CollisionDetector {
     	}
     }
 
+    @Override
+	public String getType() {
+		return type;
+	}
+
+    @Override
+	public void setType(String type) {
+		this.type = type;
+	}
+    
 }

@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 
 public class Treasure extends Entity{
 
+	private String type = "TREASURE";
+	
 	public Treasure(int x, int y) {
         super(x, y);
     }
@@ -26,5 +28,15 @@ public class Treasure extends Entity{
     		return null;
     	}
     }
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 }

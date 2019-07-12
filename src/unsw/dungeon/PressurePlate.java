@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 
 public class PressurePlate extends Entity {
 
+	private String type = "SWITCH";
+	
 	public PressurePlate(int x, int y) {
         super(x, y);
     }
@@ -26,5 +28,17 @@ public class PressurePlate extends Entity {
     		return null;
     	}
     }
+
+    @Override
+	public String getType() {
+		return type;
+	}
+
+    @Override
+	public void setType(String type) {
+		this.type = type;
+	}
+    
+    
 	
 }

@@ -7,6 +7,8 @@ import javafx.scene.layout.GridPane;
 
 public class Boulder extends Entity implements CollisionDetector {
 
+	private String type = "BOULDER";
+	
 	public Boulder(int x , int y) {
 		super(x , y);
 	}
@@ -52,6 +54,16 @@ public class Boulder extends Entity implements CollisionDetector {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }
