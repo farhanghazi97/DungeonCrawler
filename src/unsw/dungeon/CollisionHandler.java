@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 public class CollisionHandler {
-
+	
 	public static boolean PlayerToWallCollision(String direction , Player p , List<Entity> entities) {
 		
 		boolean collision = false;
@@ -27,13 +27,15 @@ public class CollisionHandler {
 		return collision;
 	}
 	
-	public static boolean PlayerToTreasureCollision(String direction , Player p , List<Entity> entities) {
+	public static boolean PlayerToTreasureCollision(GridPane g , String direction , Player p , List<Entity> entities) {
+		System.out.println(entities);
 		boolean collision = false;
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i).getObjectByType("Treasure object");
 			if(e != null) {
 				if(p.getBounds(direction).contains(e.getBounds(direction))) {
 					collision = true;
+					entities.remove(i);
 					break;
 				}
 			}

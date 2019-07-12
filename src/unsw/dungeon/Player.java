@@ -93,8 +93,8 @@ public class Player extends Entity implements CollisionDetector {
     	}
     }
     
-    public boolean checkTreasureCollision(String direction , List<Entity> entities) {
-    	if(CollisionHandler.PlayerToTreasureCollision(direction , this , entities)) {
+    public boolean checkTreasureCollision(GridPane squares , String direction , List<Entity> entities) {
+    	if(CollisionHandler.PlayerToTreasureCollision(squares , direction , this , entities)) {
     		System.out.println("Collision: PLAYER - TREASURE");
     		return true;
     	} else {
@@ -120,4 +120,8 @@ public class Player extends Entity implements CollisionDetector {
 		this.type = type;
 	}
 	
+	public void pickUpTreasure (GridPane p) {
+		p.getChildren().remove(p.getChildren().size() - 1);
+	}
+
 }

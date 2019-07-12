@@ -32,19 +32,25 @@ public class ObjectGenerator extends DungeonControllerLoader {
 		entities.add(t);
 	}
 	
-	public void GenerateSword(GridPane g , int x , int y) {
+	public void GenerateSword(List<Entity> entities , GridPane g , int x , int y) {
 		System.out.println("GENERATED SWORD");
 		g.add(new ImageView(swordimage), x ,y);
+		Sword t = new Sword(x , y);
+		entities.add(t);
 	}
 	
-	public void GeneratePotion(GridPane g , int x , int y) {
+	public void GeneratePotion(List<Entity> entities , GridPane g , int x , int y) {
 		System.out.println("GENERATED POTION");
 		g.add(new ImageView(potionimage), x , y);
+		Potion t = new Potion(x , y);
+		entities.add(t);
 	}
 	
-	public void GenerateUnlitBomb(GridPane g , int x , int y) {
+	public void GenerateUnlitBomb(List<Entity> entities , GridPane g , int x , int y) {
 		System.out.println("GENERATED UNLIT BOMB");
 		g.add(new ImageView(bombimage_unlit), x , y);
+		Bomb t = new Bomb(x , y);
+		entities.add(t);
 	}
 	
 

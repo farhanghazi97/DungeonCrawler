@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
@@ -57,32 +58,25 @@ public class DungeonController {
         	if(!player.checkCollision(squares , "UP" , dungeon.getEntities())) {
         		player.moveUp();
         	} 
-        	if(player.checkTreasureCollision("UP", dungeon.getEntities())) {
-        		
-        	}
             break;
         case DOWN:
             if(!player.checkCollision(squares ,"DOWN" , dungeon.getEntities())) {
                 player.moveDown();
             }
-            if(player.checkTreasureCollision("UP", dungeon.getEntities())) {
-        		
-        	}
             break;
         case LEFT:
             if(!player.checkCollision(squares , "LEFT" , dungeon.getEntities())) {
             	 player.moveLeft();
             } 
-            if(player.checkTreasureCollision("UP", dungeon.getEntities())) {
-        		
-        	}
             break;
         case RIGHT:
         	if(!player.checkCollision(squares , "RIGHT" , dungeon.getEntities())) {
         		player.moveRight();
         	} 
-        	if(player.checkTreasureCollision("UP", dungeon.getEntities())) {
-        		
+        	break;
+        case P:
+        	if(player.checkTreasureCollision(squares , "RIGHT", dungeon.getEntities())) {
+        		player.pickUpTreasure(squares);
         	}
             break;
         default:
