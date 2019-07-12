@@ -67,6 +67,18 @@ public class CollisionHandler {
 			}
 		}
 		
+		if(!collision) {
+			if(direction.equals("RIGHT")) {
+				b.setX(b.getX() + 1);
+			} else if(direction.equals("LEFT")) {
+				b.setX(b.getX() - 1);
+			} else if(direction.equals("UP")) {
+				b.setY(b.getY() - 1);
+			} else if(direction.equals("DOWN")) {
+				b.setY(b.getY() + 1);
+			}
+		}
+		
 		return collision;
 		
 	}
@@ -93,33 +105,9 @@ public class CollisionHandler {
 			if(e != null) {
 				if(p.getBounds(direction).contains(e.getBounds(direction))) {
 					collision = true;
-					if(direction.equals("RIGHT")) {
-						if(!e.checkBoulderCollision(squares , direction, entities)) {
-							e.setX(e.getX() + 1);
-							if(e.checkBoulderOnPressurePlate(direction, entities)) {
-								o.GenerateTreasure(squares , width , height);
-							}
-						}
-					} else if (direction.equals("LEFT")) {
-						if(!e.checkBoulderCollision(squares , direction, entities)) {
-							e.setX(e.getX() - 1);
-							if(e.checkBoulderOnPressurePlate(direction, entities)) {
-								o.GenerateTreasure(squares , width , height);
-							}
-						}
-					} else if (direction.equals("UP")) {
-						if(!e.checkBoulderCollision(squares , direction, entities)) {
-							e.setY(e.getY() - 1);
-							if(e.checkBoulderOnPressurePlate(direction, entities)) {
-								o.GenerateTreasure(squares , width , height);
-							}
-						}
-					} else if (direction.equals("DOWN")) {
-						if(!e.checkBoulderCollision(squares , direction, entities)) {
-							e.setY(e.getY() + 1);
-							if(e.checkBoulderOnPressurePlate(direction, entities)) {
-								o.GenerateTreasure(squares , width , height);
-							}
+					if(!e.checkBoulderCollision(squares , direction, entities)) {
+						if(e.checkBoulderOnPressurePlate(direction, entities)) {
+							o.GenerateTreasure(squares , width , height);
 						}
 					}
 					break;
