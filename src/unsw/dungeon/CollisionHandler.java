@@ -91,4 +91,19 @@ public class CollisionHandler {
 		}
 		return collision;
 	}
+
+	public static boolean PlayerToSwordCollision(String direction, Player p, List<Entity> entities) {
+
+		boolean collision = false;
+		for (int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i).getObjectByType("Sword object");
+			if (e != null) {
+				if (p.getBounds(direction).contains(e.getBounds(direction))) {
+					collision = true;
+					break;
+				}
+			}
+		}
+		return collision;
+	}
 }

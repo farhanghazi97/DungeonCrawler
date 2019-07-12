@@ -56,21 +56,27 @@ public class DungeonController {
         	if(!player.checkCollision("UP" , dungeon.getEntities())) {
         		player.moveUp();
         	}
+        	//Sword should be called at all times
+        	player.checkSwordCollision("UP", dungeon.getEntities());
+        	
             break;
         case DOWN:
             if(!player.checkCollision("DOWN" , dungeon.getEntities())) {
                 player.moveDown();
             }
+            player.checkSwordCollision("DOWN", dungeon.getEntities());
             break;
         case LEFT:
             if(!player.checkCollision("LEFT" , dungeon.getEntities())) {
             	 player.moveLeft();
             }
+            player.checkSwordCollision("LEFT", dungeon.getEntities());
             break;
         case RIGHT:
         	if(!player.checkCollision("RIGHT" , dungeon.getEntities())) {
         		player.moveRight();
         	}
+        	player.checkSwordCollision("RIGHT", dungeon.getEntities());
             break;
         default:
             break;

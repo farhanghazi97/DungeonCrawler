@@ -71,4 +71,8 @@ public class Entity implements CollisionDetector {
 		return null;
     }
     
+    public boolean checkSwordCollision(String direction , List<Entity> entities) {
+		return false;
+    }
+    
 }

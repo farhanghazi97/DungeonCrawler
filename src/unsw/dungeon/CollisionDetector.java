@@ -9,5 +9,5 @@ public interface CollisionDetector {
 	 public Entity getObjectByType(String name);
 	 public boolean checkBoulderCollision(String direction , List<Entity> entities);
 	 public boolean checkWallCollision(String direction , List<Entity> entities);
-	
+	 public boolean checkSwordCollision(String direction, List<Entity> entities);
 }
