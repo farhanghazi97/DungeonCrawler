@@ -166,6 +166,7 @@ public class Mediator {
 				key.stepOver();
 				// Remove the 'key' image from screen
 				removeKeyEntity(key);
+				// Remove the actual 'key' object from the list of game entities
 				if(entity_objects.contains(key)) {
 					entity_objects.remove(key);
 				}
@@ -210,6 +211,7 @@ public class Mediator {
 			treasure.stepOver();
 			// Remove image of 'treasure' from screen
 			removeTreasureEntity(treasure);
+			// Remove the actual 'treasure' object from the list of game entities
 			if(entity_objects.contains(treasure)) {
 				entity_objects.remove(treasure);
 			}
@@ -247,6 +249,7 @@ public class Mediator {
 			potion.stepOver();
 			// Remove image of 'potion' from screen
 			removePotionEntity(potion);
+			// Remove the actual 'potion' object from the list of game entities
 			if(entity_objects.contains(potion)) {
 				entity_objects.remove(potion);
 			}
