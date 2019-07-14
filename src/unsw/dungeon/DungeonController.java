@@ -14,6 +14,8 @@ import javafx.scene.layout.GridPane;
  * @author Robert Clifton-Everest
  *
  */
+
+
 public class DungeonController {
 
     @FXML
@@ -29,6 +31,8 @@ public class DungeonController {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
+        //Initializes Mediator class
+        
     }
 
     @FXML
@@ -45,37 +49,35 @@ public class DungeonController {
         for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
         }
-        
+        Mediator.getInstance().setDungeon(dungeon, squares);
 
     }
-
+    
     @FXML
     public void handleKeyPress(KeyEvent event) {
+
         switch (event.getCode()) {
-        case UP:    	
-        	if(!player.checkCollision(squares , "UP" , dungeon.getEntities())) {
-        		player.moveUp();
-        	}
-        	
+        case UP:
+            Mediator.getInstance().moveTo(player.getX(), player.getY(), player.getX(), player.getY() - 1);
             break;
         case DOWN:
-            if(!player.checkCollision(squares ,"DOWN" , dungeon.getEntities())) {
-                player.moveDown();
-            }
+            Mediator.getInstance().moveTo(player.getX(), player.getY(), player.getX(), player.getY() + 1);
             break;
         case LEFT:
-            if(!player.checkCollision(squares , "LEFT" , dungeon.getEntities())) {
-            	 player.moveLeft();
-            }
+            Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()-1, player.getY());
             break;
         case RIGHT:
-        	if(!player.checkCollision(squares , "RIGHT" , dungeon.getEntities())) {
-        		player.moveRight();
-        	}
+            Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()+1, player.getY());
             break;
+//        case S:
+//        	Mediator.getInstance().swingSword(player.getX(), player.getY());
         default:
             break;
         }
+    }
+    
+    public GridPane getGridPane(){
+    	return squares;
     }
 
 }

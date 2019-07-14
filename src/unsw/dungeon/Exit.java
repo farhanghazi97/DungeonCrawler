@@ -1,22 +1,21 @@
 package unsw.dungeon;
 
-import java.awt.Rectangle;
 import java.util.List;
 
-public class Switch extends Entity{
+public class Exit extends Entity{
 
-	public Switch(int x, int y) {
+    public Exit(int x, int y) {
         super(x, y);
     }
 
     @Override
     public EntityType getType() {
-        return EntityType.SWITCH;
+        return EntityType.EXIT;
     }
 
     @Override
     public boolean isBlocked(List<Entity> entitiesAtNew) {
-        return true;
+        return false;
     }
 
     @Override
@@ -42,4 +41,5 @@ public class Switch extends Entity{
 		
 	}
 
+	
 }
