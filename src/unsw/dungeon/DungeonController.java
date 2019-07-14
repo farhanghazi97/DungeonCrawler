@@ -84,9 +84,6 @@ public class DungeonController {
         case U:
         	Mediator.getInstance().unlockDoor(player.getX() , player.getY());
         	break;
-        case T:
-        	Mediator.getInstance().pickUpTreasure(player.getX(), player.getY());
-        	break;
         case P:
         	Mediator.getInstance().pickUpPotion(player.getX() , player.getY());
         	break;

@@ -5,9 +5,8 @@ import java.util.List;
 
 public class Treasure extends Entity{
 
-	private boolean collected = false;
 	private String type = "Treasure";
-	private int count = 0;
+	private int treasureCoins = 0;
 	
 	public Treasure(int x, int y) {
         super(x, y);
@@ -30,9 +29,11 @@ public class Treasure extends Entity{
 
     @Override
 	public boolean stepOver() {
-    	this.count++;
-		this.collected = true;
-		return false;
+    	System.out.println("In Treasure's stepOver");
+    	System.out.println(toString());
+    	this.treasureCoins++;
+    	Mediator.getInstance().removeEntity(this);
+		return true;
 	}
 	@Override
 	public void removeEntity() {
@@ -63,7 +64,7 @@ public class Treasure extends Entity{
 	
 	@Override
 	public String toString() {
-		return "Treasure [Count =" + count + ", collected=" + collected + "]";
+		return "Treasure [Count =" + treasureCoins + ", collected=" + treasureCoins + "]";
 	}
 	
 	@Override
