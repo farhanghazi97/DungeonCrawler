@@ -75,9 +75,7 @@ public class DungeonController {
         	} 
         	break;
         case P:
-        	if(player.checkTreasureCollision(squares , "RIGHT", dungeon.getEntities())) {
-        		player.pickUpTreasure(squares);
-        	}
+        	player.checkTreasureCollision(squares , "RIGHT", dungeon.getEntities());
             break;
         default:
             break;

@@ -27,20 +27,17 @@ public class CollisionHandler {
 		return collision;
 	}
 	
-	public static boolean PlayerToTreasureCollision(GridPane g , String direction , Player p , List<Entity> entities) {
-		System.out.println(entities);
-		boolean collision = false;
+	public static Entity PlayerToTreasureCollision(GridPane g , String direction , Player p , List<Entity> entities) {
+		Entity e = null;
 		for(int i = 0; i < entities.size(); i++) {
-			Entity e = entities.get(i).getObjectByType("Treasure object");
+			e = entities.get(i).getObjectByType("Treasure object");
 			if(e != null) {
 				if(p.getBounds(direction).contains(e.getBounds(direction))) {
-					collision = true;
-					entities.remove(i);
 					break;
 				}
 			}
 		}
-		return collision;
+		return e;
 	}
 	
 	public static boolean BoulderOnPressurePlate(String direction , Boulder b , List<Entity> entities) {

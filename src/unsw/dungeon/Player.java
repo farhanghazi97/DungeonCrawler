@@ -1,8 +1,12 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+
 import java.io.FileNotFoundException;
 import java.util.List;
+
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 
 import javafx.scene.layout.GridPane;
 
@@ -94,12 +98,14 @@ public class Player extends Entity implements CollisionDetector {
     }
     
     public boolean checkTreasureCollision(GridPane squares , String direction , List<Entity> entities) {
-    	if(CollisionHandler.PlayerToTreasureCollision(squares , direction , this , entities)) {
+    	boolean collision = false;
+    	Entity e = CollisionHandler.PlayerToTreasureCollision(squares , direction , this , entities);
+    	if(e != null) {	
     		System.out.println("Collision: PLAYER - TREASURE");
-    		return true;
-    	} else {
-    		return false;
-    	}
+    		this.pickUpTreasure(squares , e);
+    		collision = true;
+    	} 
+    	return collision;
     }
 
 	public Dungeon getDungeon() {
@@ -120,8 +126,19 @@ public class Player extends Entity implements CollisionDetector {
 		this.type = type;
 	}
 	
-	public void pickUpTreasure (GridPane p) {
-		p.getChildren().remove(p.getChildren().size() - 1);
+	public void pickUpTreasure (GridPane p , Entity e) {
+		int x = e.getX(); int y = e.getY();
+		for(int i = 0 ; i < p.getChildren().size(); i++) {
+			List<Node> n = p .getChildren();
+			for(int j = 0; j < n.size(); j++) {
+				Node nn = n.get(j);
+				if(GridPane.getColumnIndex(nn) == x && GridPane.getRowIndex(nn) == y) {
+					n.remove(n.size() - 1);
+					break;
+				}
+			}
+			break;
+		} 
 	}
 
 }
