@@ -183,7 +183,7 @@ public class Mediator {
 
 	// Remove Key entity from screen
 	private void removeKeyEntity(Entity entity) {
-		System.out.println("In remove entity");
+		System.out.println("In remove Key function");
 		for(int i = 0; i < image_entities.size(); i++) {
 			ImageView image = image_entities.get(i);
 			// Map GridPane co-ords to entity co-ords
@@ -223,7 +223,7 @@ public class Mediator {
 	
 	// Remove treasure entity from screen
 	private void removeTreasureEntity(Entity entity) {
-		System.out.println("In remove entity");
+		System.out.println("In remove Treasure function");
 		for(int i = 0; i < image_entities.size(); i++) {
 			ImageView image = image_entities.get(i);
 			if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
@@ -231,6 +231,43 @@ public class Mediator {
 					// More of the same stuff. Just map the co-ordinates and then
 					// remove the appropriate image from the layer of images at that location.
 					System.out.println("Removed treasure from screen");
+					squares.getChildren().remove(image);
+				} 
+			}
+		}
+	}
+	
+	public void pickUpPotion(int currentX , int currentY) {
+		
+		List<Entity> potionAtCurrent = getEntities(currentX , currentY , Potion.class);
+		if(!potionAtCurrent.isEmpty()) {
+			// Get potion entity at current (X , Y)
+			Entity potion = potionAtCurrent.get(0);
+			// Add to inventory
+			collectedEntities.add(potion);
+			System.out.println("Potion collected");
+			// Update 'potion' object internal data
+			potion.stepOver();
+			// Remove image of 'potion' from screen
+			removePotionEntity(potion);
+			// Check if inventory checks out
+			System.out.println(collectedEntities);
+		}
+	}
+	
+	// Remove Potion entity from screen
+	private void removePotionEntity(Entity entity) {
+		System.out.println("In remove Potion function");
+		for(int i = 0; i < image_entities.size(); i++) {
+			ImageView image = image_entities.get(i);
+			// Map GridPane co-ords to entity co-ords
+			if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
+				if(image.getId().equals("Potion image")) {
+					// So basically ImageView is just a bunch of layered images (one on top of another) ( ImageView ~ List<Image> )
+					// If you check DungeonControllerLoader, I assigned a unique string ID to each image in the onLoad() functions
+					// This if condition basically goes through the ImageView list of images and checks if the image matching
+					// given id exists. If it does, it removes it. TADA!!!
+					System.out.println("Removed potion from screen");
 					squares.getChildren().remove(image);
 				} 
 			}

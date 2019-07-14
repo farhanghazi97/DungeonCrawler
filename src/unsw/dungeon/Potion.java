@@ -5,7 +5,9 @@ import java.util.List;
 
 public class Potion extends Entity {
 
+	private boolean collected = false;
 	private String type = "Potion";
+	private int count = 0;
 	
 	public Potion(int x, int y) {
         super(x, y);
@@ -28,8 +30,9 @@ public class Potion extends Entity {
 
     @Override
 	public boolean stepOver() {
-		// TODO Auto-generated method stub
-		return false;
+    	this.count++;
+		this.collected = true;
+		return true;
 	}
 
 	@Override
@@ -57,6 +60,11 @@ public class Potion extends Entity {
 	@Override
 	public boolean isIs_open() {
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "Potion [count=" + count + ", collected=" + collected + "]";
 	}
 	
 	@Override
