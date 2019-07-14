@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 public class Mediator {
 
 	// List of entities collected by player
-	private List<Entity> collectedEntities = new LinkedList<>();
+	public List<Entity> collectedEntities = new LinkedList<>();
 
 	private static Mediator mediator = new Mediator();
 
@@ -48,33 +48,18 @@ public class Mediator {
 		List<Entity> entitiesAtNew = getEntities(newX, newY);
 
 		List<Entity> bouldersAtCurrent = getEntities(currentX, currentY, Boulder.class);
-		List<Entity> swordAtCurrent = getEntities(currentX, currentY, Sword.class);
+		//List<Entity> swordAtCurrent = getEntities(currentX, currentY, Sword.class);
 		List<Entity> potionAtCurrent = getEntities(currentX, currentY, Potion.class);
-	
+
 		if (!bouldersAtCurrent.isEmpty()) {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
 			entityToMove = bouldersAtCurrent.get(0);
 		}
 
-		if (!swordAtCurrent.isEmpty()) {
-			// there is a sword at currentX and currentY
-			Entity sword = swordAtCurrent.get(0);
-			if (!isCollected(sword)) {
-				System.out.println("Sword collected");
-				collectedEntities.addAll(swordAtCurrent);
-
-				if (sword.stepOver());
-
-				// Remove sword from board.. how?
-				removeEntity(sword);
-			}
-		}
-
 		if (!potionAtCurrent.isEmpty()) {
 			// there is a sword at currentX and currentY
 			Entity potion = potionAtCurrent.get(0);
-
 			System.out.println("Potion collected");
 			potion.stepOver();
 			// Remove potion from board.. how?
@@ -86,12 +71,35 @@ public class Mediator {
 		}
 
 		entityToMove.moveTo(newX, newY);
-		// entityToMove.collect(entitiesAtNew);
+		for(Entity entity: entitiesAtNew) {
+			entity.stepOver();
+		}
+		
+		//EntityToMove.collect(entitiesAtNew);
 		entityToMove.postMove(entitiesAtNew);
 
 		return true;
 	}
-
+	
+	public void swingSword(int x, int y) {
+		System.out.println("Mediator: In swing sword");
+		Entity sword = getCollected(EntityType.SWORD);
+		if (sword != null) {
+			if(((Sword) sword).swing()) {
+				//Check if enemy is in vicinity
+				List<Entity> enemies = enemiesInVicinity(x, y);
+				if(enemies != null) {
+					//If true -> remove enemy
+					//If false ->do nothing
+					System.out.println(enemies);
+					for(Entity enemy : enemies) {
+						enemy.removeEntity();
+					}
+				}
+			}
+		}
+	}
+	
 	private boolean gameOver = false;
 
 	public void markGameOver() {
@@ -134,7 +142,7 @@ public class Mediator {
 	}
 
 	// Returns true if the player already has newEntity in collected
-	private boolean isCollected(Entity newEntity) {
+	public boolean isCollected(Entity newEntity) {
 		for (Entity collected : collectedEntities) {
 			if (collected.getType() == newEntity.getType()) {
 				return true;
@@ -144,7 +152,7 @@ public class Mediator {
 	}
 
 	// Returns entity if the player already has an entity of given type
-	private Entity getCollected(EntityType entityType) {
+	public Entity getCollected(EntityType entityType) {
 		for (Entity collected : collectedEntities) {
 			if (collected.getType() == entityType) {
 				return collected;
@@ -152,32 +160,36 @@ public class Mediator {
 		}
 		return null;
 	}
+	
+	//Returns a list of enemies if they are in adjacent squares
+	private List<Entity> enemiesInVicinity(int x, int y) {
+		//System.out.println("Inside enemiesInVicinity");
+		List<Entity> list = new LinkedList<>();
+		
+		for (Entity entity : dungeon.getEntities()) {
+			if (entity.getType() == EntityType.ENEMY && 
+			   ((entity.getX() == x+1 && entity.getY() == y) ||
+			   (entity.getX() == x+1 && entity.getY() == y-1) ||
+			   (entity.getX() == x+1 && entity.getY() == y+1) ||
+			   (entity.getX() == x && entity.getY() == y+1) ||
+			   (entity.getX() == x && entity.getY() == y-1) ||
+			   (entity.getX() == x-1 && entity.getY() == y) ||
+			   (entity.getX() == x-1 && entity.getY() == y-1)||
+			   (entity.getX() == x+1 && entity.getY() == y+1)))
+			    {
+				    list.add(entity);
+			}
+		}
+		return list;
+	}
 
 	private void removeEntity(Entity entity) {
 		System.out.println("In remove entity");
 
 		squares.getChildren().remove(entity);
-		
 
-//		for(Node node: listNodes) {
-//			
-//		}
 		
-		
-//    	for(int i = 0; i < squares.getChildren().size(); i++) {
-//			
-//			for(int j = 0; j < squares.getChildren().size(); j++) {
-//				System.out.println("In loop 2");
-//				Node nn = squares.getChildren().get(j);
-//				if((GridPane.getColumnIndex(nn) == x) && (GridPane.getRowIndex(nn) == y)) {
-//					System.out.println("In loop 2 IF");
-//					System.out.println("N size = "+ squares.getChildren().size());
-//					squares.getChildren().remove(squares.getChildren().size() - 1);
-//					break;
-//				}
-//			}
-//			break;
-//    	}
-//	}
 	}
+
+	
 }

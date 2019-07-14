@@ -31,7 +31,7 @@ public class DungeonController {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
-        //Initializes Mediator class
+        
         
     }
 
@@ -49,6 +49,7 @@ public class DungeonController {
         for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
         }
+      //Initializes Mediator class
         Mediator.getInstance().setDungeon(dungeon, squares);
 
     }
@@ -67,10 +68,10 @@ public class DungeonController {
             Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()-1, player.getY());
             break;
         case RIGHT:
-            Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()+1, player.getY());
+            Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()+1, player.getY()); 
             break;
-//        case S:
-//        	Mediator.getInstance().swingSword(player.getX(), player.getY());
+        case S:
+        	Mediator.getInstance().swingSword(player.getX(), player.getY());
         default:
             break;
         }
