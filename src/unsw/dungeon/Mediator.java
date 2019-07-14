@@ -92,33 +92,20 @@ public class Mediator {
 		}
 	}
 	
-	// Check if player can pick up key
-	// If player can pick up key, add it to player inventory
-	// If player cannot pick up key, do nothing.
-//	public void pickUpKey(int currentX, int currentY) {
-//		List<Entity> keyAtCurrent = getEntities(currentX, currentY, Key.class);
-//		if (!keyAtCurrent.isEmpty()) {
-//			//Entity key = keyAtCurrent.get(0);
-//			// Check if player already has key or not
-//			if (!isCollected(key)) {
-//				// If not, add to inventory
-//				collectedEntities.add(key);
-//				System.out.println("Key collected");
-//				// Update 'key' object internal data
-//				key.stepOver();
-//				// Remove the 'key' image from screen
-//				removeEntity(key);
-//
-//				// Check if inventory is what it should be
-//				System.out.println(collectedEntities);
-//			}
-//		}
-	//}
-	
 	private boolean gameOver = false;
 
 	public void markGameOver() {
 		gameOver = true;
+	}
+	
+
+	
+	public void pickUpPotion(int currentX , int currentY) {
+		List<Entity> potionAtCurrent = getEntities(currentX , currentY , Potion.class);
+		if(!potionAtCurrent.isEmpty()) {
+			Entity potion = potionAtCurrent.get(0);
+			potion.stepOver();
+		}
 	}
 
 	
@@ -221,27 +208,6 @@ public class Mediator {
 
 
 	
-	public void pickUpPotion(int currentX , int currentY) {
-		List<Entity> entity_objects = dungeon.getEntities();
-		List<Entity> potionAtCurrent = getEntities(currentX , currentY , Potion.class);
-		if(!potionAtCurrent.isEmpty()) {
-			// Get potion entity at current (X , Y)
-			Entity potion = potionAtCurrent.get(0);
-			// Add to inventory
-			collectedEntities.add(potion);
-			System.out.println("Potion collected");
-			// Update 'potion' object internal data
-			potion.stepOver();
-			// Remove image of 'potion' from screen
-			removeEntity(potion);
-			if(entity_objects.contains(potion)) {
-				entity_objects.remove(potion);
-			}
-			// Check if inventory checks out
-			System.out.println(collectedEntities);
-		}
-	}
-	
 	
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX , int currentY) {
@@ -317,4 +283,27 @@ public class Mediator {
 //		// Check if inventory checks out
 //		//System.out.println(collectedEntities);
 //	//}
+//}
+
+// Check if player can pick up key
+// If player can pick up key, add it to player inventory
+// If player cannot pick up key, do nothing.
+//public void pickUpKey(int currentX, int currentY) {
+//	List<Entity> keyAtCurrent = getEntities(currentX, currentY, Key.class);
+//	if (!keyAtCurrent.isEmpty()) {
+//		//Entity key = keyAtCurrent.get(0);
+//		// Check if player already has key or not
+//		if (!isCollected(key)) {
+//			// If not, add to inventory
+//			collectedEntities.add(key);
+//			System.out.println("Key collected");
+//			// Update 'key' object internal data
+//			key.stepOver();
+//			// Remove the 'key' image from screen
+//			removeEntity(key);
+//
+//			// Check if inventory is what it should be
+//			System.out.println(collectedEntities);
+//		}
+//	}
 //}

@@ -42,6 +42,7 @@ public class Potion extends Entity {
 			if(Mediator.getInstance().collectedEntities.add(this)) {
 				this.collected = true;
 				this.count++;
+				Mediator.getInstance().removeEntity(this);
 				System.out.println(this.toString());
 				return true;
 			}
