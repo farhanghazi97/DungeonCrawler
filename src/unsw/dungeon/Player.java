@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
  * @author Robert Clifton-Everest
  *
  */
-public class Player extends Entity implements CollisionDetector {
+public class Player extends Entity {
 
     private Dungeon dungeon;
     private String type = "PLAYER";
@@ -30,115 +30,47 @@ public class Player extends Entity implements CollisionDetector {
         this.dungeon = dungeon;
     }
 
-    public void moveUp() {
-        if (getY() > 0)
-            y().set(getY() - 1);
-    }
-
-    public void moveDown() {
-        if (getY() < dungeon.getHeight() - 1)
-            y().set(getY() + 1);
-    }
-
-    public void moveLeft() {
-        if (getX() > 0)
-            x().set(getX() - 1);
-    }
-
-    public void moveRight() {
-        if (getX() < dungeon.getWidth() - 1)
-            x().set(getX() + 1);
-    }
-    
-    @Override
-    public String toString() {
-		return String.format("Player object");
-    }
-    
-    @Override
-    public Rectangle getBounds(String direction) {
-    	return new Rectangle(this.getX(), this.getY() , 32 , 32);
-    }
-    
-    @Override
-    public Player getObjectByType(String name) {
-    	if(this.toString().equals(name)) {
-    		return this;
-    	} else {
-    		return null;
-    	}
-    }
-    
-    @Override
-    public boolean checkWallCollision(String direction , List<Entity> entities) {
-    	if(CollisionHandler.PlayerToWallCollision(direction , this , entities)) {
-    		System.out.println("Collision: PLAYER - WALL");
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
-    
-    @Override
-    public boolean checkBoulderCollision(GridPane squares , String direction , List<Entity> entities) throws FileNotFoundException {
-    	if(CollisionHandler.PlayerToBoulderCollision(squares , direction, this, entities)) {
-    		System.out.println("Collision: PLAYER - BOULDER");
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
-    
-    public boolean checkCollision (GridPane squares , String direction , List<Entity> entities) throws FileNotFoundException {
-    	if(!this.checkWallCollision(direction, entities) && !this.checkBoulderCollision(squares , direction, entities)) {
-    		return false;
-    	} else {
-    		return true;
-    	}
-    }
-    
-    public boolean checkTreasureCollision(GridPane squares , String direction , List<Entity> entities) {
-    	boolean collision = false;
-    	Entity e = CollisionHandler.PlayerToTreasureCollision(squares , direction , this , entities);
-    	if(e != null) {	
-    		System.out.println("Collision: PLAYER - TREASURE");
-    		this.pickUpTreasure(squares , e);
-    		collision = true;
-    	} 
-    	return collision;
-    }
-
-	public Dungeon getDungeon() {
-		return dungeon;
-	}
-
-	public void setDungeon(Dungeon dungeon) {
-		this.dungeon = dungeon;
-	}
+	//private List
 
 	@Override
-	public String getType() {
-		return type;
-	}
+	public EntityType getType(){return EntityType.PLAYER;}
 
 	@Override
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	public void pickUpTreasure (GridPane p , Entity e) {
-		int x = e.getX(); int y = e.getY();
-		for(int i = 0 ; i < p.getChildren().size(); i++) {
-			List<Node> n = p .getChildren();
-			for(int j = 0; j < n.size(); j++) {
-				Node nn = n.get(j);
-				if(GridPane.getColumnIndex(nn) == x && GridPane.getRowIndex(nn) == y) {
-					n.remove(n.size() - 1);
-					break;
-				}
+	public boolean isBlocked(List<Entity> entitiesAtNew){
+		for (Entity entity : entitiesAtNew) {
+			if (entity.getType()==EntityType.WALL){
+				return true;
 			}
-			break;
-		} 
+		}
+		return false;
+	}
+
+	@Override
+	public void postMove(List<Entity> entitiesAtNew){
+		for (Entity entity : entitiesAtNew) {
+			if (entity.getType()==EntityType.EXIT){
+				Mediator.getInstance().markGameOver();
+			}
+		}
+
+	}
+
+	@Override
+	public boolean stepOver() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void removeEntity() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generateEntity() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -3,17 +3,15 @@ package unsw.dungeon;
 import java.awt.Rectangle;
 import java.util.List;
 
-public class Treasure extends Entity{
+public class Switch extends Entity{
 
-	private String type = "TREASURE";
-	
-	public Treasure(int x, int y) {
+	public Switch(int x, int y) {
         super(x, y);
     }
 
     @Override
     public EntityType getType() {
-        return EntityType.TREASURE;
+        return EntityType.SWITCH;
     }
 
     @Override
@@ -31,6 +29,7 @@ public class Treasure extends Entity{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
 	public void removeEntity() {
 		// TODO Auto-generated method stub

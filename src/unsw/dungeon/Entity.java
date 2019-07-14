@@ -6,14 +6,13 @@ import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.layout.GridPane;
 
 /**
  * An entity in the dungeon.
  * @author Robert Clifton-Everest
  *
  */
-public class Entity implements CollisionDetector {
+public abstract class Entity{
 
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
@@ -54,36 +53,27 @@ public class Entity implements CollisionDetector {
     	x().set(x);
     }
 
-    public Entity getObjectByType(String name) {
-    	if(this.toString().equals(name)) {
-    		return this;
-    	} else {
-    		return null;
-    	}
-    }
-    
-    public boolean checkWallCollision(String direction , List<Entity> entities) {
-		return false;
-    }
-    
-	public boolean checkBoulderCollision(GridPane squares, String direction, List<Entity> entities) throws FileNotFoundException {
-		return false;
-	}
-    
-    public boolean checkBoulderOnPressurePlate(String direction , List<Entity> entities) {
-		return false;
-	}
-    
-    public Rectangle getBounds(String direction) {
-		return null;
-    }
 
-	public String getType() {
-		return type;
-	}
 
+
+    public abstract EntityType getType();
+    public abstract boolean isBlocked(List<Entity> entitiesAtNew);
+
+    public void moveTo(int newX, int newY){
+        x().set(newX);
+        y().set(newY);
+    }
+    
 	public void setType(String type) {
 		this.type = type;
 	}
      
+    public abstract void postMove(List<Entity> entitiesAtNew);
+    
+    public abstract boolean stepOver();
+    
+    public abstract void removeEntity();
+    
+    public abstract void generateEntity();
+
 }

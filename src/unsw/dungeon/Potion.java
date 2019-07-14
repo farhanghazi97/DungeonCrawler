@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.List;
 
 public class Potion extends Entity {
 
@@ -10,14 +11,37 @@ public class Potion extends Entity {
         super(x, y);
     }
 
-	@Override
-	public String getType() {
-		return type;
+    @Override
+    public EntityType getType() {
+        return EntityType.POTION;
+    }
+
+    @Override
+    public boolean isBlocked(List<Entity> entitiesAtNew) {
+        return true;
+    }
+
+    @Override
+    public void postMove(List<Entity> entitiesAtNew) {
+
+    }
+
+    @Override
+	public boolean stepOver() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public void setType(String type) {
-		this.type = type;
+	public void removeEntity() {
+		// TODO Auto-generated method stub
+		
 	}
-	
+
+	@Override
+	public void generateEntity() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

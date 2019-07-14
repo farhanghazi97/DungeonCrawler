@@ -1,24 +1,21 @@
 package unsw.dungeon;
 
-import java.awt.Rectangle;
 import java.util.List;
 
-public class Treasure extends Entity{
+public class Exit extends Entity{
 
-	private String type = "TREASURE";
-	
-	public Treasure(int x, int y) {
+    public Exit(int x, int y) {
         super(x, y);
     }
 
     @Override
     public EntityType getType() {
-        return EntityType.TREASURE;
+        return EntityType.EXIT;
     }
 
     @Override
     public boolean isBlocked(List<Entity> entitiesAtNew) {
-        return true;
+        return false;
     }
 
     @Override
@@ -31,6 +28,7 @@ public class Treasure extends Entity{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
 	public void removeEntity() {
 		// TODO Auto-generated method stub
@@ -43,4 +41,5 @@ public class Treasure extends Entity{
 		
 	}
 
+	
 }

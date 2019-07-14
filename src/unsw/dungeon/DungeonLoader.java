@@ -74,9 +74,9 @@ public abstract class DungeonLoader {
         
         case "switch":
         	
-        	PressurePlate p = new PressurePlate(x,y);
-        	onLoad(p);
-        	entity = p;
+        	Switch swi = new Switch(x,y);
+        	onLoad(swi);
+        	entity = swi;
         	break;
         
         case "sword":
@@ -95,9 +95,9 @@ public abstract class DungeonLoader {
         
         case "invincibility":
         	
-        	Potion po = new Potion(x,y);
-        	onLoad(po);
-        	entity = po;
+        	Potion p = new Potion(x,y);
+        	onLoad(p);
+        	entity = p;
         	break;
         	
         case "bomb":
@@ -106,6 +106,12 @@ public abstract class DungeonLoader {
         	onLoad(b);
         	entity = b;
         	break;
+
+        case "exit":
+            Exit exit = new Exit(x,y);
+            onLoad(exit);
+            entity = exit;
+            break;
         }
         dungeon.addEntity(entity);
     }
@@ -113,11 +119,12 @@ public abstract class DungeonLoader {
     public abstract void onLoad (Entity player);
     public abstract void onLoad (Wall wall);
 	public abstract void onLoad (Boulder boulder);
-	public abstract void onLoad (PressurePlate p) ;
+	public abstract void onLoad (Switch s) ;
 	public abstract void onLoad (Sword s);
 	public abstract void onLoad (Treasure s);
 	public abstract void onLoad (Potion s);
 	public abstract void onLoad (Bomb b);
+    public abstract void onLoad (Exit exit);
 
     // TODO Create additional abstract methods for the other entities
 

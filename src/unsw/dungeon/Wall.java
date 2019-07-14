@@ -3,7 +3,7 @@ package unsw.dungeon;
 import java.awt.Rectangle;
 import java.util.List;
 
-public class Wall extends Entity implements CollisionDetector {
+public class Wall extends Entity  {
 
 	private String type = "WALL";
 	
@@ -15,39 +15,36 @@ public class Wall extends Entity implements CollisionDetector {
     public String toString() {
 		return String.format("Wall object");
     }
-    
+
     @Override
-    public Rectangle getBounds(String direction) {
-    	if(direction.equals("RIGHT")) {
-    		return new Rectangle(this.getX() - 1 , this.getY() , 32 , 32);
-    	} else if(direction.equals("LEFT")) {
-    		return new Rectangle(this.getX() + 1 , this.getY() , 32 , 32);
-    	} else if(direction.equals("UP")){
-    		return new Rectangle(this.getX() , this.getY() + 1, 32 , 32);
-    	} else if(direction.equals("DOWN")){
-    		return new Rectangle(this.getX() , this.getY() - 1, 32 ,32);
-    	} else {
-    		return null;
-    	}
-    }
-    
+    public EntityType getType(){return EntityType.WALL;}
+
     @Override
-    public Wall getObjectByType(String name) {
-    	if(this.toString().equals(name)) {
-    		return this;
-    	} else {
-    		return null;
-    	}
+    public boolean isBlocked(List<Entity> entitiesAtNew) {
+        return true;
     }
 
     @Override
-	public String getType() {
-		return type;
-	}
+    public void postMove(List<Entity> entitiesAtNew) {
+        
+    }
 
     @Override
-	public void setType(String type) {
-		this.type = type;
+	public boolean stepOver() {
+		// TODO Auto-generated method stub
+		return false;
 	}
-    
+
+	@Override
+	public void removeEntity() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generateEntity() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -32,6 +32,8 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image potionimage;
     private Image bombimage_unlit;
 
+    private Image exitimage;
+
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
         super(filename);
@@ -45,7 +47,8 @@ public class DungeonControllerLoader extends DungeonLoader {
         treasureimage = new Image("/gold_pile.png");
         potionimage = new Image("/brilliant_blue_new.png");
         bombimage_unlit = new Image("/bomb_unlit.png");
-        
+        exitimage = new Image("/exit.png");
+
     }
 
     @Override
@@ -67,7 +70,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     }
 
     @Override
-    public void onLoad(PressurePlate s) {
+    public void onLoad(Switch s) {
     	ImageView view = new ImageView(switchimage);
     	addEntity(s , view);
     }
@@ -95,8 +98,14 @@ public class DungeonControllerLoader extends DungeonLoader {
     	ImageView view = new ImageView(bombimage_unlit);
     	addEntity(b , view);
     }
-    
-    public void addEntity(Entity entity, ImageView view) {
+
+    @Override
+    public void onLoad(Exit exit) {
+        ImageView view = new ImageView(exitimage);
+        addEntity(exit , view);
+    }
+
+    private void addEntity(Entity entity, ImageView view) {
         trackPosition(entity, view);
         entities.add(view);
     }
