@@ -31,7 +31,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image potionimage;
     private Image bombimage_unlit;
     private Image keyimage;
-
+    private Image enemyimage;
     private Image exitimage;
 
     public DungeonControllerLoader(String filename)
@@ -49,6 +49,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         bombimage_unlit = new Image("/bomb_unlit.png");
         exitimage = new Image("/exit.png");
         keyimage = new Image("/key.png");
+        enemyimage = new Image("/deep_elf_master_archer.png");
 
     }
 
@@ -110,6 +111,13 @@ public class DungeonControllerLoader extends DungeonLoader {
     public void onLoad(Key key) {
     	ImageView view = new ImageView(keyimage);
     	addEntity(key , view);
+    }
+    
+    
+    @Override
+    public void onLoad(Enemy enemy) {
+    	ImageView view = new ImageView(enemyimage);
+    	addEntity(enemy,view);
     }
     
     private void addEntity(Entity entity, ImageView view) {

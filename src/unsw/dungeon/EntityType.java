@@ -9,5 +9,6 @@ public enum EntityType {
     TREASURE,
     BOMB,
     SWITCH,
-    EXIT;
+    EXIT, 
+    ENEMY;
 }

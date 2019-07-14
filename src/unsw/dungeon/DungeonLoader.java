@@ -125,6 +125,12 @@ public abstract class DungeonLoader {
 			onLoad(key);
 			entity = key;
 			break;
+			
+		case "enemy":
+			Enemy enemy = new Enemy(x, y);
+			onLoad(enemy);
+			entity = enemy;
+			break;
            
         }
         dungeon.addEntity(entity);
@@ -140,6 +146,7 @@ public abstract class DungeonLoader {
 	public abstract void onLoad (Bomb b);
     public abstract void onLoad (Exit exit);
     public abstract void onLoad (Key key);
+    public abstract void onLoad (Enemy enemy);
     // TODO Create additional abstract methods for the other entities
 
 }
