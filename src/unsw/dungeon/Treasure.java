@@ -1,30 +1,44 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.List;
 
 public class Treasure extends Entity{
 
 	public Treasure(int x, int y) {
         super(x, y);
     }
-	
-	@Override
-    public String toString() {
-		return String.format("Treasure object");
+
+    @Override
+    public EntityType getType() {
+        return EntityType.TREASURE;
     }
-	
-	@Override
-    public Rectangle getBounds(String direction) {
-		return new Rectangle(this.getX(), this.getY() , 32 , 32);
+
+    @Override
+    public boolean isBlocked(List<Entity> entitiesAtNew) {
+        return true;
     }
-	
-	@Override
-    public Treasure getObjectByType(String name) {
-    	if(this.toString().equals(name)) {
-    		return this;
-    	} else {
-    		return null;
-    	}
+
+    @Override
+    public void postMove(List<Entity> entitiesAtNew) {
+
     }
-	
+
+    @Override
+	public boolean stepOver() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void removeEntity() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generateEntity() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

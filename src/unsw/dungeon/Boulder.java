@@ -3,9 +3,7 @@ package unsw.dungeon;
 import java.awt.Rectangle;
 import java.util.List;
 
-import javafx.scene.layout.GridPane;
-
-public class Boulder extends Entity implements CollisionDetector {
+public class Boulder extends Entity {
 
 	public Boulder(int x , int y) {
 		super(x , y);
@@ -15,43 +13,45 @@ public class Boulder extends Entity implements CollisionDetector {
     public String toString() {
 		return String.format("Boulder object");
     }
-	
+
 	@Override
-    public Rectangle getBounds(String direction) {
-		return new Rectangle(this.getX(), this.getY() , 32 , 32);
-    }
-	
+	public EntityType getType(){return EntityType.BOULDER;}
+
 	@Override
-    public Boulder getObjectByType(String name) {
-    	if(this.toString().equals(name)) {
-    		return this;
-    	} else {
-    		return null;
-    	}
-    }
-	
-	@Override
-	public boolean checkWallCollision(String direction , List<Entity> entities) {
+	public boolean isBlocked(List<Entity> entitiesAtNew){
+		for (Entity entity : entitiesAtNew) {
+			if (entity.getType()== EntityType.WALL || entity.getType()==EntityType.BOULDER){
+				return true;
+			}
+		}
 		return false;
-    }
-	
+	}
+
 	@Override
-	public boolean checkBoulderCollision(GridPane squares , String direction , List<Entity> entities) {
-    	if(CollisionHandler.BoulderToBoulderCollision(direction , this , entities)) {
-    		System.out.println("Collision: BOULDER - BOULDER");
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
-	
-	public boolean checkBoulderOnPressurePlate(String direction , List<Entity> entities) {
-		if(CollisionHandler.BoulderOnPressurePlate(direction , this , entities)) {
-			System.out.println("Collision: BOULDER - SWITCH");
-			return true;
-		} else {
-			return false;
+	public void postMove(List<Entity> entitiesAtNew) {
+		for (Entity entity: entitiesAtNew) {
+			if(entity.getType() == EntityType.SWITCH) {
+				//Mediator.getInstance().triggerSwitch();
+			}
 		}
 	}
-	
+
+	@Override
+	public boolean stepOver() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void removeEntity() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void generateEntity() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
