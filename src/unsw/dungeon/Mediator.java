@@ -3,6 +3,8 @@ package unsw.dungeon;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
 //Singleton class
@@ -48,7 +50,7 @@ public class Mediator {
 		List<Entity> bouldersAtCurrent = getEntities(currentX, currentY, Boulder.class);
 		List<Entity> swordAtCurrent = getEntities(currentX, currentY, Sword.class);
 		List<Entity> potionAtCurrent = getEntities(currentX, currentY, Potion.class);
-
+	
 		if (!bouldersAtCurrent.isEmpty()) {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
@@ -62,8 +64,7 @@ public class Mediator {
 				System.out.println("Sword collected");
 				collectedEntities.addAll(swordAtCurrent);
 
-				if (sword.stepOver())
-					;
+				if (sword.stepOver());
 
 				// Remove sword from board.. how?
 				removeEntity(sword);
@@ -77,7 +78,7 @@ public class Mediator {
 			System.out.println("Potion collected");
 			potion.stepOver();
 			// Remove potion from board.. how?
-			removeEntity(potion);
+			// removeEntity(potion);
 		}
 
 		if (entityToMove.isBlocked(entitiesAtNew)) {
@@ -154,7 +155,29 @@ public class Mediator {
 
 	private void removeEntity(Entity entity) {
 		System.out.println("In remove entity");
-		squares.getChildren().remove(entity);
 
+		squares.getChildren().remove(entity);
+		
+
+//		for(Node node: listNodes) {
+//			
+//		}
+		
+		
+//    	for(int i = 0; i < squares.getChildren().size(); i++) {
+//			
+//			for(int j = 0; j < squares.getChildren().size(); j++) {
+//				System.out.println("In loop 2");
+//				Node nn = squares.getChildren().get(j);
+//				if((GridPane.getColumnIndex(nn) == x) && (GridPane.getRowIndex(nn) == y)) {
+//					System.out.println("In loop 2 IF");
+//					System.out.println("N size = "+ squares.getChildren().size());
+//					squares.getChildren().remove(squares.getChildren().size() - 1);
+//					break;
+//				}
+//			}
+//			break;
+//    	}
+//	}
 	}
 }

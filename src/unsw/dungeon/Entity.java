@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.Node;
 
 /**
  * An entity in the dungeon.
@@ -76,4 +77,10 @@ public abstract class Entity{
     
     public abstract void generateEntity();
 
+<<<<<<< HEAD
+=======
+//	public Node getNode() {
+//		return
+//	}
+>>>>>>> master
 }
