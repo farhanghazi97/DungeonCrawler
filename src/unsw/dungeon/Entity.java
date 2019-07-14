@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.Node;
 
 /**
  * An entity in the dungeon.
@@ -71,4 +72,8 @@ public abstract class Entity{
     public abstract void removeEntity();
     
     public abstract void generateEntity();
+
+//	public Node getNode() {
+//		return
+//	}
 }
