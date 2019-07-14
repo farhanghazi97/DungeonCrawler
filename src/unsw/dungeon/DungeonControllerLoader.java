@@ -130,6 +130,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Enemy enemy) {
     	ImageView view = new ImageView(enemyimage);
+    	view.setId("Enemy image");
     	addEntity(enemy,view);
     }
 

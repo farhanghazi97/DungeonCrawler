@@ -96,7 +96,7 @@ public class Mediator {
 					//If false ->do nothing
 					System.out.println(enemies);
 					for(Entity enemy : enemies) {
-						enemy.removeEntity();
+						removeEnemyEntity(enemy);
 					}
 				}
 			}
@@ -315,6 +315,25 @@ public class Mediator {
 			}
 		}
 	}
+	
+	// Remove Sword entity from screen
+		private void removeEnemyEntity(Entity entity) {
+			System.out.println("In remove Enemy function");
+			for(int i = 0; i < image_entities.size(); i++) {
+				ImageView image = image_entities.get(i);
+				// Map GridPane co-ords to entity co-ords
+				if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
+					if(image.getId().equals("Enemy image")) {
+						System.out.println("Removed enemy from screen");
+						squares.getChildren().remove(image);
+					} 
+				}
+			}
+			
+			if(dungeon.getEntities().contains(entity)) {
+				dungeon.getEntities().remove(entity);
+			}
+		}
 	
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX , int currentY) {
