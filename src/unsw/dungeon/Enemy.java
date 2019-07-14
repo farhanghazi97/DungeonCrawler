@@ -67,6 +67,12 @@ public class Enemy extends Entity{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String getImageID() {
+		// TODO Auto-generated method stub
+		return "Enemy image";
+	}
 	
 
 }

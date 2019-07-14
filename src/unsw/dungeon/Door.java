@@ -89,5 +89,11 @@ public class Door extends Entity {
 			return null;
 		}
 	}
+
+	@Override
+	public String getImageID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

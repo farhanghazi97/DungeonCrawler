@@ -75,4 +75,9 @@ public class Treasure extends Entity{
 		}
 	}
 
+	@Override
+	public String getImageID() {
+		return "Treasure image";
+	}
+
 }

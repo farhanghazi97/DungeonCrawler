@@ -44,6 +44,7 @@ public class Sword extends Entity {
 			if(Mediator.getInstance().collectedEntities.add(this)) {
 				this.collected = true;
 				System.out.println(this.toString());
+				Mediator.getInstance().removeEntity(this);
 				return true;
 			}
 		}
@@ -105,6 +106,12 @@ public class Sword extends Entity {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public String getImageID() {
+		// TODO Auto-generated method stub
+		return "Sword image";
 	}
 	
 

@@ -16,8 +16,7 @@ public class Key extends Entity {
 
 	@Override
 	public EntityType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return EntityType.KEY;
 	}
 
 	@Override
@@ -77,6 +76,12 @@ public class Key extends Entity {
 	@Override
 	public boolean isIs_open() {
 		return false;
+	}
+
+	@Override
+	public String getImageID() {
+		
+		return "Key image";
 	}
 	
 	

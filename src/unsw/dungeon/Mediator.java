@@ -25,12 +25,12 @@ public class Mediator {
 
 	private Dungeon dungeon;
 	private GridPane squares;
-	 private List<ImageView> image_entities;
+	 private List<ImageView> imageEntities;
 
-	public void setDungeon(Dungeon dungeon, GridPane squares , List<ImageView> image_entities) {
+	public void setDungeon(Dungeon dungeon, GridPane squares , List<ImageView> imageEntities) {
 		this.dungeon = dungeon;
 		this.squares = squares;
-		this.image_entities = image_entities;
+		this.imageEntities = imageEntities;
 	}
 
 	// To move from old coordinates to new coordinates
@@ -49,10 +49,8 @@ public class Mediator {
 		Entity entityToMove = dungeon.getPlayer();
 		List<Entity> entitiesAtCurrent = getEntities(currentX, currentY);
 		List<Entity> entitiesAtNew = getEntities(newX, newY);
-
 		List<Entity> bouldersAtCurrent = getEntities(currentX, currentY, Boulder.class);
-		//List<Entity> swordAtCurrent = getEntities(currentX, currentY, Sword.class);
-		List<Entity> potionAtCurrent = getEntities(currentX, currentY, Potion.class);
+		//List<Entity> potionAtCurrent = getEntities(currentX, currentY, Potion.class);
 
 		if (!bouldersAtCurrent.isEmpty()) {
 			// there is a boulder at currentX and currentY
@@ -60,30 +58,22 @@ public class Mediator {
 			entityToMove = bouldersAtCurrent.get(0);
 		}
 
-		if (!potionAtCurrent.isEmpty()) {
-			// there is a sword at currentX and currentY
-			Entity potion = potionAtCurrent.get(0);
-			System.out.println("Potion collected");
-			potion.stepOver();
-			// Remove potion from board.. how?
-			// removeEntity(potion);
-		}
-
 		if (entityToMove.isBlocked(entitiesAtNew)) {
 			return false;
 		}
 
 		entityToMove.moveTo(newX, newY);
-		for(Entity entity: entitiesAtNew) {
+		//Calling entitesAtCurrent stepOver on a loop
+		for(Entity entity: entitiesAtCurrent) {
 			entity.stepOver();
 		}
 		
-		//EntityToMove.collect(entitiesAtNew);
 		entityToMove.postMove(entitiesAtNew);
 
 		return true;
 	}
 	
+	//Called when player presses the 'S' key on the keyboard
 	public void swingSword(int x, int y) {
 		System.out.println("Mediator: In swing sword");
 		Entity sword = getCollected(EntityType.SWORD);
@@ -96,12 +86,35 @@ public class Mediator {
 					//If false ->do nothing
 					System.out.println(enemies);
 					for(Entity enemy : enemies) {
-						removeEnemyEntity(enemy);
+						removeEntity(enemy);
 					}
 				}
 			}
 		}
 	}
+	
+		// Check if player can pick up key
+		// If player can pick up key, add it to player inventory
+		// If player cannot pick up key, do nothing.
+		public void pickUpKey(int currentX , int currentY) {
+			List<Entity> keyAtCurrent = getEntities(currentX , currentY , Key.class);
+			if(!keyAtCurrent.isEmpty()) {
+				Entity key = keyAtCurrent.get(0);
+				// Check if player already has key or not
+				if(!isCollected(key)) {
+					// If not, add to inventory
+					collectedEntities.add(key);
+					System.out.println("Key collected");
+					// Update 'key' object internal data
+					key.stepOver();
+					// Remove the 'key' image from screen
+					removeEntity(key);
+					
+					// Check if inventory is what it should be
+					System.out.println(collectedEntities);
+				}
+			}
+		}
 	
 	private boolean gameOver = false;
 
@@ -109,6 +122,7 @@ public class Mediator {
 		gameOver = true;
 	}
 
+	
 	// HELPER OPERATIONS BELOW
 
 	// Returns true if the new coordinates given are outside the boundaries of the
@@ -186,56 +200,27 @@ public class Mediator {
 		return list;
 	}
 
-	// Check if player can pick up key
-	// If player can pick up key, add it to player inventory
-	// If player cannot pick up key, do nothing.
-	public void pickUpKey(int currentX , int currentY) {
-		List<Entity> entity_objects = dungeon.getEntities();
-		List<Entity> keyAtCurrent = getEntities(currentX , currentY , Key.class);
-		if(!keyAtCurrent.isEmpty()) {
-			Entity key = keyAtCurrent.get(0);
-			// Check if player already has key or not
-			if(!isCollected(key)) {
-				// If not, add to inventory
-				collectedEntities.add(key);
-				System.out.println("Key collected");
-				// Update 'key' object internal data
-				key.stepOver();
-				// Remove the 'key' image from screen
-				removeKeyEntity(key);
-				if(entity_objects.contains(key)) {
-					entity_objects.remove(key);
-				}
-				// Check if inventory is what it should be
-				System.out.println(collectedEntities);
-			}
-		}
-	}
-
-
-		
-
-		
-
-	// Remove Key entity from screen
-	private void removeKeyEntity(Entity entity) {
-		System.out.println("In remove Key function");
-		for(int i = 0; i < image_entities.size(); i++) {
-			ImageView image = image_entities.get(i);
+	
+	public void removeEntity(Entity entity) {
+		System.out.println("In remove entity function");
+		for(int i = 0; i < imageEntities.size(); i++) {
+			ImageView image = imageEntities.get(i);
 			// Map GridPane co-ords to entity co-ords
 			if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
-				if(image.getId().equals("Key image")) {
-					// So basically ImageView is just a bunch of layered images (one on top of another) ( ImageView ~ List<Image> )
-					// If you check DungeonControllerLoader, I assigned a unique string ID to each image in the onLoad() functions
-					// This if condition basically goes through the ImageView list of images and checks if the image matching
-					// given id exists. If it does, it removes it. TADA!!!
-					System.out.println("Removed key from screen");
+				
+				if(image.getId().equals(entity.getImageID())) {
+					//Removing from screen
 					squares.getChildren().remove(image);
 				} 
 			}
 		}
+		//To remove the object
+		if(dungeon.getEntities().contains(entity)) {
+			dungeon.getEntities().remove(entity);
+		}
 	}
-	
+
+		
 	// Check if player can pick up key
 	// If player can pick up key, add it to player inventory
 	// If player cannot pick up key, do nothing.
@@ -251,28 +236,12 @@ public class Mediator {
 			// Update 'treasure' object internal data
 			treasure.stepOver();
 			// Remove image of 'treasure' from screen
-			removeTreasureEntity(treasure);
+			removeEntity(treasure);
 			if(entity_objects.contains(treasure)) {
 				entity_objects.remove(treasure);
 			}
 			// Check if inventory checks out
 			System.out.println(collectedEntities);
-		}
-	}
-	
-	// Remove treasure entity from screen
-	private void removeTreasureEntity(Entity entity) {
-		System.out.println("In remove Treasure function");
-		for(int i = 0; i < image_entities.size(); i++) {
-			ImageView image = image_entities.get(i);
-			if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
-				if(image.getId().equals("Treasure image")) {
-					// More of the same stuff. Just map the co-ordinates and then
-					// remove the appropriate image from the layer of images at that location.
-					System.out.println("Removed treasure from screen");
-					squares.getChildren().remove(image);
-				} 
-			}
 		}
 	}
 	
@@ -288,7 +257,7 @@ public class Mediator {
 			// Update 'potion' object internal data
 			potion.stepOver();
 			// Remove image of 'potion' from screen
-			removePotionEntity(potion);
+			removeEntity(potion);
 			if(entity_objects.contains(potion)) {
 				entity_objects.remove(potion);
 			}
@@ -297,43 +266,6 @@ public class Mediator {
 		}
 	}
 	
-	// Remove Potion entity from screen
-	private void removePotionEntity(Entity entity) {
-		System.out.println("In remove Potion function");
-		for(int i = 0; i < image_entities.size(); i++) {
-			ImageView image = image_entities.get(i);
-			// Map GridPane co-ords to entity co-ords
-			if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
-				if(image.getId().equals("Potion image")) {
-					// So basically ImageView is just a bunch of layered images (one on top of another) ( ImageView ~ List<Image> )
-					// If you check DungeonControllerLoader, I assigned a unique string ID to each image in the onLoad() functions
-					// This if condition basically goes through the ImageView list of images and checks if the image matching
-					// given id exists. If it does, it removes it. TADA!!!
-					System.out.println("Removed potion from screen");
-					squares.getChildren().remove(image);
-				} 
-			}
-		}
-	}
-	
-	// Remove Sword entity from screen
-		private void removeEnemyEntity(Entity entity) {
-			System.out.println("In remove Enemy function");
-			for(int i = 0; i < image_entities.size(); i++) {
-				ImageView image = image_entities.get(i);
-				// Map GridPane co-ords to entity co-ords
-				if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
-					if(image.getId().equals("Enemy image")) {
-						System.out.println("Removed enemy from screen");
-						squares.getChildren().remove(image);
-					} 
-				}
-			}
-			
-			if(dungeon.getEntities().contains(entity)) {
-				dungeon.getEntities().remove(entity);
-			}
-		}
 	
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX , int currentY) {
@@ -378,8 +310,8 @@ public class Mediator {
 	private void updateDoorUI(Entity entity) {
 		Image open_door = new Image("/open_door.png");
 		System.out.println("In update door function");
-		for(int i = 0; i < image_entities.size(); i++) {
-			ImageView image = image_entities.get(i);
+		for(int i = 0; i < imageEntities.size(); i++) {
+			ImageView image = imageEntities.get(i);
 			if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
 				if(image.getId().equals("Door image")) {
 					image.setImage(open_door);
