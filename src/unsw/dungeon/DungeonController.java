@@ -1,11 +1,13 @@
 package unsw.dungeon;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
@@ -49,8 +51,10 @@ public class DungeonController {
         for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
         }
-      //Initializes Mediator class
-        Mediator.getInstance().setDungeon(dungeon, squares);
+
+      //Initializes Mediator class  
+       Mediator.getInstance().setDungeon(dungeon, squares , initialEntities);
+
 
     }
     
@@ -70,8 +74,22 @@ public class DungeonController {
         case RIGHT:
             Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()+1, player.getY()); 
             break;
+
         case S:
         	Mediator.getInstance().swingSword(player.getX(), player.getY());
+
+        case K:
+        	Mediator.getInstance().pickUpKey(player.getX(), player.getY());
+        	break;
+        case U:
+        	Mediator.getInstance().unlockDoor(player.getX() , player.getY());
+        	break;
+        case T:
+        	Mediator.getInstance().pickUpTreasure(player.getX(), player.getY());
+        	break;
+        case P:
+        	Mediator.getInstance().pickUpPotion(player.getX() , player.getY());
+        	break;
         default:
             break;
         }

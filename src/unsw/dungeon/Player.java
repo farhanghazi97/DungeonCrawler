@@ -1,7 +1,14 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+
+import java.io.FileNotFoundException;
 import java.util.List;
+
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
+
+import javafx.scene.layout.GridPane;
 
 /**
  * The player entity
@@ -9,9 +16,10 @@ import java.util.List;
  *
  */
 public class Player extends Entity {
-
+	
     private Dungeon dungeon;
-
+    private String type = "Player";
+    
     /**
      * Create a player positioned in square (x,y)
      * @param x
@@ -23,11 +31,6 @@ public class Player extends Entity {
     }
 
 	//private List
-    
-    @Override
-    public String toString() {
-		return String.format("Player object");
-    }
 
 	@Override
 	public EntityType getType(){return EntityType.PLAYER;}
@@ -69,5 +72,29 @@ public class Player extends Entity {
 		// TODO Auto-generated method stub
 		
 	}
-    
+	
+	@Override
+	public int getDoorID() {
+		return -1;
+	}
+	
+	@Override
+	public int geKeyID() {
+		return -1;
+	}
+	
+	@Override
+	public boolean isIs_open() {
+		return false;
+	}
+	
+	@Override
+	public Entity getObjectByType(String s) {
+		if(s.equals(type)) {
+			return this;
+		} else {
+			return null;
+		}
+	}
+
 }

@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
@@ -17,7 +18,8 @@ public abstract class Entity{
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
-
+    private String type = "Entity";
+    
     /**
      * Create an entity positioned in square (x,y)
      * @param x
@@ -63,8 +65,12 @@ public abstract class Entity{
         y().set(newY);
     }
     
-
-
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public abstract Entity getObjectByType(String s);
+     
     public abstract void postMove(List<Entity> entitiesAtNew);
     
     public abstract boolean stepOver();
@@ -72,8 +78,11 @@ public abstract class Entity{
     public abstract void removeEntity();
     
     public abstract void generateEntity();
+    
+    public abstract int getDoorID();
+    
+	public abstract int geKeyID();
+	
+	public abstract boolean isIs_open();
 
-//	public Node getNode() {
-//		return
-//	}
 }

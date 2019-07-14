@@ -2,16 +2,24 @@ package unsw.dungeon;
 
 import java.util.List;
 
-public class Key extends Entity {
+public class Door extends Entity {
 
-	private String type = "Key";
+	private String type = "Door";
 	
-	private int keyID;
-	private boolean collected = false;
+	private int door_id;
+	private boolean is_open = false;
 	
-	public Key(int x, int y, int keyId) {
+	public Door(int x, int y , int door_id) {
 		super(x, y);
-		this.keyID = keyId;
+		this.door_id = door_id;
+	}
+
+	public int getDoor_id() {
+		return door_id;
+	}
+
+	public void setDoor_id(int door_id) {
+		this.door_id = door_id;
 	}
 
 	@Override
@@ -34,7 +42,7 @@ public class Key extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		this.collected = true;
+		this.is_open = true;
 		return true;
 	}
 
@@ -50,16 +58,29 @@ public class Key extends Entity {
 		
 	}
 	
+	public boolean isIs_open() {
+		return is_open;
+	}
+
+	public void setIs_open(boolean is_open) {
+		this.is_open = is_open;
+	}
+
 	@Override
 	public String toString() {
-		return "Key [Key ID=" + keyID + ", collected=" + collected + "]";
+		return "Door [Door ID=" + door_id + ", Open?=" + is_open + "]";
 	}
 	
 	@Override
 	public int getDoorID() {
-		return -1;
+		return door_id;
 	}
 	
+	@Override
+	public int geKeyID() {
+		return -1;
+	}
+
 	@Override
 	public Entity getObjectByType(String s) {
 		if(s.equals(type)) {
@@ -68,16 +89,5 @@ public class Key extends Entity {
 			return null;
 		}
 	}
-	
-	@Override
-	public int geKeyID() {
-		return keyID;
-	}
-	
-	@Override
-	public boolean isIs_open() {
-		return false;
-	}
-	
 	
 }
