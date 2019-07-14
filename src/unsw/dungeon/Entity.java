@@ -18,7 +18,7 @@ public abstract class Entity{
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
-    private String type = "ENTITY";
+    private String type = "Entity";
     
     /**
      * Create an entity positioned in square (x,y)
@@ -68,6 +68,8 @@ public abstract class Entity{
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	public abstract Entity getObjectByType(String s);
      
     public abstract void postMove(List<Entity> entitiesAtNew);
     
@@ -76,5 +78,11 @@ public abstract class Entity{
     public abstract void removeEntity();
     
     public abstract void generateEntity();
+    
+    public abstract int getDoorID();
+    
+	public abstract int geKeyID();
+	
+	public abstract boolean isIs_open();
 
 }

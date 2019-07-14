@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Boulder extends Entity {
 
-	private String type = "BOULDER";
+	private String type = "Boulder";
 	
 	public Boulder(int x , int y) {
 		super(x , y);
@@ -54,6 +54,30 @@ public class Boulder extends Entity {
 	public void generateEntity() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public int getDoorID() {
+		return -1;
+	}
+	
+	@Override
+	public int geKeyID() {
+		return -1;
+	}
+	
+	@Override
+	public boolean isIs_open() {
+		return false;
+	}
+	
+	@Override
+	public Entity getObjectByType(String s) {
+		if(s.equals(type)) {
+			return this;
+		} else {
+			return null;
+		}
 	}
 
 }

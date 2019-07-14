@@ -16,9 +16,9 @@ import javafx.scene.layout.GridPane;
  *
  */
 public class Player extends Entity {
-
+	
     private Dungeon dungeon;
-    private String type = "PLAYER";
+    private String type = "Player";
     
     /**
      * Create a player positioned in square (x,y)
@@ -71,6 +71,30 @@ public class Player extends Entity {
 	public void generateEntity() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public int getDoorID() {
+		return -1;
+	}
+	
+	@Override
+	public int geKeyID() {
+		return -1;
+	}
+	
+	@Override
+	public boolean isIs_open() {
+		return false;
+	}
+	
+	@Override
+	public Entity getObjectByType(String s) {
+		if(s.equals(type)) {
+			return this;
+		} else {
+			return null;
+		}
 	}
 
 }
