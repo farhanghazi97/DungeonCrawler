@@ -77,10 +77,4 @@ public abstract class Entity{
     
     public abstract void generateEntity();
 
-<<<<<<< HEAD
-=======
-//	public Node getNode() {
-//		return
-//	}
->>>>>>> master
 }
