@@ -77,16 +77,6 @@ public class Mediator {
 			}
 		}
 
-		if (!potionAtCurrent.isEmpty()) {
-			// there is a sword at currentX and currentY
-			Entity potion = potionAtCurrent.get(0);
-
-			System.out.println("Potion collected");
-			potion.stepOver();
-			// Remove potion from board.. how?
-			// removeEntity(potion);
-		}
-
 		if (entityToMove.isBlocked(entitiesAtNew)) {
 			return false;
 		}
@@ -163,6 +153,7 @@ public class Mediator {
 	// If player can pick up key, add it to player inventory
 	// If player cannot pick up key, do nothing.
 	public void pickUpKey(int currentX , int currentY) {
+		List<Entity> entity_objects = dungeon.getEntities();
 		List<Entity> keyAtCurrent = getEntities(currentX , currentY , Key.class);
 		if(!keyAtCurrent.isEmpty()) {
 			Entity key = keyAtCurrent.get(0);
@@ -175,6 +166,9 @@ public class Mediator {
 				key.stepOver();
 				// Remove the 'key' image from screen
 				removeKeyEntity(key);
+				if(entity_objects.contains(key)) {
+					entity_objects.remove(key);
+				}
 				// Check if inventory is what it should be
 				System.out.println(collectedEntities);
 			}
@@ -204,7 +198,7 @@ public class Mediator {
 	// If player can pick up key, add it to player inventory
 	// If player cannot pick up key, do nothing.
 	public void pickUpTreasure(int currentX , int currentY) {
-		
+		List<Entity> entity_objects = dungeon.getEntities();
 		List<Entity> treasureAtCurrent = getEntities(currentX , currentY , Treasure.class);
 		if(!treasureAtCurrent.isEmpty()) {
 			// Get treasure entity at current (X , Y)
@@ -216,6 +210,9 @@ public class Mediator {
 			treasure.stepOver();
 			// Remove image of 'treasure' from screen
 			removeTreasureEntity(treasure);
+			if(entity_objects.contains(treasure)) {
+				entity_objects.remove(treasure);
+			}
 			// Check if inventory checks out
 			System.out.println(collectedEntities);
 		}
@@ -238,7 +235,7 @@ public class Mediator {
 	}
 	
 	public void pickUpPotion(int currentX , int currentY) {
-		
+		List<Entity> entity_objects = dungeon.getEntities();
 		List<Entity> potionAtCurrent = getEntities(currentX , currentY , Potion.class);
 		if(!potionAtCurrent.isEmpty()) {
 			// Get potion entity at current (X , Y)
@@ -250,6 +247,9 @@ public class Mediator {
 			potion.stepOver();
 			// Remove image of 'potion' from screen
 			removePotionEntity(potion);
+			if(entity_objects.contains(potion)) {
+				entity_objects.remove(potion);
+			}
 			// Check if inventory checks out
 			System.out.println(collectedEntities);
 		}
