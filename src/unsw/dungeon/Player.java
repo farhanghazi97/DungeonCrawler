@@ -40,7 +40,12 @@ public class Player extends Entity {
 		for (Entity entity : entitiesAtNew) {
 			if (entity.getType()==EntityType.WALL){
 				return true;
+			} else if(entity.getType() == EntityType.DOOR && entity.isIs_open() == false) {
+				return true;
+			} else if(entity.getType() == EntityType.DOOR && entity.isIs_open() == true) {
+				return false;
 			}
+			
 		}
 		return false;
 	}

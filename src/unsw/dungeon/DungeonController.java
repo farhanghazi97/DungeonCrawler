@@ -76,7 +76,7 @@ public class DungeonController {
         case S:
         	Mediator.getInstance().swingSword(player.getX(), player.getY());
         case U:
-        	Mediator.getInstance().unlockDoor(player.getX() , player.getY());
+        	Mediator.getInstance().unlockDoor(player.getX(), player.getY());
         	break;
         default:
             break;

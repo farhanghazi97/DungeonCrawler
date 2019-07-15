@@ -153,6 +153,19 @@ public class Mediator {
 		return null;
 	}
 	
+	// Checks if there is a door in front of player
+	private List<Entity> doorInVicinity(int x , int y) {
+		List<Entity> list = new LinkedList<>();
+		for(Entity entity : dungeon.getEntities()) {
+			if(entity.getType() == EntityType.DOOR) {
+				if(entity.getY() == y - 1 && entity.getX() == x) {
+					list.add(entity);
+				}
+			}
+		}
+		return list;
+	}
+	
 	//Returns a list of enemies if they are in adjacent squares
 	private List<Entity> enemiesInVicinity(int x, int y) {
 		//System.out.println("Inside enemiesInVicinity");
@@ -196,45 +209,18 @@ public class Mediator {
 
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX , int currentY) {
-		
-		boolean key_exists = false;
-		List<Entity> doorAtCurrent = getEntities(currentX , currentY , Door.class);
-		
-		Entity e = null;
-		int remove_key_index = -1;
-		
-		// Check if player has a key
-		// Size of this list should always be 1 (as player can only carry one key at a time)
-		for(int i = 0; i < collectedEntities.size(); i++) {
-			e = collectedEntities.get(i).getObjectByType("Key");
-			if(e != null) {
-				remove_key_index = i;
-				key_exists = true;
-				break;
-			}
-		}
-		
-		// Use the key to unlock door. 
-		// If key fits lock , remove key from player inventory and unlock door (UI update).
-		// If key does not fit lock , do nothing.
-		if(key_exists) {
-			if(!doorAtCurrent.isEmpty()) {
-				Entity d = doorAtCurrent.get(0);
-				if(d.getDoorID() == e.geKeyID()) {
-					System.out.println("Door matches key!");
-					d.stepOver();
-					collectedEntities.remove(remove_key_index);
-					updateDoorUI(d);
-					System.out.println(collectedEntities);
-				} else {
-					System.out.println("Key dosen't fit lock!");
-				}
-			}
+		List<Entity> door = doorInVicinity(currentX , currentY);
+		System.out.println(door);
+		if(door != null) {
+			Entity d = door.get(0);
+			d.stepOver();
+		} else {
+			return;
 		}
 	}
-	
+
 	// Update the 'door' entity to 'open' status
-	private void updateDoorUI(Entity entity) {
+	public void updateDoorUI(Entity entity) {
 		Image open_door = new Image("/open_door.png");
 		System.out.println("In update door function");
 		for(int i = 0; i < imageEntities.size(); i++) {
