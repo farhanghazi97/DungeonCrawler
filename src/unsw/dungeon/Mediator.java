@@ -72,7 +72,7 @@ public class Mediator {
 			// We will move boulder instead of player
 			entityToMove = bouldersAtCurrent.get(0);
 			if(!switchAtCurrent.isEmpty()) {
-				if(rand.nextInt(3) == 1) triggerSwitchEvent(switchAtCurrent.get(0));
+				if(rand.nextInt(3) == 1) triggerSwitchEvent();
 			}
 		}
 		
@@ -88,29 +88,46 @@ public class Mediator {
 	
 	// HELPER OPERATIONS BELOW
 	
-	private void triggerSwitchEvent(Entity e) {
-		System.out.println("switch tiggered");
-		spawnItems(e);
+	private void triggerSwitchEvent() {
+		spawnItems();
 	}
 	
-	private void spawnItems(Entity e) {
+	private void spawnItems() {
+		
+		// Need to randomise generation of objects further
+		Random rand = new Random();
+		int generator_key = rand.nextInt(2);
+		if(generator_key == 0) {
+			generateObject(EntityType.TREASURE);
+		} else if(generator_key == 1) {
+			generateObject(EntityType.POTION);
+		}
+	}
+	
+	public void generateObject(EntityType type) {
 		
 		Random rand = new Random();
-		int t_width  = rand.nextInt(dungeon.getWidth());
-		int t_height = rand.nextInt(dungeon.getHeight());
+		int new_object_width  = rand.nextInt(dungeon.getWidth());
+		int new_object_height = rand.nextInt(dungeon.getHeight());
 		
-		Treasure t_object = new Treasure(t_width , t_height);
-		this.dungeon.getEntities().add(t_object);
-	
-		Image t = new Image(t_object.getImagePath());
-		ImageView tview = new ImageView(t);
-		tview.setId(t_object.getImageID());
-		GridPane.setColumnIndex(tview, t_object.getX());
-		GridPane.setRowIndex(tview , t_object.getY());
+		Entity new_object = null;
+		if(type == EntityType.TREASURE) {
+			new_object = new Treasure(new_object_width , new_object_height);
+		} else if(type == EntityType.POTION) {
+			new_object = new Potion(new_object_width , new_object_height);
+		}
 		
-		imageEntities.add(tview);
-		squares.getChildren().add(tview);
-	
+		this.dungeon.getEntities().add(new_object);
+		
+		Image new_image = new Image(new_object.getImagePath());
+		ImageView new_view = new ImageView(new_image);
+		new_view.setId(new_object.getImageID());
+		GridPane.setColumnIndex(new_view, new_object.getX());
+		GridPane.setRowIndex(new_view , new_object.getY());
+		
+		imageEntities.add(new_view);
+		squares.getChildren().add(new_view);
+		
 	}
 	
 	// Called when player presses the 'S' key on the keyboard
