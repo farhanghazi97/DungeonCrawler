@@ -22,12 +22,14 @@ public class Boulder extends Entity {
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {
-			if (entity.getType()   == EntityType.WALL	 || entity.getType()    ==EntityType.BOULDER
+			if (entity.getType() == EntityType.DOOR && entity.isIs_open() == true) {
+				return false;
+			} else if (entity.getType()   == EntityType.WALL	 || entity.getType()    ==EntityType.BOULDER
 				|| entity.getType() == EntityType.DOOR || entity.getType()    == EntityType.TREASURE
 				|| entity.getType() == EntityType.KEY 	 || entity.getType()    == EntityType.SWORD
 				|| entity.getType() == EntityType.POTION || entity.getType() == EntityType.BOMB){
 					return true;
-			} 
+			}
 		}
 		return false;
 	}
