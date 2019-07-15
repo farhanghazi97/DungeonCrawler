@@ -113,7 +113,7 @@ public class Mediator {
 	
 	}
 	
-	//Called when player presses the 'S' key on the keyboard
+	// Called when player presses the 'S' key on the keyboard
 	public void swingSword(int x, int y) {
 		System.out.println("Mediator: In swing sword");
 		Entity sword = getCollected(EntityType.SWORD);
@@ -244,12 +244,21 @@ public class Mediator {
 		}
 	}
 
+	// Called when player presses 'U' key on keyboard
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX , int currentY) {
 		List<Entity> door = doorInVicinity(currentX , currentY);
 		if(!door.isEmpty()) {
 			Entity d = door.get(0);
-			d.stepOver();
+			if(d.stepOver()) {
+				for(int i = 0; i < collectedEntities.size(); i++) {
+					Entity e = collectedEntities.get(i).getObjectByType("Key");
+					if(e != null) {
+						collectedEntities.remove(i);
+						break;
+					}
+				}
+			}
 		}
 	}
 
