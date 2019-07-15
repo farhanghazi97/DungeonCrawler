@@ -72,6 +72,8 @@ public class Mediator {
 		return true;
 	}
 	
+	// HELPER OPERATIONS BELOW
+	
 	//Called when player presses the 'S' key on the keyboard
 	public void swingSword(int x, int y) {
 		System.out.println("Mediator: In swing sword");
@@ -98,8 +100,6 @@ public class Mediator {
 		gameOver = true;
 	}
 	
-
-	
 	public void pickUpPotion(int currentX , int currentY) {
 		List<Entity> potionAtCurrent = getEntities(currentX , currentY , Potion.class);
 		if(!potionAtCurrent.isEmpty()) {
@@ -108,11 +108,8 @@ public class Mediator {
 		}
 	}
 
-	
-	// HELPER OPERATIONS BELOW
-
-	// Returns true if the new coordinates given are outside the boundaries of the
-	// dungeon
+	// Returns true if the new coordinates given are outside 
+	// the boundaries of the dungeon
 	private boolean outsideDungeon(int newX, int newY) {
 		int width = dungeon.getWidth();
 		int height = dungeon.getHeight();
@@ -186,7 +183,7 @@ public class Mediator {
 		return list;
 	}
 
-	
+	// Removes UI element and object corresponding to given entity
 	public void removeEntity(Entity entity) {
 		System.out.println("In remove entity function");
 		for(int i = 0; i < imageEntities.size(); i++) {
@@ -205,9 +202,6 @@ public class Mediator {
 		}
 	}
 
-
-	
-	
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX , int currentY) {
 		
@@ -261,8 +255,6 @@ public class Mediator {
 			}
 		}
 	}
-
-	
 }
 
 

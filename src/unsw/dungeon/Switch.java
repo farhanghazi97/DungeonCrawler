@@ -70,8 +70,7 @@ public class Switch extends Entity{
 
 	@Override
 	public String getImageID() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Switch image";
 	}
 
 }

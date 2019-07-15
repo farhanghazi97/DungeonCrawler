@@ -14,7 +14,7 @@ import javafx.scene.Node;
  *
  */
 public abstract class Entity{
-
+	
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
@@ -65,22 +65,13 @@ public abstract class Entity{
         y().set(newY);
     }
     
-	
-	
 	public abstract Entity getObjectByType(String s);
-     
     public abstract void postMove(List<Entity> entitiesAtNew);
-    
     public abstract boolean stepOver();
-    
     public abstract void removeEntity();
-    
     public abstract void generateEntity();
-    
     public abstract int getDoorID();
-    
 	public abstract int geKeyID();
-	
 	public abstract boolean isIs_open();
 
 }

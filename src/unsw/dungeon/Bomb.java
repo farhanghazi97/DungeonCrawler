@@ -68,8 +68,7 @@ public class Bomb extends Entity {
 
 	@Override
 	public String getImageID() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Bomb image";
 	}
 
 }
