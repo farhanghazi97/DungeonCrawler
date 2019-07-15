@@ -93,7 +93,6 @@ public class Potion extends Entity {
 
 	@Override
 	public String getImageID() {
-		// TODO Auto-generated method stub
 		return "Potion image";
 	}
 

@@ -96,7 +96,6 @@ public class Key extends Entity {
 
 	@Override
 	public String getImageID() {
-		
 		return "Key image";
 	}
 	

@@ -40,9 +40,16 @@ public class Door extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		
-		this.is_open = true;
-		return true;
+		Entity key = Mediator.getInstance().getCollected(EntityType.KEY);
+		if(key != null) {
+			if(this.getDoor_id() == key.geKeyID()) {
+				System.out.println("Key matches door!");
+				Mediator.getInstance().updateDoorUI(this);
+				this.setIs_open(true);
+				return true;
+			} 
+		}
+		return false;
 	}
 
 	@Override
@@ -91,8 +98,7 @@ public class Door extends Entity {
 
 	@Override
 	public String getImageID() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Door image";
 	}
 	
 }

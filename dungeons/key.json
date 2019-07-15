@@ -8,6 +8,21 @@
         "type": "wall"
       },
       {
+        "x": 2,
+        "y": 8,
+        "type": "switch",
+      },
+      {
+        "x": 8,
+        "y": 13,
+        "type": "switch",
+      },
+      {
+        "x": 14,
+        "y": 11,
+        "type": "switch",
+      },
+      {
         "x": 1,
         "y": 0,
         "type": "wall"
@@ -389,7 +404,7 @@
       },
       {
         "x": 11,
-        "y": 10,
+        "y": 7,
         "type": "invincibility"
       },
       {
@@ -614,6 +629,21 @@
         "y": 5,
         "type": "door",
         "id": 3
+      },
+      {
+        "x": 11,
+        "y": 3,
+        "type": "boulder",
+      },
+      {
+        "x": 4,
+        "y": 6,
+        "type": "boulder",
+      },
+      {
+        "x": 4,
+        "y": 12,
+        "type": "boulder",
       }
     ],
     "goal-condition": {
