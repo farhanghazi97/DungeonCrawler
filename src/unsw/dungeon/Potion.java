@@ -30,9 +30,24 @@ public class Potion extends Entity {
 
     @Override
 	public boolean stepOver() {
-    	this.count++;
-		this.collected = true;
-		return true;
+    	System.out.println("Inside Potion's stepOver");
+    
+		Entity tempPotion = Mediator.getInstance().getCollected(EntityType.POTION);
+
+		if(tempPotion != null) {
+			//Player already has a potion
+			return false;
+		}else {
+			//Add new sword
+			if(Mediator.getInstance().collectedEntities.add(this)) {
+				this.collected = true;
+				this.count++;
+				Mediator.getInstance().removeEntity(this);
+				System.out.println(this.toString());
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -74,6 +89,12 @@ public class Potion extends Entity {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public String getImageID() {
+		// TODO Auto-generated method stub
+		return "Potion image";
 	}
 
 }

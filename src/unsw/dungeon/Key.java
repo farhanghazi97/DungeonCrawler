@@ -16,8 +16,7 @@ public class Key extends Entity {
 
 	@Override
 	public EntityType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return EntityType.KEY;
 	}
 
 	@Override
@@ -34,8 +33,24 @@ public class Key extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		this.collected = true;
-		return true;
+		System.out.println("In Key's stepOver");
+	
+		//Add sword to collected entities
+		Entity tempKey = Mediator.getInstance().getCollected(EntityType.KEY);
+		
+		if(tempKey != null) {
+			//Player already has a key
+			return false;
+		}else {
+			//Pick up key
+			if(Mediator.getInstance().collectedEntities.add(this)) {
+				this.collected = true;
+				System.out.println(this.toString());
+				Mediator.getInstance().removeEntity(this);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -77,6 +92,12 @@ public class Key extends Entity {
 	@Override
 	public boolean isIs_open() {
 		return false;
+	}
+
+	@Override
+	public String getImageID() {
+		
+		return "Key image";
 	}
 	
 	

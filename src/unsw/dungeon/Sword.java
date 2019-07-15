@@ -31,16 +31,42 @@ public class Sword extends Entity {
     
 	@Override
 	public boolean stepOver() {
+		System.out.println("In Sword's stepOver");
 		this.swingsRemaining = 5;
-		this.collected = true;
+		//Add sword to collected entities
+		Entity tempSword = Mediator.getInstance().getCollected(EntityType.SWORD);
 		
+		if(tempSword != null) {
+			//Player already has a sword
+			return false;
+		}else {
+			//Add new sword
+			if(Mediator.getInstance().collectedEntities.add(this)) {
+				this.collected = true;
+				System.out.println(this.toString());
+				Mediator.getInstance().removeEntity(this);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//Swings sword once and reduces swingsRemaining
+	public boolean swing() {
+		System.out.println("Inside Sword's swing");
+		swingsRemaining--;
 		if(swingsRemaining > 0) {
+			System.out.println(this.toString());
 			return true;
 		}else {
+			//Remove sword from player's collected entities
+			this.collected = false;
+			Mediator.getInstance().collectedEntities.remove(this);
+			System.out.println(this.toString());
 			return false;
 		}
 	}
-
+	
 	@Override
 	public void removeEntity() {
 		// TODO Auto-generated method stub
@@ -80,6 +106,12 @@ public class Sword extends Entity {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public String getImageID() {
+		// TODO Auto-generated method stub
+		return "Sword image";
 	}
 	
 

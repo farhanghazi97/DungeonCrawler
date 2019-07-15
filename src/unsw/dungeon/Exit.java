@@ -67,5 +67,11 @@ public class Exit extends Entity{
 		}
 	}
 
+	@Override
+	public String getImageID() {
+		
+		return "Exit Image";
+	}
+
 	
 }

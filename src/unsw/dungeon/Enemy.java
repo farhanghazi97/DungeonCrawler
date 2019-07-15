@@ -2,26 +2,28 @@ package unsw.dungeon;
 
 import java.util.List;
 
-public class Bomb extends Entity {
+public class Enemy extends Entity{
 
-	private String type = "Bomb";
-	
-	public Bomb(int x , int y) {
-		super(x , y);
+	public Enemy(int x, int y) {
+		super(x, y);
+		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public EntityType getType() {
-		return EntityType.BOMB;
+		return EntityType.ENEMY;
 	}
 
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew) {
-		return true;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public void postMove(List<Entity> entitiesAtNew) {
-
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -41,35 +43,36 @@ public class Bomb extends Entity {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
-	
-	@Override
-	public int geKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isIs_open() {
-		return false;
-	}
-	
+
 	@Override
 	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getDoorID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int geKeyID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isIs_open() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public String getImageID() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Enemy image";
 	}
+	
 
 }

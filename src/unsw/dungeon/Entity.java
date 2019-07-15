@@ -18,8 +18,7 @@ public abstract class Entity{
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
-    private String type = "Entity";
-    
+    private String imageID;
     /**
      * Create an entity positioned in square (x,y)
      * @param x
@@ -58,6 +57,7 @@ public abstract class Entity{
 
 
     public abstract EntityType getType();
+    public abstract String getImageID();
     public abstract boolean isBlocked(List<Entity> entitiesAtNew);
 
     public void moveTo(int newX, int newY){
@@ -65,9 +65,7 @@ public abstract class Entity{
         y().set(newY);
     }
     
-	public void setType(String type) {
-		this.type = type;
-	}
+	
 	
 	public abstract Entity getObjectByType(String s);
      

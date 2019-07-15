@@ -71,4 +71,10 @@ public class Wall extends Entity  {
 		}
 	}
 
+	@Override
+	public String getImageID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
