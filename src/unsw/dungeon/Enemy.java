@@ -73,5 +73,10 @@ public class Enemy extends Entity{
 		return "Enemy image";
 	}
 	
+	@Override
+	 public String getImagePath() {
+		return "";
+	}
+	
 
 }

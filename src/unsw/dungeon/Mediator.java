@@ -25,7 +25,8 @@ public class Mediator {
 
 	private Dungeon dungeon;
 	private GridPane squares;
-	 private List<ImageView> imageEntities;
+	private List<ImageView> imageEntities;
+	private boolean gameOver = false;
 
 	public void setDungeon(Dungeon dungeon, GridPane squares , List<ImageView> imageEntities) {
 		this.dungeon = dungeon;
@@ -50,7 +51,10 @@ public class Mediator {
 		List<Entity> entitiesAtCurrent = getEntities(currentX, currentY);
 		List<Entity> entitiesAtNew = getEntities(newX, newY);
 		List<Entity> bouldersAtCurrent = getEntities(currentX, currentY, Boulder.class);
+		List<Entity> switchAtCurrent = getEntities(currentX , currentY , Switch.class);
 
+		Random rand = new Random();
+		
 		if (!bouldersAtCurrent.isEmpty()) {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
@@ -62,6 +66,16 @@ public class Mediator {
 		}
 
 		entityToMove.moveTo(newX, newY);
+		
+		if (!bouldersAtCurrent.isEmpty()) {
+			// there is a boulder at currentX and currentY
+			// We will move boulder instead of player
+			entityToMove = bouldersAtCurrent.get(0);
+			if(!switchAtCurrent.isEmpty()) {
+				if(rand.nextInt(3) == 1) triggerSwitchEvent(switchAtCurrent.get(0));
+			}
+		}
+		
 		//Calling entitesAtCurrent stepOver on a loop
 		for(Entity entity: entitiesAtCurrent) {
 			entity.stepOver();
@@ -73,6 +87,31 @@ public class Mediator {
 	}
 	
 	// HELPER OPERATIONS BELOW
+	
+	private void triggerSwitchEvent(Entity e) {
+		System.out.println("switch tiggered");
+		spawnItems(e);
+	}
+	
+	private void spawnItems(Entity e) {
+		
+		Random rand = new Random();
+		int t_width  = rand.nextInt(dungeon.getWidth());
+		int t_height = rand.nextInt(dungeon.getHeight());
+		
+		Treasure t_object = new Treasure(t_width , t_height);
+		this.dungeon.getEntities().add(t_object);
+	
+		Image t = new Image(t_object.getImagePath());
+		ImageView tview = new ImageView(t);
+		tview.setId(t_object.getImageID());
+		GridPane.setColumnIndex(tview, t_object.getX());
+		GridPane.setRowIndex(tview , t_object.getY());
+		
+		imageEntities.add(tview);
+		squares.getChildren().add(tview);
+	
+	}
 	
 	//Called when player presses the 'S' key on the keyboard
 	public void swingSword(int x, int y) {
@@ -94,8 +133,6 @@ public class Mediator {
 		}
 	}
 	
-	private boolean gameOver = false;
-
 	public void markGameOver() {
 		gameOver = true;
 	}

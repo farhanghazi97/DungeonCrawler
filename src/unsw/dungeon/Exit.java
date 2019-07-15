@@ -5,6 +5,7 @@ import java.util.List;
 public class Exit extends Entity{
 	
 	private String type = "Exit"; 
+	private String image_path = "/exit.png";
 	
     public Exit(int x, int y) {
         super(x, y);
@@ -70,6 +71,11 @@ public class Exit extends Entity{
 	@Override
 	public String getImageID() {
 		return "Exit Image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 
 	

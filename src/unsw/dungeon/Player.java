@@ -19,6 +19,7 @@ public class Player extends Entity {
 	
     private Dungeon dungeon;
     private String type = "Player";
+    private String image_path = "/human_new.png";
     
     /**
      * Create a player positioned in square (x,y)
@@ -105,6 +106,11 @@ public class Player extends Entity {
 	@Override
 	public String getImageID() {
 		return "Player image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 
 }

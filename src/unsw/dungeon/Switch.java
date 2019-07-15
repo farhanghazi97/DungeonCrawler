@@ -6,6 +6,7 @@ import java.util.List;
 public class Switch extends Entity{
 
 	private String type = "Switch";
+	private String image_path = "/pressure_plate.png";
 	
 	public Switch(int x, int y) {
         super(x, y);
@@ -28,8 +29,7 @@ public class Switch extends Entity{
 
     @Override
 	public boolean stepOver() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -71,6 +71,11 @@ public class Switch extends Entity{
 	@Override
 	public String getImageID() {
 		return "Switch image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 
 }

@@ -53,8 +53,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         keyimage = new Image("/key.png");
         enemyimage = new Image("/deep_elf_master_archer.png");
         doorimage = new Image("/closed_door.png");
-
-
+        
     }
 
     @Override

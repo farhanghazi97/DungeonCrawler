@@ -6,6 +6,7 @@ import java.util.List;
 public class Wall extends Entity  {
 
 	private String type = "Wall";
+	private String image_path = "/brick_brown.png";
 	
     public Wall(int x, int y) {
         super(x, y);
@@ -74,6 +75,11 @@ public class Wall extends Entity  {
 	@Override
 	public String getImageID() {
 		return "Wall image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 
 }
