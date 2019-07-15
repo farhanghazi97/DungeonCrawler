@@ -210,12 +210,9 @@ public class Mediator {
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX , int currentY) {
 		List<Entity> door = doorInVicinity(currentX , currentY);
-		System.out.println(door);
-		if(door != null) {
+		if(!door.isEmpty()) {
 			Entity d = door.get(0);
 			d.stepOver();
-		} else {
-			return;
 		}
 	}
 
