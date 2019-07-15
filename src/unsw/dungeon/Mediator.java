@@ -99,14 +99,6 @@ public class Mediator {
 	public void markGameOver() {
 		gameOver = true;
 	}
-	
-	public void pickUpPotion(int currentX , int currentY) {
-		List<Entity> potionAtCurrent = getEntities(currentX , currentY , Potion.class);
-		if(!potionAtCurrent.isEmpty()) {
-			Entity potion = potionAtCurrent.get(0);
-			potion.stepOver();
-		}
-	}
 
 	// Returns true if the new coordinates given are outside 
 	// the boundaries of the dungeon
