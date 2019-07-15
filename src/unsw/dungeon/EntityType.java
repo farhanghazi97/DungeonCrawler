@@ -11,5 +11,6 @@ public enum EntityType {
     SWITCH,
     EXIT, 
     ENEMY,
-    KEY;
+    KEY, 
+    DOOR;
 }

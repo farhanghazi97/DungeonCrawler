@@ -24,14 +24,12 @@ public class Door extends Entity {
 
 	@Override
 	public EntityType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return EntityType.DOOR;
 	}
 
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -42,6 +40,7 @@ public class Door extends Entity {
 
 	@Override
 	public boolean stepOver() {
+		
 		this.is_open = true;
 		return true;
 	}
