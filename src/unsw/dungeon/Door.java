@@ -5,7 +5,7 @@ import java.util.List;
 public class Door extends Entity {
 
 	private String type = "Door";
-	private String image_path = "/closed_door.png";
+	private String image_path = "/open_door.png";
 	
 	private int door_id;
 	private boolean is_open = false;

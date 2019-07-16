@@ -293,12 +293,13 @@ public class Mediator {
 
 	// Update the 'door' entity to 'open' status
 	public void updateDoorUI(Entity entity) {
-		Image open_door = new Image("/open_door.png");
+		String open_door_image_path = entity.getImagePath();
+		Image open_door = new Image(open_door_image_path);
 		System.out.println("In update door function");
 		for(int i = 0; i < imageEntities.size(); i++) {
 			ImageView image = imageEntities.get(i);
 			if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
-				if(image.getId().equals("Door image")) {
+				if(image.getId().equals(entity.getImageID())) {
 					image.setImage(open_door);
 					break;
 				}
