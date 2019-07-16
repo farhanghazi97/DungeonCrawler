@@ -185,8 +185,8 @@ class DungeonTests {
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Player player = dungeon.getPlayer();
     	Entity k = getEntity(3 , 3 , dungeon.getEntities() , Treasure.class);
-    	Mediator.getInstance().moveTo(3 , 3 , 3, 4);
-    	assert(Mediator.getInstance().isCollected(k) == true);
+    	Mediator.getInstance().moveTo(3, 3, 3, 4);
+    	assert(Mediator.getInstance().collectedEntities.contains(k));
     }
     
     public static Entity getEntity(int x, int y, List<Entity> entities, Class clazz){

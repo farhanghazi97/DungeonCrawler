@@ -6,7 +6,7 @@ import java.util.List;
 public class Treasure extends Entity{
 
 	private String type = "Treasure";
-	private static int treasureCoins = 1;
+	private static int treasureCoins = 0;
 	private String image_path = "gold_pile.png";
 	
 	public Treasure(int x, int y) {
@@ -31,8 +31,9 @@ public class Treasure extends Entity{
     @Override
 	public boolean stepOver() {
     	System.out.println("In Treasure's stepOver");
-    	System.out.println(toString());
     	Treasure.treasureCoins++;
+    	System.out.println(toString());
+    	Mediator.getInstance().collectedEntities.add(this);
     	Mediator.getInstance().removeEntity(this);
 		return true;
 	}
