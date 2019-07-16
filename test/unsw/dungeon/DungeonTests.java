@@ -44,6 +44,7 @@ class DungeonTests {
     
     public static final String POTION_JSON = "test_potion_collected.json";
     public static final String TREASURE_JSON = "test_treasure_collected.json";
+    public static final String SWORD_JSON = "test_sword_collected.json";
     
     @BeforeEach
     void setUp() throws FileNotFoundException, InterruptedException {
@@ -150,6 +151,36 @@ class DungeonTests {
     }
     
     @Test
+    void TestTreasureCollected() {
+    	initializeDungeon(TREASURE_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity t = getEntity(3 , 3 , dungeon.getEntities() , Treasure.class);
+    	Mediator.getInstance().moveTo(3, 3, 3, 4);
+    	assert(Mediator.getInstance().isCollected(t) == true);
+    }
+    
+    @Test
+    void TestSwordCollected() {
+    	initializeDungeon(SWORD_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity s = getEntity(4 , 2 , dungeon.getEntities() , Sword.class);
+    	Mediator.getInstance().moveTo(4 , 2 , 4, 3);
+    	assert(Mediator.getInstance().isCollected(s) == true);
+    }
+    
+    @Test
+    void TestPotionCollected() {
+    	initializeDungeon(POTION_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity k = getEntity(2 , 3 , dungeon.getEntities() , Potion.class);
+    	Mediator.getInstance().moveTo(2 , 3 , 2, 4);
+    	assert(Mediator.getInstance().isCollected(k) == true);
+    }
+    
+    @Test
     void TestKeyDoorFail() {
     	initializeDungeon(KEY_JSON_FAIL);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
@@ -167,26 +198,6 @@ class DungeonTests {
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
     	Mediator.getInstance().collectedEntities.add(k);
     	assert(door.stepOver() == true);
-    }
-    
-    @Test
-    void TestPotionCollected() {
-    	initializeDungeon(POTION_JSON);
-    	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
-    	Entity k = getEntity(2 , 3 , dungeon.getEntities() , Potion.class);
-    	Mediator.getInstance().moveTo(2 , 3 , 2, 4);
-    	assert(Mediator.getInstance().isCollected(k) == true);
-    }
-    
-    @Test
-    void TestTreasureCollected() {
-    	initializeDungeon(TREASURE_JSON);
-    	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
-    	Entity k = getEntity(3 , 3 , dungeon.getEntities() , Treasure.class);
-    	Mediator.getInstance().moveTo(3, 3, 3, 4);
-    	assert(Mediator.getInstance().collectedEntities.contains(k));
     }
     
     public static Entity getEntity(int x, int y, List<Entity> entities, Class clazz){
