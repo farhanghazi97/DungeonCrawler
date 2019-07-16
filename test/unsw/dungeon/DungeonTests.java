@@ -10,6 +10,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+// Movement testing done - RM
+// 
+
 class DungeonTests {
 
 	  /**
@@ -49,7 +52,6 @@ class DungeonTests {
     private void initializeDungeon(String filename) {
         try {
             MockDungeonControllerLoader mdcl = new MockDungeonControllerLoader(filename);
-
             DungeonController controller = mdcl.loadController();
             Dungeon dungeon = controller.getDungeon();
             Mediator.getInstance().setDungeon(controller.getDungeon(), controller.getSquares(), controller.getInitialEntities());
