@@ -38,13 +38,13 @@ class DungeonTests {
      *
      */
     public static final String BOULDERS_JSON = "test_boulders.json";
-    
+   
     public static final String KEY_JSON_PASS = "test_key_door_pass.json";
     public static final String KEY_JSON_FAIL = "test_key_door_fail.json";
     
     @BeforeEach
     void setUp() throws FileNotFoundException, InterruptedException {
-
+    	RefreshInventory();
     }
 
     @AfterEach
@@ -137,7 +137,7 @@ class DungeonTests {
     }
     
     @Test
-    void CheckKeyDoorFail() {
+    void checkKeyDoorFail() {
     	initializeDungeon(KEY_JSON_FAIL);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
@@ -147,12 +147,11 @@ class DungeonTests {
     }
     
     @Test
-    void CheckKeyDoorPass() {
+    void checkKeyDoorPass() {
     	initializeDungeon(KEY_JSON_PASS);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
-    	Mediator.getInstance().collectedEntities.remove(0);
     	Mediator.getInstance().collectedEntities.add(k);
     	assert(door.stepOver() == true);
     }
@@ -170,6 +169,11 @@ class DungeonTests {
         return list.get(0);
     }
 
+    public static void RefreshInventory() {
+    	if(!Mediator.getInstance().collectedEntities.isEmpty()) {
+    		Mediator.getInstance().collectedEntities.remove(0);
+    	}
+    }
 
     
     
