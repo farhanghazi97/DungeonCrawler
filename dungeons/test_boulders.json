@@ -1,0 +1,31 @@
+{
+  "width": 3,
+  "height": 3,
+  "entities": [
+
+    {
+      "x": 1,
+      "y": 0,
+      "type": "boulder"
+    },
+
+    {
+      "x": 2,
+      "y": 0,
+      "type": "player"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "type": "boulder"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "type": "boulder"
+    }
+  ],
+  "goal-condition": {
+    "goal": "boulders"
+  }
+}
