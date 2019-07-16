@@ -7,6 +7,7 @@ public class Treasure extends Entity{
 
 	private String type = "Treasure";
 	private int treasureCoins = 0;
+	private String image_path = "gold_pile.png";
 	
 	public Treasure(int x, int y) {
         super(x, y);
@@ -79,6 +80,11 @@ public class Treasure extends Entity{
 	@Override
 	public String getImageID() {
 		return "Treasure image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 
 }

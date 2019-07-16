@@ -33,8 +33,6 @@ public class DungeonController {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
-        
-        
     }
 
     @FXML
@@ -55,7 +53,6 @@ public class DungeonController {
       //Initializes Mediator class  
        Mediator.getInstance().setDungeon(dungeon, squares , initialEntities);
 
-
     }
     
     @FXML
@@ -74,16 +71,11 @@ public class DungeonController {
         case RIGHT:
             Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()+1, player.getY()); 
             break;
-
+        case U:
+        	Mediator.getInstance().unlockDoor(player.getX(), player.getY());
+        	break;
         case S:
         	Mediator.getInstance().swingSword(player.getX(), player.getY());
-
-        case U:
-        	Mediator.getInstance().unlockDoor(player.getX() , player.getY());
-        	break;
-        case P:
-        	Mediator.getInstance().pickUpPotion(player.getX() , player.getY());
-        	break;
         default:
             break;
         }

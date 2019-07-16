@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Potion extends Entity {
 
+	private String image_path = "/brilliant_blue_new.png";
 	private boolean collected = false;
 	private String type = "Potion";
 	private int count = 0;
@@ -93,8 +94,12 @@ public class Potion extends Entity {
 
 	@Override
 	public String getImageID() {
-		// TODO Auto-generated method stub
 		return "Potion image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 
 }

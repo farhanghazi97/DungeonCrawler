@@ -63,7 +63,6 @@ public abstract class DungeonLoader {
         
         switch (type) {
         case "player":
-           
         	Player player = new Player(dungeon, x, y);
             dungeon.setPlayer(player);
             onLoad(player);
@@ -71,49 +70,42 @@ public abstract class DungeonLoader {
             break;
         
         case "wall":
-            
         	Wall wall = new Wall(x, y);
             onLoad(wall);
             entity = wall;
             break;
         
         case "boulder":
-        	
         	Boulder boulder = new Boulder(x, y);
         	onLoad(boulder);
         	entity = boulder;
         	break;
         
         case "switch":
-        	
         	Switch swi = new Switch(x,y);
         	onLoad(swi);
         	entity = swi;
         	break;
         
         case "sword":
-        	
         	Sword swo = new Sword(x,y);
         	onLoad(swo);
         	entity = swo;
         	break;
         
         case "treasure":
-        	
         	Treasure t = new Treasure(x,y);
         	onLoad(t);
         	entity = t;
         	break;
         
         case "invincibility":
-        	
         	Potion p = new Potion(x,y);
         	onLoad(p);
         	entity = p;
         	break;
         	
         case "bomb":
-        	
         	Bomb b = new Bomb(x,y);
         	onLoad(b);
         	entity = b;

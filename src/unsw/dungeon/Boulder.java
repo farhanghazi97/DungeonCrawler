@@ -6,6 +6,7 @@ import java.util.List;
 public class Boulder extends Entity {
 
 	private String type = "Boulder";
+	private String image_path = "/boulder.png";
 	
 	public Boulder(int x , int y) {
 		super(x , y);
@@ -22,8 +23,13 @@ public class Boulder extends Entity {
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {
-			if (entity.getType()== EntityType.WALL || entity.getType()==EntityType.BOULDER){
-				return true;
+			if (entity.getType() == EntityType.DOOR && entity.isIs_open() == true) {
+				return false;
+			} else if (entity.getType()   == EntityType.WALL	 || entity.getType()    ==EntityType.BOULDER
+				|| entity.getType() == EntityType.DOOR || entity.getType()    == EntityType.TREASURE
+				|| entity.getType() == EntityType.KEY 	 || entity.getType()    == EntityType.SWORD
+				|| entity.getType() == EntityType.POTION || entity.getType() == EntityType.BOMB){
+					return true;
 			}
 		}
 		return false;
@@ -82,8 +88,12 @@ public class Boulder extends Entity {
 
 	@Override
 	public String getImageID() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Boulder image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 
 }
