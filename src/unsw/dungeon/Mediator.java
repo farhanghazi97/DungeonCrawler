@@ -23,6 +23,18 @@ public class Mediator {
 		return mediator;
 	}
 
+	/**
+	 * Getters for testability.
+	 * @return
+	 */
+	public Dungeon getDungeon() {
+		return dungeon;
+	}
+
+	public GridPane getSquares() {
+		return squares;
+	}
+	
 	private Dungeon dungeon;
 	private GridPane squares;
 	 private List<ImageView> imageEntities;

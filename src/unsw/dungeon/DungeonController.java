@@ -29,6 +29,21 @@ public class DungeonController {
 
     private Dungeon dungeon;
 
+    /**
+     * Added for testability
+     * @return
+     */
+    public Dungeon getDungeon() {
+        return dungeon;
+    }
+    public GridPane getSquares() {
+        return squares;
+    }
+    public List<ImageView> getInitialEntities() {
+        return initialEntities;
+    }
+
+    
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
