@@ -19,6 +19,7 @@ public abstract class Entity{
     // externally observed.
     private IntegerProperty x, y;
     private String imageID;
+    private String image_path;
     /**
      * Create an entity positioned in square (x,y)
      * @param x
@@ -53,25 +54,23 @@ public abstract class Entity{
     	x().set(x);
     }
 
-
-
-
-    public abstract EntityType getType();
-    public abstract String getImageID();
-    public abstract boolean isBlocked(List<Entity> entitiesAtNew);
-
     public void moveTo(int newX, int newY){
         x().set(newX);
         y().set(newY);
     }
     
-	public abstract Entity getObjectByType(String s);
     public abstract void postMove(List<Entity> entitiesAtNew);
-    public abstract boolean stepOver();
     public abstract void removeEntity();
     public abstract void generateEntity();
     public abstract int getDoorID();
 	public abstract int geKeyID();
 	public abstract boolean isIs_open();
+    public abstract boolean stepOver();    
+    public abstract boolean isBlocked(List<Entity> entitiesAtNew);
+    
+    public abstract EntityType getType();
+    public abstract String getImageID();
+    public abstract String getImagePath();
+	public abstract Entity getObjectByType(String s);
 
 }

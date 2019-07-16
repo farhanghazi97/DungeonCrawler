@@ -37,7 +37,8 @@ public class Mediator {
 	
 	private Dungeon dungeon;
 	private GridPane squares;
-	 private List<ImageView> imageEntities;
+	private List<ImageView> imageEntities;
+	private boolean gameOver = false;
 
 	public void setDungeon(Dungeon dungeon, GridPane squares , List<ImageView> imageEntities) {
 		this.dungeon = dungeon;
@@ -62,7 +63,10 @@ public class Mediator {
 		List<Entity> entitiesAtCurrent = getEntities(currentX, currentY);
 		List<Entity> entitiesAtNew = getEntities(newX, newY);
 		List<Entity> bouldersAtCurrent = getEntities(currentX, currentY, Boulder.class);
+		List<Entity> switchAtCurrent = getEntities(currentX , currentY , Switch.class);
 
+		Random rand = new Random();
+		
 		if (!bouldersAtCurrent.isEmpty()) {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
@@ -74,6 +78,16 @@ public class Mediator {
 		}
 
 		entityToMove.moveTo(newX, newY);
+		
+		if (!bouldersAtCurrent.isEmpty()) {
+			// there is a boulder at currentX and currentY
+			// We will move boulder instead of player
+			entityToMove = bouldersAtCurrent.get(0);
+			if(!switchAtCurrent.isEmpty()) {
+				if(rand.nextInt(3) == 1) triggerSwitchEvent();
+			}
+		}
+		
 		//Calling entitesAtCurrent stepOver on a loop
 		for(Entity entity: entitiesAtCurrent) {
 			entity.stepOver();
@@ -86,7 +100,49 @@ public class Mediator {
 	
 	// HELPER OPERATIONS BELOW
 	
-	//Called when player presses the 'S' key on the keyboard
+	private void triggerSwitchEvent() {
+		spawnItems();
+	}
+	
+	private void spawnItems() {
+		
+		// Need to randomise generation of objects further
+		Random rand = new Random();
+		int generator_key = rand.nextInt(2);
+		if(generator_key == 0) {
+			generateObject(EntityType.TREASURE);
+		} else if(generator_key == 1) {
+			generateObject(EntityType.POTION);
+		}
+	}
+	
+	public void generateObject(EntityType type) {
+		
+		Random rand = new Random();
+		int new_object_width  = rand.nextInt(dungeon.getWidth());
+		int new_object_height = rand.nextInt(dungeon.getHeight());
+		
+		Entity new_object = null;
+		if(type == EntityType.TREASURE) {
+			new_object = new Treasure(new_object_width , new_object_height);
+		} else if(type == EntityType.POTION) {
+			new_object = new Potion(new_object_width , new_object_height);
+		}
+		
+		this.dungeon.getEntities().add(new_object);
+		
+		Image new_image = new Image(new_object.getImagePath());
+		ImageView new_view = new ImageView(new_image);
+		new_view.setId(new_object.getImageID());
+		GridPane.setColumnIndex(new_view, new_object.getX());
+		GridPane.setRowIndex(new_view , new_object.getY());
+		
+		imageEntities.add(new_view);
+		squares.getChildren().add(new_view);
+		
+	}
+	
+	// Called when player presses the 'S' key on the keyboard
 	public void swingSword(int x, int y) {
 		System.out.println("Mediator: In swing sword");
 		Entity sword = getCollected(EntityType.SWORD);
@@ -106,8 +162,6 @@ public class Mediator {
 		}
 	}
 	
-	private boolean gameOver = false;
-
 	public void markGameOver() {
 		gameOver = true;
 	}
@@ -219,12 +273,21 @@ public class Mediator {
 		}
 	}
 
+	// Called when player presses 'U' key on keyboard
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX , int currentY) {
 		List<Entity> door = doorInVicinity(currentX , currentY);
 		if(!door.isEmpty()) {
 			Entity d = door.get(0);
-			d.stepOver();
+			if(d.stepOver()) {
+				for(int i = 0; i < collectedEntities.size(); i++) {
+					Entity e = collectedEntities.get(i).getObjectByType("Key");
+					if(e != null) {
+						collectedEntities.remove(i);
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -243,45 +306,3 @@ public class Mediator {
 		}
 	}
 }
-
-
-//public void pickUpTreasure(int currentX , int currentY) {
-//	
-//	List<Entity> treasureAtCurrent = getEntities(currentX , currentY , Treasure.class);
-//	//if(!treasureAtCurrent.isEmpty()) {
-//		// Get treasure entity at current (X , Y)
-//		//Entity treasure = treasureAtCurrent.get(0);
-//		// Add to inventory
-//		//collectedEntities.add(treasure);
-//		//System.out.println("Treasure collected");
-//		// Update 'treasure' object internal data
-//		treasure.stepOver();
-//		// Remove image of 'treasure' from screen
-//		//
-//		// Check if inventory checks out
-//		//System.out.println(collectedEntities);
-//	//}
-//}
-
-// Check if player can pick up key
-// If player can pick up key, add it to player inventory
-// If player cannot pick up key, do nothing.
-//public void pickUpKey(int currentX, int currentY) {
-//	List<Entity> keyAtCurrent = getEntities(currentX, currentY, Key.class);
-//	if (!keyAtCurrent.isEmpty()) {
-//		//Entity key = keyAtCurrent.get(0);
-//		// Check if player already has key or not
-//		if (!isCollected(key)) {
-//			// If not, add to inventory
-//			collectedEntities.add(key);
-//			System.out.println("Key collected");
-//			// Update 'key' object internal data
-//			key.stepOver();
-//			// Remove the 'key' image from screen
-//			removeEntity(key);
-//
-//			// Check if inventory is what it should be
-//			System.out.println(collectedEntities);
-//		}
-//	}
-//}

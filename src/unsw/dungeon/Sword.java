@@ -6,6 +6,7 @@ import java.util.List;
 public class Sword extends Entity {
 	
 	private String type = "Sword";
+	private String image_path = "greatsword_1_new.png";
 	
 	private int swingsRemaining = 5;
 	private boolean collected = false;
@@ -111,6 +112,11 @@ public class Sword extends Entity {
 	@Override
 	public String getImageID() {
 		return "Sword image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 	
 

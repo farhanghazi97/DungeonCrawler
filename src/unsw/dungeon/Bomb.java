@@ -5,6 +5,7 @@ import java.util.List;
 public class Bomb extends Entity {
 
 	private String type = "Bomb";
+	private String image_path = "/bomb_unlit.png";
 	
 	public Bomb(int x , int y) {
 		super(x , y);
@@ -69,6 +70,11 @@ public class Bomb extends Entity {
 	@Override
 	public String getImageID() {
 		return "Bomb image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 
 }

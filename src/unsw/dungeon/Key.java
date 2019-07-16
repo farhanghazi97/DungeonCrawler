@@ -5,6 +5,7 @@ import java.util.List;
 public class Key extends Entity {
 
 	private String type = "Key";
+	private String image_path = "/key.png";
 	
 	private int keyID;
 	private boolean collected = false;
@@ -97,6 +98,11 @@ public class Key extends Entity {
 	@Override
 	public String getImageID() {
 		return "Key image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 	
 	

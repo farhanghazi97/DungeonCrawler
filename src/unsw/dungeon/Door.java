@@ -5,6 +5,7 @@ import java.util.List;
 public class Door extends Entity {
 
 	private String type = "Door";
+	private String image_path = "/closed_door.png";
 	
 	private int door_id;
 	private boolean is_open = false;
@@ -99,6 +100,11 @@ public class Door extends Entity {
 	@Override
 	public String getImageID() {
 		return "Door image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
 	}
 	
 }

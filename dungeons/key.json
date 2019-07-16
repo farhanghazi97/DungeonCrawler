@@ -644,6 +644,12 @@
         "x": 4,
         "y": 12,
         "type": "boulder",
+      },
+      {
+        "x": 2,
+        "y": 12,
+        "type": "key",
+        "id": 3,
       }
     ],
     "goal-condition": {
