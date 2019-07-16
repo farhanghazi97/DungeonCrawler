@@ -42,6 +42,8 @@ class DungeonTests {
     public static final String KEY_JSON_PASS = "test_key_door_pass.json";
     public static final String KEY_JSON_FAIL = "test_key_door_fail.json";
     
+    public static final String POTION_JSON = "test_potion_collected.json";
+    
     @BeforeEach
     void setUp() throws FileNotFoundException, InterruptedException {
     	RefreshInventory();
@@ -137,7 +139,17 @@ class DungeonTests {
     }
     
     @Test
-    void checkKeyDoorFail() {
+    void TestKeyCollected() {
+    	initializeDungeon(KEY_JSON_PASS);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
+    	Mediator.getInstance().moveTo(1 , 3 , 1, 2);
+    	assert(Mediator.getInstance().isCollected(k) == true);
+    }
+    
+    @Test
+    void TestKeyDoorFail() {
     	initializeDungeon(KEY_JSON_FAIL);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
@@ -147,13 +159,23 @@ class DungeonTests {
     }
     
     @Test
-    void checkKeyDoorPass() {
+    void TestKeyDoorPass() {
     	initializeDungeon(KEY_JSON_PASS);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
     	Mediator.getInstance().collectedEntities.add(k);
     	assert(door.stepOver() == true);
+    }
+    
+    @Test
+    void TestPotionCollected() {
+    	initializeDungeon(POTION_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Potion.class);
+    	Mediator.getInstance().moveTo(1 , 3 , 1, 2);
+    	assert(Mediator.getInstance().isCollected(k) == true);
     }
     
     public static Entity getEntity(int x, int y, List<Entity> entities, Class clazz){
