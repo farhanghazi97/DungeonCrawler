@@ -43,6 +43,7 @@ class DungeonTests {
     public static final String KEY_JSON_FAIL = "test_key_door_fail.json";
     
     public static final String POTION_JSON = "test_potion_collected.json";
+    public static final String TREASURE_JSON = "test_treasure_collected.json";
     
     @BeforeEach
     void setUp() throws FileNotFoundException, InterruptedException {
@@ -173,8 +174,18 @@ class DungeonTests {
     	initializeDungeon(POTION_JSON);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Player player = dungeon.getPlayer();
-    	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Potion.class);
-    	Mediator.getInstance().moveTo(1 , 3 , 1, 2);
+    	Entity k = getEntity(2 , 3 , dungeon.getEntities() , Potion.class);
+    	Mediator.getInstance().moveTo(2 , 3 , 2, 4);
+    	assert(Mediator.getInstance().isCollected(k) == true);
+    }
+    
+    @Test
+    void TestTreasureCollected() {
+    	initializeDungeon(TREASURE_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity k = getEntity(3 , 3 , dungeon.getEntities() , Treasure.class);
+    	Mediator.getInstance().moveTo(3 , 3 , 3, 4);
     	assert(Mediator.getInstance().isCollected(k) == true);
     }
     
@@ -193,7 +204,9 @@ class DungeonTests {
 
     public static void RefreshInventory() {
     	if(!Mediator.getInstance().collectedEntities.isEmpty()) {
-    		Mediator.getInstance().collectedEntities.remove(0);
+    		for(int i = 0; i < Mediator.getInstance().collectedEntities.size(); i++) {
+    			Mediator.getInstance().collectedEntities.remove(i);
+    		}
     	}
     }
 

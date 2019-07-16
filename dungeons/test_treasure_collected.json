@@ -49,12 +49,12 @@
       "type": "wall"
     },
     {
-      "x": 2,
+      "x": 3,
       "y": 3,
-      "type": "invincibility"
+      "type": "treasure"
     },
     {
-      "x": 2,
+      "x": 3,
       "y": 3,
       "type": "player"
     }
