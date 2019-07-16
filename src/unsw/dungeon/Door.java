@@ -43,14 +43,23 @@ public class Door extends Entity {
 	public boolean stepOver() {
 		Entity key = Mediator.getInstance().getCollected(EntityType.KEY);
 		if(key != null) {
-			if(this.getDoor_id() == key.geKeyID()) {
-				System.out.println("Key matches door!");
-				Mediator.getInstance().updateDoorUI(this);
+			if(matchKey(key)) {
+				//Mediator.getInstance().updateDoorUI(this);
 				this.setIs_open(true);
 				return true;
-			} 
+			} else {
+				return false;
+			}
 		}
 		return false;
+	}
+	
+	private boolean matchKey(Entity e) {
+		if(this.getDoor_id() == e.getKeyID()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -84,7 +93,7 @@ public class Door extends Entity {
 	}
 	
 	@Override
-	public int geKeyID() {
+	public int getKeyID() {
 		return -1;
 	}
 

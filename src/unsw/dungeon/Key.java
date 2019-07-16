@@ -86,7 +86,7 @@ public class Key extends Entity {
 	}
 	
 	@Override
-	public int geKeyID() {
+	public int getKeyID() {
 		return keyID;
 	}
 	

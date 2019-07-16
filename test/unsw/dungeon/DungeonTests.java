@@ -39,6 +39,9 @@ class DungeonTests {
      */
     public static final String BOULDERS_JSON = "test_boulders.json";
     
+    public static final String KEY_JSON_PASS = "test_key_door_pass.json";
+    public static final String KEY_JSON_FAIL = "test_key_door_fail.json";
+    
     @BeforeEach
     void setUp() throws FileNotFoundException, InterruptedException {
 
@@ -132,7 +135,28 @@ class DungeonTests {
         assertEquals(2, boulder2.getY());
 
     }
-
+    
+    @Test
+    void CheckKeyDoorFail() {
+    	initializeDungeon(KEY_JSON_FAIL);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
+    	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
+    	Mediator.getInstance().collectedEntities.add(k);
+    	assert(door.stepOver() == false);
+    }
+    
+    @Test
+    void CheckKeyDoorPass() {
+    	initializeDungeon(KEY_JSON_PASS);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
+    	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
+    	Mediator.getInstance().collectedEntities.remove(0);
+    	Mediator.getInstance().collectedEntities.add(k);
+    	assert(door.stepOver() == true);
+    }
+    
     public static Entity getEntity(int x, int y, List<Entity> entities, Class clazz){
         List<Entity> list = new LinkedList<>();
         for (Entity entity : entities) {

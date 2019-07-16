@@ -54,7 +54,7 @@ public class Treasure extends Entity{
 	}
 	
 	@Override
-	public int geKeyID() {
+	public int getKeyID() {
 		return -1;
 	}
 	
