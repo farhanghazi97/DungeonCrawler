@@ -30,7 +30,7 @@
       {
         "x": 0,
         "y": 5,
-        "type": "wall",
+        "type": "wall"
       },
       {
         "x": 0,
@@ -130,7 +130,7 @@
       {
         "x": 6,
         "y": 0,
-        "type": "wall",
+        "type": "wall"
       },
       {
         "x": 7,
@@ -230,7 +230,7 @@
       {
         "x": 19,
         "y": 5,
-        "type": "wall",
+        "type": "wall"
       },
       {
         "x": 19,
@@ -330,7 +330,7 @@
       {
         "x": 5,
         "y": 19,
-        "type": "wall",
+        "type": "wall"
       },
       {
         "x": 6,
@@ -467,7 +467,7 @@
       {
         "x": 2,
         "y": 3,
-        "type": "treasure",
+        "type": "treasure"
       },
       {
         "x": 6,
@@ -477,17 +477,17 @@
       {
         "x": 4,
         "y": 3,
-        "type": "switch",
+        "type": "switch"
       },
       {
         "x": 2,
         "y": 12,
-        "type": "boulder",
+        "type": "boulder"
       },
       {
         "x": 4,
         "y": 12,
-        "type": "player",
+        "type": "player"
       }
     ],
     "goal-condition": {
