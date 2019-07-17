@@ -1,12 +1,9 @@
 package unsw.dungeon;
 
-import java.awt.Rectangle;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.Node;
 
 /**
  * An entity in the dungeon.
@@ -60,8 +57,6 @@ public abstract class Entity{
     }
     
     public abstract void postMove(List<Entity> entitiesAtNew);
-    public abstract void removeEntity();
-    public abstract void generateEntity();
     public abstract int getDoorID();
 	public abstract int getKeyID();
 	public abstract boolean isIs_open();

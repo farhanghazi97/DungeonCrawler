@@ -31,18 +31,6 @@ public class Switch extends Entity{
 	public boolean stepOver() {
 		return true;
 	}
-
-	@Override
-	public void removeEntity() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void generateEntity() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public int getDoorID() {

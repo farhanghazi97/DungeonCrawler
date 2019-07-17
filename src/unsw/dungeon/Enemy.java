@@ -41,18 +41,6 @@ public class Enemy extends Entity{
 	}
 
 	@Override
-	public void removeEntity() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void generateEntity() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Entity getObjectByType(String s) {
 		// TODO Auto-generated method stub
 		return null;

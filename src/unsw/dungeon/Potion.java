@@ -75,18 +75,6 @@ public class Potion extends Entity {
 
         new Thread(task).start();
     }
-
-	@Override
-	public void removeEntity() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void generateEntity() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public int getDoorID() {
