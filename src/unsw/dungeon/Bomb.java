@@ -30,18 +30,6 @@ public class Bomb extends Entity {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public void removeEntity() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void generateEntity() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public int getDoorID() {

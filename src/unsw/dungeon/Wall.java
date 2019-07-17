@@ -1,6 +1,5 @@
 package unsw.dungeon;
 
-import java.awt.Rectangle;
 import java.util.List;
 
 public class Wall extends Entity  {

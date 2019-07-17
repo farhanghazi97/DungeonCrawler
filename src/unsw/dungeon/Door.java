@@ -61,18 +61,6 @@ public class Door extends Entity {
 			return false;
 		}
 	}
-
-	@Override
-	public void removeEntity() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void generateEntity() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public boolean isIs_open() {
 		return is_open;
