@@ -59,84 +59,84 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
-        view.setId("Player Image");
+        view.setId(player.getImageID());
         addEntity(player, view);
     }
 
     @Override
     public void onLoad(Wall wall) {
         ImageView view = new ImageView(wallImage);
-        view.setId("Wall image");
+        view.setId(wall.getImageID());
         addEntity(wall, view);
     }
     
     @Override
     public void onLoad(Boulder boulder) {
     	ImageView view = new ImageView(boulderimage);
-    	view.setId("Boulder image");
+    	view.setId(boulder.getImageID());
     	addEntity(boulder, view);
     }
 
     @Override
     public void onLoad(Switch s) {
     	ImageView view = new ImageView(switchimage);
-    	view.setId("Switch image");
+    	view.setId(s.getImageID());
     	addEntity(s , view);
     }
     
     @Override
     public void onLoad(Sword s) {
     	ImageView view = new ImageView(swordimage);
-    	view.setId("Sword image");
+    	view.setId(s.getImageID());
     	addEntity(s , view);
     }
     
     @Override
     public void onLoad(Treasure t) {
     	ImageView view = new ImageView(treasureimage);
-    	view.setId("Treasure image");
+    	view.setId(t.getImageID());
     	addEntity(t , view);
     }
     
     @Override
     public void onLoad(Potion p) {
     	ImageView view = new ImageView(potionimage);
-    	view.setId("Potion image");
+    	view.setId(p.getImageID());
     	addEntity(p , view);
     }
     
     @Override
     public void onLoad(Bomb b) {
     	ImageView view = new ImageView(bombimage_unlit);
-    	view.setId("Bomb image");
+    	view.setId(b.getImageID());
     	addEntity(b , view);
     }
 
     @Override
     public void onLoad(Exit exit) {
         ImageView view = new ImageView(exitimage);
-        view.setId("Exit image");
+        view.setId(exit.getImageID());
         addEntity(exit , view);
     }
 
     @Override
     public void onLoad(Key key) {
     	ImageView view = new ImageView(keyimage);
-    	view.setId("Key image");
+    	view.setId(key.getImageID());
     	addEntity(key , view);
     }
     
     @Override
     public void onLoad(Enemy enemy) {
     	ImageView view = new ImageView(enemyimage);
-    	view.setId("Enemy image");
+    	view.setId(enemy.getImageID());
     	addEntity(enemy,view);
     }
 
     @Override
     public void onLoad(Door door) {
         ImageView view = new ImageView(doorimage);
-        view.setId("Door image");
+        view.setId(door.getImageID());
         addEntity(door, view);
     }
     

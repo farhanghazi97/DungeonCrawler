@@ -91,7 +91,7 @@ public class Sword extends Entity {
 	}
 	
 	@Override
-	public int geKeyID() {
+	public int getKeyID() {
 		return -1;
 	}
 	
@@ -118,6 +118,9 @@ public class Sword extends Entity {
 	 public String getImagePath() {
 		return this.image_path;
 	}
-	
 
+	public int getSwingsRemaining() {
+		return swingsRemaining;
+	}
+	
 }

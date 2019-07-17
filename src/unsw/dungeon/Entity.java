@@ -63,7 +63,7 @@ public abstract class Entity{
     public abstract void removeEntity();
     public abstract void generateEntity();
     public abstract int getDoorID();
-	public abstract int geKeyID();
+	public abstract int getKeyID();
 	public abstract boolean isIs_open();
     public abstract boolean stepOver();    
     public abstract boolean isBlocked(List<Entity> entitiesAtNew);

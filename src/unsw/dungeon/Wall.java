@@ -54,7 +54,7 @@ public class Wall extends Entity  {
 	}
 	
 	@Override
-	public int geKeyID() {
+	public int getKeyID() {
 		return -1;
 	}
 	

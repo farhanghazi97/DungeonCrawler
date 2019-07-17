@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -121,8 +123,13 @@ public class Mediator {
 	public void generateObject(EntityType type) {
 		
 		Random rand = new Random();
+		
+		//int height  = GetRandomY();
+		
 		int new_object_width  = rand.nextInt(dungeon.getWidth());
 		int new_object_height = rand.nextInt(dungeon.getHeight());
+		
+		getRandomX();
 		
 		Entity new_object = null;
 		if(type == EntityType.TREASURE) {
@@ -162,6 +169,18 @@ public class Mediator {
 				}
 			}
 		}
+	}
+	
+	public void getRandomX() {
+		HashSet<Integer> used = new HashSet<Integer>();
+		List<Entity> list = dungeon.getEntities();
+		for(int i = 0; i < list.size(); i++) {
+			int x = list.get(i).getX();
+			if(!used.contains(x)) {
+				used.add(x);
+			}
+		}
+		System.out.println(used);
 	}
 	
 	public void markGameOver() {
