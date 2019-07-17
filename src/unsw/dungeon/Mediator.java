@@ -91,14 +91,13 @@ public class Mediator {
 		}
 		
 		//Calling entitesAtCurrent stepOver on a loop
+		
 		for(Entity entity: entitiesAtCurrent) {
 			entity.stepOver();
 		}
-		
-		
-		
+		System.out.println("Before: "+ collectedEntities);
 		entityToMove.postMove(entitiesAtNew);
-
+		
 		return true;
 	}
 	
@@ -278,7 +277,7 @@ public class Mediator {
 
 	// Removes UI element and object corresponding to given entity
 	public void removeEntity(Entity entity) {
-		//System.out.println("Removing entity " + entity.toString());
+		System.out.println("Removing entity " + entity.toString());
 		for(int i = 0; i < imageEntities.size(); i++) {
 			ImageView image = imageEntities.get(i);
 			// Map GridPane co-ords to entity co-ords
@@ -291,6 +290,7 @@ public class Mediator {
 		}
 		//To remove the object
 		if(dungeon.getEntities().contains(entity)) {
+			System.out.println("Removing potion object");
 			dungeon.getEntities().remove(entity);
 		}
 	}
@@ -312,6 +312,7 @@ public class Mediator {
 			}
 		}
 	}
+
 
 	// Update the 'door' entity to 'open' status
 	public void updateDoorUI(Entity entity) {

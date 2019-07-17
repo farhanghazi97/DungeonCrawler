@@ -3,12 +3,13 @@ package unsw.dungeon;
 import java.awt.Rectangle;
 import java.util.List;
 
+import javafx.concurrent.Task;
+
 public class Potion extends Entity {
 
 	private String image_path = "/brilliant_blue_new.png";
-	private boolean collected = false;
 	private String type = "Potion";
-	private int count = 0;
+	private boolean isDestroyed = false;
 	
 	public Potion(int x, int y) {
         super(x, y);
@@ -26,7 +27,7 @@ public class Potion extends Entity {
 
     @Override
     public void postMove(List<Entity> entitiesAtNew) {
-
+    	
     }
 
     @Override
@@ -35,21 +36,45 @@ public class Potion extends Entity {
     
 		Entity tempPotion = Mediator.getInstance().getCollected(EntityType.POTION);
 
-		if(tempPotion != null) {
+		if(tempPotion != null && isDestroyed == false) {
 			//Player already has a potion
 			return false;
 		}else {
-			//Add new sword
+			//Add new potion
 			if(Mediator.getInstance().collectedEntities.add(this)) {
-				this.collected = true;
-				this.count++;
+				
+				//Start potion timer function
+				startSelfDestruct(4000);
 				Mediator.getInstance().removeEntity(this);
-				System.out.println(this.toString());
 				return true;
 			}
 		}
 		return false;
 	}
+    
+    //Method to limit potion usage to ~ 5 seconds
+    private void startSelfDestruct(long time) {
+    	//System.out.println("Here");
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() {
+                try {
+                    Thread.sleep(time);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+       
+        task.setOnSucceeded(e -> {
+        	isDestroyed = true;
+        	Mediator.getInstance().collectedEntities.remove(this);
+        	System.out.println("After destroying: "+ Mediator.getInstance().collectedEntities);
+            
+        });
+
+        new Thread(task).start();
+    }
 
 	@Override
 	public void removeEntity() {
@@ -78,10 +103,7 @@ public class Potion extends Entity {
 		return false;
 	}
 	
-	@Override
-	public String toString() {
-		return "Potion [count=" + count + ", collected=" + collected + "]";
-	}
+	
 	
 	@Override
 	public Entity getObjectByType(String s) {
@@ -90,6 +112,11 @@ public class Potion extends Entity {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Potion [type=" + type + ", isDestroyed=" + isDestroyed + "]";
 	}
 
 	@Override
