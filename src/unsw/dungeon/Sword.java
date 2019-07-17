@@ -118,6 +118,9 @@ public class Sword extends Entity {
 	 public String getImagePath() {
 		return this.image_path;
 	}
-	
 
+	public int getSwingsRemaining() {
+		return swingsRemaining;
+	}
+	
 }

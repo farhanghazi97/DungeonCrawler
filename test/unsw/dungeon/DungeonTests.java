@@ -181,23 +181,69 @@ class DungeonTests {
     }
     
     @Test
+    void TestNoKeyDoorUnlock() {
+    	initializeDungeon(KEY_JSON_PASS);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
+    	assert(door.stepOver() == false);
+    	assert(door.isIs_open() == false);
+    }
+    
+    @Test
+    void TestMaxOneKeyCarriable() {
+    	TestKeyCollected();
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity key = getEntity(3 , 3 , dungeon.getEntities() , Key.class);
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 4);
+    	assert(Mediator.getInstance().collectedEntities.size() == 1);
+    	assert(key.stepOver() == false);
+    }
+    
+    @Test
+    void TestMaxOneSwordCarriable() {
+    	TestSwordCollected();
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity sword = getEntity(2 , 2 , dungeon.getEntities() , Sword.class);
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 2, 2);
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 2, 3);
+    	assert(Mediator.getInstance().collectedEntities.size() == 1);
+    	assert(sword.stepOver() == false);
+    }
+    
+    @Test
+    void TestSwordExpiry() {
+    	TestSwordCollected();
+    	Entity sword = Mediator.getInstance().collectedEntities.get(0);
+    	assert(Mediator.getInstance().collectedEntities.contains(sword));
+    	while(((Sword) sword).getSwingsRemaining() != 0) {
+    		((Sword) sword).swing();
+    	}
+    	assert(!Mediator.getInstance().collectedEntities.contains(sword));
+    }
+    
+    @Test
     void TestKeyDoorFail() {
     	initializeDungeon(KEY_JSON_FAIL);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
+    	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
-    	Mediator.getInstance().collectedEntities.add(k);
+    	Mediator.getInstance().collectedEntities.add(key);
     	assert(door.stepOver() == false);
+    	assert(door.isIs_open() == false);
     }
     
     @Test
     void TestKeyDoorPass() {
     	initializeDungeon(KEY_JSON_PASS);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
+    	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
-    	Mediator.getInstance().collectedEntities.add(k);
+    	Mediator.getInstance().collectedEntities.add(key);
     	assert(door.stepOver() == true);
+    	assert(door.isIs_open() == true);
     }
     
     public static Entity getEntity(int x, int y, List<Entity> entities, Class clazz){
@@ -220,12 +266,4 @@ class DungeonTests {
     		}
     	}
     }
-
-    
-    
-    
-    
-    
-	
-
 }

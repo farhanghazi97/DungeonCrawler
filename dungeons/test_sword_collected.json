@@ -57,6 +57,11 @@
       "x": 4,
       "y": 2,
       "type": "player"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "type": "sword"
     }
   ],
   "goal-condition": {
