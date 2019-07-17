@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 class DungeonTests {
 
 	  /**
@@ -60,6 +61,7 @@ class DungeonTests {
     
 
     @Test
+    //Moving to a new coordinate
     void moveTo_empty() {
         initializeDungeon(EMPTY_AND_WALLS_JSON);
         Mediator.getInstance().moveTo(1, 1, 1, 2);
@@ -71,6 +73,7 @@ class DungeonTests {
     }
     
     @Test
+    //Movemenet blocked by walls
     void moveTo_all_walls() {
         initializeDungeon(ALL_WALLS_JSON);
         Mediator.getInstance().moveTo(1, 1, 1, 2);

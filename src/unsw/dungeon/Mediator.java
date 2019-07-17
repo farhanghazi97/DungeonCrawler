@@ -64,7 +64,7 @@ public class Mediator {
 		List<Entity> entitiesAtNew = getEntities(newX, newY);
 		List<Entity> bouldersAtCurrent = getEntities(currentX, currentY, Boulder.class);
 		List<Entity> switchAtCurrent = getEntities(currentX , currentY , Switch.class);
-
+		
 		Random rand = new Random();
 		
 		if (!bouldersAtCurrent.isEmpty()) {
@@ -92,6 +92,8 @@ public class Mediator {
 		for(Entity entity: entitiesAtCurrent) {
 			entity.stepOver();
 		}
+		
+		
 		
 		entityToMove.postMove(entitiesAtNew);
 
