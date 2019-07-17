@@ -28,7 +28,15 @@ public class Enemy extends Entity{
 
 	@Override
 	public boolean stepOver() {
-		//Mediator.getInstance().removeEntity(this);
+		System.out.println("In Enemy's stepOver");
+		Entity potion = Mediator.getInstance().getCollected(EntityType.POTION);
+		if(potion != null) {
+			//Player has a potion -> enemy dies
+			Mediator.getInstance().removeEntity(this);
+		}else {
+			//Player dies -> game over
+			Mediator.getInstance().markGameOver();
+		}
 		return true;
 	}
 
