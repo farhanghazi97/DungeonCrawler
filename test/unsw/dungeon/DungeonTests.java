@@ -216,6 +216,7 @@ class DungeonTests {
     	initializeDungeon(KEY_JSON_PASS);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
+    	
     	assertFalse(door.stepOver());
     	assertFalse(door.isIs_open());
     }
@@ -316,6 +317,8 @@ class DungeonTests {
     	
     	//Player swings sword
     	((Sword)sword).swing();
+    	
+    	//TODO -> says the size is still one after removing the enemy
     	System.out.println(Mediator.getInstance().getEntities(3,2,Enemy.class));
     	//assertEquals( 0, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
     }
