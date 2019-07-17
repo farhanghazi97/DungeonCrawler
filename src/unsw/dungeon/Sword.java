@@ -54,7 +54,6 @@ public class Sword extends Entity {
 	
 	//Swings sword once and reduces swingsRemaining
 	public boolean swing() {
-		System.out.println("Inside Sword's swing");
 		swingsRemaining--;
 		if(swingsRemaining > 0) {
 			System.out.println(this.toString());

@@ -11,7 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 // Movement testing done - RM
-// 
+// Boulders Done - RM
+
+//TBD
+//Add in a test to check if remove Entity works fine. (i.e removes from the Dungeon entities list)
+
 
 class DungeonTests {
 
@@ -114,6 +118,7 @@ class DungeonTests {
     
     //BOULDER TESTS
     
+    //Test to check if a boulder can be moved by player
     @Test
     void move_A_Boulder() {
         initializeDungeon(BOULDERS_JSON);
@@ -138,6 +143,7 @@ class DungeonTests {
 
     }
 
+    //Test to check if a boulder is blocked by another boulder 
     @Test
     void move_Two_Boulders_Do_NotMove() {
         initializeDungeon(BOULDERS_JSON);
@@ -162,100 +168,54 @@ class DungeonTests {
 
     }
     
-    //COLLECTION OF ITEMS
     @Test
-    void TestKeyCollected() {
+    void test_key_collected() {
     	initializeDungeon(KEY_JSON_PASS);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Player player = dungeon.getPlayer();
-    	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
+    	
+    
+    	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
+    	
+    	//Player moves on key
     	Mediator.getInstance().moveTo(1 , 3 , 1, 2);
-    	assertTrue(Mediator.getInstance().isCollected(k));
+    	assertTrue(Mediator.getInstance().isCollected(key));
     }
     
     @Test
-    void TestTreasureCollected() {
+    void test_treasure_collected() {
     	initializeDungeon(TREASURE_JSON);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Player player = dungeon.getPlayer();
-    	Entity t = getEntity(3 , 3 , dungeon.getEntities() , Treasure.class);
+    	
+    	Entity treasure = getEntity(3 , 3 , dungeon.getEntities() , Treasure.class);
+    	
+    	//Player moves on treasure
     	Mediator.getInstance().moveTo(3, 3, 3, 4);
-    	assertTrue(Mediator.getInstance().isCollected(t));
+    	assertTrue(Mediator.getInstance().isCollected(treasure));
     }
     
-    @Test
-    void TestSwordCollected() {
-    	initializeDungeon(SWORD_JSON);
-    	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
-    	Entity s = getEntity(4 , 2 , dungeon.getEntities() , Sword.class);
-    	Mediator.getInstance().moveTo(4 , 2 , 4, 3);
-    	assertTrue(Mediator.getInstance().isCollected(s));
-    }
     
     @Test
-    void TestPotionCollected() {
+    void test_potion_collected() {
     	initializeDungeon(POTION_JSON);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Player player = dungeon.getPlayer();
-    	Entity k = getEntity(2 , 3 , dungeon.getEntities() , Potion.class);
+    	
+    	Entity potion = getEntity(2 , 3 , dungeon.getEntities() , Potion.class);
+    	
+    	//Player moves on potion
     	Mediator.getInstance().moveTo(2 , 3 , 2, 4);
-    	assertTrue(Mediator.getInstance().isCollected(k));
+    	assertTrue(Mediator.getInstance().isCollected(potion));
     }
     
     
-    
+    //KEY-DOOR TESTS
     @Test
     void TestNoKeyDoorUnlock() {
     	initializeDungeon(KEY_JSON_PASS);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
-    	assertFalse(door.stepOver());
-    	assertFalse(door.isIs_open());
-    }
-    
-    @Test
-    void TestMaxOneKeyCarriable() {
-    	TestKeyCollected();
-    	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
-    	Entity key = getEntity(3 , 3 , dungeon.getEntities() , Key.class);
-    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
-    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 4);
-    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
-    	assertFalse(key.stepOver());
-    }
-    
-    @Test
-    void TestMaxOneSwordCarriable() {
-    	TestSwordCollected();
-    	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
-    	Entity sword = getEntity(2 , 2 , dungeon.getEntities() , Sword.class);
-    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 2, 2);
-    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 2, 3);
-    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
-    	assertFalse(sword.stepOver());
-    }
-    
-    @Test
-    void TestSwordExpiry() {
-    	TestSwordCollected();
-    	Entity sword = Mediator.getInstance().collectedEntities.get(0);
-    	assert(Mediator.getInstance().collectedEntities.contains(sword));
-    	while(((Sword) sword).getSwingsRemaining() != 0) {
-    		((Sword) sword).swing();
-    	}
-    	assertTrue(!Mediator.getInstance().collectedEntities.contains(sword));
-    }
-    
-    @Test
-    void TestKeyDoorFail() {
-    	initializeDungeon(KEY_JSON_FAIL);
-    	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
-    	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
-    	Mediator.getInstance().collectedEntities.add(key);
     	assertFalse(door.stepOver());
     	assertFalse(door.isIs_open());
     }
@@ -270,6 +230,98 @@ class DungeonTests {
     	assertTrue(door.stepOver());
     	assertTrue(door.isIs_open());
     }
+    
+    @Test
+    void TestKeyDoorFail() {
+    	initializeDungeon(KEY_JSON_FAIL);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
+    	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
+    	Mediator.getInstance().collectedEntities.add(key);
+    	assertFalse(door.stepOver());
+    	assertFalse(door.isIs_open());
+    }
+    
+    
+    @Test
+    void TestMaxOneKeyCarriable() {
+    	test_key_collected();
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity key = getEntity(3 , 3 , dungeon.getEntities() , Key.class);
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 4);
+    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertFalse(key.stepOver());
+    }
+    
+    //SWORD TESTS
+    
+    //Tests if the sword entity is collected
+    @Test
+    void test_sword_collected() {
+    	initializeDungeon(SWORD_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	
+    	Entity sword = getEntity(0 , 0 , dungeon.getEntities() , Sword.class);
+    	
+    	//Player collects sword
+    	Mediator.getInstance().moveTo(0 ,0 , 0, 1);
+    	assertTrue(Mediator.getInstance().isCollected(sword));
+    }
+    
+    //Tests if only one sword is carried by the player at any given time
+    @Test
+    void test_one_sword_carriable() {
+    	//first sword collected
+    	test_sword_collected();
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity secondSword = getEntity(2 , 2 , dungeon.getEntities() , Sword.class);
+    	//Player collects second sword
+    	Mediator.getInstance().moveTo(2, 2, 2, 1);
+    	
+    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertFalse(secondSword.stepOver());
+    }
+    
+    
+    //Tests if sword expires after 5 swings
+    @Test
+    void test_sword_swings_count() {
+    	test_sword_collected();
+    	Entity sword = Mediator.getInstance().getCollected(EntityType.SWORD);
+    	
+    	int numberOfSwings = 5;
+    	while(((Sword) sword).swing()) {
+    		numberOfSwings--;
+    	}
+    	
+    	assertEquals(1, numberOfSwings);
+    	assertNull(Mediator.getInstance().getCollected(EntityType.SWORD));
+    }
+    
+    //Tests if sword destroys any enemy in vicinity
+    @Test
+    void test_sword_swing_kills_enemy() {
+    	test_sword_collected();
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity sword = Mediator.getInstance().getCollected(EntityType.SWORD);
+    	Entity enemy = getEntity(3 , 2 , dungeon.getEntities() , Enemy.class);
+    	
+    	//Player moves to 1 unit below the enemy  
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
+    	
+    	//Player swings sword
+    	((Sword)sword).swing();
+    	System.out.println(Mediator.getInstance().getEntities(3,2,Enemy.class));
+    	//assertEquals( 0, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
+    }
+    
+  
+   
     
     public static Entity getEntity(int x, int y, List<Entity> entities, Class clazz){
         List<Entity> list = new LinkedList<>();

@@ -162,7 +162,6 @@ public class Mediator {
 				if(enemies != null) {
 					//If true -> remove enemy
 					//If false ->do nothing
-					System.out.println(enemies);
 					for(Entity enemy : enemies) {
 						removeEntity(enemy);
 					}
@@ -199,6 +198,7 @@ public class Mediator {
 	}
 
 	// Returns all entities on (x,y) coordinates
+	
 	private List<Entity> getEntities(int x, int y) {
 		List<Entity> list = new LinkedList<>();
 		for (Entity entity : dungeon.getEntities()) {
@@ -210,7 +210,8 @@ public class Mediator {
 	}
 
 	// Returns a specific type of entity class if it at a given (x,y) coordinate
-	private List<Entity> getEntities(int x, int y, Class clazz) {
+	// Made public so it can be used in the test file
+	public List<Entity> getEntities(int x, int y, Class clazz) {
 		List<Entity> list = new LinkedList<>();
 		for (Entity entity : dungeon.getEntities()) {
 			if (entity.getX() == x && entity.getY() == y && clazz.isInstance(entity)) {
@@ -290,6 +291,7 @@ public class Mediator {
 		}
 		//To remove the object
 		if(dungeon.getEntities().contains(entity)) {
+			System.out.println("Removing enemy object");
 			dungeon.getEntities().remove(entity);
 		}
 	}
