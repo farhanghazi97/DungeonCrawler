@@ -56,7 +56,7 @@ public class Mediator {
 		}
 
 		if (outsideDungeon(newX, newY)) {
-			// Whether moving boulder or player, outside dungeon boundaries is prohibited.
+			//Whether moving boulder or player, outside dungeon boundaries is prohibited.
 			return false;
 		}
 
@@ -65,7 +65,6 @@ public class Mediator {
 		List<Entity> entitiesAtCurrent = getEntities(currentX, currentY);
 		List<Entity> entitiesAtNew = getEntities(newX, newY);
 		List<Entity> bouldersAtCurrent = getEntities(currentX, currentY, Boulder.class);
-		List<Entity> switchAtCurrent = getEntities(currentX , currentY , Switch.class);
 		
 		Random rand = new Random();
 		
@@ -85,15 +84,17 @@ public class Mediator {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
 			entityToMove = bouldersAtCurrent.get(0);
+			//Activating switch, if it exists
+			List<Entity> switchAtCurrent = getEntities(currentX , currentY , Switch.class);
 			if(!switchAtCurrent.isEmpty()) {
-				if(rand.nextInt(3) == 1) triggerSwitchEvent();
+				Entity swi = switchAtCurrent.get(0);
+				if(rand.nextInt(3) == 1) swi.stepOver();
 			}
 		}
 		
 		//Calling entitesAtCurrent stepOver on a loop
-		
 		for(Entity entity: entitiesAtCurrent) {
-			entity.stepOver();
+			if(entity.getType()!= EntityType.SWITCH) entity.stepOver();
 		}
 		System.out.println("Before: "+ collectedEntities);
 		entityToMove.postMove(entitiesAtNew);
@@ -103,27 +104,36 @@ public class Mediator {
 	
 	// HELPER OPERATIONS BELOW
 	
-	private void triggerSwitchEvent() {
-		spawnItems();
+	//Method to mark end of game
+	public void markGameOver() {
+		gameOver = true;
 	}
 	
-	private void spawnItems() {
-		
-		// Need to randomise generation of objects further
-		Random rand = new Random();
-		int generator_key = rand.nextInt(2);
-		if(generator_key == 0) {
-			generateObject(EntityType.TREASURE);
-		} else if(generator_key == 1) {
-			generateObject(EntityType.POTION);
+	// Called when player presses the 'S' key on the keyboard
+	public void swingSword(int x, int y) {
+		System.out.println("Mediator: In swing sword");
+		Entity sword = getCollected(EntityType.SWORD);
+		if (sword != null) {
+			if(((Sword) sword).swing()) {
+				//Check if enemy is in vicinity
+				List<Entity> enemies = enemiesInVicinity(x, y);
+				if(enemies != null) {
+					//If true -> remove enemy
+					//If false ->do nothing
+					for(Entity enemy : enemies) {
+						removeEntity(enemy);
+					}
+				}
+			}
 		}
 	}
 	
+	
+	
+	//Method to generate a new entity in the maze
 	public void generateObject(EntityType type) {
 		
 		Random rand = new Random();
-		
-		//int height  = GetRandomY();
 		
 		int new_object_width  = rand.nextInt(dungeon.getWidth());
 		int new_object_height = rand.nextInt(dungeon.getHeight());
@@ -150,40 +160,8 @@ public class Mediator {
 		
 	}
 	
-	// Called when player presses the 'S' key on the keyboard
-	public void swingSword(int x, int y) {
-		System.out.println("Mediator: In swing sword");
-		Entity sword = getCollected(EntityType.SWORD);
-		if (sword != null) {
-			if(((Sword) sword).swing()) {
-				//Check if enemy is in vicinity
-				List<Entity> enemies = enemiesInVicinity(x, y);
-				if(enemies != null) {
-					//If true -> remove enemy
-					//If false ->do nothing
-					for(Entity enemy : enemies) {
-						removeEntity(enemy);
-					}
-				}
-			}
-		}
-	}
+
 	
-	public void getRandomX() {
-		HashSet<Integer> used = new HashSet<Integer>();
-		List<Entity> list = dungeon.getEntities();
-		for(int i = 0; i < list.size(); i++) {
-			int x = list.get(i).getX();
-			if(!used.contains(x)) {
-				used.add(x);
-			}
-		}
-		//System.out.println(used);
-	}
-	
-	public void markGameOver() {
-		gameOver = true;
-	}
 
 	// Returns true if the new coordinates given are outside 
 	// the boundaries of the dungeon
@@ -312,7 +290,20 @@ public class Mediator {
 			}
 		}
 	}
+	
 
+	public void getRandomX() {
+		HashSet<Integer> used = new HashSet<Integer>();
+		List<Entity> list = dungeon.getEntities();
+		for(int i = 0; i < list.size(); i++) {
+			int x = list.get(i).getX();
+			if(!used.contains(x)) {
+				used.add(x);
+			}
+		}
+	}
+	
+	
 
 	// Update the 'door' entity to 'open' status
 	public void updateDoorUI(Entity entity) {

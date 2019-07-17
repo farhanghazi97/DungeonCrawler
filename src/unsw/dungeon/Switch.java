@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.awt.Rectangle;
 import java.util.List;
+import java.util.Random;
 
 public class Switch extends Entity{
 
@@ -29,6 +30,14 @@ public class Switch extends Entity{
 
     @Override
 	public boolean stepOver() {
+		// Need to randomise generation of objects further
+		Random rand = new Random();
+		int generator_key = rand.nextInt(2);
+		if (generator_key == 0) {
+			Mediator.getInstance().generateObject(EntityType.TREASURE);
+		} else if (generator_key == 1) {
+			Mediator.getInstance().generateObject(EntityType.POTION);
+		}
 		return true;
 	}
 	
