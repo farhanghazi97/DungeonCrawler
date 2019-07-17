@@ -20,7 +20,7 @@ class DungeonTests {
      * WPW
      * WWW
      */
-    public static final String ALL_WALLS_JSON = "test_all_walls.json";
+    public static final String ALL_WALLS_JSON = "test_all_wall.json";
 
 
     /**
@@ -38,7 +38,12 @@ class DungeonTests {
      *
      */
     public static final String BOULDERS_JSON = "test_boulders.json";
-   
+    
+    
+    public static final String WALLS_AND_DOOR_JSON = "test_boulders.json";
+    public static final String EMPTY_AND_DOOR_JSON = "test_empty_and_door.json";
+
+
     public static final String KEY_JSON_PASS = "test_key_door_pass.json";
     public static final String KEY_JSON_FAIL = "test_key_door_fail.json";
     
@@ -67,7 +72,10 @@ class DungeonTests {
         }
     }
     
-
+    //NAVIGATING PLAYER TESTS
+    
+    
+    //Testing if player moves based on coordinates given
     @Test
     void moveTo_empty() {
         initializeDungeon(EMPTY_AND_WALLS_JSON);
@@ -79,6 +87,7 @@ class DungeonTests {
         assertEquals(2, player.getY());
     }
     
+    //Testing if player is succesfully blocked by walls
     @Test
     void moveTo_all_walls() {
         initializeDungeon(ALL_WALLS_JSON);
@@ -90,8 +99,21 @@ class DungeonTests {
         assertEquals(1, player.getY());
     }
     
-
-
+    //Testing if player is succesfully blocked by doors
+    @Test
+    void moveTo_empty_and_doors() {
+        initializeDungeon(EMPTY_AND_DOOR_JSON);
+        Mediator.getInstance().moveTo(1, 2, 1, 1);
+        Dungeon dungeon = Mediator.getInstance().getDungeon();
+        Player player = dungeon.getPlayer();
+        //Player unable to move.
+        assertEquals(1, player.getX());
+        assertEquals(2, player.getY());
+    }
+    
+    
+    //BOULDER TESTS
+    
     @Test
     void move_A_Boulder() {
         initializeDungeon(BOULDERS_JSON);
@@ -117,7 +139,7 @@ class DungeonTests {
     }
 
     @Test
-    void move_Two_Boulder_Do_NotMove() {
+    void move_Two_Boulders_Do_NotMove() {
         initializeDungeon(BOULDERS_JSON);
 
         Dungeon dungeon = Mediator.getInstance().getDungeon();
@@ -140,6 +162,7 @@ class DungeonTests {
 
     }
     
+    //COLLECTION OF ITEMS
     @Test
     void TestKeyCollected() {
     	initializeDungeon(KEY_JSON_PASS);
@@ -147,7 +170,7 @@ class DungeonTests {
     	Player player = dungeon.getPlayer();
     	Entity k = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	Mediator.getInstance().moveTo(1 , 3 , 1, 2);
-    	assert(Mediator.getInstance().isCollected(k) == true);
+    	assertTrue(Mediator.getInstance().isCollected(k));
     }
     
     @Test
@@ -157,7 +180,7 @@ class DungeonTests {
     	Player player = dungeon.getPlayer();
     	Entity t = getEntity(3 , 3 , dungeon.getEntities() , Treasure.class);
     	Mediator.getInstance().moveTo(3, 3, 3, 4);
-    	assert(Mediator.getInstance().isCollected(t) == true);
+    	assertTrue(Mediator.getInstance().isCollected(t));
     }
     
     @Test
@@ -167,7 +190,7 @@ class DungeonTests {
     	Player player = dungeon.getPlayer();
     	Entity s = getEntity(4 , 2 , dungeon.getEntities() , Sword.class);
     	Mediator.getInstance().moveTo(4 , 2 , 4, 3);
-    	assert(Mediator.getInstance().isCollected(s) == true);
+    	assertTrue(Mediator.getInstance().isCollected(s));
     }
     
     @Test
@@ -177,16 +200,18 @@ class DungeonTests {
     	Player player = dungeon.getPlayer();
     	Entity k = getEntity(2 , 3 , dungeon.getEntities() , Potion.class);
     	Mediator.getInstance().moveTo(2 , 3 , 2, 4);
-    	assert(Mediator.getInstance().isCollected(k) == true);
+    	assertTrue(Mediator.getInstance().isCollected(k));
     }
+    
+    
     
     @Test
     void TestNoKeyDoorUnlock() {
     	initializeDungeon(KEY_JSON_PASS);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
-    	assert(door.stepOver() == false);
-    	assert(door.isIs_open() == false);
+    	assertFalse(door.stepOver());
+    	assertFalse(door.isIs_open());
     }
     
     @Test
@@ -197,8 +222,8 @@ class DungeonTests {
     	Entity key = getEntity(3 , 3 , dungeon.getEntities() , Key.class);
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 4);
-    	assert(Mediator.getInstance().collectedEntities.size() == 1);
-    	assert(key.stepOver() == false);
+    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertFalse(key.stepOver());
     }
     
     @Test
@@ -209,8 +234,8 @@ class DungeonTests {
     	Entity sword = getEntity(2 , 2 , dungeon.getEntities() , Sword.class);
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 2, 2);
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 2, 3);
-    	assert(Mediator.getInstance().collectedEntities.size() == 1);
-    	assert(sword.stepOver() == false);
+    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertFalse(sword.stepOver());
     }
     
     @Test
@@ -221,7 +246,7 @@ class DungeonTests {
     	while(((Sword) sword).getSwingsRemaining() != 0) {
     		((Sword) sword).swing();
     	}
-    	assert(!Mediator.getInstance().collectedEntities.contains(sword));
+    	assertTrue(!Mediator.getInstance().collectedEntities.contains(sword));
     }
     
     @Test
@@ -231,8 +256,8 @@ class DungeonTests {
     	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
     	Mediator.getInstance().collectedEntities.add(key);
-    	assert(door.stepOver() == false);
-    	assert(door.isIs_open() == false);
+    	assertFalse(door.stepOver());
+    	assertFalse(door.isIs_open());
     }
     
     @Test
@@ -242,8 +267,8 @@ class DungeonTests {
     	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
     	Mediator.getInstance().collectedEntities.add(key);
-    	assert(door.stepOver() == true);
-    	assert(door.isIs_open() == true);
+    	assertTrue(door.stepOver());
+    	assertTrue(door.isIs_open());
     }
     
     public static Entity getEntity(int x, int y, List<Entity> entities, Class clazz){

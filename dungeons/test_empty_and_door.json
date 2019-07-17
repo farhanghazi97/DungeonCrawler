@@ -1,0 +1,21 @@
+{
+    "width": 3,
+    "height": 3,
+    "entities": [
+      {
+        "x": 1,
+        "y": 1,
+        "type": "door",
+        "id":1
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "type": "player"
+      }
+    ],
+    "goal-condition": {
+      "goal": "boulders"
+    }
+  }
+  
