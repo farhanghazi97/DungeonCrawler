@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Potion extends Entity {
@@ -9,6 +10,7 @@ public class Potion extends Entity {
 	private boolean collected = false;
 	private String type = "Potion";
 	private int count = 0;
+	private ArrayList<String> image_list = new ArrayList<String>();
 	
 	public Potion(int x, int y) {
         super(x, y);
@@ -102,4 +104,10 @@ public class Potion extends Entity {
 		return this.image_path;
 	}
 
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
+
+	
 }

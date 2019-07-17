@@ -1,11 +1,26 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class Bomb extends Entity {
+import javafx.concurrent.Task;
 
+public class Bomb extends Entity {
+	
 	private String type = "Bomb";
-	private String image_path = "/bomb_unlit.png";
+	private String image_path = "/bomb_lit_1.png";
+	private boolean collected = false;
+	private boolean is_destroyed = false;
+	private ArrayList<String> image_list = new ArrayList<String>(Arrays.asList
+			(
+					"/bomb_lit_1.png" ,
+					"/bomb_lit_2.png",
+					"/bomb_lit_3.png",
+					"/bomb_lit_4.png",
+					"/BombExploding.png"
+			)
+	);
 	
 	public Bomb(int x , int y) {
 		super(x , y);
@@ -24,11 +39,24 @@ public class Bomb extends Entity {
 	public void postMove(List<Entity> entitiesAtNew) {
 
 	}
+	
+	@Override
+	public String toString( ) {
+		return String.format("Bomb object | X = %d | Y = %d" , this.getX() , this.getY());
+	}
 
 	@Override
 	public boolean stepOver() {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("In Bomb's stepOver");
+		Entity bomb = Mediator.getInstance().getCollected(EntityType.BOMB);
+		if(bomb != null && is_destroyed == false) {
+			return false;
+		} else {
+	    	Mediator.getInstance().collectedEntities.add(this);
+	    	this.collected = true;
+	    	Mediator.getInstance().removeEntity(this);
+			return true;
+		}
 	}
 
 	@Override
@@ -76,5 +104,12 @@ public class Bomb extends Entity {
 	 public String getImagePath() {
 		return this.image_path;
 	}
+
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
+	
+	
 
 }

@@ -1,9 +1,12 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Enemy extends Entity{
 
+	private ArrayList<String> image_list = new ArrayList<String>();
+	
 	public Enemy(int x, int y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
@@ -77,6 +80,12 @@ public class Enemy extends Entity{
 	 public String getImagePath() {
 		return "";
 	}
+
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
+	
 	
 
 }

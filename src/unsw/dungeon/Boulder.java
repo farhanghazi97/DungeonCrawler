@@ -1,12 +1,14 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Boulder extends Entity {
 
 	private String type = "Boulder";
 	private String image_path = "/boulder.png";
+	private ArrayList<String> image_list = new ArrayList<String>();
 	
 	public Boulder(int x , int y) {
 		super(x , y);
@@ -94,6 +96,11 @@ public class Boulder extends Entity {
 	@Override
 	 public String getImagePath() {
 		return this.image_path;
+	}
+	
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
 	}
 
 }

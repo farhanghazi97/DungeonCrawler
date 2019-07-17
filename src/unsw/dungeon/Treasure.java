@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Treasure extends Entity{
@@ -8,6 +9,7 @@ public class Treasure extends Entity{
 	private String type = "Treasure";
 	private static int treasureCoins = 0;
 	private String image_path = "gold_pile.png";
+	private ArrayList<String> image_list = new ArrayList<String>();
 	
 	public Treasure(int x, int y) {
         super(x, y);
@@ -88,4 +90,9 @@ public class Treasure extends Entity{
 		return this.image_path;
 	}
 
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
+	
 }

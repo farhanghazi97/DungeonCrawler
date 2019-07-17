@@ -1,11 +1,13 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Door extends Entity {
 
 	private String type = "Door";
 	private String image_path = "/open_door.png";
+	private ArrayList<String> image_list = new ArrayList<String>();
 	
 	private int door_id;
 	private boolean is_open = false;
@@ -115,5 +117,12 @@ public class Door extends Entity {
 	 public String getImagePath() {
 		return this.image_path;
 	}
+
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
+
+	
 	
 }

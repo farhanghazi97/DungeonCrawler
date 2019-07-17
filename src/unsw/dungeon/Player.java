@@ -3,6 +3,7 @@ package unsw.dungeon;
 import java.awt.Rectangle;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Bounds;
@@ -20,6 +21,7 @@ public class Player extends Entity {
     private Dungeon dungeon;
     private String type = "Player";
     private String image_path = "/human_new.png";
+    private ArrayList<String> image_list = new ArrayList<String>();
     
     /**
      * Create a player positioned in square (x,y)
@@ -113,4 +115,9 @@ public class Player extends Entity {
 		return this.image_path;
 	}
 
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
+	
 }

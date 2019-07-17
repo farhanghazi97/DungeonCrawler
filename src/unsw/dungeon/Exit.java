@@ -1,11 +1,13 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Exit extends Entity{
 	
 	private String type = "Exit"; 
 	private String image_path = "/exit.png";
+	private ArrayList<String> image_list = new ArrayList<String>();
 	
     public Exit(int x, int y) {
         super(x, y);
@@ -78,5 +80,9 @@ public class Exit extends Entity{
 		return this.image_path;
 	}
 
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
 	
 }
