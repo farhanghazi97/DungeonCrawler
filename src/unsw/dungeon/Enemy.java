@@ -28,8 +28,8 @@ public class Enemy extends Entity{
 
 	@Override
 	public boolean stepOver() {
-		// TODO Auto-generated method stub
-		return false;
+		Mediator.getInstance().removeEntity(this);
+		return true;
 	}
 
 	@Override

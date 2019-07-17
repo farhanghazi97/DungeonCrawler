@@ -310,17 +310,18 @@ class DungeonTests {
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Player player = dungeon.getPlayer();
     	Entity sword = Mediator.getInstance().getCollected(EntityType.SWORD);
-    	Entity enemy = getEntity(3 , 2 , dungeon.getEntities() , Enemy.class);
+    	
+    	//Checking if one enemy exists
+    	assertEquals(1, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
     	
     	//Player moves to 1 unit below the enemy  
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
     	
     	//Player swings sword
-    	((Sword)sword).swing();
+    	Mediator.getInstance().swingSword(3, 3);
     	
-    	//TODO -> says the size is still one after removing the enemy
-    	System.out.println(Mediator.getInstance().getEntities(3,2,Enemy.class));
-    	//assertEquals( 0, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
+    	//Checking if enemy is removed after sword swing
+    	assertEquals(0, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
     }
     
   

@@ -163,7 +163,7 @@ public class Mediator {
 					//If true -> remove enemy
 					//If false ->do nothing
 					for(Entity enemy : enemies) {
-						removeEntity(enemy);
+						enemy.stepOver();
 					}
 				}
 			}
@@ -179,7 +179,7 @@ public class Mediator {
 				used.add(x);
 			}
 		}
-		System.out.println(used);
+		//System.out.println(used);
 	}
 	
 	public void markGameOver() {
@@ -278,7 +278,7 @@ public class Mediator {
 
 	// Removes UI element and object corresponding to given entity
 	public void removeEntity(Entity entity) {
-		System.out.println("In remove entity function");
+		//System.out.println("Removing entity " + entity.toString());
 		for(int i = 0; i < imageEntities.size(); i++) {
 			ImageView image = imageEntities.get(i);
 			// Map GridPane co-ords to entity co-ords
@@ -291,7 +291,6 @@ public class Mediator {
 		}
 		//To remove the object
 		if(dungeon.getEntities().contains(entity)) {
-			System.out.println("Removing enemy object");
 			dungeon.getEntities().remove(entity);
 		}
 	}
@@ -318,7 +317,7 @@ public class Mediator {
 	public void updateDoorUI(Entity entity) {
 		String open_door_image_path = entity.getImagePath();
 		Image open_door = new Image(open_door_image_path);
-		System.out.println("In update door function");
+		//System.out.println("In update door function");
 		for(int i = 0; i < imageEntities.size(); i++) {
 			ImageView image = imageEntities.get(i);
 			if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
