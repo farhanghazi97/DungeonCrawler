@@ -28,7 +28,7 @@ public class Enemy extends Entity{
 
 	@Override
 	public boolean stepOver() {
-		Mediator.getInstance().removeEntity(this);
+		//Mediator.getInstance().removeEntity(this);
 		return true;
 	}
 

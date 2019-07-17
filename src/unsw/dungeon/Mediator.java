@@ -163,7 +163,7 @@ public class Mediator {
 					//If true -> remove enemy
 					//If false ->do nothing
 					for(Entity enemy : enemies) {
-						enemy.stepOver();
+						removeEntity(enemy);
 					}
 				}
 			}
