@@ -163,7 +163,6 @@ public class Mediator {
 	
 	
 	public void igniteBomb(int x , int y) {
-		System.out.println("Mediator: In igniteBomb()");
 		Entity old_bomb = getCollected(EntityType.BOMB);
 		if(old_bomb != null) {
 			Entity new_bomb = spawnBombAtCurrentLocation(old_bomb , x , y);
@@ -211,13 +210,19 @@ public class Mediator {
 		};
 		
 		task.setOnSucceeded(e -> {
-			if(enemies != null) {
-				for(Entity enemy: enemies) {
-					removeEntity(enemy);
+			System.out.println(dungeon.getEntities());
+			if(!enemies.isEmpty()) {
+				for(int i = 0; i < enemies.size(); i++) {
+					Entity enemy = enemies.get(i);
+					this.removeEntity(enemy);
+					System.out.println("Removing enemy");
+					System.out.println(dungeon.getEntities());
 				}
 			}
 			Mediator.getInstance().collectedEntities.remove(old_bomb);
 			removeEntity(new_bomb);
+			System.out.println("Removing bomb");
+			System.out.println(dungeon.getEntities());
 		});
 		
 		new Thread(task).start();

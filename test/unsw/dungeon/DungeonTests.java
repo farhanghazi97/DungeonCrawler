@@ -349,12 +349,6 @@ class DungeonTests {
     	// Check if player has bomb
     	Entity bomb = Mediator.getInstance().getCollected(EntityType.BOMB);
     	
-    	// Get list of enemies at x , y (should only be 1)
-    	List<Entity> enemy = Mediator.getInstance().getEntities(3 ,  2, Enemy.class);
-    	
-    	// Get enemy entity
-    	Entity e = enemy.get(0);
-    	
     	// Move player to location just below enemy
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
     
@@ -362,7 +356,7 @@ class DungeonTests {
     	Mediator.getInstance().igniteBomb(player.getX(), player.getY());
     	
     	// Assert that the enemy has been removed from the dungeon
-    	assert(!dungeon.getEntities().contains(enemy));
+    	assert(!dungeon.getEntities().contains(bomb));
     	
     }
   
