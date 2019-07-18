@@ -369,7 +369,6 @@ public class Mediator {
 		}
 	}
 	
-
 	public void getRandomX() {
 		HashSet<Integer> used = new HashSet<Integer>();
 		List<Entity> list = dungeon.getEntities();
@@ -381,8 +380,6 @@ public class Mediator {
 		}
 	}
 	
-	
-
 	// Update the 'door' entity to 'open' status
 	public void updateDoorUI(Entity entity) {
 		String open_door_image_path = entity.getImagePath();
