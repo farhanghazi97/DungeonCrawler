@@ -13,6 +13,12 @@ public class Enemy extends Entity{
 	}
 
 	@Override
+	public String toString() {
+		return "ENEMY object";
+		
+	}
+	
+	@Override
 	public EntityType getType() {
 		return EntityType.ENEMY;
 	}

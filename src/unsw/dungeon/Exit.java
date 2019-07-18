@@ -14,6 +14,11 @@ public class Exit extends Entity{
     }
 
     @Override
+    public String toString() {
+    	return "EXIT object";
+    }
+    
+    @Override
     public EntityType getType() {
         return EntityType.EXIT;
     }

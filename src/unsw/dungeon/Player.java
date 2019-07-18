@@ -32,6 +32,11 @@ public class Player extends Entity {
         super(x, y);
         this.dungeon = dungeon;
     }
+    
+    @Override
+    public String toString() {
+    	return "PLAYER object";
+    }
 
 	//private List
 

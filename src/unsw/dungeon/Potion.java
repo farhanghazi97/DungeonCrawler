@@ -8,9 +8,11 @@ import javafx.concurrent.Task;
 
 public class Potion extends Entity {
 
+	private boolean collected = false;
 	private String image_path = "/brilliant_blue_new.png";
 	private String type = "Potion";
 	private boolean isDestroyed = false;
+	private int count = 0;
 	
 	public Potion(int x, int y) {
         super(x, y);
@@ -92,7 +94,10 @@ public class Potion extends Entity {
 		return false;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "POTION object [count=" + count + ", collected=" + collected + "]";
+	}
 	
 	@Override
 	public Entity getObjectByType(String s) {
@@ -101,11 +106,6 @@ public class Potion extends Entity {
 		} else {
 			return null;
 		}
-	}
-
-	@Override
-	public String toString() {
-		return "Potion [type=" + type + ", isDestroyed=" + isDestroyed + "]";
 	}
 
 	@Override

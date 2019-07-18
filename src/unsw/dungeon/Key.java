@@ -58,7 +58,7 @@ public class Key extends Entity {
 	
 	@Override
 	public String toString() {
-		return "Key [Key ID=" + keyID + ", collected=" + collected + "]";
+		return "KEY object [Key ID=" + keyID + ", collected=" + collected + "]";
 	}
 	
 	@Override
@@ -100,8 +100,4 @@ public class Key extends Entity {
 		return image_list;
 	}
 
-	
-	
-	
-	
 }

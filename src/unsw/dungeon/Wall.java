@@ -16,7 +16,7 @@ public class Wall extends Entity  {
 
     @Override
     public String toString() {
-		return String.format("Wall object");
+		return String.format("WALL object");
     }
 
     @Override

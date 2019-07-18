@@ -71,7 +71,7 @@ public class Sword extends Entity {
 
 	@Override
 	public String toString() {
-		return "Sword [swingsRemaining=" + swingsRemaining + ", collected=" + collected + "]";
+		return "SWORD object [swingsRemaining=" + swingsRemaining + ", collected=" + collected + "]";
 	}
 	
 	@Override

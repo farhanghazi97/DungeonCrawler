@@ -101,8 +101,6 @@ public class Mediator {
 		}
 		System.out.println("Before: "+ collectedEntities);
 		
-		System.out.println(collectedEntities);
-		
 		entityToMove.postMove(entitiesAtNew);
 		
 		return true;
@@ -196,6 +194,7 @@ public class Mediator {
 	private void startBombSelfDestruct(Entity old_bomb , Entity new_bomb , long time) {
 
 		ArrayList<String> images = new_bomb.getImage_list();
+		List<Entity> enemies = enemiesInVicinity(new_bomb.getX() , new_bomb.getY());
 		
 		Task<Void> task = new Task<Void>() {
 			@Override
@@ -215,6 +214,11 @@ public class Mediator {
 		};
 		
 		task.setOnSucceeded(e -> {
+			if(enemies != null) {
+				for(Entity enemy: enemies) {
+					removeEntity(enemy);
+				}
+			}
 			Mediator.getInstance().collectedEntities.remove(old_bomb);
 			removeEntity(new_bomb);
 			System.out.println("After destorying: " + Mediator.getInstance().collectedEntities);
@@ -330,9 +334,7 @@ public class Mediator {
 
 	// Removes UI element and object corresponding to given entity
 	public void removeEntity(Entity entity) {
-		System.out.println("Removing entity " + entity.toString());
-		System.out.println(entity.getX());
-		System.out.println(entity.getY());
+		System.out.println("In remove entity function");
 		for(int i = 0; i < imageEntities.size(); i++) {
 			ImageView image = imageEntities.get(i);
 			// Map GridPane co-ords to entity co-ords
@@ -385,16 +387,6 @@ public class Mediator {
 	public void updateDoorUI(Entity entity) {
 		String open_door_image_path = entity.getImagePath();
 		Image open_door = new Image(open_door_image_path);
-		//System.out.println("In update door function");
-		for(int i = 0; i < imageEntities.size(); i++) {
-			ImageView image = imageEntities.get(i);
-			if(GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
-				if(image.getId().equals(entity.getImageID())) {
-					image.setImage(open_door);
-					break;
-				}
-			}
-		}
 		System.out.println("In update door function");
 		ImageView image = getImageByEntity(imageEntities , entity);
 		image.setImage(open_door);
