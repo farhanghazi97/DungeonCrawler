@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.concurrent.Task;
@@ -115,6 +116,12 @@ public class Potion extends Entity {
 	@Override
 	 public String getImagePath() {
 		return this.image_path;
+	}
+
+	@Override
+	public ArrayList<String> getImage_list() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
