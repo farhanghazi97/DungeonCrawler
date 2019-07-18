@@ -216,9 +216,9 @@ class DungeonTests {
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Player player = dungeon.getPlayer();
     	
-    	Entity bomb = getEntity(0 ,1 , dungeon.getEntities() , Bomb.class);
+    	Entity bomb = getEntity(0 ,0 , dungeon.getEntities() , Bomb.class);
     	
-    	Mediator.getInstance().moveTo(0, 1, 0, 2);
+    	Mediator.getInstance().moveTo(0, 0, 0, 1);
     	assertTrue(Mediator.getInstance().isCollected(bomb));
     }
     
@@ -343,20 +343,20 @@ class DungeonTests {
     	test_bomb_collected();
     	
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	
     	Player player = dungeon.getPlayer();
-    	
-    	// Check if player has bomb
     	Entity bomb = Mediator.getInstance().getCollected(EntityType.BOMB);
     	
-    	// Move player to location just below enemy
-    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
-    
-    	// Ignite the bomb (should remove enemy object from dungeon)
-    	Mediator.getInstance().igniteBomb(player.getX(), player.getY());
+    	//Checking if one enemy exists
+    	assertEquals(1, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
     	
-    	// Assert that the enemy has been removed from the dungeon
-    	assert(!dungeon.getEntities().contains(bomb));
+    	//Player moves to 1 unit below the enemy  
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
+    	
+    	//Player swings sword
+    	Mediator.getInstance().igniteBomb(3, 3);
+    	
+    	//Checking if enemy is removed after sword swing
+    	assertEquals(0, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
     	
     }
   

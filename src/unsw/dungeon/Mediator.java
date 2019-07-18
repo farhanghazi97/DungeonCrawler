@@ -165,32 +165,29 @@ public class Mediator {
 	public void igniteBomb(int x , int y) {
 		Entity old_bomb = getCollected(EntityType.BOMB);
 		if(old_bomb != null) {
-			Entity new_bomb = spawnBombAtCurrentLocation(old_bomb , x , y);
-			startBombSelfDestruct(old_bomb , new_bomb , 1000);
+			Entity new_bomb = spawnBombAtCurrentLocation(x , y);
+			Mediator.getInstance().collectedEntities.remove(old_bomb);
+			startBombSelfDestruct(new_bomb , 1000);
 		}
 	}
 	
-	private Entity spawnBombAtCurrentLocation(Entity e , int x , int y) {
+	private Entity spawnBombAtCurrentLocation( int x , int y) {
 		
-		Entity new_bomb = new Bomb(x , y);
-		this.dungeon.getEntities().add(new_bomb);
-		
-		/*Image new_image = new Image(e.getImagePath());
+		Entity new_bomb = new Bomb(x , y);		
+		Image new_image = new Image(new_bomb.getImagePath());
 		ImageView new_view = new ImageView(new_image);
-		new_view.setId(e.getImageID());
+		new_view.setId(new_bomb.getImageID());
 		GridPane.setColumnIndex(new_view, new_bomb.getX());
 		GridPane.setRowIndex(new_view , new_bomb.getY());
 		imageEntities.add(new_view);
-		squares.getChildren().add(new_view);*/
-		
+		squares.getChildren().add(new_view);
 		return new_bomb;
 		
 	}
 	
-	private void startBombSelfDestruct(Entity old_bomb , Entity new_bomb , long time) {
+	private void startBombSelfDestruct(Entity new_bomb , long time) {
 
 		ArrayList<String> images = new_bomb.getImage_list();
-		List<Entity> enemies = enemiesInVicinity(new_bomb.getX() , new_bomb.getY());
 		
 		Task<Void> task = new Task<Void>() {
 			@Override
@@ -210,19 +207,14 @@ public class Mediator {
 		};
 		
 		task.setOnSucceeded(e -> {
-			System.out.println(dungeon.getEntities());
+			List<Entity> enemies = enemiesInVicinity(new_bomb.getX() , new_bomb.getY());
 			if(!enemies.isEmpty()) {
 				for(int i = 0; i < enemies.size(); i++) {
 					Entity enemy = enemies.get(i);
 					this.removeEntity(enemy);
-					System.out.println("Removing enemy");
-					System.out.println(dungeon.getEntities());
 				}
 			}
-			Mediator.getInstance().collectedEntities.remove(old_bomb);
 			removeEntity(new_bomb);
-			System.out.println("Removing bomb");
-			System.out.println(dungeon.getEntities());
 		});
 		
 		new Thread(task).start();

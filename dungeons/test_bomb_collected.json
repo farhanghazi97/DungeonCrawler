@@ -9,14 +9,19 @@
       "type": "player"
     },
     {
-      "x": 0,
-      "y": 1,
-      "type": "bomb"
-    },
-    {
       "x": 3,
       "y": 2,
       "type": "enemy"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "type": "bomb"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "type": "bomb"
     }
   ],
   "goal-condition": {
