@@ -132,8 +132,6 @@ public class Mediator {
 		}
 	}
 	
-	
-	
 	//Method to generate a new entity in the maze
 	public void generateObject(EntityType type) {
 		
@@ -179,13 +177,13 @@ public class Mediator {
 		Entity new_bomb = new Bomb(x , y);
 		this.dungeon.getEntities().add(new_bomb);
 		
-		Image new_image = new Image(e.getImagePath());
+		/*Image new_image = new Image(e.getImagePath());
 		ImageView new_view = new ImageView(new_image);
 		new_view.setId(e.getImageID());
 		GridPane.setColumnIndex(new_view, new_bomb.getX());
 		GridPane.setRowIndex(new_view , new_bomb.getY());
 		imageEntities.add(new_view);
-		squares.getChildren().add(new_view);
+		squares.getChildren().add(new_view);*/
 		
 		return new_bomb;
 		
@@ -214,13 +212,15 @@ public class Mediator {
 		};
 		
 		task.setOnSucceeded(e -> {
+			System.out.println(dungeon.getEntities());
 			if(enemies != null) {
 				for(Entity enemy: enemies) {
 					removeEntity(enemy);
 				}
 			}
 			Mediator.getInstance().collectedEntities.remove(old_bomb);
-			removeEntity(new_bomb);
+			removeEntity(new_bomb); removeEntity(old_bomb);
+			System.out.println(dungeon.getEntities());
 			System.out.println("After destorying: " + Mediator.getInstance().collectedEntities);
 		});
 		

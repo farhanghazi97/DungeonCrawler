@@ -54,6 +54,7 @@ class DungeonTests {
     public static final String POTION_JSON = "test_potion_collected.json";
     public static final String TREASURE_JSON = "test_treasure_collected.json";
     public static final String SWORD_JSON = "test_sword_collected.json";
+    public static final String BOMB_JSON = "test_bomb_collected.json";
     
     @BeforeEach
     void setUp() throws FileNotFoundException, InterruptedException {
@@ -209,6 +210,18 @@ class DungeonTests {
     	assertTrue(Mediator.getInstance().isCollected(potion));
     }
     
+    @Test
+    void test_bomb_collected() {
+    	initializeDungeon(BOMB_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	
+    	Entity bomb = getEntity(0 ,1 , dungeon.getEntities() , Bomb.class);
+    	
+    	Mediator.getInstance().moveTo(0, 1, 0, 2);
+    	assertTrue(Mediator.getInstance().isCollected(bomb));
+    }
+    
     
     //KEY-DOOR TESTS
     @Test
@@ -324,9 +337,29 @@ class DungeonTests {
     	assertEquals(0, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
     }
     
+    //Tests if bomb destorys any enemy in vicinity
+    @Test
+    void test_bomb_kills_enemy() {
+    	test_bomb_collected();
+    	
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity bomb = Mediator.getInstance().getCollected(EntityType.BOMB);
+    	
+    	//Checking if one enemy exists
+    	assertEquals(1, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
+    	
+    	//Player moves to 1 unit below the enemy  
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
+    	
+    	//Player ignites bomb
+    	Mediator.getInstance().igniteBomb(3, 3);
+    	
+    	//Checking if enemy is removed after sword swing
+    	assertEquals(1, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
+    	
+    }
   
-   
-    
     public static Entity getEntity(int x, int y, List<Entity> entities, Class clazz){
         List<Entity> list = new LinkedList<>();
         for (Entity entity : entities) {
