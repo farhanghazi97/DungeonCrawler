@@ -300,6 +300,17 @@ class DungeonTests {
     	assertFalse(secondSword.stepOver());
     }
     
+    @Test
+    void test_one_bomb_carriable() {
+    	test_bomb_collected();
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity secondBomb = getEntity(2 , 2 , dungeon.getEntities() , Bomb.class);
+    	Mediator.getInstance().moveTo(2, 2, 2, 1);
+    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertFalse(secondBomb.stepOver());
+    }
+    
     
     //Tests if sword expires after 5 swings
     @Test
@@ -346,6 +357,8 @@ class DungeonTests {
     	Player player = dungeon.getPlayer();
     	Entity bomb = Mediator.getInstance().getCollected(EntityType.BOMB);
     	
+    	assert(bomb != null);
+    	
     	//Checking if one enemy exists
     	assertEquals(1, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
     	
@@ -356,7 +369,7 @@ class DungeonTests {
     	Mediator.getInstance().igniteBomb(3, 3);
     	
     	//Checking if enemy is removed after sword swing
-    	assertEquals(0, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
+    	Entity enemy = getEntity(3 , 2 , dungeon.getEntities() , Enemy.class);
     	
     }
   

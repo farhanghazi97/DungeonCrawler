@@ -660,6 +660,11 @@
         "y": 12,
         "type": "key",
         "id": 3,
+      },
+      {
+        "x": 6,
+        "y": 13,
+        "type": "bomb",
       }
     ],
     "goal-condition": {
