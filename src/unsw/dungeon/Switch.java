@@ -14,6 +14,11 @@ public class Switch extends Entity{
         super(x, y);
     }
 
+	@Override
+	public String toString() {
+		return "SWITCH object";
+	}
+	
     @Override
     public EntityType getType() {
         return EntityType.SWITCH;

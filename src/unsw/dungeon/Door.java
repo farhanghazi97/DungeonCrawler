@@ -86,7 +86,7 @@ public class Door extends Entity {
 
 	@Override
 	public String toString() {
-		return "Door [Door ID=" + door_id + ", Open?=" + is_open + "]";
+		return "DOOR object [Door ID=" + door_id + ", Open?=" + is_open + "]";
 	}
 	
 	@Override

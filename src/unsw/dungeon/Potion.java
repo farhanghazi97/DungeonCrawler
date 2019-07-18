@@ -82,7 +82,7 @@ public class Potion extends Entity {
 	
 	@Override
 	public String toString() {
-		return "Potion [count=" + count + ", collected=" + collected + "]";
+		return "POTION object [count=" + count + ", collected=" + collected + "]";
 	}
 	
 	@Override

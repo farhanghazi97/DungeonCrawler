@@ -16,7 +16,7 @@ public class Boulder extends Entity {
 	
 	@Override
     public String toString() {
-		return String.format("Boulder object");
+		return String.format("BOULDER object");
     }
 
 	@Override

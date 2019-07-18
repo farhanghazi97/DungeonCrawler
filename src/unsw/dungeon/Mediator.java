@@ -98,8 +98,6 @@ public class Mediator {
 			entity.stepOver();
 		}
 		
-		System.out.println(collectedEntities);
-		
 		entityToMove.postMove(entitiesAtNew);
 
 		return true;
@@ -202,6 +200,7 @@ public class Mediator {
 	private void startBombSelfDestruct(Entity old_bomb , Entity new_bomb , long time) {
 
 		ArrayList<String> images = new_bomb.getImage_list();
+		List<Entity> enemies = enemiesInVicinity(new_bomb.getX() , new_bomb.getY());
 		
 		Task<Void> task = new Task<Void>() {
 			@Override
@@ -221,6 +220,11 @@ public class Mediator {
 		};
 		
 		task.setOnSucceeded(e -> {
+			if(enemies != null) {
+				for(Entity enemy: enemies) {
+					removeEntity(enemy);
+				}
+			}
 			Mediator.getInstance().collectedEntities.remove(old_bomb);
 			removeEntity(new_bomb);
 			System.out.println("After destorying: " + Mediator.getInstance().collectedEntities);
@@ -350,8 +354,6 @@ public class Mediator {
 
 	// Removes UI element and object corresponding to given entity
 	public void removeEntity(Entity entity) {
-		System.out.println(entity.getX());
-		System.out.println(entity.getY());
 		System.out.println("In remove entity function");
 		for(int i = 0; i < imageEntities.size(); i++) {
 			ImageView image = imageEntities.get(i);

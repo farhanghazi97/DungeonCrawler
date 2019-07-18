@@ -68,7 +68,7 @@ public class Treasure extends Entity{
 	
 	@Override
 	public String toString() {
-		return "Treasure [Count =" + treasureCoins + ", collected=" + treasureCoins + "]";
+		return "TREASURE object [Count =" + treasureCoins + ", collected=" + treasureCoins + "]";
 	}
 	
 	@Override
