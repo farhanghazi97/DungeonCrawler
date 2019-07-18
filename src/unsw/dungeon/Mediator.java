@@ -161,7 +161,6 @@ public class Mediator {
 		
 	}
 	
-	
 	public void igniteBomb(int x , int y) {
 		Entity old_bomb = getCollected(EntityType.BOMB);
 		if(old_bomb != null) {
@@ -174,13 +173,13 @@ public class Mediator {
 	private Entity spawnBombAtCurrentLocation( int x , int y) {
 		
 		Entity new_bomb = new Bomb(x , y);		
-		/*Image new_image = new Image(new_bomb.getImagePath());
+		Image new_image = new Image(new_bomb.getImagePath());
 		ImageView new_view = new ImageView(new_image);
 		new_view.setId(new_bomb.getImageID());
 		GridPane.setColumnIndex(new_view, new_bomb.getX());
 		GridPane.setRowIndex(new_view , new_bomb.getY());
 		imageEntities.add(new_view);
-		squares.getChildren().add(new_view);*/
+		squares.getChildren().add(new_view);
 		return new_bomb;
 		
 	}
