@@ -337,26 +337,32 @@ class DungeonTests {
     	assertEquals(0, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
     }
     
-    //Tests if bomb destorys any enemy in vicinity
+    //Tests if bomb destroys enemy in vicinity
     @Test
     void test_bomb_kills_enemy() {
     	test_bomb_collected();
     	
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	
     	Player player = dungeon.getPlayer();
+    	
+    	// Check if player has bomb
     	Entity bomb = Mediator.getInstance().getCollected(EntityType.BOMB);
     	
-    	//Checking if one enemy exists
-    	assertEquals(1, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
+    	// Get list of enemies at x , y (should only be 1)
+    	List<Entity> enemy = Mediator.getInstance().getEntities(3 ,  2, Enemy.class);
     	
-    	//Player moves to 1 unit below the enemy  
+    	// Get enemy entity
+    	Entity e = enemy.get(0);
+    	
+    	// Move player to location just below enemy
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
+    
+    	// Ignite the bomb (should remove enemy object from dungeon)
+    	Mediator.getInstance().igniteBomb(player.getX(), player.getY());
     	
-    	//Player ignites bomb
-    	Mediator.getInstance().igniteBomb(3, 3);
-    	
-    	//Checking if enemy is removed after sword swing
-    	assertEquals(1, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
+    	// Assert that the enemy has been removed from the dungeon
+    	assert(!dungeon.getEntities().contains(enemy));
     	
     }
   

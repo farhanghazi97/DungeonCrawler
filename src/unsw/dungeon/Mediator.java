@@ -99,7 +99,6 @@ public class Mediator {
 		for(Entity entity: entitiesAtCurrent) {
 			if(entity.getType()!= EntityType.SWITCH) entity.stepOver();
 		}
-		System.out.println("Before: "+ collectedEntities);
 		
 		entityToMove.postMove(entitiesAtNew);
 		
@@ -212,16 +211,13 @@ public class Mediator {
 		};
 		
 		task.setOnSucceeded(e -> {
-			System.out.println(dungeon.getEntities());
 			if(enemies != null) {
 				for(Entity enemy: enemies) {
 					removeEntity(enemy);
 				}
 			}
 			Mediator.getInstance().collectedEntities.remove(old_bomb);
-			removeEntity(new_bomb); removeEntity(old_bomb);
-			System.out.println(dungeon.getEntities());
-			System.out.println("After destorying: " + Mediator.getInstance().collectedEntities);
+			removeEntity(new_bomb);
 		});
 		
 		new Thread(task).start();
