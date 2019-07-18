@@ -1,13 +1,16 @@
 package unsw.dungeon;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Wall extends Entity  {
 
 	private String type = "Wall";
 	private String image_path = "/brick_brown.png";
-	
-    public Wall(int x, int y) {
+	private ArrayList<String> image_list = new ArrayList<String>();
+    
+	public Wall(int x, int y) {
         super(x, y);
     }
 
@@ -69,4 +72,9 @@ public class Wall extends Entity  {
 		return this.image_path;
 	}
 
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}	
+	
 }

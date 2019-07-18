@@ -1,11 +1,13 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Key extends Entity {
 
 	private String type = "Key";
 	private String image_path = "/key.png";
+	private ArrayList<String> image_list = new ArrayList<String>();
 	
 	private int keyID;
 	private boolean collected = false;
@@ -92,6 +94,14 @@ public class Key extends Entity {
 	 public String getImagePath() {
 		return this.image_path;
 	}
+
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
+
+	
+	
 	
 	
 }

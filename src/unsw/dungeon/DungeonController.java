@@ -91,6 +91,9 @@ public class DungeonController {
         	break;
         case S:
         	Mediator.getInstance().swingSword(player.getX(), player.getY());
+        case B:
+        	Mediator.getInstance().igniteBomb(player.getX() , player.getY());
+        	break;
         default:
             break;
         }

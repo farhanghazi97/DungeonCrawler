@@ -5,7 +5,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -97,6 +100,9 @@ public class Mediator {
 			if(entity.getType()!= EntityType.SWITCH) entity.stepOver();
 		}
 		System.out.println("Before: "+ collectedEntities);
+		
+		System.out.println(collectedEntities);
+		
 		entityToMove.postMove(entitiesAtNew);
 		
 		return true;
@@ -160,7 +166,76 @@ public class Mediator {
 		
 	}
 	
+	
+	public void igniteBomb(int x , int y) {
+		System.out.println("Mediator: In igniteBomb()");
+		Entity old_bomb = getCollected(EntityType.BOMB);
+		if(old_bomb != null) {
+			Entity new_bomb = spawnBombAtCurrentLocation(old_bomb , x , y);
+			startBombSelfDestruct(old_bomb , new_bomb , 1000);
+		}
+	}
+	
+	private Entity spawnBombAtCurrentLocation(Entity e , int x , int y) {
+		
+		Entity new_bomb = new Bomb(x , y);
+		this.dungeon.getEntities().add(new_bomb);
+		
+		Image new_image = new Image(e.getImagePath());
+		ImageView new_view = new ImageView(new_image);
+		new_view.setId(e.getImageID());
+		GridPane.setColumnIndex(new_view, new_bomb.getX());
+		GridPane.setRowIndex(new_view , new_bomb.getY());
+		imageEntities.add(new_view);
+		squares.getChildren().add(new_view);
+		
+		return new_bomb;
+		
+	}
+	
+	private void startBombSelfDestruct(Entity old_bomb , Entity new_bomb , long time) {
 
+		ArrayList<String> images = new_bomb.getImage_list();
+		
+		Task<Void> task = new Task<Void>() {
+			@Override
+			protected Void call() {
+				ImageView imageToUpdate = getImageByEntity(imageEntities , new_bomb);
+				if(imageToUpdate != null) {
+					for(int j = 0; j < images.size(); j++) {
+						try {
+							Thread.sleep(time);			
+						} catch (InterruptedException e) {    System.out.println("Thread was interrupted!");   }
+						Image new_state = new Image(images.get(j));
+						imageToUpdate.setImage(new_state);
+					}	
+				}
+				return null;
+			}
+		};
+		
+		task.setOnSucceeded(e -> {
+			Mediator.getInstance().collectedEntities.remove(old_bomb);
+			removeEntity(new_bomb);
+			System.out.println("After destorying: " + Mediator.getInstance().collectedEntities);
+		});
+		
+		new Thread(task).start();
+	}
+	
+	private ImageView getImageByEntity(List<ImageView> entities , Entity e) {
+		ImageView image = new ImageView();
+		for(int i = 0; i < entities.size(); i++) {
+			image = entities.get(i);
+			if(GridPane.getColumnIndex(image) == e.getX() && GridPane.getRowIndex(image) == e.getY()) {
+				if(image.getId().equals(e.getImageID())) {
+					break;
+				}
+			}
+		}
+		return image;
+	}
+	
 	
 
 	// Returns true if the new coordinates given are outside 
@@ -256,6 +331,8 @@ public class Mediator {
 	// Removes UI element and object corresponding to given entity
 	public void removeEntity(Entity entity) {
 		System.out.println("Removing entity " + entity.toString());
+		System.out.println(entity.getX());
+		System.out.println(entity.getY());
 		for(int i = 0; i < imageEntities.size(); i++) {
 			ImageView image = imageEntities.get(i);
 			// Map GridPane co-ords to entity co-ords
@@ -268,7 +345,6 @@ public class Mediator {
 		}
 		//To remove the object
 		if(dungeon.getEntities().contains(entity)) {
-			System.out.println("Removing potion object");
 			dungeon.getEntities().remove(entity);
 		}
 	}
@@ -319,5 +395,8 @@ public class Mediator {
 				}
 			}
 		}
+		System.out.println("In update door function");
+		ImageView image = getImageByEntity(imageEntities , entity);
+		image.setImage(open_door);
 	}
 }

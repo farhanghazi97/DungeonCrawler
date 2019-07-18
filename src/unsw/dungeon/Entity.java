@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
@@ -17,6 +19,7 @@ public abstract class Entity{
     private IntegerProperty x, y;
     private String imageID;
     private String image_path;
+    private ArrayList<String> image_list = new ArrayList<String>();
     /**
      * Create an entity positioned in square (x,y)
      * @param x
@@ -67,5 +70,6 @@ public abstract class Entity{
     public abstract String getImageID();
     public abstract String getImagePath();
 	public abstract Entity getObjectByType(String s);
+	public abstract ArrayList<String> getImage_list();
 
 }

@@ -1,12 +1,14 @@
 package unsw.dungeon;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sword extends Entity {
 	
 	private String type = "Sword";
 	private String image_path = "greatsword_1_new.png";
+	private ArrayList<String> image_list = new ArrayList<String>();
 	
 	private int swingsRemaining = 5;
 	private boolean collected = false;
@@ -109,5 +111,11 @@ public class Sword extends Entity {
 	public int getSwingsRemaining() {
 		return swingsRemaining;
 	}
+
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
 	
+
 }
