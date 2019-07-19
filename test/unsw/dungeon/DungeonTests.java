@@ -10,6 +10,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.sun.media.jfxmedia.Media;
+
 //TODO
 //Test if player dies when it touches bomb
 //Test if bomb destroys boulders in vicinity
@@ -17,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 //Test if player dies when it touches sword 
 
-//Test if player under invincibility potion lives if it touches bomb
+//Test if player under invincibility potion lives if it touches bomb - DONE
 //Test if player under invincibility potion lives if it touches enemy - DONE
 
 //test if a given goal is complete AND player reaches exit, game is marked over
@@ -297,7 +299,7 @@ class DungeonTests {
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Player player = dungeon.getPlayer();
     	
-    	//Player has one potion in collected entites bag
+    	//Player has  potion in collected entites bag
     	assert(Mediator.getInstance().getCollected(EntityType.POTION) != null);
     	
     	//Second potion exists at (11,9)
@@ -311,6 +313,33 @@ class DungeonTests {
     	assertEquals(1, Mediator.getInstance().getEntities(11,9,Potion.class).size());
     }
     
+    //Test to check if an exploding bomb has no effect on a player with a potion
+    @Test
+    void test_invincibility_from_bomb() {
+    	test_potion_collected();   
+    	
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	
+    	//Player has potion
+    	assert(Mediator.getInstance().getCollected(EntityType.POTION) != null);
+    	
+    	//Player moves on to square containing bomb
+    	Mediator.getInstance().moveTo(player.getX() , player.getY() , 13, 4);
+    	
+    	//Player drops bomb
+    	Mediator.getInstance().igniteBomb(13,4);
+    	//Player moves in vicinity
+    	//NOTE: The test does not work if I comment the next line out, however in the actual game it does.
+    	//So player has to move in vicinity. Player cannot stay standing on the same space for the test to work.
+    	Mediator.getInstance().moveTo(13, 4, 12, 4);
+    	
+    	//Player still lives
+    	assertFalse(Mediator.getInstance().getGameOver());
+    	//Bomb at (13,4) destroyed
+    	assertEquals(0, Mediator.getInstance().getEntities(13,4,Bomb.class).size());
+    	
+    }
     
     
    
@@ -406,6 +435,37 @@ class DungeonTests {
     	assertEquals(1, Mediator.getInstance().collectedEntities.size());
     	assertFalse(secondBomb.stepOver());
     }
+    
+    //Tests if player without potion steps on a bomb
+    @Test
+    void test_game_over_player_on_bomb() {
+    	initializeDungeon(ALL_ENTITIES_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	
+    	Entity bomb = getEntity(6 ,13 , dungeon.getEntities() , Bomb.class);
+    	
+    	Mediator.getInstance().igniteBomb(6,13);
+    	//Player moves on bomb
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 6, 13);
+    	assertTrue(Mediator.getInstance().getGameOver());
+    }
+    
+  //Tests if player without potion comes in vicinity of a bomb
+    @Test
+    void test_game_over_player_in_vicinity_of_bomb() {
+    	initializeDungeon(ALL_ENTITIES_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity bomb = getEntity(6 ,13 , dungeon.getEntities() , Bomb.class);
+    
+    	Mediator.getInstance().igniteBomb(6,13);
+    	//Player moves in vicinity of a bomb
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 6, 14);
+    	
+    	assertTrue(Mediator.getInstance().getGameOver());
+    }
+    
     
     
     //Tests if bomb destroys enemy in vicinity
