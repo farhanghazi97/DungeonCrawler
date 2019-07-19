@@ -133,16 +133,19 @@ public class Mediator {
 		
 		Random rand = new Random();
 		
-		int new_object_width  = rand.nextInt(dungeon.getWidth());
-		int new_object_height = rand.nextInt(dungeon.getHeight());
+		int width  = dungeon.getWidth();
+		int height = dungeon.getHeight();
 		
-		getRandomX();
+		Pair location = null;
+		while(location == null) {
+			location = getUniqueSpawnLocation(rand , width , height);
+		}
 		
 		Entity new_object = null;
 		if(type == EntityType.TREASURE) {
-			new_object = new Treasure(new_object_width , new_object_height);
+			new_object = new Treasure(location.getX() , location.getY());
 		} else if(type == EntityType.POTION) {
-			new_object = new Potion(new_object_width , new_object_height);
+			new_object = new Potion(location.getX() , location.getY());
 		}
 		
 		this.dungeon.getEntities().add(new_object);
@@ -167,6 +170,15 @@ public class Mediator {
 		}
 	}
 	
+	public Pair getUniqueSpawnLocation(Random rand , int x , int y) {
+		int rand_x = rand.nextInt(x); int rand_y = rand.nextInt(y);
+		List<Entity> entitiesAtXY = getEntities(rand_x , rand_y);
+		if(entitiesAtXY.size() == 0) {
+			return new Pair(rand_x , rand_y);
+		}
+		return null;
+	}
+	
 	private Entity spawnBombAtCurrentLocation( int x , int y) {
 		
 		Entity new_bomb = new Bomb(x , y);		
@@ -175,13 +187,13 @@ public class Mediator {
 		 * Commented this section out for backend testing
 		 */
 		
-		/*Image new_image = new Image(new_bomb.getImagePath());
+		Image new_image = new Image(new_bomb.getImagePath());
 		ImageView new_view = new ImageView(new_image);
 		new_view.setId(new_bomb.getImageID());
 		GridPane.setColumnIndex(new_view, new_bomb.getX());
 		GridPane.setRowIndex(new_view , new_bomb.getY());
 		imageEntities.add(new_view);
-		squares.getChildren().add(new_view);*/
+		squares.getChildren().add(new_view);
 		return new_bomb;
 		
 	}
@@ -362,17 +374,6 @@ public class Mediator {
 						break;
 					}
 				}
-			}
-		}
-	}
-	
-	public void getRandomX() {
-		HashSet<Integer> used = new HashSet<Integer>();
-		List<Entity> list = dungeon.getEntities();
-		for(int i = 0; i < list.size(); i++) {
-			int x = list.get(i).getX();
-			if(!used.contains(x)) {
-				used.add(x);
 			}
 		}
 	}
