@@ -287,6 +287,7 @@ public class Mediator {
 		List<Entity> list = new LinkedList<>();
 		for (Entity entity : dungeon.getEntities()) {
 			if (entity.getX() == x && entity.getY() == y && clazz.isInstance(entity)) {
+				System.out.println("Adding to list");
 				list.add(entity);
 			}
 		}
@@ -354,7 +355,7 @@ public class Mediator {
 
 	// Removes UI element and object corresponding to given entity
 	public void removeEntity(Entity entity) {
-		System.out.println("In remove entity function");
+		System.out.println("In remove entity function "+ entity);
 		for(int i = 0; i < imageEntities.size(); i++) {
 			ImageView image = imageEntities.get(i);
 			// Map GridPane co-ords to entity co-ords
