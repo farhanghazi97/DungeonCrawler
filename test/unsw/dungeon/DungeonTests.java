@@ -436,6 +436,37 @@ class DungeonTests {
     	assertFalse(secondBomb.stepOver());
     }
     
+    //Tests if player without potion steps on a bomb
+    @Test
+    void test_game_over_player_on_bomb() {
+    	initializeDungeon(ALL_ENTITIES_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	
+    	Entity bomb = getEntity(6 ,13 , dungeon.getEntities() , Bomb.class);
+    	
+    	Mediator.getInstance().igniteBomb(6,13);
+    	//Player moves on bomb
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 6, 13);
+    	assertTrue(Mediator.getInstance().getGameOver());
+    }
+    
+  //Tests if player without potion comes in vicinity of a bomb
+    @Test
+    void test_game_over_player_in_vicinity_of_bomb() {
+    	initializeDungeon(ALL_ENTITIES_JSON);
+    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+    	Player player = dungeon.getPlayer();
+    	Entity bomb = getEntity(6 ,13 , dungeon.getEntities() , Bomb.class);
+    
+    	Mediator.getInstance().igniteBomb(6,13);
+    	//Player moves in vicinity of a bomb
+    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 6, 14);
+    	
+    	assertTrue(Mediator.getInstance().getGameOver());
+    }
+    
+    
     
     //Tests if bomb destroys enemy in vicinity
 //    @Test
