@@ -116,7 +116,7 @@ public class Mediator {
 		if (sword != null) {
 			if(((Sword) sword).swing()) {
 				//Check if enemy is in vicinity
-				List<Entity> enemies = enemiesInVicinity(x, y);
+				List<Entity> enemies = EntitiesInVicinity(x, y , EntityType.ENEMY);
 				if(enemies != null) {
 					//If true -> remove enemy
 					//If false ->do nothing
@@ -223,10 +223,10 @@ public class Mediator {
 		};
 		
 		task.setOnSucceeded(e -> {
-			List<Entity> enemies = enemiesInVicinity(new_bomb.getX() , new_bomb.getY());
-			if(!enemies.isEmpty()) {
-				for(int i = 0; i < enemies.size(); i++) {
-					Entity enemy = enemies.get(i);
+			List<Entity> entities_to_remove = getEntitiesToRemove(new_bomb.getX() , new_bomb.getY() , EntityType.ENEMY , EntityType.BOULDER);
+			if(!entities_to_remove.isEmpty()) {
+				for(int i = 0; i < entities_to_remove.size(); i++) {
+					Entity enemy = entities_to_remove.get(i);
 					this.removeEntity(enemy);
 				}
 			}
@@ -234,6 +234,15 @@ public class Mediator {
 		});
 		
 		new Thread(task).start();
+	}
+	
+	private List<Entity> getEntitiesToRemove(int x , int y , EntityType...e_type) {
+		List<Entity> entities_to_remove = new ArrayList<Entity>();
+		for(int i = 0; i < e_type.length; i++) {
+			List<Entity> entities = EntitiesInVicinity(x , y , e_type[i]);
+			entities_to_remove.addAll(entities);
+		}
+		return entities_to_remove;
 	}
 	
 	private ImageView getImageByEntity(List<ImageView> entities , Entity e) {
@@ -319,22 +328,17 @@ public class Mediator {
 		return list;
 	}
 	
-	//Returns a list of enemies if they are in adjacent squares
-	private List<Entity> enemiesInVicinity(int x, int y) {
+	//Returns a list of entities of type "type" if they are in adjacent squares
+	private List<Entity> EntitiesInVicinity(int x, int y , EntityType type) {
 		//System.out.println("Inside enemiesInVicinity");
 		List<Entity> list = new LinkedList<>();
 		
 		for (Entity entity : dungeon.getEntities()) {
-			if (entity.getType() == EntityType.ENEMY && 
-			   ((entity.getX() == x+1 && entity.getY() == y) ||
-			   (entity.getX() == x+1 && entity.getY() == y-1) ||
-			   (entity.getX() == x+1 && entity.getY() == y+1) ||
-			   (entity.getX() == x && entity.getY() == y+1) ||
-			   (entity.getX() == x && entity.getY() == y-1) ||
-			   (entity.getX() == x-1 && entity.getY() == y) ||
-			   (entity.getX() == x-1 && entity.getY() == y-1)||
-			   (entity.getX() == x+1 && entity.getY() == y+1)))
-			    {
+			if (entity.getType() == type && 
+			   ((entity.getX() == x+1 && entity.getY() == y) || (entity.getX() == x+1 && entity.getY() == y-1) ||
+			   (entity.getX() == x+1 && entity.getY() == y+1) || (entity.getX() == x && entity.getY() == y+1) ||
+			   (entity.getX() == x && entity.getY() == y-1) || (entity.getX() == x-1 && entity.getY() == y) ||
+			   (entity.getX() == x-1 && entity.getY() == y-1)|| (entity.getX() == x+1 && entity.getY() == y+1))) {
 				    list.add(entity);
 			}
 		}
