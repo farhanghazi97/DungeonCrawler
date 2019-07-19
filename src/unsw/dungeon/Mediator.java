@@ -116,7 +116,7 @@ public class Mediator {
 		if (sword != null) {
 			if(((Sword) sword).swing()) {
 				//Check if enemy is in vicinity
-				List<Entity> enemies = EntitiesInVicinity(x, y , EntityType.ENEMY);
+				List<Entity> enemies = entitiesInVicinity(x, y , EntityType.ENEMY);
 				if(enemies != null) {
 					//If true -> remove enemy
 					//If false ->do nothing
@@ -236,15 +236,6 @@ public class Mediator {
 		new Thread(task).start();
 	}
 	
-	private List<Entity> getEntitiesToRemove(int x , int y , EntityType...e_type) {
-		List<Entity> entities_to_remove = new ArrayList<Entity>();
-		for(int i = 0; i < e_type.length; i++) {
-			List<Entity> entities = EntitiesInVicinity(x , y , e_type[i]);
-			entities_to_remove.addAll(entities);
-		}
-		return entities_to_remove;
-	}
-	
 	private ImageView getImageByEntity(List<ImageView> entities , Entity e) {
 		ImageView image = new ImageView();
 		for(int i = 0; i < entities.size(); i++) {
@@ -315,21 +306,17 @@ public class Mediator {
 		return null;
 	}
 	
-	// Checks if there is a door in front of player
-	private List<Entity> doorInVicinity(int x , int y) {
-		List<Entity> list = new LinkedList<>();
-		for(Entity entity : dungeon.getEntities()) {
-			if(entity.getType() == EntityType.DOOR) {
-				if(entity.getY() == y - 1 && entity.getX() == x) {
-					list.add(entity);
-				}
-			}
+	private List<Entity> getEntitiesToRemove(int x , int y , EntityType...e_type) {
+		List<Entity> entities_to_remove = new ArrayList<Entity>();
+		for(int i = 0; i < e_type.length; i++) {
+			List<Entity> entities = entitiesInVicinity(x , y , e_type[i]);
+			entities_to_remove.addAll(entities);
 		}
-		return list;
+		return entities_to_remove;
 	}
 	
 	//Returns a list of entities of type "type" if they are in adjacent squares
-	private List<Entity> EntitiesInVicinity(int x, int y , EntityType type) {
+	private List<Entity> entitiesInVicinity(int x, int y , EntityType type) {
 		//System.out.println("Inside enemiesInVicinity");
 		List<Entity> list = new LinkedList<>();
 		
@@ -340,6 +327,19 @@ public class Mediator {
 			   (entity.getX() == x && entity.getY() == y-1) || (entity.getX() == x-1 && entity.getY() == y) ||
 			   (entity.getX() == x-1 && entity.getY() == y-1)|| (entity.getX() == x+1 && entity.getY() == y+1))) {
 				    list.add(entity);
+			}
+		}
+		return list;
+	}
+	
+	// Checks if there is a door in front of player
+	private List<Entity> doorInVicinity(int x , int y) {
+		List<Entity> list = new LinkedList<>();
+		for(Entity entity : dungeon.getEntities()) {
+			if(entity.getType() == EntityType.DOOR) {
+				if(entity.getY() == y - 1 && entity.getX() == x) {
+					list.add(entity);
+				}
 			}
 		}
 		return list;
