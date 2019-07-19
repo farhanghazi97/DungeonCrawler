@@ -46,7 +46,7 @@ public class Potion extends Entity {
 			if(Mediator.getInstance().collectedEntities.add(this)) {
 				
 				//Start potion timer function
-				startSelfDestruct(4000);
+				startSelfDestruct(6000);
 				Mediator.getInstance().removeEntity(this);
 				return true;
 			}
