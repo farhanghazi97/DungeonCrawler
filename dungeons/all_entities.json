@@ -10,17 +10,17 @@
       {
         "x": 2,
         "y": 8,
-        "type": "switch",
+        "type": "switch"
       },
       {
         "x": 8,
         "y": 13,
-        "type": "switch",
+        "type": "switch"
       },
       {
         "x": 14,
         "y": 11,
-        "type": "switch",
+        "type": "switch"
       },
       {
         "x": 1,
@@ -418,6 +418,11 @@
         "type": "invincibility"
       },
       {
+        "x": 11,
+        "y": 9,
+        "type": "invincibility"
+      },
+      {
         "x": 17,
         "y": 10,
         "type": "wall"
@@ -643,28 +648,28 @@
       {
         "x": 11,
         "y": 3,
-        "type": "boulder",
+        "type": "boulder"
       },
       {
         "x": 4,
         "y": 6,
-        "type": "boulder",
+        "type": "boulder"
       },
       {
         "x": 4,
         "y": 12,
-        "type": "boulder",
+        "type": "boulder"
       },
       {
         "x": 2,
         "y": 12,
         "type": "key",
-        "id": 3,
+        "id": 3
       },
       {
         "x": 6,
         "y": 13,
-        "type": "bomb",
+        "type": "bomb"
       }
     ],
     "goal-condition": {
