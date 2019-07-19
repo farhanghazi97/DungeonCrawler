@@ -17,9 +17,6 @@ public abstract class Entity{
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
-    private String imageID;
-    private String image_path;
-    private ArrayList<String> image_list = new ArrayList<String>();
     /**
      * Create an entity positioned in square (x,y)
      * @param x

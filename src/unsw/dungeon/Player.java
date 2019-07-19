@@ -1,15 +1,7 @@
 package unsw.dungeon;
 
-import java.awt.Rectangle;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javafx.geometry.Bounds;
-import javafx.scene.Node;
-
-import javafx.scene.layout.GridPane;
 
 /**
  * The player entity

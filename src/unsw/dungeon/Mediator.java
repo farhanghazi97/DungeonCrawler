@@ -5,11 +5,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javafx.concurrent.Task;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -173,13 +170,18 @@ public class Mediator {
 	private Entity spawnBombAtCurrentLocation( int x , int y) {
 		
 		Entity new_bomb = new Bomb(x , y);		
-		Image new_image = new Image(new_bomb.getImagePath());
+		
+		/*
+		 * Commented this section out for backend testing
+		 */
+		
+		/*Image new_image = new Image(new_bomb.getImagePath());
 		ImageView new_view = new ImageView(new_image);
 		new_view.setId(new_bomb.getImageID());
 		GridPane.setColumnIndex(new_view, new_bomb.getX());
 		GridPane.setRowIndex(new_view , new_bomb.getY());
 		imageEntities.add(new_view);
-		squares.getChildren().add(new_view);
+		squares.getChildren().add(new_view);*/
 		return new_bomb;
 		
 	}

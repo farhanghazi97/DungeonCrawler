@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.concurrent.Task;
-
 public class Bomb extends Entity {
 	
 	private String type = "Bomb";

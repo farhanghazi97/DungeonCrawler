@@ -62,7 +62,6 @@ class DungeonTests {
         try {
             MockDungeonControllerLoader mdcl = new MockDungeonControllerLoader(filename);
             DungeonController controller = mdcl.loadController();
-            Dungeon dungeon = controller.getDungeon();
             Mediator.getInstance().setDungeon(controller.getDungeon(), controller.getSquares(), controller.getInitialEntities());
         } catch (FileNotFoundException e) {
             fail("Test Failed - File not found");
@@ -165,7 +164,6 @@ class DungeonTests {
     void test_key_collected() {
     	initializeDungeon(KEY_JSON_PASS);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
     	
     	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	
@@ -178,7 +176,6 @@ class DungeonTests {
     void test_treasure_collected() {
     	initializeDungeon(TREASURE_JSON);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
     	
     	Entity treasure = getEntity(3 , 3 , dungeon.getEntities() , Treasure.class);
     	
@@ -191,7 +188,6 @@ class DungeonTests {
     void test_potion_collected() {
     	initializeDungeon(POTION_JSON);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
     	
     	Entity potion = getEntity(2 , 3 , dungeon.getEntities() , Potion.class);
     	
@@ -204,7 +200,6 @@ class DungeonTests {
     void test_bomb_collected() {
     	initializeDungeon(BOMB_JSON);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
     	
     	Entity bomb = getEntity(0 ,0 , dungeon.getEntities() , Bomb.class);
     	
@@ -266,8 +261,6 @@ class DungeonTests {
     void test_sword_collected() {
     	initializeDungeon(SWORD_JSON);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
-    	
     	Entity sword = getEntity(0 , 0 , dungeon.getEntities() , Sword.class);
     	
     	//Player collects sword
@@ -281,7 +274,6 @@ class DungeonTests {
     	//first sword collected
     	test_sword_collected();
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
     	Entity secondSword = getEntity(2 , 2 , dungeon.getEntities() , Sword.class);
     	//Player collects second sword
     	Mediator.getInstance().moveTo(2, 2, 2, 1);
@@ -294,7 +286,6 @@ class DungeonTests {
     void test_one_bomb_carriable() {
     	test_bomb_collected();
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Player player = dungeon.getPlayer();
     	Entity secondBomb = getEntity(2 , 2 , dungeon.getEntities() , Bomb.class);
     	Mediator.getInstance().moveTo(2, 2, 2, 1);
     	assertEquals(1, Mediator.getInstance().collectedEntities.size());
@@ -323,7 +314,7 @@ class DungeonTests {
     	test_sword_collected();
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Player player = dungeon.getPlayer();
-    	Entity sword = Mediator.getInstance().getCollected(EntityType.SWORD);
+    	assert(Mediator.getInstance().getCollected(EntityType.SWORD) != null);
     	
     	// Checking if one enemy exists
     	assertEquals(1, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
@@ -359,7 +350,7 @@ class DungeonTests {
     	Mediator.getInstance().igniteBomb(3, 3);
     	
     	//Checking if enemy is removed after sword swing
-    	Entity enemy = getEntity(3 , 2 , dungeon.getEntities() , Enemy.class);
+    	assertEquals(0 , Mediator.getInstance().getEntities(3, 2, Enemy.class).size());
     	
     }
   
