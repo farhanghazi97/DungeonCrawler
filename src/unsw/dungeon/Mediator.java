@@ -209,27 +209,27 @@ public class Mediator {
 		};
 
 		task.setOnSucceeded(e -> {
-			// Grab all (in any) enemies , boulders , player in 3 X 3 area surrounding
-			// bomb's location
+			// Grab all (in any) enemies , boulders , player in 3 X 3 area surrounding bomb's location
 			List<Entity> entities_to_remove = getEntitiesToRemove(new_bomb.getX(), new_bomb.getY(), 
 					EntityType.ENEMY, EntityType.BOULDER, EntityType.PLAYER);
 			if (entities_to_remove.contains(dungeon.getPlayer())) {
-				// If player is in blast radius of bomb, end game
 				Entity potion = this.getCollected(EntityType.POTION);
 				// If player does not have potion, bomb effective
 				if(potion == null) {
 					this.markGameOver();
 				} else {
-				// If player havs potion, bomb ineffective
+				// If player has potion, bomb ineffective
 					entities_to_remove.remove(dungeon.getPlayer());
 				}
 			}
+			// Remove all entities in 3 X 3 area
 			if (!entities_to_remove.isEmpty()) {
 				for (int i = 0; i < entities_to_remove.size(); i++) {
 					Entity enemy = entities_to_remove.get(i);
 					this.removeEntity(enemy);
 				}
 			}
+			// Remove bomb
 			removeEntity(new_bomb);
 		});
 
