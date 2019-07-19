@@ -26,6 +26,13 @@ public class Mediator {
 		return mediator;
 	}
 
+
+	private Dungeon dungeon;
+	private GridPane squares;
+	private List<ImageView> imageEntities;
+	private boolean gameOver = false;
+	
+
 	/**
 	 * Getters for testability.
 	 * 
@@ -38,12 +45,11 @@ public class Mediator {
 	public GridPane getSquares() {
 		return squares;
 	}
-
-	private Dungeon dungeon;
-	private GridPane squares;
-	private List<ImageView> imageEntities;
-	private boolean gameOver = false;
-
+	
+	public boolean getGameOver() {
+		return gameOver;
+	}
+	
 	public void setDungeon(Dungeon dungeon, GridPane squares, List<ImageView> imageEntities) {
 		this.dungeon = dungeon;
 		this.squares = squares;
@@ -417,5 +423,6 @@ public class Mediator {
 		}
 		return null;
 	}
+	
 	
 }
