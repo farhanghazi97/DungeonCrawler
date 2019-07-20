@@ -68,14 +68,25 @@ public class Enemy extends Entity{
 		return image_list;
 	}
 	
-	
+	//OUR AMAZING LOGIC FOR MOVING ENEMY
 	public boolean moveEnemy(int playerX, int playerY) {
 		System.out.println("Enemy: In moveEnemy ");
 		
 		Mediator m = Mediator.getInstance();
-		
+	
 		int enemyX = this.getX();
 		int enemyY = this.getY();
+		
+		
+		//In Efforts to make it harder
+		List<Entity> player = MediatorHelper.entitiesInVicinity(m.getDungeon(), enemyX, enemyY, EntityType.PLAYER);
+		
+		if(player.size() == 1) {
+			//Player is in vicinity of enemy
+			this.moveTo(playerX, playerY);
+			return true;
+		}
+		
 		
 		int dirX = playerX - enemyX;
 		int dirY = playerY - enemyY;
@@ -90,7 +101,7 @@ public class Enemy extends Entity{
 		if(MediatorHelper.outsideDungeon(Mediator.getInstance().getDungeon(), enemyX, enemyY) ) {
 			return false;
 		}
-		
+
 		if(entitiesAtCurrent.size() == 0) {
 			if(this.isBlocked(entitiesAtCurrent) == false) {
 				this.moveTo(enemyX, enemyY);
