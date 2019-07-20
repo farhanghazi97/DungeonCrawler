@@ -56,6 +56,13 @@ public class MediatorHelper {
     public static boolean outsideDungeon(Dungeon dungeon, int newX, int newY) {
         int width = dungeon.getWidth();
         int height = dungeon.getHeight();
+        Player p = dungeon.getPlayer();
+        System.out.println("NEW: "+newX+" "+newY);
+        System.out.println("CURRENT "+p.getX() + " " + p.getY());
+        if(newX == -1|| newY == -1) {
+        	//If there was an entity , and it was destroyed, then coordinates change to -1
+        	return true;
+        }
         if (newX + 1 > width || newY + 1 > height) {
             return true;
         }
