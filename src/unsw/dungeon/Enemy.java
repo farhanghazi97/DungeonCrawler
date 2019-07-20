@@ -73,7 +73,8 @@ public class Enemy extends Entity{
 		System.out.println("Enemy: In moveEnemy ");
 		
 		Mediator m = Mediator.getInstance();
-	
+		
+		//Some math 
 		int enemyX = this.getX();
 		int enemyY = this.getY();
 		
@@ -87,23 +88,25 @@ public class Enemy extends Entity{
 			return true;
 		}
 		
-		
+		//More math
 		int dirX = playerX - enemyX;
 		int dirY = playerY - enemyY;
 
 		double unit_vector = Math.atan2(dirY , dirX);
 		
-		enemyX = (int) (enemyX + (3 * Math.cos(unit_vector)));
-		enemyY = (int) (enemyY + (3 * Math.sin(unit_vector)));
+		enemyX = (int) (enemyX + (2 * Math.cos(unit_vector)));
+		enemyY = (int) (enemyY + (2 * Math.sin(unit_vector)));
 		
 		List<Entity> entitiesAtCurrent = MediatorHelper.getEntities(m.getDungeon(), enemyX, enemyY);
 		
-		if(MediatorHelper.outsideDungeon(Mediator.getInstance().getDungeon(), enemyX, enemyY) ) {
+		if(MediatorHelper.outsideDungeon(m.getDungeon(), enemyX, enemyY) ) {
+			//(EnemyX, EnemyY) position is outside the dungeon
 			return false;
 		}
 
 		if(entitiesAtCurrent.size() == 0) {
 			if(this.isBlocked(entitiesAtCurrent) == false) {
+				//There are no entities at (EnemyX, enemyY) and the location is unblocked
 				this.moveTo(enemyX, enemyY);
 				System.out.println("Move enemy now!");
 				return true;
