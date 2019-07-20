@@ -294,7 +294,7 @@ public class Mediator {
 			// Map GridPane co-ords to entity co-ords
 			if (GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
 				if (image.getId().equals(entity.getImageID())) {
-					// Removing from screen
+					//Removing from screen
 					squares.getChildren().remove(image);
 				}
 			}
