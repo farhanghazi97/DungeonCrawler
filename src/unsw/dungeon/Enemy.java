@@ -80,9 +80,9 @@ public class Enemy extends Entity{
 		
 		//In Efforts to make it harder
 		List<Entity> player = MediatorHelper.entitiesInVicinity(m.getDungeon(), enemyX, enemyY, EntityType.PLAYER);
-		
-		if(player.size() == 1) {
-			//Player is in vicinity of enemy
+		Entity potion = m.getCollected(EntityType.POTION);
+		if(player.size() == 1 && potion == null) {
+			//Player is in vicinity of enemy and has no potion. 
 			this.moveTo(playerX, playerY);
 			return true;
 		}
