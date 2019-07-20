@@ -65,13 +65,15 @@ public class Mediator {
 			// Whether moving boulder or player, outside dungeon boundaries is prohibited.
 			return false;
 		}
+	
 
 		// At start, entity to move is the player
 		Entity entityToMove = dungeon.getPlayer();
 		List<Entity> fromEntities = MediatorHelper.getEntities(dungeon, currentX, currentY);
 		List<Entity> toEntities = MediatorHelper.getEntities(dungeon, newX, newY);
 		List<Entity> bouldersAtCurrent = MediatorHelper.getEntities(dungeon, currentX, currentY, Boulder.class);
-
+		List<Entity> enemies =getEntityOfType(EntityType.ENEMY);
+		System.out.println(enemies);
 		Random rand = new Random();
 
 		if (!bouldersAtCurrent.isEmpty()) {
@@ -85,7 +87,12 @@ public class Mediator {
 		}
 
 		entityToMove.moveTo(newX, newY);
-
+		
+		for (Entity enemy : enemies) {
+			
+			((Enemy) enemy).moveEnemy(newX, newY);
+		}
+		
 		if (!bouldersAtCurrent.isEmpty()) {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
@@ -104,9 +111,13 @@ public class Mediator {
 			if (entity.getType() != EntityType.SWITCH)
 				entity.stepOver();
 		}
+		
+		
 
 		entityToMove.postMove(toEntities);
-
+		
+		
+		
 		return true;
 	}
 
@@ -261,9 +272,18 @@ public class Mediator {
 		}
 		return null;
 	}
-
-
-
+	
+	// Returns entity if the player already has an entity of given type
+	public List<Entity> getEntityOfType(EntityType entityType) {
+		List<Entity> list = new LinkedList<>();
+		for (Entity entity : dungeon.getEntities()) {
+			if (entity.getType() == entityType) {
+				list.add(entity);
+			}
+		}
+		return list;
+	}
+	 
 
 
 	// UI FUNCTIONS

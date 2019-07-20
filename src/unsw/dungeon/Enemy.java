@@ -25,7 +25,11 @@ public class Enemy extends Entity{
 
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew) {
-		// TODO Auto-generated method stub
+		for (Entity entity : entitiesAtNew) {
+			if (entity.getType()==EntityType.WALL || entity.getType() == EntityType.BOULDER || entity.getType() == EntityType.ENEMY){
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -63,5 +67,25 @@ public class Enemy extends Entity{
 	public ArrayList<String> getImage_list() {
 		return image_list;
 	}
-
+	
+	
+	public boolean moveEnemy(int playerX, int playerY) {
+		System.out.println("Enemy: In moveEnemy ");
+		int enemyX = Math.abs(playerX - this.getX());
+		int enemyY = Math.abs(playerY - this.getY());
+		System.out.println("Player is at :" + playerX + " "+ playerY);
+		System.out.println("Enemy move to :" + enemyX + " "+ enemyY);
+		if(MediatorHelper.outsideDungeon(Mediator.getInstance().getDungeon(), enemyX, enemyY) ) {
+			return false;
+		}
+		List<Entity> entitiesAtCurrent = MediatorHelper.getEntities(Mediator.getInstance().getDungeon(), enemyX, enemyY);
+		if(entitiesAtCurrent.size() == 0 && this.isBlocked(entitiesAtCurrent) == false) {
+			
+			this.moveTo(enemyX, enemyY);
+			System.out.println("Move enemy now!");
+			return true;
+		}	
+		return false;
+		
+	}
 }
