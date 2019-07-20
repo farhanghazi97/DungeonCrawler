@@ -71,21 +71,33 @@ public class Enemy extends Entity{
 	
 	public boolean moveEnemy(int playerX, int playerY) {
 		System.out.println("Enemy: In moveEnemy ");
-		int enemyX = Math.abs(playerX - this.getX());
-		int enemyY = Math.abs(playerY - this.getY());
-		System.out.println("Player is at :" + playerX + " "+ playerY);
-		System.out.println("Enemy move to :" + enemyX + " "+ enemyY);
+		
+		Mediator m = Mediator.getInstance();
+		
+		int enemyX = this.getX();
+		int enemyY = this.getY();
+		
+		int dirX = playerX - enemyX;
+		int dirY = playerY - enemyY;
+
+		double unit_vector = Math.atan2(dirY , dirX);
+		
+		enemyX = (int) (enemyX + (3 * Math.cos(unit_vector)));
+		enemyY = (int) (enemyY + (3 * Math.sin(unit_vector)));
+		
+		List<Entity> entitiesAtCurrent = MediatorHelper.getEntities(m.getDungeon(), enemyX, enemyY);
+		
 		if(MediatorHelper.outsideDungeon(Mediator.getInstance().getDungeon(), enemyX, enemyY) ) {
 			return false;
 		}
-		List<Entity> entitiesAtCurrent = MediatorHelper.getEntities(Mediator.getInstance().getDungeon(), enemyX, enemyY);
-		if(entitiesAtCurrent.size() == 0 && this.isBlocked(entitiesAtCurrent) == false) {
-			
-			this.moveTo(enemyX, enemyY);
-			System.out.println("Move enemy now!");
-			return true;
-		}	
-		return false;
 		
+		if(entitiesAtCurrent.size() == 0) {
+			if(this.isBlocked(entitiesAtCurrent) == false) {
+				this.moveTo(enemyX, enemyY);
+				System.out.println("Move enemy now!");
+				return true;
+			}
+		}
+		return false;
 	}
 }

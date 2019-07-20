@@ -88,11 +88,6 @@ public class Mediator {
 
 		entityToMove.moveTo(newX, newY);
 		
-		for (Entity enemy : enemies) {
-			
-			((Enemy) enemy).moveEnemy(newX, newY);
-		}
-		
 		if (!bouldersAtCurrent.isEmpty()) {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
@@ -110,6 +105,10 @@ public class Mediator {
 		for (Entity entity : fromEntities) {
 			if (entity.getType() != EntityType.SWITCH)
 				entity.stepOver();
+		}
+		
+		for (Entity enemy : enemies) {
+			((Enemy) enemy).moveEnemy(newX, newY);
 		}
 		
 		

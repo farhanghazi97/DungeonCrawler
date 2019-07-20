@@ -670,6 +670,16 @@
         "x": 6,
         "y": 13,
         "type": "bomb"
+      },
+      {
+        "x": 6,
+        "y": 13,
+        "type": "enemy"
+      },
+      {
+        "x": 3,
+        "y": 5,
+        "type": "enemy"
       }
     ],
     "goal-condition": {
