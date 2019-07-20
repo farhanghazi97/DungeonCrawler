@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Treasure extends Entity{
 
-	private String type = "Treasure";
 	private static int treasureCoins = 0;
 	private String image_path = "gold_pile.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
@@ -38,36 +37,12 @@ public class Treasure extends Entity{
     	Mediator.getInstance().removeEntity(this);
 		return true;
 	}
-	
-	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isIs_open() {
-		return false;
-	}
-	
+
 	@Override
 	public String toString() {
 		return "TREASURE object [Count =" + treasureCoins + ", collected=" + treasureCoins + "]";
 	}
 	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
-	}
 
 	@Override
 	public String getImageID() {

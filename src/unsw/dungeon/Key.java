@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Key extends Entity {
 
-	private String type = "Key";
 	private String image_path = "/key.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	
@@ -60,31 +59,11 @@ public class Key extends Entity {
 	public String toString() {
 		return "KEY object [Key ID=" + keyID + ", collected=" + collected + "]";
 	}
-	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
-	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
-	}
-	
-	@Override
+
 	public int getKeyID() {
 		return keyID;
 	}
 	
-	@Override
-	public boolean isIs_open() {
-		return false;
-	}
-
 	@Override
 	public String getImageID() {
 		return "Key image";

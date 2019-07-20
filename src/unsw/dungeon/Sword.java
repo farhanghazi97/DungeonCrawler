@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Sword extends Entity {
 	
-	private String type = "Sword";
 	private String image_path = "greatsword_1_new.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	
@@ -73,30 +72,6 @@ public class Sword extends Entity {
 		return "SWORD object [swingsRemaining=" + swingsRemaining + ", collected=" + collected + "]";
 	}
 	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isIs_open() {
-		return false;
-	}
-	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
-	}
-
 	@Override
 	public String getImageID() {
 		return "Sword image";

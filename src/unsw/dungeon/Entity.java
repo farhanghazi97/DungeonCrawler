@@ -57,16 +57,11 @@ public abstract class Entity{
     }
     
     public abstract void postMove(List<Entity> entitiesAtNew);
-    public abstract int getDoorID();
-	public abstract int getKeyID();
-	public abstract boolean isIs_open();
-    public abstract boolean stepOver();    
+    public abstract boolean stepOver();
     public abstract boolean isBlocked(List<Entity> entitiesAtNew);
-    
     public abstract EntityType getType();
     public abstract String getImageID();
     public abstract String getImagePath();
-	public abstract Entity getObjectByType(String s);
 	public abstract ArrayList<String> getImage_list();
 
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Boulder extends Entity {
 
-	private String type = "Boulder";
 	private String image_path = "/boulder.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	
@@ -24,8 +23,12 @@ public class Boulder extends Entity {
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {
-			if (entity.getType() == EntityType.DOOR && entity.isIs_open() == true) {
-				return false;
+			if (entity.getType() == EntityType.DOOR) {
+				//Since entity type is a door has been checked, we can safely cast the entity to Door type.
+				Door door = (Door) entity;
+				if(door.isDoorOpen()){
+					return false;
+				}
 			} else if (entity.getType()   == EntityType.WALL	 || entity.getType()    ==EntityType.BOULDER
 				|| entity.getType() == EntityType.DOOR || entity.getType()    == EntityType.TREASURE
 				|| entity.getType() == EntityType.KEY 	 || entity.getType()    == EntityType.SWORD
@@ -49,30 +52,6 @@ public class Boulder extends Entity {
 	public boolean stepOver() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isIs_open() {
-		return false;
-	}
-	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
 	}
 
 	@Override

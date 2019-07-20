@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class Switch extends Entity{
 
-	private String type = "Switch";
 	private String image_path = "/pressure_plate.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	
@@ -45,30 +44,6 @@ public class Switch extends Entity{
 			Mediator.getInstance().generateObject(EntityType.POTION);
 		}
 		return true;
-	}
-	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isIs_open() {
-		return false;
-	}
-	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
 	}
 
 	@Override

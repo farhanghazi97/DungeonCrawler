@@ -50,30 +50,6 @@ public class Enemy extends Entity{
 	}
 
 	@Override
-	public Entity getObjectByType(String s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getDoorID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getKeyID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean isIs_open() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public String getImageID() {
 		return "Enemy image";
 	}
@@ -87,7 +63,5 @@ public class Enemy extends Entity{
 	public ArrayList<String> getImage_list() {
 		return image_list;
 	}
-	
-	
 
 }

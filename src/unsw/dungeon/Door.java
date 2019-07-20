@@ -5,10 +5,8 @@ import java.util.List;
 
 public class Door extends Entity {
 
-	private String type = "Door";
 	private String image_path = "/open_door.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
-	
 	private int door_id;
 	private boolean is_open = false;
 	
@@ -43,28 +41,33 @@ public class Door extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		Entity key = Mediator.getInstance().getCollected(EntityType.KEY);
+		//If Player has a key in the collected bag
+		Key key = (Key) Mediator.getInstance().getCollected(EntityType.KEY);
 		if(key != null) {
 			if(matchKey(key)) {
-				//Mediator.getInstance().updateDoorUI(this);
+				//Key and Door id match
+				Mediator.getInstance().updateDoorUI(this);
+				Mediator.getInstance().collectedEntities.remove(key);
 				this.setIs_open(true);
 				return true;
 			} else {
+				//Key and door ID do not match
 				return false;
 			}
 		}
+		//Returning false if player has no key in collected bag
 		return false;
 	}
 	
-	private boolean matchKey(Entity e) {
-		if(this.getDoor_id() == e.getKeyID()) {
+	private boolean matchKey(Key key) {
+		if(this.getDoor_id() == key.getKeyID()) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public boolean isIs_open() {
+	public boolean isDoorOpen() {
 		return is_open;
 	}
 
@@ -75,25 +78,6 @@ public class Door extends Entity {
 	@Override
 	public String toString() {
 		return "DOOR object [Door ID=" + door_id + ", Open?=" + is_open + "]";
-	}
-	
-	@Override
-	public int getDoorID() {
-		return door_id;
-	}
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
 	}
 
 	@Override

@@ -26,12 +26,10 @@ public class Mediator {
 		return mediator;
 	}
 
-
 	private Dungeon dungeon;
 	private GridPane squares;
 	private List<ImageView> imageEntities;
 	private boolean gameOver = false;
-	
 
 	/**
 	 * Getters for testability.
@@ -45,11 +43,11 @@ public class Mediator {
 	public GridPane getSquares() {
 		return squares;
 	}
-	
+
 	public boolean getGameOver() {
 		return gameOver;
 	}
-	
+
 	public void setDungeon(Dungeon dungeon, GridPane squares, List<ImageView> imageEntities) {
 		this.dungeon = dungeon;
 		this.squares = squares;
@@ -63,16 +61,16 @@ public class Mediator {
 			return false;
 		}
 
-		if (outsideDungeon(newX, newY)) {
+		if (MediatorHelper.outsideDungeon(dungeon, newX, newY)) {
 			// Whether moving boulder or player, outside dungeon boundaries is prohibited.
 			return false;
 		}
 
 		// At start, entity to move is the player
 		Entity entityToMove = dungeon.getPlayer();
-		List<Entity> entitiesAtCurrent = getEntities(currentX, currentY);
-		List<Entity> entitiesAtNew = getEntities(newX, newY);
-		List<Entity> bouldersAtCurrent = getEntities(currentX, currentY, Boulder.class);
+		List<Entity> fromEntities = MediatorHelper.getEntities(dungeon, currentX, currentY);
+		List<Entity> toEntities = MediatorHelper.getEntities(dungeon, newX, newY);
+		List<Entity> bouldersAtCurrent = MediatorHelper.getEntities(dungeon, currentX, currentY, Boulder.class);
 
 		Random rand = new Random();
 
@@ -82,7 +80,7 @@ public class Mediator {
 			entityToMove = bouldersAtCurrent.get(0);
 		}
 
-		if (entityToMove.isBlocked(entitiesAtNew)) {
+		if (entityToMove.isBlocked(toEntities)) {
 			return false;
 		}
 
@@ -93,7 +91,7 @@ public class Mediator {
 			// We will move boulder instead of player
 			entityToMove = bouldersAtCurrent.get(0);
 			// Activating switch, if it exists
-			List<Entity> switchAtCurrent = getEntities(currentX, currentY, Switch.class);
+			List<Entity> switchAtCurrent = MediatorHelper.getEntities(dungeon, currentX, currentY, Switch.class);
 			if (!switchAtCurrent.isEmpty()) {
 				Entity swi = switchAtCurrent.get(0);
 				if (rand.nextInt(3) == 1)
@@ -102,12 +100,12 @@ public class Mediator {
 		}
 
 		// Calling entitesAtCurrent stepOver on a loop
-		for (Entity entity : entitiesAtCurrent) {
+		for (Entity entity : fromEntities) {
 			if (entity.getType() != EntityType.SWITCH)
 				entity.stepOver();
 		}
 
-		entityToMove.postMove(entitiesAtNew);
+		entityToMove.postMove(toEntities);
 
 		return true;
 	}
@@ -126,7 +124,7 @@ public class Mediator {
 		if (sword != null) {
 			if (((Sword) sword).swing()) {
 				// Check if enemy is in vicinity
-				List<Entity> enemies = entitiesInVicinity(x, y, EntityType.ENEMY);
+				List<Entity> enemies = MediatorHelper.entitiesInVicinity(dungeon, x, y, EntityType.ENEMY);
 				if (enemies != null) {
 					// If true -> remove enemy
 					// If false ->do nothing
@@ -137,28 +135,21 @@ public class Mediator {
 			}
 		}
 	}
-	
 
 	// Called when player presses 'U' key on keyboard
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX, int currentY) {
-		List<Entity> door = doorInVicinity(currentX, currentY);
-		if (!door.isEmpty()) {
-			Entity d = door.get(0);
-			if (d.stepOver()) {
-				for (int i = 0; i < collectedEntities.size(); i++) {
-					Entity e = collectedEntities.get(i).getObjectByType("Key");
-					if (e != null) {
-						collectedEntities.remove(i);
-						break;
-					}
-				}
-			}
+		List<Entity> doors = MediatorHelper.doorInFront(dungeon, currentX, currentY);
+		if (!doors.isEmpty()) {
+			Entity door = doors.get(0);
+			door.stepOver();
 		}
 	}
 	
+	
+	//THE BOMB CODE IS MESSY
 	// Called when player presses the 'B' key on keyboard
-	// Bomb timer begins 
+	// Bomb timer begins
 	public void igniteBomb(int x, int y) {
 		System.out.println("Mediator: In ignite bomb");
 		Entity old_bomb = getCollected(EntityType.BOMB);
@@ -169,8 +160,7 @@ public class Mediator {
 		}
 	}
 
-
-	//Manages the UI for changing bomb image
+	// Manages the UI for changing bomb image
 	private Entity spawnBombAtCurrentLocation(int x, int y) {
 
 		Entity new_bomb = new Bomb(x, y);
@@ -190,6 +180,7 @@ public class Mediator {
 
 	}
 
+	// Manages image changes and bomb timer
 	private void startBombSelfDestruct(Entity new_bomb, long time) {
 
 		ArrayList<String> images = new_bomb.getImage_list();
@@ -208,6 +199,7 @@ public class Mediator {
 						}
 						Image new_state = new Image(images.get(j));
 						imageToUpdate.setImage(new_state);
+						System.out.println("Bomb image updated");
 					}
 				}
 				return null;
@@ -215,16 +207,17 @@ public class Mediator {
 		};
 
 		task.setOnSucceeded(e -> {
-			// Grab all (in any) enemies , boulders , player in 3 X 3 area surrounding bomb's location
-			List<Entity> entities_to_remove = getEntitiesToRemove(new_bomb.getX(), new_bomb.getY(), 
-					EntityType.ENEMY, EntityType.BOULDER, EntityType.PLAYER);
+			// Grab all (in any) enemies , boulders , player in 3 X 3 area surrounding
+			// bomb's location
+			List<Entity> entities_to_remove = MediatorHelper.entitiesInVicinity(dungeon,
+					new_bomb.getX(), new_bomb.getY(), EntityType.ENEMY,
+					EntityType.BOULDER, EntityType.PLAYER);
 			if (entities_to_remove.contains(dungeon.getPlayer())) {
 				Entity potion = this.getCollected(EntityType.POTION);
 				// If player does not have potion, bomb effective
-				if(potion == null) {
+				if (potion == null) {
 					this.markGameOver();
 				} else {
-				// If player has potion, bomb ineffective
 					entities_to_remove.remove(dungeon.getPlayer());
 				}
 			}
@@ -237,59 +230,17 @@ public class Mediator {
 			}
 			// Remove bomb
 			removeEntity(new_bomb);
+			System.out.println("Bomb removed");
 		});
 
 		new Thread(task).start();
 	}
 
-	private ImageView getImageByEntity(List<ImageView> entities, Entity e) {
-		ImageView image = new ImageView();
-		for (int i = 0; i < entities.size(); i++) {
-			image = entities.get(i);
-			if (GridPane.getColumnIndex(image) == e.getX() && GridPane.getRowIndex(image) == e.getY()) {
-				if (image.getId().equals(e.getImageID())) {
-					break;
-				}
-			}
-		}
-		return image;
-	}
 
-	// Returns true if the new coordinates given are outside
-	// the boundaries of the dungeon
-	private boolean outsideDungeon(int newX, int newY) {
-		int width = dungeon.getWidth();
-		int height = dungeon.getHeight();
-		if (newX + 1 > width || newY + 1 > height) {
-			return true;
-		}
-		return false;
-	}
 
-	// Returns all entities on (x,y) coordinates
 
-	private List<Entity> getEntities(int x, int y) {
-		List<Entity> list = new LinkedList<>();
-		for (Entity entity : dungeon.getEntities()) {
-			if (entity.getX() == x && entity.getY() == y) {
-				list.add(entity);
-			}
-		}
-		return list;
-	}
 
-	// Returns a specific type of entity class if it at a given (x,y) coordinate
-	// Made public so it can be used in the test file
-	public List<Entity> getEntities(int x, int y, Class clazz) {
-		List<Entity> list = new LinkedList<>();
-		for (Entity entity : dungeon.getEntities()) {
-			if (entity.getX() == x && entity.getY() == y && clazz.isInstance(entity)) {
-				System.out.println("Adding to list");
-				list.add(entity);
-			}
-		}
-		return list;
-	}
+
 
 	// Returns true if the player already has newEntity in collected
 	public boolean isCollected(Entity newEntity) {
@@ -311,46 +262,10 @@ public class Mediator {
 		return null;
 	}
 
-	private List<Entity> getEntitiesToRemove(int x, int y, EntityType... e_type) {
-		List<Entity> entities_to_remove = new ArrayList<Entity>();
-		for (int i = 0; i < e_type.length; i++) {
-			List<Entity> entities = entitiesInVicinity(x, y, e_type[i]);
-			entities_to_remove.addAll(entities);
-		}
-		return entities_to_remove;
-	}
 
-	// Returns a list of entities of type "type" if they are in adjacent squares
-	private List<Entity> entitiesInVicinity(int x, int y, EntityType type) {
-		// System.out.println("Inside enemiesInVicinity");
-		List<Entity> list = new LinkedList<>();
 
-		for (Entity entity : dungeon.getEntities()) {
-			if (entity.getType() == type && ((entity.getX() == x + 1 && entity.getY() == y)
-					|| (entity.getX() == x + 1 && entity.getY() == y - 1)
-					|| (entity.getX() == x + 1 && entity.getY() == y + 1)
-					|| (entity.getX() == x && entity.getY() == y + 1) || (entity.getX() == x && entity.getY() == y - 1)
-					|| (entity.getX() == x - 1 && entity.getY() == y)
-					|| (entity.getX() == x - 1 && entity.getY() == y - 1)
-					|| (entity.getX() == x + 1 && entity.getY() == y + 1))) {
-				list.add(entity);
-			}
-		}
-		return list;
-	}
 
-	// Checks if there is a door in front of player
-	private List<Entity> doorInVicinity(int x, int y) {
-		List<Entity> list = new LinkedList<>();
-		for (Entity entity : dungeon.getEntities()) {
-			if (entity.getType() == EntityType.DOOR) {
-				if (entity.getY() == y - 1 && entity.getX() == x) {
-					list.add(entity);
-				}
-			}
-		}
-		return list;
-	}
+
 	// UI FUNCTIONS
 	// Removes UI element and object corresponding to given entity
 	public void removeEntity(Entity entity) {
@@ -383,14 +298,12 @@ public class Mediator {
 	// Method to generate a new entity in the maze
 	public void generateObject(EntityType type) {
 
-		Random rand = new Random();
-
 		int width = dungeon.getWidth();
 		int height = dungeon.getHeight();
 
 		Pair location = null;
 		while (location == null) {
-			location = getUniqueSpawnLocation(rand, width, height);
+			location = MediatorHelper.getUniqueSpawnLocation(dungeon, width, height);
 		}
 
 		Entity new_object = null;
@@ -412,17 +325,19 @@ public class Mediator {
 		squares.getChildren().add(new_view);
 
 	}
-	
 
-	public Pair getUniqueSpawnLocation(Random rand, int x, int y) {
-		int rand_x = rand.nextInt(x);
-		int rand_y = rand.nextInt(y);
-		List<Entity> entitiesAtXY = getEntities(rand_x, rand_y);
-		if (entitiesAtXY.size() == 0) {
-			return new Pair(rand_x, rand_y);
+	// UI
+	private ImageView getImageByEntity(List<ImageView> entities, Entity e) {
+		ImageView image = new ImageView();
+		for (int i = 0; i < entities.size(); i++) {
+			image = entities.get(i);
+			if (GridPane.getColumnIndex(image) == e.getX() && GridPane.getRowIndex(image) == e.getY()) {
+				if (image.getId().equals(e.getImageID())) {
+					break;
+				}
+			}
 		}
-		return null;
+		return image;
 	}
-	
-	
+
 }

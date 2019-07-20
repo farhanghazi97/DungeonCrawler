@@ -11,7 +11,6 @@ import java.util.List;
 public class Player extends Entity {
 	
     private Dungeon dungeon;
-    private String type = "Player";
     private String image_path = "/human_new.png";
     private ArrayList<String> image_list = new ArrayList<String>();
     
@@ -30,8 +29,6 @@ public class Player extends Entity {
     	return "PLAYER object";
     }
 
-	//private List
-
 	@Override
 	public EntityType getType(){return EntityType.PLAYER;}
 
@@ -40,12 +37,13 @@ public class Player extends Entity {
 		for (Entity entity : entitiesAtNew) {
 			if (entity.getType()==EntityType.WALL){
 				return true;
-			} else if(entity.getType() == EntityType.DOOR && !entity.isIs_open()) {
-				return true;
-			} else if(entity.getType() == EntityType.DOOR && entity.isIs_open()) {
-				return false;
+			} else if(entity.getType() == EntityType.DOOR) {
+				//Since entity type is a door has been checked, we can safely cast the entity to Door type.
+				Door door = (Door) entity;
+				if (!door.isDoorOpen()){
+					return true;
+				}
 			}
-			
 		}
 		return false;
 	}
@@ -64,30 +62,6 @@ public class Player extends Entity {
 	public boolean stepOver() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isIs_open() {
-		return false;
-	}
-	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
 	}
 
 	@Override
