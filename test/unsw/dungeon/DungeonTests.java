@@ -202,20 +202,30 @@ class DungeonTests {
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
     	
     	assertFalse(door.stepOver());
-    	assertFalse(door.isIs_open());
+    	assertFalse(door.isDoorOpen());
     }
     
     
-    @Test
-    void TestKeyDoorPass() {
-    	initializeDungeon(KEY_JSON_PASS);
-    	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
-    	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
-    	Mediator.getInstance().collectedEntities.add(key);
-    	assertTrue(door.stepOver());
-    	assertTrue(door.isIs_open());
-    }
+//    @Test
+//    void TestKeyDoorPass() {
+//    	initializeDungeon(KEY_JSON_PASS);
+//    	Dungeon dungeon = Mediator.getInstance().getDungeon();
+//    	Player player = dungeon.getPlayer();
+//    	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
+//    	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
+//    	
+//    	//Player picks key up
+//    	Mediator.getInstance().moveTo(player.getX(),player.getY(),1,3);
+//    	Mediator.getInstance().moveTo(player.getX(),player.getY(),1,4);
+//    	
+//    	System.out.println(key);
+//    	
+//    	System.out.println(Mediator.getInstance().doorInVicinity(3, 1));
+//    	
+//    	//Mediator.getInstance().unlockDoor(3, 1);
+//    	//assertTrue(door.stepOver());
+//    	//assertTrue(door.isDoorOpen());
+//    }
     
 
     
@@ -227,7 +237,7 @@ class DungeonTests {
     	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
     	Mediator.getInstance().collectedEntities.add(key);
     	assertFalse(door.stepOver());
-    	assertFalse(door.isIs_open());
+    	assertFalse(door.isDoorOpen());
     }
     
     
@@ -469,8 +479,8 @@ class DungeonTests {
     
     
     //Tests if bomb destroys enemy in vicinity
-//    @Test
-//    void test_bomb_kills_enemy() {
+    @Test
+//    void test_bomb_kills_enemy() throws InterruptedException {
 //    	test_bomb_collected();
 //    	
 //    	Dungeon dungeon = Mediator.getInstance().getDungeon();
@@ -485,10 +495,10 @@ class DungeonTests {
 //    	//Player moves to 1 unit below the enemy  
 //    	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
 //    	
-//    	//Player swings sword
+//    	//Player ignites bomb
 //    	Mediator.getInstance().igniteBomb(3, 3);
-//    	
-//    	//Checking if enemy is removed after sword swing
+//    	Thread.sleep(10000);
+//    	//Checking if enemy is removed after explosion
 //    	assertEquals(0 , Mediator.getInstance().getEntities(3, 2, Enemy.class).size());
 //    	
 //    }

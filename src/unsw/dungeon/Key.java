@@ -77,7 +77,7 @@ public class Key extends Entity {
 	}
 	
 	@Override
-	public boolean isIs_open() {
+	public boolean isDoorOpen() {
 		return false;
 	}
 

@@ -142,20 +142,13 @@ public class Mediator {
 	// Called when player presses 'U' key on keyboard
 	// Attempts to unlock the door at current location
 	public void unlockDoor(int currentX, int currentY) {
-		List<Entity> door = doorInVicinity(currentX, currentY);
-		if (!door.isEmpty()) {
-			Entity d = door.get(0);
-			if (d.stepOver()) {
-				for (int i = 0; i < collectedEntities.size(); i++) {
-					Entity e = collectedEntities.get(i).getObjectByType("Key");
-					if (e != null) {
-						collectedEntities.remove(i);
-						break;
-					}
-				}
-			}
+		List<Entity> doors = doorInVicinity(currentX, currentY);
+		if (!doors.isEmpty()) {
+			Entity door = doors.get(0);
+			door.stepOver();
 		}
 	}
+	
 	
 	// Called when player presses the 'B' key on keyboard
 	// Bomb timer begins 
@@ -179,13 +172,13 @@ public class Mediator {
 		 * Commented this section out for backend testing
 		 */
 
-//		Image new_image = new Image(new_bomb.getImagePath());
-//		ImageView new_view = new ImageView(new_image);
-//		new_view.setId(new_bomb.getImageID());
-//		GridPane.setColumnIndex(new_view, new_bomb.getX());
-//		GridPane.setRowIndex(new_view, new_bomb.getY());
-//		imageEntities.add(new_view);
-//		squares.getChildren().add(new_view);
+		Image new_image = new Image(new_bomb.getImagePath());
+		ImageView new_view = new ImageView(new_image);
+		new_view.setId(new_bomb.getImageID());
+		GridPane.setColumnIndex(new_view, new_bomb.getX());
+		GridPane.setRowIndex(new_view, new_bomb.getY());
+		imageEntities.add(new_view);
+		squares.getChildren().add(new_view);
 		return new_bomb;
 
 	}
@@ -313,14 +306,6 @@ public class Mediator {
 		return null;
 	}
 
-	private List<Entity> getEntitiesToRemove(int x, int y, EntityType... e_type) {
-		List<Entity> entities_to_remove = new ArrayList<Entity>();
-		for (int i = 0; i < e_type.length; i++) {
-			List<Entity> entities = entitiesInVicinity(x, y, e_type[i]);
-			entities_to_remove.addAll(entities);
-		}
-		return entities_to_remove;
-	}
 
 	// Returns a list of entities of type "type" if they are in adjacent squares
 	private List<Entity> entitiesInVicinity(int x, int y, EntityType type) {
@@ -342,7 +327,7 @@ public class Mediator {
 	}
 
 	// Checks if there is a door in front of player
-	private List<Entity> doorInVicinity(int x, int y) {
+	public List<Entity> doorInVicinity(int x, int y) {
 		List<Entity> list = new LinkedList<>();
 		for (Entity entity : dungeon.getEntities()) {
 			if (entity.getType() == EntityType.DOOR) {
@@ -424,6 +409,15 @@ public class Mediator {
 			return new Pair(rand_x, rand_y);
 		}
 		return null;
+	}
+	
+	private List<Entity> getEntitiesToRemove(int x, int y, EntityType... e_type) {
+		List<Entity> entities_to_remove = new ArrayList<Entity>();
+		for (int i = 0; i < e_type.length; i++) {
+			List<Entity> entities = entitiesInVicinity(x, y, e_type[i]);
+			entities_to_remove.addAll(entities);
+		}
+		return entities_to_remove;
 	}
 	
 	

@@ -43,16 +43,21 @@ public class Door extends Entity {
 
 	@Override
 	public boolean stepOver() {
+		//If Player has a key in the collected bag
 		Entity key = Mediator.getInstance().getCollected(EntityType.KEY);
 		if(key != null) {
 			if(matchKey(key)) {
-				//Mediator.getInstance().updateDoorUI(this);
+				//Key and Door id match
+				Mediator.getInstance().updateDoorUI(this);
+				Mediator.getInstance().collectedEntities.remove(key);
 				this.setIs_open(true);
 				return true;
 			} else {
+				//Key and door ID do not match
 				return false;
 			}
 		}
+		//Returning false if player has no key in collected bag
 		return false;
 	}
 	
@@ -64,7 +69,7 @@ public class Door extends Entity {
 		}
 	}
 	
-	public boolean isIs_open() {
+	public boolean isDoorOpen() {
 		return is_open;
 	}
 

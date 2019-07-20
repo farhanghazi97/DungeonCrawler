@@ -38,9 +38,9 @@ public class Player extends Entity {
 		for (Entity entity : entitiesAtNew) {
 			if (entity.getType()==EntityType.WALL){
 				return true;
-			} else if(entity.getType() == EntityType.DOOR && !entity.isIs_open()) {
+			} else if(entity.getType() == EntityType.DOOR && !entity.isDoorOpen()) {
 				return true;
-			} else if(entity.getType() == EntityType.DOOR && entity.isIs_open()) {
+			} else if(entity.getType() == EntityType.DOOR && entity.isDoorOpen()) {
 				return false;
 			}
 			
@@ -71,7 +71,7 @@ public class Player extends Entity {
 	}
 	
 	@Override
-	public boolean isIs_open() {
+	public boolean isDoorOpen() {
 		return false;
 	}
 	

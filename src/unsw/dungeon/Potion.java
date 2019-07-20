@@ -84,10 +84,9 @@ public class Potion extends Entity {
 	}
 	
 	@Override
-	public boolean isIs_open() {
+	public boolean isDoorOpen() {
 		return false;
 	}
-	
 	@Override
 	public String toString() {
 		return "POTION object [count=" + count + ", collected=" + collected + "]";

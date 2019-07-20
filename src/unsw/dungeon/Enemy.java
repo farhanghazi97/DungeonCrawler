@@ -62,8 +62,7 @@ public class Enemy extends Entity{
 	}
 
 	@Override
-	public boolean isIs_open() {
-		// TODO Auto-generated method stub
+	public boolean isDoorOpen() {
 		return false;
 	}
 

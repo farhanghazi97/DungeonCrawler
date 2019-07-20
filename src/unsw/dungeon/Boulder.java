@@ -24,7 +24,7 @@ public class Boulder extends Entity {
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {
-			if (entity.getType() == EntityType.DOOR && entity.isIs_open() == true) {
+			if (entity.getType() == EntityType.DOOR && entity.isDoorOpen() == true) {
 				return false;
 			} else if (entity.getType()   == EntityType.WALL	 || entity.getType()    ==EntityType.BOULDER
 				|| entity.getType() == EntityType.DOOR || entity.getType()    == EntityType.TREASURE
@@ -58,7 +58,7 @@ public class Boulder extends Entity {
 	}
 	
 	@Override
-	public boolean isIs_open() {
+	public boolean isDoorOpen() {
 		return false;
 	}
 	
