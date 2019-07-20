@@ -43,7 +43,8 @@ public class MediatorHelper {
                         || (entity.getX() == x && entity.getY() == y + 1) || (entity.getX() == x && entity.getY() == y - 1)
                         || (entity.getX() == x - 1 && entity.getY() == y)
                         || (entity.getX() == x - 1 && entity.getY() == y - 1)
-                        || (entity.getX() == x + 1 && entity.getY() == y + 1))) {
+                        || (entity.getX() == x + 1 && entity.getY() == y + 1)
+                        || (entity.getX() == x && entity.getY() == y))) {
                     list.add(entity);
                 }
             }
