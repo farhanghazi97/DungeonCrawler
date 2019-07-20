@@ -42,7 +42,7 @@ public class Door extends Entity {
 	@Override
 	public boolean stepOver() {
 		//If Player has a key in the collected bag
-		Entity key = Mediator.getInstance().getCollected(EntityType.KEY);
+		Key key = (Key) Mediator.getInstance().getCollected(EntityType.KEY);
 		if(key != null) {
 			if(matchKey(key)) {
 				//Key and Door id match
@@ -59,8 +59,8 @@ public class Door extends Entity {
 		return false;
 	}
 	
-	private boolean matchKey(Entity e) {
-		if(this.getDoor_id() == e.getKeyID()) {
+	private boolean matchKey(Key key) {
+		if(this.getDoor_id() == key.getKeyID()) {
 			return true;
 		} else {
 			return false;
@@ -78,12 +78,6 @@ public class Door extends Entity {
 	@Override
 	public String toString() {
 		return "DOOR object [Door ID=" + door_id + ", Open?=" + is_open + "]";
-	}
-
-	
-	@Override
-	public int getKeyID() {
-		return -1;
 	}
 
 	@Override

@@ -199,8 +199,8 @@ class DungeonTests {
     void TestNoKeyDoorUnlock() {
     	initializeDungeon(KEY_JSON_PASS);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
-    	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
-    	
+    	Entity entity = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
+    	Door door = (Door) entity;
     	assertFalse(door.stepOver());
     	assertFalse(door.isDoorOpen());
     }
@@ -234,12 +234,12 @@ class DungeonTests {
     	initializeDungeon(KEY_JSON_FAIL);
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
-    	Entity door = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
+    	Entity entity = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
+    	Door door = (Door) entity;
     	Mediator.getInstance().collectedEntities.add(key);
     	assertFalse(door.stepOver());
     	assertFalse(door.isDoorOpen());
     }
-    
     
     @Test
     void TestMaxOneKeyCarriable() {
@@ -292,14 +292,14 @@ class DungeonTests {
     	assert(Mediator.getInstance().getCollected(EntityType.POTION) != null);
     	
     	//Enemy exists at (15,8)
-    	assertEquals(1, Mediator.getInstance().getEntities(15,8,Enemy.class).size());
+    	assertEquals(1, MediatorHelper.getEntities(dungeon, 15,8,Enemy.class).size());
     	
     	//Player moves on enemy
     	Mediator.getInstance().moveTo(player.getX() , player.getY(), 15, 8);
     	Mediator.getInstance().moveTo(player.getX() , player.getY(), 15, 7);
     	
     	//Enemy at (15,8) destroyed
-    	assertEquals(0, Mediator.getInstance().getEntities(15,8,Enemy.class).size());
+    	assertEquals(0, MediatorHelper.getEntities(dungeon, 15,8,Enemy.class).size());
     }
     
     //Test to check if the player can carry only potion at a time
@@ -313,14 +313,14 @@ class DungeonTests {
     	assert(Mediator.getInstance().getCollected(EntityType.POTION) != null);
     	
     	//Second potion exists at (11,9)
-    	assertEquals(1, Mediator.getInstance().getEntities(11,9,Potion.class).size());
+    	assertEquals(1, MediatorHelper.getEntities(dungeon, 11,9,Potion.class).size());
     			;
     	//Player moves on potion
     	Mediator.getInstance().moveTo(player.getX() , player.getY(), 11, 9);
     	Mediator.getInstance().moveTo(player.getX() , player.getY(), 11, 10);
     	
     	//Second potion still exists
-    	assertEquals(1, Mediator.getInstance().getEntities(11,9,Potion.class).size());
+    	assertEquals(1, MediatorHelper.getEntities(dungeon, 11,9,Potion.class).size());
     }
     
     //Test to check if an exploding bomb has no effect on a player with a potion
@@ -347,7 +347,7 @@ class DungeonTests {
     	//Player still lives
     	assertFalse(Mediator.getInstance().getGameOver());
     	//Bomb at (13,4) destroyed
-    	assertEquals(0, Mediator.getInstance().getEntities(13,4,Bomb.class).size());
+    	assertEquals(0, MediatorHelper.getEntities(dungeon, 13,4,Bomb.class).size());
     	
     }
     
@@ -392,7 +392,7 @@ class DungeonTests {
     	assert(Mediator.getInstance().getCollected(EntityType.SWORD) != null);
     	
     	// Checking if one enemy exists
-    	assertEquals(1, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
+    	assertEquals(1, MediatorHelper.getEntities(dungeon, 3,2,Enemy.class).size());
     	
     	// Player moves to 1 unit below the enemy  
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
@@ -401,7 +401,7 @@ class DungeonTests {
     	Mediator.getInstance().swingSword(3, 3);
     	
     	// Checking if enemy is removed after sword swing
-    	assertEquals(0, Mediator.getInstance().getEntities(3,2,Enemy.class).size());
+    	assertEquals(0, MediatorHelper.getEntities(dungeon, 3,2,Enemy.class).size());
     }
     
 

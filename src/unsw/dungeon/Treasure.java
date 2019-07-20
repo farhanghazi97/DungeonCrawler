@@ -37,17 +37,7 @@ public class Treasure extends Entity{
     	Mediator.getInstance().removeEntity(this);
 		return true;
 	}
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isDoorOpen() {
-		return false;
-	}
-	
+
 	@Override
 	public String toString() {
 		return "TREASURE object [Count =" + treasureCoins + ", collected=" + treasureCoins + "]";

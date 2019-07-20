@@ -76,16 +76,7 @@ public class Potion extends Entity {
 
         new Thread(task).start();
     }
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isDoorOpen() {
-		return false;
-	}
+
 	@Override
 	public String toString() {
 		return "POTION object [count=" + count + ", collected=" + collected + "]";

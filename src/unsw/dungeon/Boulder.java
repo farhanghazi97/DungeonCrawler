@@ -23,8 +23,12 @@ public class Boulder extends Entity {
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {
-			if (entity.getType() == EntityType.DOOR && entity.isDoorOpen() == true) {
-				return false;
+			if (entity.getType() == EntityType.DOOR) {
+				//Since entity type is a door has been checked, we can safely cast the entity to Door type.
+				Door door = (Door) entity;
+				if(door.isDoorOpen()){
+					return false;
+				}
 			} else if (entity.getType()   == EntityType.WALL	 || entity.getType()    ==EntityType.BOULDER
 				|| entity.getType() == EntityType.DOOR || entity.getType()    == EntityType.TREASURE
 				|| entity.getType() == EntityType.KEY 	 || entity.getType()    == EntityType.SWORD
@@ -49,18 +53,6 @@ public class Boulder extends Entity {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isDoorOpen() {
-		return false;
-	}
-
 
 	@Override
 	public String getImageID() {

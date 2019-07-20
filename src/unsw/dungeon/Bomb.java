@@ -55,17 +55,6 @@ public class Bomb extends Entity {
 	}
 
 	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isDoorOpen() {
-		return false;
-	}
-	
-
-	@Override
 	public String getImageID() {
 		return "Bomb image";
 	}

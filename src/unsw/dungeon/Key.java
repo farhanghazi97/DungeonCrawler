@@ -59,19 +59,11 @@ public class Key extends Entity {
 	public String toString() {
 		return "KEY object [Key ID=" + keyID + ", collected=" + collected + "]";
 	}
-	
 
-	
-	@Override
 	public int getKeyID() {
 		return keyID;
 	}
 	
-	@Override
-	public boolean isDoorOpen() {
-		return false;
-	}
-
 	@Override
 	public String getImageID() {
 		return "Key image";

@@ -48,17 +48,6 @@ public class Enemy extends Entity{
 		}
 		return true;
 	}
-	
-	@Override
-	public int getKeyID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean isDoorOpen() {
-		return false;
-	}
 
 	@Override
 	public String getImageID() {
@@ -74,7 +63,5 @@ public class Enemy extends Entity{
 	public ArrayList<String> getImage_list() {
 		return image_list;
 	}
-	
-	
 
 }

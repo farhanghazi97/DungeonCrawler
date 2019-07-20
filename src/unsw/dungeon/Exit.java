@@ -37,17 +37,7 @@ public class Exit extends Entity{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isDoorOpen() {
-		return false;
-	}
-	
+
 	@Override
 	public String getImageID() {
 		return "Exit Image";

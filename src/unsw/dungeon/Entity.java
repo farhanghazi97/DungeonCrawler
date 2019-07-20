@@ -57,9 +57,7 @@ public abstract class Entity{
     }
     
     public abstract void postMove(List<Entity> entitiesAtNew);
-	public abstract int getKeyID();
-	public abstract boolean isDoorOpen();
-    public abstract boolean stepOver();    
+    public abstract boolean stepOver();
     public abstract boolean isBlocked(List<Entity> entitiesAtNew);
     public abstract EntityType getType();
     public abstract String getImageID();

@@ -37,12 +37,13 @@ public class Player extends Entity {
 		for (Entity entity : entitiesAtNew) {
 			if (entity.getType()==EntityType.WALL){
 				return true;
-			} else if(entity.getType() == EntityType.DOOR && !entity.isDoorOpen()) {
-				return true;
-			} else if(entity.getType() == EntityType.DOOR && entity.isDoorOpen()) {
-				return false;
+			} else if(entity.getType() == EntityType.DOOR) {
+				//Since entity type is a door has been checked, we can safely cast the entity to Door type.
+				Door door = (Door) entity;
+				if (!door.isDoorOpen()){
+					return true;
+				}
 			}
-			
 		}
 		return false;
 	}
@@ -62,18 +63,6 @@ public class Player extends Entity {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	
-	@Override
-	public int getKeyID() {
-		return -1;
-	}
-	
-	@Override
-	public boolean isDoorOpen() {
-		return false;
-	}
-
 
 	@Override
 	public String getImageID() {
