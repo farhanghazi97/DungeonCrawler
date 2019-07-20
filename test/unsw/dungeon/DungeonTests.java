@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -81,7 +82,8 @@ class DungeonTests {
         try {
             MockDungeonControllerLoader mdcl = new MockDungeonControllerLoader(filename);
             DungeonController controller = mdcl.loadController();
-            Mediator.getInstance().setDungeon(controller.getDungeon(), controller.getSquares(), controller.getInitialEntities());
+            JSONObject goal = new JSONObject();
+            Mediator.getInstance().setDungeon(controller.getDungeon(), controller.getSquares(), controller.getInitialEntities() , goal);
         } catch (FileNotFoundException e) {
             fail("Test Failed - File not found");
         }

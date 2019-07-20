@@ -93,8 +93,8 @@ public class Enemy extends Entity{
 
 		double unit_vector = Math.atan2(dirY , dirX);
 		
-		enemyX = (int) (enemyX + (3 * Math.cos(unit_vector)));
-		enemyY = (int) (enemyY + (3 * Math.sin(unit_vector)));
+		enemyX = (int) (enemyX + (1 * Math.cos(unit_vector)));
+		enemyY = (int) (enemyY + (1 * Math.sin(unit_vector)));
 		
 		List<Entity> entitiesAtCurrent = MediatorHelper.getEntities(m.getDungeon(), enemyX, enemyY);
 		

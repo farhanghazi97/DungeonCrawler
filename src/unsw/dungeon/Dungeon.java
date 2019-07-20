@@ -6,6 +6,8 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 /**
  * A dungeon in the interactive dungeon player.
  *
@@ -20,12 +22,14 @@ public class Dungeon {
     private int width, height;
     private List<Entity> entities;
     private Player player;
+    private JSONObject goal;
 
-    public Dungeon(int width, int height) {
+    public Dungeon(int width, int height , JSONObject goal) {
         this.width = width;
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
+        this.goal = goal;
     }
 
     public int getWidth() {
@@ -55,6 +59,9 @@ public class Dungeon {
 	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
 	}
-    
+
+	public JSONObject getGoal() {
+		return goal;
+	}
     
 }

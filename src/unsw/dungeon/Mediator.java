@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import org.json.JSONObject;
+
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,6 +32,7 @@ public class Mediator {
 	private GridPane squares;
 	private List<ImageView> imageEntities;
 	private boolean gameOver = false;
+	private JSONObject goal;
 
 	/**
 	 * Getters for testability.
@@ -47,11 +50,16 @@ public class Mediator {
 	public boolean getGameOver() {
 		return gameOver;
 	}
+	
+	public JSONObject getGoal() {
+		return goal;
+	}
 
-	public void setDungeon(Dungeon dungeon, GridPane squares, List<ImageView> imageEntities) {
+	public void setDungeon(Dungeon dungeon, GridPane squares, List<ImageView> imageEntities , JSONObject goal) {
 		this.dungeon = dungeon;
 		this.squares = squares;
 		this.imageEntities = imageEntities;
+		this.goal = goal;
 	}
 
 	// To move from old coordinates to new coordinates
@@ -73,7 +81,7 @@ public class Mediator {
 		List<Entity> toEntities = MediatorHelper.getEntities(dungeon, newX, newY);
 		List<Entity> bouldersAtCurrent = MediatorHelper.getEntities(dungeon, currentX, currentY, Boulder.class);
 		List<Entity> enemies =getEntityOfType(EntityType.ENEMY);
-		System.out.println(enemies);
+
 		Random rand = new Random();
 
 		if (!bouldersAtCurrent.isEmpty()) {
@@ -110,13 +118,9 @@ public class Mediator {
 		for (Entity enemy : enemies) {
 			((Enemy) enemy).moveEnemy(newX, newY);
 		}
-		
-		
 
 		entityToMove.postMove(toEntities);
-		
-		
-		
+
 		return true;
 	}
 

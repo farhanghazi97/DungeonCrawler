@@ -64,7 +64,7 @@ public class DungeonController {
         }
 
       //Initializes Mediator class  
-       Mediator.getInstance().setDungeon(dungeon, squares , initialEntities);
+       Mediator.getInstance().setDungeon(dungeon, squares , initialEntities , dungeon.getGoal());
 
     }
     
