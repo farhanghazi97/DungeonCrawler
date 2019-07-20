@@ -48,13 +48,7 @@ public class Enemy extends Entity{
 		}
 		return true;
 	}
-
-	@Override
-	public Entity getObjectByType(String s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public int getKeyID() {
 		// TODO Auto-generated method stub

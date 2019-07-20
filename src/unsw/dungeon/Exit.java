@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Exit extends Entity{
 	
-	private String type = "Exit"; 
 	private String image_path = "/exit.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	
@@ -49,15 +48,6 @@ public class Exit extends Entity{
 		return false;
 	}
 	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
-	}
-
 	@Override
 	public String getImageID() {
 		return "Exit Image";

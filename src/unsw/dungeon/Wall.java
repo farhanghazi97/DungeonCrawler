@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Wall extends Entity  {
 
-	private String type = "Wall";
 	private String image_path = "/brick_brown.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
     
@@ -47,15 +46,6 @@ public class Wall extends Entity  {
 		return false;
 	}
 	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
-	}
-
 	@Override
 	public String getImageID() {
 		return "Wall image";

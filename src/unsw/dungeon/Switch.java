@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class Switch extends Entity{
 
-	private String type = "Switch";
 	private String image_path = "/pressure_plate.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	
@@ -58,14 +57,6 @@ public class Switch extends Entity{
 		return false;
 	}
 	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
-	}
 
 	@Override
 	public String getImageID() {

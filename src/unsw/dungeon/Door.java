@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Door extends Entity {
 
-	private String type = "Door";
 	private String image_path = "/open_door.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	
@@ -86,15 +85,6 @@ public class Door extends Entity {
 	@Override
 	public int getKeyID() {
 		return -1;
-	}
-
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
 	}
 
 	@Override

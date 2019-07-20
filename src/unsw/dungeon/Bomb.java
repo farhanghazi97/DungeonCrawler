@@ -65,14 +65,6 @@ public class Bomb extends Entity {
 		return false;
 	}
 	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
-	}
 
 	@Override
 	public String getImageID() {

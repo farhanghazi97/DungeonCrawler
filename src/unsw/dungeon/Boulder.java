@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Boulder extends Entity {
 
-	private String type = "Boulder";
 	private String image_path = "/boulder.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	
@@ -61,15 +60,7 @@ public class Boulder extends Entity {
 	public boolean isDoorOpen() {
 		return false;
 	}
-	
-	@Override
-	public Entity getObjectByType(String s) {
-		if(s.equals(type)) {
-			return this;
-		} else {
-			return null;
-		}
-	}
+
 
 	@Override
 	public String getImageID() {
