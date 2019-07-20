@@ -179,13 +179,13 @@ public class Mediator {
 		 * Commented this section out for backend testing
 		 */
 
-		Image new_image = new Image(new_bomb.getImagePath());
-		ImageView new_view = new ImageView(new_image);
-		new_view.setId(new_bomb.getImageID());
-		GridPane.setColumnIndex(new_view, new_bomb.getX());
-		GridPane.setRowIndex(new_view, new_bomb.getY());
-		imageEntities.add(new_view);
-		squares.getChildren().add(new_view);
+//		Image new_image = new Image(new_bomb.getImagePath());
+//		ImageView new_view = new ImageView(new_image);
+//		new_view.setId(new_bomb.getImageID());
+//		GridPane.setColumnIndex(new_view, new_bomb.getX());
+//		GridPane.setRowIndex(new_view, new_bomb.getY());
+//		imageEntities.add(new_view);
+//		squares.getChildren().add(new_view);
 		return new_bomb;
 
 	}
@@ -208,6 +208,7 @@ public class Mediator {
 						}
 						Image new_state = new Image(images.get(j));
 						imageToUpdate.setImage(new_state);
+						System.out.println("Bomb image updated");
 					}
 				}
 				return null;
@@ -237,6 +238,7 @@ public class Mediator {
 				}
 			}
 			removeEntity(new_bomb);
+			System.out.println("Bomb removed");
 		});
 
 		new Thread(task).start();

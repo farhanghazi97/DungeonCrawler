@@ -61,10 +61,6 @@ public class Key extends Entity {
 		return "KEY object [Key ID=" + keyID + ", collected=" + collected + "]";
 	}
 	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
 	
 	@Override
 	public Entity getObjectByType(String s) {

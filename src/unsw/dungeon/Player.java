@@ -30,8 +30,6 @@ public class Player extends Entity {
     	return "PLAYER object";
     }
 
-	//private List
-
 	@Override
 	public EntityType getType(){return EntityType.PLAYER;}
 
@@ -65,11 +63,7 @@ public class Player extends Entity {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
+
 	
 	@Override
 	public int getKeyID() {

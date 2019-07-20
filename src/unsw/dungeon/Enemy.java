@@ -56,12 +56,6 @@ public class Enemy extends Entity{
 	}
 
 	@Override
-	public int getDoorID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public int getKeyID() {
 		// TODO Auto-generated method stub
 		return 0;

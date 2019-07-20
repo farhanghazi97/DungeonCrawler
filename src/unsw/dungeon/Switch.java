@@ -46,11 +46,7 @@ public class Switch extends Entity{
 		}
 		return true;
 	}
-	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
+
 	
 	@Override
 	public int getKeyID() {

@@ -51,10 +51,6 @@ public class Boulder extends Entity {
 		return false;
 	}
 	
-	@Override
-	public int getDoorID() {
-		return -1;
-	}
 	
 	@Override
 	public int getKeyID() {
