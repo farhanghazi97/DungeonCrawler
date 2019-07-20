@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Bomb extends Entity {
 	
-	private String type = "Bomb";
 	private String image_path = "/bomb_lit_1.png";
 	private boolean is_destroyed = false;
 	private ArrayList<String> image_list = new ArrayList<String>(Arrays.asList

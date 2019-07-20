@@ -7,7 +7,6 @@ public class Door extends Entity {
 
 	private String image_path = "/open_door.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
-	
 	private int door_id;
 	private boolean is_open = false;
 	
