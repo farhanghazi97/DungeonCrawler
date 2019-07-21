@@ -9,7 +9,6 @@ public class Potion extends Entity {
 
 	private boolean collected = false;
 	private String image_path = "/brilliant_blue_new.png";
-	private boolean isDestroyed = false;
 	private int count = 0;
 	
 	public Potion(int x, int y) {
@@ -42,7 +41,7 @@ public class Potion extends Entity {
     
 		Entity tempPotion = Mediator.getInstance().getCollected(EntityType.POTION);
 
-		if(tempPotion != null && isDestroyed == false) {
+		if(tempPotion != null ) {
 			//Player already has a potion
 			return false;
 		}else {
@@ -73,7 +72,6 @@ public class Potion extends Entity {
         };
        
         task.setOnSucceeded(e -> {
-        	isDestroyed = true;
         	Mediator.getInstance().getCollectedEntities().remove(this);
         	System.out.println("After destroying: "+ Mediator.getInstance().getCollectedEntities());
             
