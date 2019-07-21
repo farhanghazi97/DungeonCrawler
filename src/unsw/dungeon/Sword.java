@@ -25,6 +25,11 @@ public class Sword extends Entity {
         return true;
     }
 
+	@Override
+	public void moveTo(int newX, int newY) {
+		//Nothing here
+	}
+
     @Override
     public void postMove(List<Entity> entitiesAtNew) {
 
@@ -45,7 +50,7 @@ public class Sword extends Entity {
 			if(Mediator.getInstance().collectedEntities.add(this)) {
 				this.collected = true;
 				System.out.println(this.toString());
-				Mediator.getInstance().removeEntity(this);
+				MediatorHelper.removeEntity(this);
 				return true;
 			}
 		}

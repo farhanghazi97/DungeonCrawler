@@ -51,11 +51,8 @@ public abstract class Entity{
     	x().set(x);
     }
 
-    public void moveTo(int newX, int newY){
-        x().set(newX);
-        y().set(newY);
-    }
-    
+    public abstract void moveTo(int newX, int newY);
+
     public abstract void postMove(List<Entity> entitiesAtNew);
     public abstract boolean stepOver();
     public abstract boolean isBlocked(List<Entity> entitiesAtNew);

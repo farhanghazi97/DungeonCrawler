@@ -28,6 +28,11 @@ public class Switch extends Entity{
         return true;
     }
 
+	@Override
+	public void moveTo(int newX, int newY) {
+		//Nothing here
+	}
+
     @Override
     public void postMove(List<Entity> entitiesAtNew) {
 
@@ -39,9 +44,9 @@ public class Switch extends Entity{
 		Random rand = new Random();
 		int generator_key = rand.nextInt(2);
 		if (generator_key == 0) {
-			Mediator.getInstance().generateObject(EntityType.TREASURE);
+			MediatorHelper.generateObject(EntityType.TREASURE);
 		} else if (generator_key == 1) {
-			Mediator.getInstance().generateObject(EntityType.POTION);
+			MediatorHelper.generateObject(EntityType.POTION);
 		}
 		return true;
 	}

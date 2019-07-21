@@ -25,6 +25,11 @@ public class Wall extends Entity  {
         return true;
     }
 
+	@Override
+	public void moveTo(int newX, int newY) {
+		//Nothing here
+	}
+
     @Override
     public void postMove(List<Entity> entitiesAtNew) {
         

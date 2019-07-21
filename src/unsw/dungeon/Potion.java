@@ -32,6 +32,11 @@ public class Potion extends Entity {
     }
 
     @Override
+	public void moveTo(int newX, int newY) {
+		//Nothing here
+	}
+
+    @Override
 	public boolean stepOver() {
     	System.out.println("Inside Potion's stepOver");
     
@@ -46,7 +51,7 @@ public class Potion extends Entity {
 				
 				//Start potion timer function
 				startSelfDestruct(6000);
-				Mediator.getInstance().removeEntity(this);
+				MediatorHelper.removeEntity(this);
 				return true;
 			}
 		}

@@ -1,5 +1,8 @@
 package unsw.dungeon;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +37,11 @@ public class Door extends Entity {
 	}
 
 	@Override
+	public void moveTo(int newX, int newY) {
+		//Nothing here
+	}
+
+	@Override
 	public void postMove(List<Entity> entitiesAtNew) {
 		// TODO Auto-generated method stub
 		
@@ -46,7 +54,7 @@ public class Door extends Entity {
 		if(key != null) {
 			if(matchKey(key)) {
 				//Key and Door id match
-				Mediator.getInstance().updateDoorUI(this);
+				updateDoorUI(this);
 				Mediator.getInstance().collectedEntities.remove(key);
 				this.setIs_open(true);
 				return true;
@@ -57,6 +65,16 @@ public class Door extends Entity {
 		}
 		//Returning false if player has no key in collected bag
 		return false;
+	}
+
+
+	// Update the 'door' entity to 'open' status
+	private void updateDoorUI(Entity entity) {
+		String open_door_image_path = entity.getImagePath();
+		Image open_door = new Image(open_door_image_path);
+		System.out.println("In update door function");
+		ImageView image = MediatorHelper.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
+		image.setImage(open_door);
 	}
 	
 	private boolean matchKey(Key key) {

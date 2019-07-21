@@ -40,6 +40,12 @@ public class Boulder extends Entity {
 	}
 
 	@Override
+	public void moveTo(int newX, int newY) {
+		x().set(newX);
+		y().set(newY);
+	}
+
+	@Override
 	public void postMove(List<Entity> entitiesAtNew) {
 		for (Entity entity: entitiesAtNew) {
 			if(entity.getType() == EntityType.SWITCH) {
