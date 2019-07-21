@@ -73,12 +73,6 @@ public class Mediator {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
 			entityToMove = bouldersAtCurrent.get(0);
-			// Activating switch, if it exists
-			List<Entity> switchAtCurrent = MediatorHelper.getEntities(currentX, currentY, Switch.class);
-			if (!switchAtCurrent.isEmpty()) {
-				Entity swi = switchAtCurrent.get(0);
-				swi.stepOver();
-			}
 		}
 
 		// Calling entitesAtCurrent stepOver on a loop
@@ -87,6 +81,7 @@ public class Mediator {
 				entity.stepOver();
 		}
 		
+		//Calling all enemies to move
 		for (Entity enemy : enemies) {
 			((Enemy) enemy).moveTo(newX, newY);
 		}

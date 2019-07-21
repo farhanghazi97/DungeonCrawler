@@ -49,7 +49,7 @@ public class Boulder extends Entity {
 	public void postMove(List<Entity> entitiesAtNew) {
 		for (Entity entity: entitiesAtNew) {
 			if(entity.getType() == EntityType.SWITCH) {
-				//Mediator.getInstance().triggerSwitch();
+				entity.stepOver();
 			}
 		}
 	}
