@@ -57,7 +57,10 @@ public class Player extends Entity {
 	public void postMove(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {
 			if (entity.getType()==EntityType.EXIT){
-				Mediator.getInstance().markGameOver();
+				if(entity.stepOver()) {
+					Mediator.getInstance().markGameOver();
+					break;
+				}
 			}
 		}
 

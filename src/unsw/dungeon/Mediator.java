@@ -6,8 +6,6 @@ import java.util.Random;
 
 import org.json.JSONObject;
 
-import javafx.concurrent.Task;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
@@ -53,13 +51,12 @@ public class Mediator {
 
 		if (gameOver) {
 			return false;
-		}
-
+		} 
+		
 		if (MediatorHelper.outsideDungeon(newX, newY)) {
 			// Whether moving boulder or player, outside dungeon boundaries is prohibited.
 			return false;
 		}
-	
 
 		// At start, entity to move is the player
 		Entity entityToMove = dungeon.getPlayer();
@@ -68,10 +65,10 @@ public class Mediator {
 		List<Entity> toEntities = MediatorHelper.getEntities(newX, newY);
 		List<Entity> bouldersAtCurrent = MediatorHelper.getEntities(currentX, currentY, Boulder.class);
 		List<Entity> enemies = MediatorHelper.getEntityOfType(EntityType.ENEMY);
-		System.out.println(enemies);
-
+		List<Entity> exitAtCurrent = MediatorHelper.getEntities(currentX , currentY , Exit.class);
+		
 		Random rand = new Random();
-
+		
 		if (!bouldersAtCurrent.isEmpty()) {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
@@ -97,8 +94,10 @@ public class Mediator {
 		}
 		
 		//Calling all enemies to move
-		for (Entity enemy : enemies) {
-			((Enemy) enemy).moveTo(newX, newY);
+		if(!enemies.isEmpty()) {
+			for (Entity enemy : enemies) {
+				((Enemy) enemy).moveTo(newX, newY);
+			}
 		}
 
 		entityToMove.postMove(toEntities);
@@ -108,6 +107,7 @@ public class Mediator {
 
 	// Method to mark end of game
 	public void markGameOver() {
+		System.out.println("Here");
 		gameOver = true;
 	}
 
@@ -155,7 +155,6 @@ public class Mediator {
 
 	// Method to bring up a new bomb at (x,y) location
 	private Bomb spawnBombAtCurrentLocation(int x, int y) {
-
 		Bomb new_bomb = new Bomb(x, y);
 		MediatorHelper.setupImage(new_bomb);
 		return new_bomb;

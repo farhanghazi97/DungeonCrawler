@@ -72,13 +72,11 @@ public class Enemy extends Entity{
 	//OUR AMAZING LOGIC FOR MOVING ENEMY
 	@Override
 	public void moveTo(int playerX, int playerY){
-		System.out.println("Enemy: In moveEnemy ");
 		
 		Mediator m = Mediator.getInstance();
 	
 		int enemyX = this.getX();
 		int enemyY = this.getY();
-		
 		
 		//In Efforts to make it harder
 		List<Entity> player = MediatorHelper.entitiesInVicinity(enemyX, enemyY, EntityType.PLAYER);
@@ -89,7 +87,6 @@ public class Enemy extends Entity{
 			y().set(playerY);
 			return;
 		}
-		
 		
 		int dirX = playerX - enemyX;
 		int dirY = playerY - enemyY;
@@ -109,7 +106,6 @@ public class Enemy extends Entity{
 			if(this.isBlocked(entitiesAtCurrent) == false) {
 				x().set(enemyX);
 				y().set(enemyY);
-				System.out.println("Move enemy now!");
 				return;
 			}
 		}
