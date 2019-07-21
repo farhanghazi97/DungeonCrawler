@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 public class Mediator {
 
 	// List of entities collected by player - made 
-	private List<Entity> collectedEntities = new LinkedList<>();
+	List<Entity> collectedEntities = new LinkedList<>();
 
 	private static Mediator mediator = new Mediator();
 
