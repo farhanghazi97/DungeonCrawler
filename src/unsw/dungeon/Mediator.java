@@ -1,12 +1,8 @@
 package unsw.dungeon;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
-import javafx.concurrent.Task;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
@@ -155,9 +151,8 @@ public class Mediator {
 	}
 	
 	
-	//THE BOMB CODE IS MESSY
 	// Called when player presses the 'B' key on keyboard
-	// Bomb timer begins
+	// Bomb timer is started
 	public void igniteBomb(int x, int y) {
 		System.out.println("Mediator: In ignite bomb");
 		Entity old_bomb = getCollected(EntityType.BOMB);
@@ -168,21 +163,16 @@ public class Mediator {
 		}
 	}
 
-	// Manages the UI for changing bomb image
+	// Method to bring up a new bomb at (x,y) location
 	private Bomb spawnBombAtCurrentLocation(int x, int y) {
 
 		Bomb new_bomb = new Bomb(x, y);
-
-		/*
-		 * Commented this section out for backend testing
-		 */
-
 		MediatorHelper.setupImage(new_bomb);
 		return new_bomb;
 
 	}
 
-	// Returns true if the player already has newEntity in collected
+	// Returns true if the player already has newEntity in collected bag
 	public boolean isCollected(Entity newEntity) {
 		for (Entity collected : collectedEntities) {
 			if (collected.getType() == newEntity.getType()) {
@@ -192,7 +182,7 @@ public class Mediator {
 		return false;
 	}
 
-	// Returns entity if the player already has an entity of given type
+	// Returns entity if the player already has an entity of given type in collected bag
 	public Entity getCollected(EntityType entityType) {
 		for (Entity collected : collectedEntities) {
 			if (collected.getType() == entityType) {

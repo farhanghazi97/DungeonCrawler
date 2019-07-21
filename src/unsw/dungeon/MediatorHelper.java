@@ -34,7 +34,31 @@ public class MediatorHelper {
         return list;
     }
 
-    // UI FUNCTIONS
+
+    // Returns a list of entities of type "type" if they are in adjacent squares
+    // Acecepts any numbe rof entity types
+
+    public static List<Entity> entitiesInVicinity(int x, int y, EntityType... type) {
+        Dungeon dungeon = Mediator.getInstance().getDungeon();
+        List<Entity> list = new LinkedList<>();
+
+        for (EntityType aType: type) {
+            for (Entity entity : dungeon.getEntities()) {
+                if (entity.getType() == aType && ((entity.getX() == x + 1 && entity.getY() == y)
+                        || (entity.getX() == x + 1 && entity.getY() == y - 1)
+                        || (entity.getX() == x + 1 && entity.getY() == y + 1)
+                        || (entity.getX() == x && entity.getY() == y + 1) || (entity.getX() == x && entity.getY() == y - 1)
+                        || (entity.getX() == x - 1 && entity.getY() == y)
+                        || (entity.getX() == x - 1 && entity.getY() == y - 1)
+                        || (entity.getX() == x + 1 && entity.getY() == y + 1)
+                        || (entity.getX() == x && entity.getY() == y))) {
+                    list.add(entity);
+                }
+            }
+        }
+        return list;
+    }
+    
     // Removes UI element and object corresponding to given entity
     public static void removeEntity(Entity entity) {
 
@@ -58,32 +82,8 @@ public class MediatorHelper {
             dungeon.getEntities().remove(entity);
         }
     }
-
-    // Returns a list of entities of type "type" if they are in adjacent squares
-    //Modified to accepts a vararg of EntityTypes.
-
-    public static List<Entity> entitiesInVicinity(int x, int y, EntityType... type) {
-        Dungeon dungeon = Mediator.getInstance().getDungeon();
-        List<Entity> list = new LinkedList<>();
-
-        for (EntityType aType:
-             type) {
-            for (Entity entity : dungeon.getEntities()) {
-                if (entity.getType() == aType && ((entity.getX() == x + 1 && entity.getY() == y)
-                        || (entity.getX() == x + 1 && entity.getY() == y - 1)
-                        || (entity.getX() == x + 1 && entity.getY() == y + 1)
-                        || (entity.getX() == x && entity.getY() == y + 1) || (entity.getX() == x && entity.getY() == y - 1)
-                        || (entity.getX() == x - 1 && entity.getY() == y)
-                        || (entity.getX() == x - 1 && entity.getY() == y - 1)
-                        || (entity.getX() == x + 1 && entity.getY() == y + 1)
-                        || (entity.getX() == x && entity.getY() == y))) {
-                    list.add(entity);
-                }
-            }
-        }
-        return list;
-    }
-
+    
+    
     // Returns true if the new coordinates given are outside
     // the boundaries of the dungeon
     public static boolean outsideDungeon(int newX, int newY) {
@@ -113,7 +113,8 @@ public class MediatorHelper {
         }
         return list;
     }
-
+    
+    //Returns a new unoccupied location on dungeon  
     public static Pair getUniqueSpawnLocation(int x, int y) {
         Dungeon dungeon = Mediator.getInstance().getDungeon();
         Random rand = new Random();
@@ -139,7 +140,7 @@ public class MediatorHelper {
     }
 
 
-    // UI
+    
     public static ImageView getImageByEntity(List<ImageView> entities, Entity e) {
         ImageView image = new ImageView();
         for (int i = 0; i < entities.size(); i++) {
@@ -178,7 +179,7 @@ public class MediatorHelper {
         setupImage(new_object);
 
     }
-
+    
     public static void setupImage(Entity entity) {
         Image new_image = new Image(entity.getImagePath());
         ImageView new_view = new ImageView(new_image);
