@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Exit extends Entity{
@@ -49,23 +50,44 @@ public class Exit extends Entity{
 		
     	JSONObject goal = Mediator.getInstance().getGoal();
 		String goal_condition = goal.getString("goal");
-		JSONArray player_goal_requirements = goal.getJSONArray("subgoals");
+		JSONArray player_goal_requirements = null;
 		
 		boolean goals_met = true;
-		if(goal_condition.equals("AND")) {
-			for(int i = 0; i < player_goal_requirements.length(); i++) {
-				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(i);
-				String goal_cond = goal_cond_obj.getString("goal");
-				if(this.goal_requirements.contains(goal_cond)) {
+		
+		try {
+			// More than one goal
+			player_goal_requirements = goal.getJSONArray("subgoals");
+		} catch (JSONException e) {
+			// Single goal
+			if(checkGoalMet(goal_condition)) {
+				return goals_met;
+			} else {
+				goals_met = false;
+				return goals_met;
+			}
+		}
+		
+		
+		for(int i = 0; i < player_goal_requirements.length(); i++) {
+			JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(i);
+			String goal_cond = goal_cond_obj.getString("goal");
+			if(this.goal_requirements.contains(goal_cond)) {
+				if(goal_condition.equals("AND")) {
 					if(!checkGoalMet(goal_cond)) {
 						goals_met = false;
 						break;
 					} 
+				} else if (goal_condition.equals("OR")) {
+					if(checkGoalMet(goal_cond)) {
+						break;
+					} 
 				}
 			}
-		}
+		} 
+		
 		return goals_met;
-	}
+	
+    }
 
 	@Override
 	public String getImageID() {
