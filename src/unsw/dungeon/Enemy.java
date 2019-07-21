@@ -6,6 +6,7 @@ import java.util.List;
 public class Enemy extends Entity{
 
 	private ArrayList<String> image_list = new ArrayList<String>();
+	private String image_path = "/enemy.png";
 	
 	public Enemy(int x, int y) {
 		super(x, y);

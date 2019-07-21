@@ -85,7 +85,7 @@ public class Mediator {
 		for (Entity enemy : enemies) {
 			((Enemy) enemy).moveTo(newX, newY);
 		}
-
+		
 		entityToMove.postMove(toEntities);
 
 		return true;

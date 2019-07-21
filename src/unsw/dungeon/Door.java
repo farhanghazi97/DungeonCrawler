@@ -17,15 +17,7 @@ public class Door extends Entity {
 		super(x, y);
 		this.door_id = door_id;
 	}
-
-	public int getDoor_id() {
-		return door_id;
-	}
-
-	public void setDoor_id(int door_id) {
-		this.door_id = door_id;
-	}
-
+	
 	@Override
 	public EntityType getType() {
 		return EntityType.DOOR;
@@ -68,6 +60,21 @@ public class Door extends Entity {
 	}
 
 
+	@Override
+	public String getImageID() {
+		return "Door image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
+	}
+
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
+
 	// Update the 'door' entity to 'open' status
 	private void updateDoorUI(Entity entity) {
 		String open_door_image_path = entity.getImagePath();
@@ -92,26 +99,15 @@ public class Door extends Entity {
 	public void setIs_open(boolean is_open) {
 		this.is_open = is_open;
 	}
+	public int getDoor_id() {
+		return door_id;
+	}
 
 	@Override
 	public String toString() {
 		return "DOOR object [Door ID=" + door_id + ", Open?=" + is_open + "]";
 	}
 
-	@Override
-	public String getImageID() {
-		return "Door image";
-	}
-	
-	@Override
-	 public String getImagePath() {
-		return this.image_path;
-	}
-
-	@Override
-	public ArrayList<String> getImage_list() {
-		return image_list;
-	}
 
 	
 	

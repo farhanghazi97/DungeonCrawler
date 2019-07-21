@@ -26,6 +26,7 @@ public class Bomb extends Entity {
 		super(x , y);
 	}
 
+	@Override
 	public EntityType getType() {
 		return EntityType.BOMB;
 	}

@@ -13,11 +13,6 @@ public class Exit extends Entity{
     }
 
     @Override
-    public String toString() {
-    	return "EXIT object";
-    }
-    
-    @Override
     public EntityType getType() {
         return EntityType.EXIT;
     }
@@ -34,12 +29,12 @@ public class Exit extends Entity{
 
     @Override
     public void postMove(List<Entity> entitiesAtNew) {
-
+    	//Nothing here
     }
 
     @Override
 	public boolean stepOver() {
-		// TODO Auto-generated method stub
+		//TODO
     	
 		return false;
 	}
@@ -58,6 +53,12 @@ public class Exit extends Entity{
 	public ArrayList<String> getImage_list() {
 		return image_list;
 	}
+
+    @Override
+    public String toString() {
+    	return "EXIT object";
+    }
+    
 
 	
 }
