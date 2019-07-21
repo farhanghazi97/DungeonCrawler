@@ -12,10 +12,11 @@ public class Exit extends Entity{
 	
 	private String image_path = "/exit.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
+	private ArrayList<String> goal_conditions = new ArrayList<String>(Arrays.asList("AND" , "OR"));
 	private ArrayList<String> goal_requirements = new ArrayList<String>(Arrays.asList
 			(
-					"enemies" ,
-					"treasure",
+					"treasure" ,
+					"enemies",
 					"boulders",
 					"exit"
 			)
@@ -67,7 +68,7 @@ public class Exit extends Entity{
 			}
 		}
 		
-		if(goal_condition.equals("AND")) {
+		if(goal_condition.equals(this.goal_conditions.get(0))) {
 			for(int i = 0; i < player_goal_requirements.length(); i++) {
 				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(i);
 				String goal_cond = goal_cond_obj.getString("goal");
@@ -82,7 +83,7 @@ public class Exit extends Entity{
 			}
 		} 
 		
-		if (goal_condition.equals("OR")) {
+		if (goal_condition.equals(this.goal_conditions.get(1))) {
 			for(int j = 0; j < player_goal_requirements.length(); j++) {
 				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(j);
 				String goal_cond = goal_cond_obj.getString("goal");
@@ -124,15 +125,15 @@ public class Exit extends Entity{
 	}
 	
 	private boolean checkGoalMet(String goal) {
-		if(goal.equals("treasure")) {
+		if(goal.equals(this.goal_requirements.get(0))) {
 			if(MediatorHelper.getEntityOfType(EntityType.TREASURE).size() == 0) {
 				return true;
 			}
-		} else if (goal.equals("enemies")) {
+		} else if (goal.equals(this.goal_requirements.get(1))) {
 			if(MediatorHelper.getEntityOfType(EntityType.ENEMY).size() == 0) {
 				return true;
 			}
-		} else if (goal.equals("boulders")) {
+		} else if (goal.equals(this.goal_requirements.get(2))) {
 			List<Entity> switches = MediatorHelper.getEntityOfType(EntityType.SWITCH);
 			boolean all_triggered = true;
 			for(Entity s : switches) {
