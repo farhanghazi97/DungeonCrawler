@@ -58,5 +58,6 @@ public class Exit extends Entity{
 	public ArrayList<String> getImage_list() {
 		return image_list;
 	}
+
 	
 }

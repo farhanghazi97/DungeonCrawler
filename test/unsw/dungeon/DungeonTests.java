@@ -236,7 +236,7 @@ class DungeonTests {
     	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	Entity entity = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
     	Door door = (Door) entity;
-    	Mediator.getInstance().collectedEntities.add(key);
+    	Mediator.getInstance().getCollectedEntities().add(key);
     	assertFalse(door.stepOver());
     	assertFalse(door.isDoorOpen());
     }
@@ -249,7 +249,7 @@ class DungeonTests {
     	Entity key = getEntity(3 , 3 , dungeon.getEntities() , Key.class);
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 4);
-    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertEquals(1, Mediator.getInstance().getCollectedEntities().size());
     	assertFalse(key.stepOver());
     }
     
@@ -379,7 +379,7 @@ class DungeonTests {
     	//Player collects second sword
     	Mediator.getInstance().moveTo(2, 2, 2, 1);
     	
-    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertEquals(1, Mediator.getInstance().getCollectedEntities().size());
     	assertFalse(secondSword.stepOver());
     }
     
@@ -442,7 +442,7 @@ class DungeonTests {
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity secondBomb = getEntity(2 , 2 , dungeon.getEntities() , Bomb.class);
     	Mediator.getInstance().moveTo(2, 2, 2, 1);
-    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertEquals(1, Mediator.getInstance().getCollectedEntities().size());
     	assertFalse(secondBomb.stepOver());
     }
     
@@ -517,9 +517,9 @@ class DungeonTests {
     }
 
     public static void RefreshInventory() {
-    	if(!Mediator.getInstance().collectedEntities.isEmpty()) {
-    		for(int i = 0; i < Mediator.getInstance().collectedEntities.size(); i++) {
-    			Mediator.getInstance().collectedEntities.remove(i);
+    	if(!Mediator.getInstance().getCollectedEntities().isEmpty()) {
+    		for(int i = 0; i < Mediator.getInstance().getCollectedEntities().size(); i++) {
+    			Mediator.getInstance().getCollectedEntities().remove(i);
     		}
     	}
     }

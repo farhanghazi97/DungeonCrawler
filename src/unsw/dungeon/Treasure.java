@@ -38,7 +38,7 @@ public class Treasure extends Entity{
     	System.out.println("In Treasure's stepOver");
     	Treasure.treasureCoins++;
     	System.out.println(toString());
-    	Mediator.getInstance().collectedEntities.add(this);
+    	Mediator.getInstance().getCollectedEntities().add(this);
 		MediatorHelper.removeEntity(this);
 		return true;
 	}

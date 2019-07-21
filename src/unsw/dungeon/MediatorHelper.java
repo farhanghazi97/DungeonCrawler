@@ -36,7 +36,7 @@ public class MediatorHelper {
 
 
     // Returns a list of entities of type "type" if they are in adjacent squares
-    // Acecepts any numbe rof entity types
+    // Acecepts any number of entity types
 
     public static List<Entity> entitiesInVicinity(int x, int y, EntityType... type) {
         Dungeon dungeon = Mediator.getInstance().getDungeon();

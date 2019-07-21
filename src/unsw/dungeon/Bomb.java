@@ -52,7 +52,7 @@ public class Bomb extends Entity {
 		if(bomb != null && is_destroyed == false) {
 			return false;
 		} else {
-	    	Mediator.getInstance().collectedEntities.add(this);
+	    	Mediator.getInstance().getCollectedEntities().add(this);
 			MediatorHelper.removeEntity(this);
 			return true;
 		}

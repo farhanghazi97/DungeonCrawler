@@ -47,7 +47,7 @@ public class Potion extends Entity {
 			return false;
 		}else {
 			//Add new potion
-			if(Mediator.getInstance().collectedEntities.add(this)) {
+			if(Mediator.getInstance().getCollectedEntities().add(this)) {
 				
 				//Start potion timer function
 				startSelfDestruct(6000);
@@ -74,8 +74,8 @@ public class Potion extends Entity {
        
         task.setOnSucceeded(e -> {
         	isDestroyed = true;
-        	Mediator.getInstance().collectedEntities.remove(this);
-        	System.out.println("After destroying: "+ Mediator.getInstance().collectedEntities);
+        	Mediator.getInstance().getCollectedEntities().remove(this);
+        	System.out.println("After destroying: "+ Mediator.getInstance().getCollectedEntities());
             
         });
 

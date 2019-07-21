@@ -50,7 +50,7 @@ public class Key extends Entity {
 			return false;
 		}else {
 			//Pick up key
-			if(Mediator.getInstance().collectedEntities.add(this)) {
+			if(Mediator.getInstance().getCollectedEntities().add(this)) {
 				this.collected = true;
 				System.out.println(this.toString());
 				MediatorHelper.removeEntity(this);

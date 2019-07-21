@@ -47,7 +47,7 @@ public class Sword extends Entity {
 			return false;
 		}else {
 			//Add new sword
-			if(Mediator.getInstance().collectedEntities.add(this)) {
+			if(Mediator.getInstance().getCollectedEntities().add(this)) {
 				this.collected = true;
 				System.out.println(this.toString());
 				MediatorHelper.removeEntity(this);
@@ -66,7 +66,7 @@ public class Sword extends Entity {
 		}else {
 			//Remove sword from player's collected entities
 			this.collected = false;
-			Mediator.getInstance().collectedEntities.remove(this);
+			Mediator.getInstance().getCollectedEntities().remove(this);
 			System.out.println(this.toString());
 			return false;
 		}

@@ -6,11 +6,11 @@ import java.util.Random;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-//Singleton class
+//Singleton class 
 public class Mediator {
 
-	// List of entities collected by player
-	public List<Entity> collectedEntities = new LinkedList<>();
+	// List of entities collected by player - made 
+	private List<Entity> collectedEntities = new LinkedList<>();
 
 	private static Mediator mediator = new Mediator();
 
@@ -29,8 +29,7 @@ public class Mediator {
 
 	/**
 	 * Getters for testability.
-	 * 
-	 * @return
+	 *
 	 */
 	public Dungeon getDungeon() {
 		return dungeon;
@@ -43,7 +42,12 @@ public class Mediator {
 	public List<ImageView> getImageEntities() {
 		return imageEntities;
 	}
-
+	
+	public List<Entity> getCollectedEntities() {
+		return collectedEntities;
+	}
+	
+	//Marks the game as over
 	public boolean getGameOver() {
 		return gameOver;
 	}
