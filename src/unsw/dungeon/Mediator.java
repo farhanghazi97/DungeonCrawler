@@ -96,8 +96,7 @@ public class Mediator {
 			List<Entity> switchAtCurrent = MediatorHelper.getEntities(currentX, currentY, Switch.class);
 			if (!switchAtCurrent.isEmpty()) {
 				Entity swi = switchAtCurrent.get(0);
-				if (rand.nextInt(3) == 1)
-					swi.stepOver();
+				swi.stepOver();
 			}
 		}
 

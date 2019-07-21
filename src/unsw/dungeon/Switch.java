@@ -8,6 +8,7 @@ public class Switch extends Entity{
 
 	private String image_path = "/pressure_plate.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
+	private boolean triggered = false;
 	
 	public Switch(int x, int y) {
         super(x, y);
@@ -40,7 +41,12 @@ public class Switch extends Entity{
 
     @Override
 	public boolean stepOver() {
-		// Need to randomise generation of objects further
+    	if(triggered) {
+    		//The switch has already been triggered previously
+    		return false;
+    	}
+    	
+    	triggered = true;
 		Random rand = new Random();
 		int generator_key = rand.nextInt(2);
 		if (generator_key == 0) {
