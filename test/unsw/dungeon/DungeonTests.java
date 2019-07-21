@@ -10,8 +10,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.sun.media.jfxmedia.Media;
-
 //TODO
 //Test if player dies when it touches bomb
 //Test if bomb destroys boulders in vicinity

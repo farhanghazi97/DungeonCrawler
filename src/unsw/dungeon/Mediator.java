@@ -28,11 +28,6 @@ public class Mediator {
 
 	private List<ImageView> imageEntities;
 	private boolean gameOver = false;
-	
-	//Marks the game as over
-	public boolean getGameOver() {
-		return gameOver;
-	}
 
 	public void setDungeon(Dungeon dungeon, GridPane squares, List<ImageView> imageEntities) {
 		this.dungeon = dungeon;
@@ -199,6 +194,10 @@ public class Mediator {
 	
 	public boolean getIsCollected(Entity newEntity) {
 		return isCollected(newEntity);
+	}
+
+	public boolean getGameOver() {
+		return gameOver;
 	}
 
 
