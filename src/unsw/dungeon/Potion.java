@@ -9,8 +9,6 @@ public class Potion extends Entity {
 
 	private boolean collected = false;
 	private String image_path = "/brilliant_blue_new.png";
-	private boolean isDestroyed = false;
-	private int count = 0;
 	
 	public Potion(int x, int y) {
         super(x, y);
@@ -32,21 +30,26 @@ public class Potion extends Entity {
     }
 
     @Override
+	public void moveTo(int newX, int newY) {
+		//Nothing here
+	}
+
+    @Override
 	public boolean stepOver() {
     	System.out.println("Inside Potion's stepOver");
     
 		Entity tempPotion = Mediator.getInstance().getCollected(EntityType.POTION);
 
-		if(tempPotion != null && isDestroyed == false) {
+		if(tempPotion != null ) {
 			//Player already has a potion
 			return false;
 		}else {
 			//Add new potion
-			if(Mediator.getInstance().collectedEntities.add(this)) {
+			if(Mediator.getInstance().getCollectedEntities().add(this)) {
 				
 				//Start potion timer function
 				startSelfDestruct(6000);
-				Mediator.getInstance().removeEntity(this);
+				MediatorHelper.removeEntity(this);
 				return true;
 			}
 		}
@@ -68,9 +71,8 @@ public class Potion extends Entity {
         };
        
         task.setOnSucceeded(e -> {
-        	isDestroyed = true;
-        	Mediator.getInstance().collectedEntities.remove(this);
-        	System.out.println("After destroying: "+ Mediator.getInstance().collectedEntities);
+        	Mediator.getInstance().getCollectedEntities().remove(this);
+        	System.out.println("After destroying: "+ Mediator.getInstance().getCollectedEntities());
             
         });
 
@@ -79,7 +81,7 @@ public class Potion extends Entity {
 
 	@Override
 	public String toString() {
-		return "POTION object [count=" + count + ", collected=" + collected + "]";
+		return "POTION object [collected=" + collected + "]";
 	}
 	
 

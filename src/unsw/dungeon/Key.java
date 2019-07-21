@@ -28,6 +28,11 @@ public class Key extends Entity {
 	}
 
 	@Override
+	public void moveTo(int newX, int newY) {
+		//Nothing here
+	}
+
+	@Override
 	public void postMove(List<Entity> entitiesAtNew) {
 		// TODO Auto-generated method stub
 		
@@ -45,10 +50,10 @@ public class Key extends Entity {
 			return false;
 		}else {
 			//Pick up key
-			if(Mediator.getInstance().collectedEntities.add(this)) {
+			if(Mediator.getInstance().getCollectedEntities().add(this)) {
 				this.collected = true;
 				System.out.println(this.toString());
-				Mediator.getInstance().removeEntity(this);
+				MediatorHelper.removeEntity(this);
 				return true;
 			}
 		}

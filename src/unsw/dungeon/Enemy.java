@@ -6,6 +6,7 @@ import java.util.List;
 public class Enemy extends Entity{
 
 	private ArrayList<String> image_list = new ArrayList<String>();
+	private String image_path = "/enemy.png";
 	
 	public Enemy(int x, int y) {
 		super(x, y);
@@ -45,7 +46,7 @@ public class Enemy extends Entity{
 		Entity potion = Mediator.getInstance().getCollected(EntityType.POTION);
 		if(potion != null) {
 			//Player has a potion -> enemy dies
-			Mediator.getInstance().removeEntity(this);
+			MediatorHelper.removeEntity(this);
 		}else {
 			//Player dies -> game over
 			Mediator.getInstance().markGameOver();
@@ -69,7 +70,8 @@ public class Enemy extends Entity{
 	}
 	
 	//OUR AMAZING LOGIC FOR MOVING ENEMY
-	public boolean moveEnemy(int playerX, int playerY) {
+	@Override
+	public void moveTo(int playerX, int playerY){
 		System.out.println("Enemy: In moveEnemy ");
 		
 		Mediator m = Mediator.getInstance();
@@ -79,12 +81,13 @@ public class Enemy extends Entity{
 		
 		
 		//In Efforts to make it harder
-		List<Entity> player = MediatorHelper.entitiesInVicinity(m.getDungeon(), enemyX, enemyY, EntityType.PLAYER);
+		List<Entity> player = MediatorHelper.entitiesInVicinity(enemyX, enemyY, EntityType.PLAYER);
 		Entity potion = m.getCollected(EntityType.POTION);
 		if(player.size() == 1 && potion == null) {
 			//Player is in vicinity of enemy and has no potion. 
-			this.moveTo(playerX, playerY);
-			return true;
+			x().set(playerX);
+			y().set(playerY);
+			return;
 		}
 		
 		
@@ -93,22 +96,24 @@ public class Enemy extends Entity{
 
 		double unit_vector = Math.atan2(dirY , dirX);
 		
-		enemyX = (int) (enemyX + (1 * Math.cos(unit_vector)));
-		enemyY = (int) (enemyY + (1 * Math.sin(unit_vector)));
+		enemyX = (int) (enemyX + (2 * Math.cos(unit_vector)));
+		enemyY = (int) (enemyY + (2 * Math.sin(unit_vector)));
 		
-		List<Entity> entitiesAtCurrent = MediatorHelper.getEntities(m.getDungeon(), enemyX, enemyY);
+		List<Entity> entitiesAtCurrent = MediatorHelper.getEntities(enemyX, enemyY);
 		
-		if(MediatorHelper.outsideDungeon(Mediator.getInstance().getDungeon(), enemyX, enemyY) ) {
-			return false;
+		if(MediatorHelper.outsideDungeon(enemyX, enemyY) ) {
+			return;
 		}
 
 		if(entitiesAtCurrent.size() == 0) {
 			if(this.isBlocked(entitiesAtCurrent) == false) {
-				this.moveTo(enemyX, enemyY);
+				x().set(enemyX);
+				y().set(enemyY);
 				System.out.println("Move enemy now!");
-				return true;
+				return;
 			}
 		}
-		return false;
+		return;
 	}
+
 }

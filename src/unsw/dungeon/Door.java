@@ -1,5 +1,8 @@
 package unsw.dungeon;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +17,7 @@ public class Door extends Entity {
 		super(x, y);
 		this.door_id = door_id;
 	}
-
-	public int getDoor_id() {
-		return door_id;
-	}
-
-	public void setDoor_id(int door_id) {
-		this.door_id = door_id;
-	}
-
+	
 	@Override
 	public EntityType getType() {
 		return EntityType.DOOR;
@@ -31,6 +26,11 @@ public class Door extends Entity {
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew) {
 		return true;
+	}
+
+	@Override
+	public void moveTo(int newX, int newY) {
+		//Nothing here
 	}
 
 	@Override
@@ -46,8 +46,8 @@ public class Door extends Entity {
 		if(key != null) {
 			if(matchKey(key)) {
 				//Key and Door id match
-				Mediator.getInstance().updateDoorUI(this);
-				Mediator.getInstance().collectedEntities.remove(key);
+				updateDoorUI(this);
+				Mediator.getInstance().getCollectedEntities().remove(key);
 				this.setIs_open(true);
 				return true;
 			} else {
@@ -57,6 +57,31 @@ public class Door extends Entity {
 		}
 		//Returning false if player has no key in collected bag
 		return false;
+	}
+
+
+	@Override
+	public String getImageID() {
+		return "Door image";
+	}
+	
+	@Override
+	 public String getImagePath() {
+		return this.image_path;
+	}
+
+	@Override
+	public ArrayList<String> getImage_list() {
+		return image_list;
+	}
+
+	// Update the 'door' entity to 'open' status
+	private void updateDoorUI(Entity entity) {
+		String open_door_image_path = entity.getImagePath();
+		Image open_door = new Image(open_door_image_path);
+		System.out.println("In update door function");
+		ImageView image = MediatorHelper.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
+		image.setImage(open_door);
 	}
 	
 	private boolean matchKey(Key key) {
@@ -74,26 +99,15 @@ public class Door extends Entity {
 	public void setIs_open(boolean is_open) {
 		this.is_open = is_open;
 	}
+	public int getDoor_id() {
+		return door_id;
+	}
 
 	@Override
 	public String toString() {
 		return "DOOR object [Door ID=" + door_id + ", Open?=" + is_open + "]";
 	}
 
-	@Override
-	public String getImageID() {
-		return "Door image";
-	}
-	
-	@Override
-	 public String getImagePath() {
-		return this.image_path;
-	}
-
-	@Override
-	public ArrayList<String> getImage_list() {
-		return image_list;
-	}
 
 	
 	

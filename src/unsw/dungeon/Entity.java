@@ -7,12 +7,13 @@ import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+
 /**
  * An entity in the dungeon.
  * @author Robert Clifton-Everest
  *
  */
-public abstract class Entity{
+public abstract class Entity {
 	
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
@@ -51,11 +52,8 @@ public abstract class Entity{
     	x().set(x);
     }
 
-    public void moveTo(int newX, int newY){
-        x().set(newX);
-        y().set(newY);
-    }
-    
+    public abstract void moveTo(int newX, int newY);
+
     public abstract void postMove(List<Entity> entitiesAtNew);
     public abstract boolean stepOver();
     public abstract boolean isBlocked(List<Entity> entitiesAtNew);

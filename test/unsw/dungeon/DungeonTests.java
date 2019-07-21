@@ -11,8 +11,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.sun.media.jfxmedia.Media;
-
 //TODO
 //Test if player dies when it touches bomb
 //Test if bomb destroys boulders in vicinity
@@ -191,7 +189,7 @@ class DungeonTests {
     	
     	//Player moves on key
     	Mediator.getInstance().moveTo(1 , 3 , 1, 2);
-    	assertTrue(Mediator.getInstance().isCollected(key));
+    	assertTrue(Mediator.getInstance().getIsCollected(key));
     }
     
     
@@ -238,7 +236,7 @@ class DungeonTests {
     	Entity key = getEntity(1 , 3 , dungeon.getEntities() , Key.class);
     	Entity entity = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
     	Door door = (Door) entity;
-    	Mediator.getInstance().collectedEntities.add(key);
+    	Mediator.getInstance().getCollectedEntities().add(key);
     	assertFalse(door.stepOver());
     	assertFalse(door.isDoorOpen());
     }
@@ -251,7 +249,7 @@ class DungeonTests {
     	Entity key = getEntity(3 , 3 , dungeon.getEntities() , Key.class);
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 4);
-    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertEquals(1, Mediator.getInstance().getCollectedEntities().size());
     	assertFalse(key.stepOver());
     }
     
@@ -266,7 +264,7 @@ class DungeonTests {
     	
     	//Player moves on treasure
     	Mediator.getInstance().moveTo(3, 3, 3, 4);
-    	assertTrue(Mediator.getInstance().isCollected(treasure));
+    	assertTrue(Mediator.getInstance().getIsCollected(treasure));
     }
     
     //INVINCIBILITY POTION TESTS
@@ -280,7 +278,7 @@ class DungeonTests {
     	Mediator.getInstance().moveTo(3 , 7 , 11, 7);
     	Mediator.getInstance().moveTo(11 , 7 , 3, 7);
     	
-    	assertTrue(Mediator.getInstance().isCollected(potion));
+    	assertTrue(Mediator.getInstance().getIsCollected(potion));
     }
     
     
@@ -294,14 +292,14 @@ class DungeonTests {
     	assert(Mediator.getInstance().getCollected(EntityType.POTION) != null);
     	
     	//Enemy exists at (15,8)
-    	assertEquals(1, MediatorHelper.getEntities(dungeon, 15,8,Enemy.class).size());
+    	assertEquals(1, MediatorHelper.getEntities(2,7,Enemy.class).size());
     	
     	//Player moves on enemy
     	Mediator.getInstance().moveTo(player.getX() , player.getY(), 15, 8);
     	Mediator.getInstance().moveTo(player.getX() , player.getY(), 15, 7);
     	
     	//Enemy at (15,8) destroyed
-    	assertEquals(0, MediatorHelper.getEntities(dungeon, 15,8,Enemy.class).size());
+    	assertEquals(0, MediatorHelper.getEntities(15,8,Enemy.class).size());
     }
     
     //Test to check if the player can carry only potion at a time
@@ -315,14 +313,14 @@ class DungeonTests {
     	assert(Mediator.getInstance().getCollected(EntityType.POTION) != null);
     	
     	//Second potion exists at (11,9)
-    	assertEquals(1, MediatorHelper.getEntities(dungeon, 11,9,Potion.class).size());
+    	assertEquals(1, MediatorHelper.getEntities(11,9,Potion.class).size());
     			;
     	//Player moves on potion
     	Mediator.getInstance().moveTo(player.getX() , player.getY(), 11, 9);
     	Mediator.getInstance().moveTo(player.getX() , player.getY(), 11, 10);
     	
     	//Second potion still exists
-    	assertEquals(1, MediatorHelper.getEntities(dungeon, 11,9,Potion.class).size());
+    	assertEquals(1, MediatorHelper.getEntities(11,9,Potion.class).size());
     }
     
     //Test to check if an exploding bomb has no effect on a player with a potion
@@ -349,7 +347,7 @@ class DungeonTests {
     	//Player still lives
     	assertFalse(Mediator.getInstance().getGameOver());
     	//Bomb at (13,4) destroyed
-    	assertEquals(0, MediatorHelper.getEntities(dungeon, 13,4,Bomb.class).size());
+    	assertEquals(0, MediatorHelper.getEntities( 13,4,Bomb.class).size());
     	
     }
     
@@ -368,7 +366,7 @@ class DungeonTests {
     	
     	//Player collects sword
     	Mediator.getInstance().moveTo(0 ,0 , 0, 1);
-    	assertTrue(Mediator.getInstance().isCollected(sword));
+    	assertTrue(Mediator.getInstance().getIsCollected(sword));
     }
     
     //Tests if only one sword is carried by the player at any given time
@@ -381,7 +379,7 @@ class DungeonTests {
     	//Player collects second sword
     	Mediator.getInstance().moveTo(2, 2, 2, 1);
     	
-    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertEquals(1, Mediator.getInstance().getCollectedEntities().size());
     	assertFalse(secondSword.stepOver());
     }
     
@@ -394,7 +392,7 @@ class DungeonTests {
     	assert(Mediator.getInstance().getCollected(EntityType.SWORD) != null);
     	
     	// Checking if one enemy exists
-    	assertEquals(1, MediatorHelper.getEntities(dungeon, 3,2,Enemy.class).size());
+    	assertEquals(1, MediatorHelper.getEntities(3,2,Enemy.class).size());
     	
     	// Player moves to 1 unit below the enemy  
     	Mediator.getInstance().moveTo(player.getX(), player.getY(), 3, 3);
@@ -403,7 +401,7 @@ class DungeonTests {
     	Mediator.getInstance().swingSword(3, 3);
     	
     	// Checking if enemy is removed after sword swing
-    	assertEquals(0, MediatorHelper.getEntities(dungeon, 3,2,Enemy.class).size());
+    	assertEquals(0, MediatorHelper.getEntities(3,2,Enemy.class).size());
     }
     
 
@@ -434,7 +432,7 @@ class DungeonTests {
     	Entity bomb = getEntity(0 ,0 , dungeon.getEntities() , Bomb.class);
     	
     	Mediator.getInstance().moveTo(0, 0, 0, 1);
-    	assertTrue(Mediator.getInstance().isCollected(bomb));
+    	assertTrue(Mediator.getInstance().getIsCollected(bomb));
     }
     
     
@@ -444,7 +442,7 @@ class DungeonTests {
     	Dungeon dungeon = Mediator.getInstance().getDungeon();
     	Entity secondBomb = getEntity(2 , 2 , dungeon.getEntities() , Bomb.class);
     	Mediator.getInstance().moveTo(2, 2, 2, 1);
-    	assertEquals(1, Mediator.getInstance().collectedEntities.size());
+    	assertEquals(1, Mediator.getInstance().getCollectedEntities().size());
     	assertFalse(secondBomb.stepOver());
     }
     
@@ -519,9 +517,9 @@ class DungeonTests {
     }
 
     public static void RefreshInventory() {
-    	if(!Mediator.getInstance().collectedEntities.isEmpty()) {
-    		for(int i = 0; i < Mediator.getInstance().collectedEntities.size(); i++) {
-    			Mediator.getInstance().collectedEntities.remove(i);
+    	if(!Mediator.getInstance().getCollectedEntities().isEmpty()) {
+    		for(int i = 0; i < Mediator.getInstance().getCollectedEntities().size(); i++) {
+    			Mediator.getInstance().getCollectedEntities().remove(i);
     		}
     	}
     }

@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  * The player entity
- * @author Robert Clifton-Everest
  *
  */
 public class Player extends Entity {
@@ -49,6 +48,12 @@ public class Player extends Entity {
 	}
 
 	@Override
+	public void moveTo(int newX, int newY) {
+        x().set(newX);
+        y().set(newY);
+	}
+
+	@Override
 	public void postMove(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {
 			if (entity.getType()==EntityType.EXIT){
@@ -60,7 +65,6 @@ public class Player extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

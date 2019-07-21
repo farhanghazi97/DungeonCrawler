@@ -23,6 +23,11 @@ public class Treasure extends Entity{
         return true;
     }
 
+	@Override
+	public void moveTo(int newX, int newY) {
+		//Nothing here
+	}
+
     @Override
     public void postMove(List<Entity> entitiesAtNew) {
 
@@ -33,8 +38,8 @@ public class Treasure extends Entity{
     	System.out.println("In Treasure's stepOver");
     	Treasure.treasureCoins++;
     	System.out.println(toString());
-    	Mediator.getInstance().collectedEntities.add(this);
-    	Mediator.getInstance().removeEntity(this);
+    	Mediator.getInstance().getCollectedEntities().add(this);
+		MediatorHelper.removeEntity(this);
 		return true;
 	}
 
