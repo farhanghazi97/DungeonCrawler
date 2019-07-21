@@ -55,7 +55,7 @@ public class Door extends Entity {
 			if(matchKey(key)) {
 				//Key and Door id match
 				updateDoorUI(this);
-				Mediator.getInstance().collectedEntities.remove(key);
+				Mediator.getInstance().getCollectedEntities().remove(key);
 				this.setIs_open(true);
 				return true;
 			} else {

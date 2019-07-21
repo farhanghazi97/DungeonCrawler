@@ -6,17 +6,19 @@ import java.util.Random;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-//Singleton class 
+// The Mediator class is implemented as a Singleton Class because it coordinates the working of the rest of 
+//the classes and exactly one object of it is required to be created at any given time.
+
 public class Mediator {
 
 	// List of entities collected by player - made 
-	List<Entity> collectedEntities = new LinkedList<>();
-
+	private List<Entity> collectedEntities = new LinkedList<>();
+	
 	private static Mediator mediator = new Mediator();
-
+	
+	
 	private Mediator() {
 	}
-
 	public static Mediator getInstance() {
 		return mediator;
 	}
@@ -26,26 +28,6 @@ public class Mediator {
 
 	private List<ImageView> imageEntities;
 	private boolean gameOver = false;
-
-	/**
-	 * Getters for testability.
-	 *
-	 */
-	public Dungeon getDungeon() {
-		return dungeon;
-	}
-
-	public GridPane getSquares() {
-		return squares;
-	}
-
-	public List<ImageView> getImageEntities() {
-		return imageEntities;
-	}
-	
-	public List<Entity> getCollectedEntities() {
-		return collectedEntities;
-	}
 	
 	//Marks the game as over
 	public boolean getGameOver() {
@@ -176,7 +158,7 @@ public class Mediator {
 	}
 
 	// Returns true if the player already has newEntity in collected bag
-	public boolean isCollected(Entity newEntity) {
+	private boolean isCollected(Entity newEntity) {
 		for (Entity collected : collectedEntities) {
 			if (collected.getType() == newEntity.getType()) {
 				return true;
@@ -193,6 +175,30 @@ public class Mediator {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Getters for testability.
+	 *
+	 */
+	public Dungeon getDungeon() {
+		return dungeon;
+	}
+
+	public GridPane getSquares() {
+		return squares;
+	}
+
+	public List<ImageView> getImageEntities() {
+		return imageEntities;
+	}
+	
+	public List<Entity> getCollectedEntities() {
+		return collectedEntities;
+	}
+	
+	public boolean getIsCollected(Entity newEntity) {
+		return isCollected(newEntity);
 	}
 
 

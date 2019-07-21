@@ -189,7 +189,7 @@ class DungeonTests {
     	
     	//Player moves on key
     	Mediator.getInstance().moveTo(1 , 3 , 1, 2);
-    	assertTrue(Mediator.getInstance().isCollected(key));
+    	assertTrue(Mediator.getInstance().getIsCollected(key));
     }
     
     
@@ -264,7 +264,7 @@ class DungeonTests {
     	
     	//Player moves on treasure
     	Mediator.getInstance().moveTo(3, 3, 3, 4);
-    	assertTrue(Mediator.getInstance().isCollected(treasure));
+    	assertTrue(Mediator.getInstance().getIsCollected(treasure));
     }
     
     //INVINCIBILITY POTION TESTS
@@ -278,7 +278,7 @@ class DungeonTests {
     	Mediator.getInstance().moveTo(3 , 7 , 11, 7);
     	Mediator.getInstance().moveTo(11 , 7 , 3, 7);
     	
-    	assertTrue(Mediator.getInstance().isCollected(potion));
+    	assertTrue(Mediator.getInstance().getIsCollected(potion));
     }
     
     
@@ -366,7 +366,7 @@ class DungeonTests {
     	
     	//Player collects sword
     	Mediator.getInstance().moveTo(0 ,0 , 0, 1);
-    	assertTrue(Mediator.getInstance().isCollected(sword));
+    	assertTrue(Mediator.getInstance().getIsCollected(sword));
     }
     
     //Tests if only one sword is carried by the player at any given time
@@ -432,7 +432,7 @@ class DungeonTests {
     	Entity bomb = getEntity(0 ,0 , dungeon.getEntities() , Bomb.class);
     	
     	Mediator.getInstance().moveTo(0, 0, 0, 1);
-    	assertTrue(Mediator.getInstance().isCollected(bomb));
+    	assertTrue(Mediator.getInstance().getIsCollected(bomb));
     }
     
     
