@@ -9,7 +9,6 @@ public class Potion extends Entity {
 
 	private boolean collected = false;
 	private String image_path = "/brilliant_blue_new.png";
-	private int count = 0;
 	
 	public Potion(int x, int y) {
         super(x, y);
@@ -82,7 +81,7 @@ public class Potion extends Entity {
 
 	@Override
 	public String toString() {
-		return "POTION object [count=" + count + ", collected=" + collected + "]";
+		return "POTION object [collected=" + collected + "]";
 	}
 	
 
