@@ -16,7 +16,7 @@ public class Exit extends Entity{
 			(
 					"enemies" ,
 					"treasure",
-					"floor_switch",
+					"boulders",
 					"exit"
 			)
 	); 
@@ -52,7 +52,7 @@ public class Exit extends Entity{
 		String goal_condition = goal.getString("goal");
 		JSONArray player_goal_requirements = null;
 		
-		boolean goals_met = true;
+		boolean goals_met = false;
 		
 		try {
 			// More than one goal
@@ -60,9 +60,9 @@ public class Exit extends Entity{
 		} catch (JSONException e) {
 			// Single goal
 			if(checkGoalMet(goal_condition)) {
+				goals_met = true;
 				return goals_met;
 			} else {
-				goals_met = false;
 				return goals_met;
 			}
 		}
@@ -72,20 +72,25 @@ public class Exit extends Entity{
 				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(i);
 				String goal_cond = goal_cond_obj.getString("goal");
 				if(this.goal_requirements.contains(goal_cond)) {
-					if(!checkGoalMet(goal_cond)) {
+					if(checkGoalMet(goal_cond)) {
+						goals_met = true;
+					} else {
 						goals_met = false;
-						break;
-					} 
+						return goals_met;
+					}
 				}
 			}
-		} else if (goal_condition.equals("OR")) {
-			for(int i = 0; i < player_goal_requirements.length(); i++) {
-				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(i);
+		} 
+		
+		if (goal_condition.equals("OR")) {
+			for(int j = 0; j < player_goal_requirements.length(); j++) {
+				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(j);
 				String goal_cond = goal_cond_obj.getString("goal");
 				if(this.goal_requirements.contains(goal_cond)) {
 					if(checkGoalMet(goal_cond)) {
-						break;
-					}
+						goals_met = true;
+						return goals_met;
+					} 
 				}
 			}
 		}
@@ -127,6 +132,17 @@ public class Exit extends Entity{
 			if(MediatorHelper.getEntityOfType(EntityType.ENEMY).size() == 0) {
 				return true;
 			}
+		} else if (goal.equals("boulders")) {
+			System.out.println("Here");
+			List<Entity> switches = MediatorHelper.getEntityOfType(EntityType.SWITCH);
+			boolean all_triggered = true;
+			for(Entity s : switches) {
+				if(!((Switch) s).isTriggered()) {
+					all_triggered = false;
+					break;
+				}
+			}
+			return all_triggered;
 		}
 		return false;
 	}
