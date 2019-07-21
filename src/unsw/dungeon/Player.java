@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  * The player entity
- * @author Robert Clifton-Everest
  *
  */
 public class Player extends Entity {
@@ -66,7 +65,6 @@ public class Player extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
