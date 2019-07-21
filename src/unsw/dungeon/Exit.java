@@ -133,7 +133,6 @@ public class Exit extends Entity{
 				return true;
 			}
 		} else if (goal.equals("boulders")) {
-			System.out.println("Here");
 			List<Entity> switches = MediatorHelper.getEntityOfType(EntityType.SWITCH);
 			boolean all_triggered = true;
 			for(Entity s : switches) {

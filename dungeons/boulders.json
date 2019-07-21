@@ -259,6 +259,6 @@
     }
   ],
   "goal-condition": {
-    "goal": "enemies"
+    "goal": "boulders"
   }
 }
