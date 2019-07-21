@@ -668,7 +668,7 @@
       }
     ],
     "goal-condition": {
-      "goal": "OR",
+      "goal": "AND",
       "subgoals": [
         {
           "goal": "enemies"

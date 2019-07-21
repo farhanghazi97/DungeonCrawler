@@ -67,23 +67,28 @@ public class Exit extends Entity{
 			}
 		}
 		
-		
-		for(int i = 0; i < player_goal_requirements.length(); i++) {
-			JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(i);
-			String goal_cond = goal_cond_obj.getString("goal");
-			if(this.goal_requirements.contains(goal_cond)) {
-				if(goal_condition.equals("AND")) {
+		if(goal_condition.equals("AND")) {
+			for(int i = 0; i < player_goal_requirements.length(); i++) {
+				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(i);
+				String goal_cond = goal_cond_obj.getString("goal");
+				if(this.goal_requirements.contains(goal_cond)) {
 					if(!checkGoalMet(goal_cond)) {
 						goals_met = false;
 						break;
 					} 
-				} else if (goal_condition.equals("OR")) {
-					if(checkGoalMet(goal_cond)) {
-						break;
-					} 
 				}
 			}
-		} 
+		} else if (goal_condition.equals("OR")) {
+			for(int i = 0; i < player_goal_requirements.length(); i++) {
+				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(i);
+				String goal_cond = goal_cond_obj.getString("goal");
+				if(this.goal_requirements.contains(goal_cond)) {
+					if(checkGoalMet(goal_cond)) {
+						break;
+					}
+				}
+			}
+		}
 		
 		return goals_met;
 	
