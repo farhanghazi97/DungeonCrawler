@@ -72,4 +72,14 @@ public class Switch extends Entity{
 		return image_list;
 	}
 
+	public boolean isTriggered() {
+		return triggered;
+	}
+
+	public void setTriggered(boolean triggered) {
+		this.triggered = triggered;
+	}
+	
+	
+
 }
