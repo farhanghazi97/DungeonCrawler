@@ -56,7 +56,6 @@ public class Boulder extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

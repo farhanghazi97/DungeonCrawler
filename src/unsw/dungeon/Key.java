@@ -23,7 +23,6 @@ public class Key extends Entity {
 
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -34,7 +33,6 @@ public class Key extends Entity {
 
 	@Override
 	public void postMove(List<Entity> entitiesAtNew) {
-		// TODO Auto-generated method stub
 		
 	}
 

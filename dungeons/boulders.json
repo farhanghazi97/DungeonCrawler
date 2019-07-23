@@ -20,7 +20,7 @@
     {
       "x": 5,
       "y": 0,
-      "type": "wall"
+      "type": "exit"
     },
     {
       "x": 6,
@@ -165,7 +165,7 @@
     {
       "x": 4,
       "y": 7,
-      "type": "switch"
+      "type": "enemy"
     },
     {
       "x": 7,
@@ -211,6 +211,11 @@
       "x": 7,
       "y": 8,
       "type": "wall"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "type": "invincibility"
     },
     {
       "x": 1,
