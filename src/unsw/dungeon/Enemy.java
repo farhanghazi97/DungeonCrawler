@@ -10,7 +10,6 @@ public class Enemy extends Entity{
 	
 	public Enemy(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -36,7 +35,6 @@ public class Enemy extends Entity{
 
 	@Override
 	public void postMove(List<Entity> entitiesAtNew) {
-		// TODO Auto-generated method stub
 		
 	}
 

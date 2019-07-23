@@ -153,6 +153,5 @@ public abstract class DungeonLoader {
     public abstract void onLoad (Key key);
     public abstract void onLoad (Enemy enemy);
     public abstract void onLoad (Door door);
-    // TODO Create additional abstract methods for the other entities
 
 }

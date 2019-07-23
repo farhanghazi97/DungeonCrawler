@@ -97,7 +97,6 @@ public class Potion extends Entity {
 
 	@Override
 	public ArrayList<String> getImage_list() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
