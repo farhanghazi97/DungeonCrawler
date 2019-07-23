@@ -28,9 +28,17 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image wallImage;
     private Image boulderimage;
     private Image switchimage;
-    private Image swordimage;
+    
+    private Image swordimage0;
+    private Image swordimage1;
+    private Image swordimage2;
+    
     private Image treasureimage;
-    private Image potionimage;
+    
+    private Image potionimage0;
+    private Image potionimage1;
+    private Image potionimage2;
+    
     private Image bombimage_unlit;
     private Image keyimage;
     
@@ -52,9 +60,17 @@ public class DungeonControllerLoader extends DungeonLoader {
         wallImage = new Image("/brick_brown_0.png");
         boulderimage = new Image("/boulder.png");
         switchimage = new Image("/pressure_plate.png");
-        swordimage = new Image("/greatsword_1_new.png");
+        
+        swordimage0 = new Image("/greatsword_1_new.png");
+        swordimage1 = new Image("/scimitar1.png");
+        swordimage2 = new Image("/battle_axe2.png");
+         
         treasureimage = new Image("/gold_pile.png");
-        potionimage = new Image("/brilliant_blue_new.png");
+        
+        potionimage0 = new Image("/brilliant_blue_new.png");
+        potionimage1 = new Image("/bubbly.png");
+        potionimage2 = new Image("/magenta.png");
+        
         bombimage_unlit = new Image("/bomb_unlit.png");
         exitimage = new Image("/exit.png");
         keyimage = new Image("/key.png");
@@ -97,7 +113,14 @@ public class DungeonControllerLoader extends DungeonLoader {
     
     @Override
     public void onLoad(Sword s) {
-    	ImageView view = new ImageView(swordimage);
+    	ImageView view;
+    	if(rand.nextInt(3) == 1) {
+    		view = new ImageView(swordimage0);
+    	} else if(rand.nextInt(3) == 2) {
+    		view = new ImageView(swordimage1);
+    	} else {
+    		view = new ImageView(swordimage2);
+    	}
     	view.setId(s.getImageID());
     	addEntity(s , view);
     }
@@ -111,7 +134,14 @@ public class DungeonControllerLoader extends DungeonLoader {
     
     @Override
     public void onLoad(Potion p) {
-    	ImageView view = new ImageView(potionimage);
+    	ImageView view;
+    	if(rand.nextInt(3) == 1) {
+    		view = new ImageView(potionimage0);
+    	} else if(rand.nextInt(3) == 2) {
+    		view = new ImageView(potionimage1);
+    	} else {
+    		view = new ImageView(potionimage2);
+    	}
     	view.setId(p.getImageID());
     	addEntity(p , view);
     }
