@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,10 +33,16 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image potionimage;
     private Image bombimage_unlit;
     private Image keyimage;
-    private Image enemyimage;
+    
+    private Image enemyimage0;
+    private Image enemyimage1;
+    private Image enemyimage2;
+    
     private Image doorimage;
     private Image exitimage;
 
+    Random rand = new Random();
+    
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
         super(filename);
@@ -51,7 +58,11 @@ public class DungeonControllerLoader extends DungeonLoader {
         bombimage_unlit = new Image("/bomb_unlit.png");
         exitimage = new Image("/exit.png");
         keyimage = new Image("/key.png");
-        enemyimage = new Image("/deep_elf_master_archer.png");
+        
+        enemyimage0 = new Image("/deep_elf_master_archer.png");
+        enemyimage1 = new Image("/kenku_winged.png");
+        enemyimage2 = new Image("/spriggan_defender_shieldless.png");
+        
         doorimage = new Image("/closed_door.png");
         
     }
@@ -128,7 +139,14 @@ public class DungeonControllerLoader extends DungeonLoader {
     
     @Override
     public void onLoad(Enemy enemy) {
-    	ImageView view = new ImageView(enemyimage);
+    	ImageView view;
+    	if(rand.nextInt(3) == 1) {
+    		view = new ImageView(enemyimage0);
+    	} else if(rand.nextInt(3) == 2) {
+    		view = new ImageView(enemyimage2);
+    	} else {
+    		view = new ImageView(enemyimage1);
+    	}
     	view.setId(enemy.getImageID());
     	addEntity(enemy,view);
     }

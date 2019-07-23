@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class Player extends Entity {
 	
     private Dungeon dungeon;
     private String image_path = "/human_new.png";
-    private ArrayList<String> image_list = new ArrayList<String>();
+    private ArrayList<String> image_list = new ArrayList<String>(Arrays.asList("/human_new.png" , "/daeva.png"));
     
     /**
      * Create a player positioned in square (x,y)
