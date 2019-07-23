@@ -14,7 +14,7 @@ public class Enemy extends Entity{
 
 	@Override
 	public String toString() {
-		return "ENEMY object";
+		return "ENEMY object " + this.getX() + " | " + this.getY();
 		
 	}
 	

@@ -255,7 +255,7 @@
       {
         "x": 19,
         "y": 10,
-        "type": "wall"
+        "type": "exit"
       },
       {
         "x": 19,
@@ -488,6 +488,26 @@
         "x": 4,
         "y": 12,
         "type": "player"
+      },
+      {
+        "x": 3,
+        "y": 9,
+        "type": "enemy"
+      },
+      {
+        "x": 7,
+        "y": 8,
+        "type": "enemy"
+      },
+      {
+        "x": 4,
+        "y": 13,
+        "type": "sword"
+      },
+      {
+        "x": 2,
+        "y": 12,
+        "type": "invincibility"
       }
     ],
     "goal-condition": {
@@ -497,7 +517,7 @@
           "goal": "enemies"
         },
         {
-          "goal": "treasure"
+          "goal": "boulders"
         }
       ]
     }
