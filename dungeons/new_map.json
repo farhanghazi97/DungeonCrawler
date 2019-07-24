@@ -508,6 +508,16 @@
         "x": 2,
         "y": 12,
         "type": "invincibility"
+      },
+      {
+        "x": 14,
+        "y": 3,
+        "type": "enemy"
+      },
+      {
+        "x": 18,
+        "y": 2,
+        "type": "enemy"
       }
     ],
     "goal-condition": {

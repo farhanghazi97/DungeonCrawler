@@ -66,14 +66,12 @@ public class MediatorHelper {
         GridPane squares = Mediator.getInstance().getSquares();
         Dungeon dungeon = Mediator.getInstance().getDungeon();
 
-        System.out.println("In remove entity function " + entity);
+        System.out.println("In remove entity function");
         ImageView image = getImageByEntity(imageEntities, entity);
         // Map GridPane co-ords to entity co-ords
-        if (GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
-            if (image.getId().equals(entity.getImageID())) {
-                //Removing from screen
-                squares.getChildren().remove(image);
-            }
+        if (image.getId().equals(entity.getImageID())) {
+            //Removing from screen
+            squares.getChildren().remove(image);
         }
         // To remove the object
         if (dungeon.getEntities().contains(entity)) {
