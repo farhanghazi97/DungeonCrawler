@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MediatorHelper {
-
+	
     // Returns all entities on (x,y) coordinates
     public static List<Entity> getEntities(int x, int y) {
         Dungeon dungeon = Mediator.getInstance().getDungeon();
@@ -61,21 +61,17 @@ public class MediatorHelper {
     
     // Removes UI element and object corresponding to given entity
     public static void removeEntity(Entity entity) {
-
+    	System.out.println("Removing "+entity);
         List<ImageView> imageEntities = Mediator.getInstance().getImageEntities();
         GridPane squares = Mediator.getInstance().getSquares();
         Dungeon dungeon = Mediator.getInstance().getDungeon();
 
-        System.out.println("In remove entity function " + entity);
-        for (int i = 0; i < imageEntities.size(); i++) {
-            ImageView image = imageEntities.get(i);
-            // Map GridPane co-ords to entity co-ords
-            if (GridPane.getColumnIndex(image) == entity.getX() && GridPane.getRowIndex(image) == entity.getY()) {
-                if (image.getId().equals(entity.getImageID())) {
-                    //Removing from screen
-                    squares.getChildren().remove(image);
-                }
-            }
+        System.out.println("In remove entity function");
+        ImageView image = getImageByEntity(imageEntities, entity);
+        // Map GridPane co-ords to entity co-ords
+        if (image.getId().equals(entity.getImageID())) {
+            //Removing from screen
+            squares.getChildren().remove(image);
         }
         // To remove the object
         if (dungeon.getEntities().contains(entity)) {
@@ -169,9 +165,9 @@ public class MediatorHelper {
 
         Entity new_object = null;
         if (type == EntityType.TREASURE) {
-            new_object = new Treasure(location.getX(), location.getY());
+            new_object = new Treasure(dungeon, location.getX(), location.getY());
         } else if (type == EntityType.POTION) {
-            new_object = new Potion(location.getX(), location.getY());
+            new_object = new Potion(dungeon, location.getX(), location.getY());
         }
 
         dungeon.getEntities().add(new_object);
