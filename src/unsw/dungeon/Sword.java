@@ -11,8 +11,12 @@ public class Sword extends Entity {
 	private int swingsRemaining = 5;
 	private boolean collected = false;
 	
-	public Sword(int x, int y) {
-        super(x, y);
+//	public Sword(int x, int y) {
+//        super(x, y);
+//    }
+
+	public Sword(Dungeon dungeon, int x, int y) {
+        super(dungeon, x, y);
     }
 
     @Override
@@ -40,14 +44,14 @@ public class Sword extends Entity {
 		System.out.println("In Sword's stepOver");
 		this.swingsRemaining = 5;
 		//Add sword to collected entities
-		Entity tempSword = Mediator.getInstance().getCollected(EntityType.SWORD);
+		Entity tempSword =dungeon.getCollected(EntityType.SWORD);
 		
 		if(tempSword != null) {
 			//Player already has a sword
 			return false;
 		}else {
 			//Add new sword
-			if(Mediator.getInstance().getCollectedEntities().add(this)) {
+			if(dungeon.getCollectedEntities().add(this)) {
 				this.collected = true;
 				System.out.println(this.toString());
 				MediatorHelper.removeEntity(this);
@@ -66,7 +70,7 @@ public class Sword extends Entity {
 		}else {
 			//Remove sword from player's collected entities
 			this.collected = false;
-			Mediator.getInstance().getCollectedEntities().remove(this);
+			dungeon.getCollectedEntities().remove(this);
 			System.out.println(this.toString());
 			return false;
 		}

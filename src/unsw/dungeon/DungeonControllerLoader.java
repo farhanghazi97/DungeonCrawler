@@ -22,6 +22,7 @@ import javafx.scene.layout.GridPane;
 public class DungeonControllerLoader extends DungeonLoader {
 
     private List<ImageView> entities;
+    
 
     //Images
     private Image playerImage;

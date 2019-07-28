@@ -8,10 +8,13 @@ public class Wall extends Entity  {
 	private String image_path = "/brick_brown.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
     
-	public Wall(int x, int y) {
-        super(x, y);
+//	public Wall(int x, int y) {
+//        super(x, y);
+//    }
+	
+	public Wall(Dungeon dungeon, int x, int y) {
+        super(dungeon, x, y);
     }
-
     @Override
     public String toString() {
 		return String.format("WALL object");

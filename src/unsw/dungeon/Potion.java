@@ -12,9 +12,9 @@ public class Potion extends Entity {
 	private boolean collected = false;
 	private String image_path = "/brilliant_blue_new.png";
 	private boolean in_effect = false;
-	
-	public Potion(int x, int y) {
-        super(x, y);
+
+	public Potion(Dungeon dungeon, int x, int y) {
+        super(dungeon, x, y);
     }
 
     @Override
@@ -41,15 +41,15 @@ public class Potion extends Entity {
 	public boolean stepOver() {
     	System.out.println("Inside Potion's stepOver");
     
-		Entity tempPotion = Mediator.getInstance().getCollected(EntityType.POTION);
-		Entity player = Mediator.getInstance().getDungeon().getPlayer();
+		Entity tempPotion = dungeon.getCollected(EntityType.POTION);
+		Entity player = dungeon.getPlayer();
 		
 		if(tempPotion != null ) {
 			//Player already has a potion
 			return false;
 		}else {
 			//Add new potion
-			if(Mediator.getInstance().getCollectedEntities().add(this)) {
+			if(dungeon.getCollectedEntities().add(this)) {
 				this.in_effect = true;
 				this.updatePlayerUI(player , in_effect);
 				//Start potion timer function
@@ -76,8 +76,8 @@ public class Potion extends Entity {
         };
        
         task.setOnSucceeded(e -> {
-        	Mediator.getInstance().getCollectedEntities().remove(this);
-        	System.out.println("After destroying: "+ Mediator.getInstance().getCollectedEntities());
+        	dungeon.getCollectedEntities().remove(this);
+        	System.out.println("After destroying: "+ dungeon.getCollectedEntities());
         	this.in_effect = false;
             this.updatePlayerUI(entity , in_effect);
         });

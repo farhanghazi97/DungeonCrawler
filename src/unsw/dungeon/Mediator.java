@@ -30,124 +30,121 @@ public class Mediator {
 	private GridPane squares;
 
 	private List<ImageView> imageEntities;
-	private boolean gameOver = false;
-	private JSONObject goal;
+//	private boolean gameOver = false;
+//	private JSONObject goal;
 
-	/**
-	 * Getters for testability.
-	 * 
-	 * @return
-	 */
 	
-	public void setDungeon(Dungeon dungeon, GridPane squares, List<ImageView> imageEntities , JSONObject goal) {
+	public void setDungeon(Dungeon dungeon, GridPane squares, List<ImageView> imageEntities) {
 		this.dungeon = dungeon;
 		this.squares = squares;
 		this.imageEntities = imageEntities;
-		this.goal = goal;
+//		this.goal = goal;
 	}
 
-	// To move from old coordinates to new coordinates
-	public boolean moveTo(int currentX, int currentY, int newX, int newY) {
-
-		if (gameOver) {
-			return false;
-		} 
-		
-		if (MediatorHelper.outsideDungeon(newX, newY)) {
-			// Whether moving boulder or player, outside dungeon boundaries is prohibited.
-			return false;
-		}
-
-		// At start, entity to move is the player
-		Entity entityToMove = dungeon.getPlayer();
-
-		List<Entity> fromEntities = MediatorHelper.getEntities(currentX, currentY);
-		List<Entity> toEntities = MediatorHelper.getEntities(newX, newY);
-		List<Entity> bouldersAtCurrent = MediatorHelper.getEntities(currentX, currentY, Boulder.class);
-		List<Entity> enemies = MediatorHelper.getEntityOfType(EntityType.ENEMY);
-		List<Entity> exitAtCurrent = MediatorHelper.getEntities(currentX , currentY , Exit.class);
-		
-		Random rand = new Random();
-		
-		if (!bouldersAtCurrent.isEmpty()) {
-			// there is a boulder at currentX and currentY
-			// We will move boulder instead of player
-			entityToMove = bouldersAtCurrent.get(0);
-		}
-
-		if (entityToMove.isBlocked(toEntities)) {
-			return false;
-		}
-
-		entityToMove.moveTo(newX, newY);
-		
-		if (!bouldersAtCurrent.isEmpty()) {
-			// there is a boulder at currentX and currentY
-			// We will move boulder instead of player
-			entityToMove = bouldersAtCurrent.get(0);
-		}
-
-		// Calling entitesAtCurrent stepOver on a loop
-		for (Entity entity : fromEntities) {
-			if (entity.getType() != EntityType.SWITCH)
-				entity.stepOver();
-		}
-		
-		//Calling all enemies to move
-		if(!enemies.isEmpty()) {
-			for (Entity enemy : enemies) {
-				((Enemy) enemy).moveTo(newX, newY);
-			}
-		}
-
-		entityToMove.postMove(toEntities);
-
-		return true;
-	}
+//	// To move from old coordinates to new coordinates
+//	public boolean moveTo(int currentX, int currentY, int newX, int newY) {
+//
+//		if (gameOver) {
+//			return false;
+//		} 
+//		
+//		if (MediatorHelper.outsideDungeon(newX, newY)) {
+//			// Whether moving boulder or player, outside dungeon boundaries is prohibited.
+//			return false;
+//		}
+//
+//		// At start, entity to move is the player
+//		Entity entityToMove = dungeon.getPlayer();
+//
+//		List<Entity> fromEntities = MediatorHelper.getEntities(currentX, currentY);
+//		List<Entity> toEntities = MediatorHelper.getEntities(newX, newY);
+//		List<Entity> bouldersAtCurrent = MediatorHelper.getEntities(currentX, currentY, Boulder.class);
+//		List<Entity> enemies = MediatorHelper.getEntityOfType(EntityType.ENEMY);
+//		List<Entity> exitAtCurrent = MediatorHelper.getEntities(currentX , currentY , Exit.class);
+//		
+//		Random rand = new Random();
+//		
+//		if (!bouldersAtCurrent.isEmpty()) {
+//			// there is a boulder at currentX and currentY
+//			// We will move boulder instead of player
+//			entityToMove = bouldersAtCurrent.get(0);
+//		}
+//
+//		if (entityToMove.isBlocked(toEntities)) {
+//			return false;
+//		}
+//
+//		entityToMove.moveTo(newX, newY);
+//		
+//		if (!bouldersAtCurrent.isEmpty()) {
+//			// there is a boulder at currentX and currentY
+//			// We will move boulder instead of player
+//			entityToMove = bouldersAtCurrent.get(0);
+//		}
+//
+//		// Calling entitesAtCurrent stepOver on a loop
+//		for (Entity entity : fromEntities) {
+//			if (entity.getType() != EntityType.SWITCH)
+//				entity.stepOver();
+//		}
+//		
+//		//Calling all enemies to move
+//		if(!enemies.isEmpty()) {
+//			for (Entity enemy : enemies) {
+//				((Enemy) enemy).moveTo(newX, newY);
+//			}
+//		}
+//
+//		entityToMove.postMove(toEntities);
+//
+//		return true;
+//	}
 
 	// Method to mark end of game
-	public void markGameOver() {
-		System.out.println("Here");
-		gameOver = true;
-	}
+//	public void markGameOver() {
+//		System.out.println("Here");
+//		gameOver = true;
+//	}
 
 	// Called when player presses the 'S' key on the keyboard
-	public void swingSword(int x, int y) {
-		System.out.println("Mediator: In swing sword");
-		Entity sword = getCollected(EntityType.SWORD);
-		if (sword != null) {
-			if (((Sword) sword).swing()) {
-				// Check if enemy is in vicinity
-				List<Entity> enemies = MediatorHelper.entitiesInVicinity(x, y, EntityType.ENEMY);
-				if (enemies != null) {
-					// If true -> remove enemy
-					// If false ->do nothing
-					for (Entity enemy : enemies) {
-						MediatorHelper.removeEntity(enemy);
-					}
-				}
-			}
-		}
-	}
+//	public void swingSword(int x, int y) {
+//		System.out.println("Mediator: In swing sword");
+//		Entity sword = getCollected(EntityType.SWORD);
+//		if (sword != null) {
+//			if (((Sword) sword).swing()) {
+//				// Check if enemy is in vicinity
+//				List<Entity> enemies = MediatorHelper.entitiesInVicinity(x, y, EntityType.ENEMY);
+//				if (enemies != null) {
+//					// If true -> remove enemy
+//					// If false ->do nothing
+//					System.out.println(enemies);
+//					for (Entity enemy : enemies) {
+//						MediatorHelper.removeEntity(enemy);
+//					}
+//				}
+//			}
+//		}
+//	}
 
 	// Called when player presses 'U' key on keyboard
 	// Attempts to unlock the door at current location
-	public void unlockDoor(int currentX, int currentY) {
-		List<Entity> doors = MediatorHelper.doorInFront(currentX, currentY);
-		if (!doors.isEmpty()) {
-			Entity door = doors.get(0);
-			door.stepOver();
-		}
-	}
+//	public void unlockDoor(int currentX, int currentY) {
+//		List<Entity> doors = MediatorHelper.doorInFront(currentX, currentY);
+//		if (!doors.isEmpty()) {
+//			Entity door = doors.get(0);
+//			door.stepOver();
+//		}
+//	}
 	
 	
 	// Called when player presses the 'B' key on keyboard
 	// Bomb timer is started
 	public void igniteBomb(int x, int y) {
 		System.out.println("Mediator: In ignite bomb");
-		Entity old_bomb = getCollected(EntityType.BOMB);
+		Entity old_bomb = dungeon.getCollected(EntityType.BOMB);
 		if (old_bomb != null) {
-			Mediator.getInstance().collectedEntities.remove(old_bomb);
+			System.out.println("In here");
+			dungeon.getCollectedEntities().remove(old_bomb);
 			Bomb new_bomb = spawnBombAtCurrentLocation(x, y);
 			new_bomb.startBombSelfDestruct(1000);
 		}
@@ -155,7 +152,7 @@ public class Mediator {
 
 	// Method to bring up a new bomb at (x,y) location
 	private Bomb spawnBombAtCurrentLocation(int x, int y) {
-		Bomb new_bomb = new Bomb(x, y);
+		Bomb new_bomb = new Bomb(dungeon, x, y);
 		MediatorHelper.setupImage(new_bomb);
 		return new_bomb;
 
@@ -198,6 +195,7 @@ public class Mediator {
 	}
 	
 	public List<Entity> getCollectedEntities() {
+		System.out.println("In mediator: getCollecetdEntitiues");
 		return collectedEntities;
 	}
 	
@@ -205,13 +203,13 @@ public class Mediator {
 		return isCollected(newEntity);
 	}
 
-	public boolean getGameOver() {
-		return gameOver;
-	}
-
-	public JSONObject getGoal() {
-		return goal;
-	}
+//	public boolean getGameOver() {
+//		return gameOver;
+//	}
+//
+//	public JSONObject getGoal() {
+//		return goal;
+//	}
 
 
 

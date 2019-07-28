@@ -17,13 +17,16 @@ public abstract class Entity {
 	
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
+	Dungeon dungeon;
     private IntegerProperty x, y;
     /**
      * Create an entity positioned in square (x,y)
      * @param x
      * @param y
      */
-    public Entity(int x, int y) {
+    public Entity(Dungeon dungeon, int x, int y) {
+    	
+    	this.dungeon = dungeon;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
     }

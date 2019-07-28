@@ -13,10 +13,15 @@ public class Door extends Entity {
 	private int door_id;
 	private boolean is_open = false;
 	
-	public Door(int x, int y , int door_id) {
-		super(x, y);
-		this.door_id = door_id;
-	}
+//	public Door(int x, int y , int door_id) {
+//		super(x, y);
+//		this.door_id = door_id;
+//	}
+
+	public Door(Dungeon dungeon, int x, int y, int door_id) {
+        super(dungeon, x, y);
+        this.door_id = door_id;
+    }
 	
 	@Override
 	public EntityType getType() {
@@ -41,12 +46,12 @@ public class Door extends Entity {
 	@Override
 	public boolean stepOver() {
 		//If Player has a key in the collected bag
-		Key key = (Key) Mediator.getInstance().getCollected(EntityType.KEY);
+		Key key = (Key) dungeon.getCollected(EntityType.KEY);
 		if(key != null) {
 			if(matchKey(key)) {
 				//Key and Door id match
 				updateDoorUI(this);
-				Mediator.getInstance().getCollectedEntities().remove(key);
+				dungeon.getCollectedEntities().remove(key);
 				this.setIs_open(true);
 				return true;
 			} else {
