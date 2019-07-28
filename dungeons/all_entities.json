@@ -665,6 +665,11 @@
         "x": 3,
         "y": 5,
         "type": "enemy"
+      },
+      {
+        "x": 14,
+        "y": 12,
+        "type": "enemy"
       }
     ],
     "goal-condition": {

@@ -35,7 +35,6 @@ public class Door extends Entity {
 
 	@Override
 	public void postMove(List<Entity> entitiesAtNew) {
-		// TODO Auto-generated method stub
 		
 	}
 

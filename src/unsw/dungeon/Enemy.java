@@ -10,12 +10,11 @@ public class Enemy extends Entity{
 	
 	public Enemy(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
-		return "ENEMY object";
+		return "ENEMY object " + this.getX() + " | " + this.getY();
 		
 	}
 	
@@ -36,7 +35,6 @@ public class Enemy extends Entity{
 
 	@Override
 	public void postMove(List<Entity> entitiesAtNew) {
-		// TODO Auto-generated method stub
 		
 	}
 

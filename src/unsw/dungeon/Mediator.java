@@ -122,6 +122,7 @@ public class Mediator {
 				if (enemies != null) {
 					// If true -> remove enemy
 					// If false ->do nothing
+					System.out.println(enemies);
 					for (Entity enemy : enemies) {
 						MediatorHelper.removeEntity(enemy);
 					}
