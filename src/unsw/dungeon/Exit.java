@@ -22,8 +22,9 @@ public class Exit extends Entity{
 			)
 	); 
 	
-    public Exit(int x, int y) {
-        super(x, y);
+  
+	public Exit(Dungeon dungeon, int x, int y) {
+        super(dungeon, x, y);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class Exit extends Entity{
     @Override
 	public boolean stepOver() {
 		
-    	JSONObject goal = Mediator.getInstance().getGoal();
+    	JSONObject goal = dungeon.getGoal();
 		String goal_condition = goal.getString("goal");
 		JSONArray player_goal_requirements = null;
 		

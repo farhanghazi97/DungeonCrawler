@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class Player extends Entity {
 	
-    private Dungeon dungeon;
     private String image_path = "/human_new.png";
     private ArrayList<String> image_list = new ArrayList<String>(Arrays.asList("/human_new.png" , "/daeva.png"));
     
@@ -20,8 +19,8 @@ public class Player extends Entity {
      * @param y
      */
     public Player(Dungeon dungeon, int x, int y) {
-        super(x, y);
-        this.dungeon = dungeon;
+        super(dungeon, x, y);
+        //this.dungeon = dungeon;
     }
     
     @Override
@@ -59,7 +58,7 @@ public class Player extends Entity {
 		for (Entity entity : entitiesAtNew) {
 			if (entity.getType()==EntityType.EXIT){
 				if(entity.stepOver()) {
-					Mediator.getInstance().markGameOver();
+					dungeon.markGameOver();
 					break;
 				}
 			}

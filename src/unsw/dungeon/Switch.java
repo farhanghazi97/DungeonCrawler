@@ -9,10 +9,13 @@ public class Switch extends Entity{
 	private String image_path = "/pressure_plate.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	private boolean triggered = false;
-	
-	public Switch(int x, int y) {
-        super(x, y);
+
+	public Switch(Dungeon dungeon, int x, int y) {
+        super(dungeon, x, y);
     }
+//	public Switch(int x, int y) {
+//        super(x, y);
+//    }
 
 	@Override
 	public String toString() {

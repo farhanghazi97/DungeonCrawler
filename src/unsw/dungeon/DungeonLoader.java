@@ -72,67 +72,67 @@ public abstract class DungeonLoader {
             break;
         
         case "wall":
-        	Wall wall = new Wall(x, y);
+        	Wall wall = new Wall(dungeon, x, y);
             onLoad(wall);
             entity = wall;
             break;
         
         case "boulder":
-        	Boulder boulder = new Boulder(x, y);
+        	Boulder boulder = new Boulder(dungeon,x, y);
         	onLoad(boulder);
         	entity = boulder;
         	break;
         
         case "switch":
-        	Switch swi = new Switch(x,y);
+        	Switch swi = new Switch(dungeon,x,y);
         	onLoad(swi);
         	entity = swi;
         	break;
         
         case "sword":
-        	Sword swo = new Sword(x,y);
+        	Sword swo = new Sword(dungeon,x,y);
         	onLoad(swo);
         	entity = swo;
         	break;
         
         case "treasure":
-        	Treasure t = new Treasure(x,y);
+        	Treasure t = new Treasure(dungeon,x,y);
         	onLoad(t);
         	entity = t;
         	break;
         
         case "invincibility":
-        	Potion p = new Potion(x,y);
+        	Potion p = new Potion(dungeon,x,y);
         	onLoad(p);
         	entity = p;
         	break;
         	
         case "bomb":
-        	Bomb b = new Bomb(x,y);
+        	Bomb b = new Bomb(dungeon,x,y);
         	onLoad(b);
         	entity = b;
         	break;
 
         case "exit":
-            Exit exit = new Exit(x,y);
+            Exit exit = new Exit(dungeon,x,y);
             onLoad(exit);
             entity = exit;
             break;
             
 		case "key":
-			Key key = new Key(x, y, keyID);
+			Key key = new Key(dungeon,x, y, keyID);
 			onLoad(key);
 			entity = key;
 			break;
 			
 		case "enemy":
-			Enemy enemy = new Enemy(x, y);
+			Enemy enemy = new Enemy(dungeon,x, y);
 			onLoad(enemy);
 			entity = enemy;
 			break;
            
 		case "door":
-			Door door = new Door(x , y , doorID);
+			Door door = new Door(dungeon,x , y , doorID);
 			onLoad(door);
 			entity = door;
 			break;

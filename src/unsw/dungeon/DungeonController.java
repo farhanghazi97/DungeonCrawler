@@ -26,7 +26,7 @@ public class DungeonController {
     private Player player;
 
     private Dungeon dungeon;
-
+    
     /**
      * Added for testability
      * @return
@@ -64,7 +64,10 @@ public class DungeonController {
         }
 
       //Initializes Mediator class  
-       Mediator.getInstance().setDungeon(dungeon, squares , initialEntities , dungeon.getGoal());
+       Mediator.getInstance().setDungeon(dungeon, squares , initialEntities);
+      
+      
+       
 
     }
     
@@ -73,25 +76,29 @@ public class DungeonController {
 
         switch (event.getCode()) {
         case UP:
-            Mediator.getInstance().moveTo(player.getX(), player.getY(), player.getX(), player.getY() - 1);
+            //Mediator.getInstance().moveTo(player.getX(), player.getY(), player.getX(), player.getY() - 1);
+        	dungeon.moveTo(player.getX(), player.getY(), player.getX(), player.getY() - 1);
             break;
         case DOWN:
-            Mediator.getInstance().moveTo(player.getX(), player.getY(), player.getX(), player.getY() + 1);
+            //Mediator.getInstance().moveTo(player.getX(), player.getY(), player.getX(), player.getY() + 1);
+        	dungeon.moveTo(player.getX(), player.getY(), player.getX(), player.getY() + 1);
             break;
         case LEFT:
-            Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()-1, player.getY());
+            //Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()-1, player.getY());
+        	dungeon.moveTo(player.getX(), player.getY(),player.getX()-1, player.getY());
             break;
         case RIGHT:
-            Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()+1, player.getY()); 
+            //Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()+1, player.getY()); 
+            dungeon.moveTo(player.getX(), player.getY(),player.getX()+1, player.getY());
             break;
         case U:
-        	Mediator.getInstance().unlockDoor(player.getX(), player.getY());
+        	dungeon.handleKeyPressU(player.getX(), player.getY());
         	break;
         case S:
-        	Mediator.getInstance().swingSword(player.getX(), player.getY());
+        	dungeon.handleKeyPressS(player.getX(), player.getY());
         	break;
         case B:
-        	Mediator.getInstance().igniteBomb(player.getX() , player.getY());
+        	dungeon.handleKeyPressB(player.getX() , player.getY());
         	break;
         default:
             break;
@@ -101,6 +108,10 @@ public class DungeonController {
     public GridPane getGridPane(){
     	return squares;
     }
+	
+	
+    
+    
 
 }
 

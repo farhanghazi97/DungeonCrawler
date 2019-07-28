@@ -8,9 +8,10 @@ public class Treasure extends Entity{
 	private static int treasureCoins = 0;
 	private String image_path = "gold_pile.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
+	//Dungeon dungeon;
 	
-	public Treasure(int x, int y) {
-        super(x, y);
+	public Treasure(Dungeon dungeon, int x, int y) {
+        super(dungeon, x, y);
     }
 
     @Override
@@ -35,10 +36,14 @@ public class Treasure extends Entity{
 
     @Override
 	public boolean stepOver() {
+    	
     	System.out.println("In Treasure's stepOver");
     	Treasure.treasureCoins++;
     	System.out.println(toString());
-    	Mediator.getInstance().getCollectedEntities().add(this);
+    	if(dungeon == null) {
+    		System.out.println("Dungeon is null");
+    	}
+    	dungeon.getCollectedEntities().add(this);
 		MediatorHelper.removeEntity(this);
 		return true;
 	}

@@ -21,11 +21,15 @@ public class Bomb extends Entity {
 					"/BombExploding.png"
 			)
 	);
-	
-	public Bomb(int x , int y) {
-		super(x , y);
-	}
+//	
+//	public Bomb(int x , int y) {
+//		super(x , y);
+//	}
 
+	
+	public Bomb(Dungeon dungeon, int x, int y) {
+        super(dungeon, x, y);
+    }
 	@Override
 	public EntityType getType() {
 		return EntityType.BOMB;
@@ -49,11 +53,11 @@ public class Bomb extends Entity {
 	@Override
 	public boolean stepOver() {
 		System.out.println("In Bomb's stepOver");
-		Entity bomb = Mediator.getInstance().getCollected(EntityType.BOMB);
+		Entity bomb = dungeon.getCollected(EntityType.BOMB);
 		if(bomb != null && is_destroyed == false) {
 			return false;
 		} else {
-	    	Mediator.getInstance().getCollectedEntities().add(this);
+	    	dungeon.getCollectedEntities().add(this);
 			MediatorHelper.removeEntity(this);
 			return true;
 		}
@@ -62,7 +66,7 @@ public class Bomb extends Entity {
 
 	// Manages image changes and bomb timer
 	public void startBombSelfDestruct(long time) {
-
+		
 		ArrayList<String> images = this.getImage_list();
 		Entity bomb = this;
 		Task<Void> task = new Task<Void>() {
@@ -91,15 +95,15 @@ public class Bomb extends Entity {
 			// Grab all (in any) enemies , boulders , player in 3 X 3 area surrounding
 			// bomb's location
 
-			Dungeon dungeon = Mediator.getInstance().getDungeon();
+			
 			List<Entity> entities_to_remove = MediatorHelper.entitiesInVicinity(
 					bomb.getX(), bomb.getY(), EntityType.ENEMY,
 					EntityType.BOULDER, EntityType.PLAYER);
 			if (entities_to_remove.contains(dungeon.getPlayer())) {
-				Entity potion = Mediator.getInstance().getCollected(EntityType.POTION);
+				Entity potion = dungeon.getCollected(EntityType.POTION);
 				// If player does not have potion, bomb effective
 				if (potion == null) {
-					Mediator.getInstance().markGameOver();
+					dungeon.markGameOver();
 				} else {
 					entities_to_remove.remove(dungeon.getPlayer());
 				}
