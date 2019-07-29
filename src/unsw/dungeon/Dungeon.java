@@ -170,7 +170,7 @@ public class Dungeon {
 					// If false ->do nothing
 					System.out.println(enemies);
 					for (Entity enemy : enemies) {
-						dc.removeEntity(enemy);
+						removeEntity(enemy);
 					}
 				}
 			}
