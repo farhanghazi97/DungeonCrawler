@@ -48,11 +48,11 @@ public class Bomb extends Entity {
 	@Override
 	public boolean stepOver() {
 		System.out.println("In Bomb's stepOver");
-		Entity bomb = dungeon.getCollected(EntityType.BOMB);
+		Entity bomb = dungeon.getInventoryEntity(EntityType.BOMB);
 		if(bomb != null && is_destroyed == false) {
 			return false;
 		} else {
-	    	dungeon.getCollectedEntities().add(this);
+	    	dungeon.getInventoryEntities().add(this);
 			dungeon.removeEntity(this);
 			return true;
 		}
@@ -95,7 +95,7 @@ public class Bomb extends Entity {
 					bomb.getX(), bomb.getY(), EntityType.ENEMY,
 					EntityType.BOULDER, EntityType.PLAYER);
 			if (entities_to_remove.contains(dungeon.getPlayer())) {
-				Entity potion = dungeon.getCollected(EntityType.POTION);
+				Entity potion = dungeon.getInventoryEntity(EntityType.POTION);
 				// If player does not have potion, bomb effective
 				if (potion == null) {
 					dungeon.markGameOver();

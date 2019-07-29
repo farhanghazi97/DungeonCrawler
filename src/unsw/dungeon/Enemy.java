@@ -41,7 +41,7 @@ public class Enemy extends Entity{
 	@Override
 	public boolean stepOver() {
 		System.out.println("In Enemy's stepOver");
-		Entity potion = dungeon.getCollected(EntityType.POTION);
+		Entity potion = dungeon.getInventoryEntity(EntityType.POTION);
 		if(potion != null) {
 			//Player has a potion -> enemy dies
 			dungeon.removeEntity(this);
@@ -78,7 +78,7 @@ public class Enemy extends Entity{
 		
 		//In Efforts to make it harder
 		List<Entity> player = dungeon.entitiesInVicinity(enemyX, enemyY, EntityType.PLAYER);
-		Entity potion = dungeon.getCollected(EntityType.POTION);
+		Entity potion = dungeon.getInventoryEntity(EntityType.POTION);
 		if(player.size() == 1 && potion == null) {
 			//Player is in vicinity of enemy and has no potion. 
 			x().set(playerX);

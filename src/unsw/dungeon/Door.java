@@ -46,12 +46,12 @@ public class Door extends Entity {
 	@Override
 	public boolean stepOver() {
 		//If Player has a key in the collected bag
-		Key key = (Key) dungeon.getCollected(EntityType.KEY);
+		Key key = (Key) dungeon.getInventoryEntity(EntityType.KEY);
 		if(key != null) {
 			if(matchKey(key)) {
 				//Key and Door id match
 				//updateDoorUI(this);
-				dungeon.getCollectedEntities().remove(key);
+				dungeon.getInventoryEntities().remove(key);
 				this.setIs_open(true);
 				return true;
 			} else {

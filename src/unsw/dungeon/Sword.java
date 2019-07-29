@@ -44,14 +44,14 @@ public class Sword extends Entity {
 		System.out.println("In Sword's stepOver");
 		this.swingsRemaining = 5;
 		//Add sword to collected entities
-		Entity tempSword =dungeon.getCollected(EntityType.SWORD);
+		Entity tempSword =dungeon.getInventoryEntity(EntityType.SWORD);
 		
 		if(tempSword != null) {
 			//Player already has a sword
 			return false;
 		}else {
 			//Add new sword
-			if(dungeon.getCollectedEntities().add(this)) {
+			if(dungeon.getInventoryEntities().add(this)) {
 				this.collected = true;
 				System.out.println(this.toString());
 				dungeon.removeEntity(this);
@@ -70,7 +70,7 @@ public class Sword extends Entity {
 		}else {
 			//Remove sword from player's collected entities
 			this.collected = false;
-			dungeon.getCollectedEntities().remove(this);
+			dungeon.getInventoryEntities().remove(this);
 			System.out.println(this.toString());
 			return false;
 		}

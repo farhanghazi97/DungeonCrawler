@@ -52,14 +52,14 @@ public class Key extends Entity {
 		
 	
 		//Add sword to collected entities
-		Entity tempKey = dungeon.getCollected(EntityType.KEY);
+		Entity tempKey = dungeon.getInventoryEntity(EntityType.KEY);
 		
 		if(tempKey != null) {
 			//Player already has a key
 			return false;
 		}else {
 			//Pick up key
-			if(dungeon.getCollectedEntities().add(this)) {
+			if(dungeon.getInventoryEntities().add(this)) {
 				this.collected = true;
 				System.out.println(this.toString());
 				dungeon.removeEntity(this);

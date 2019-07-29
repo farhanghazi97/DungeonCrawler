@@ -43,7 +43,7 @@ public class Treasure extends Entity{
     	if(dungeon == null) {
     		System.out.println("Dungeon is null");
     	}
-    	dungeon.getCollectedEntities().add(this);
+    	dungeon.getInventoryEntities().add(this);
 		dungeon.removeEntity(this);
 		return true;
 	}

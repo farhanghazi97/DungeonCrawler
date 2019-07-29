@@ -41,7 +41,7 @@ public class Potion extends Entity {
 	public boolean stepOver() {
     	System.out.println("Inside Potion's stepOver");
     
-		Entity tempPotion = dungeon.getCollected(EntityType.POTION);
+		Entity tempPotion = dungeon.getInventoryEntity(EntityType.POTION);
 		Entity player = dungeon.getPlayer();
 		
 		if(tempPotion != null ) {
@@ -49,7 +49,7 @@ public class Potion extends Entity {
 			return false;
 		}else {
 			//Add new potion
-			if(dungeon.getCollectedEntities().add(this)) {
+			if(dungeon.getInventoryEntities().add(this)) {
 				this.in_effect = true;
 				this.updatePlayerUI(player , in_effect);
 				//Start potion timer function
@@ -76,8 +76,8 @@ public class Potion extends Entity {
         };
        
         task.setOnSucceeded(e -> {
-        	dungeon.getCollectedEntities().remove(this);
-        	System.out.println("After destroying: "+ dungeon.getCollectedEntities());
+        	dungeon.getInventoryEntities().remove(this);
+        	System.out.println("After destroying: "+ dungeon.getInventoryEntities());
         	this.in_effect = false;
             this.updatePlayerUI(entity , in_effect);
         });

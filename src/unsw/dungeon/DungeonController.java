@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -114,7 +115,7 @@ public class DungeonController {
         }
     }
     
-    public void setupImage(Entity entity) {
+    public void generateEntity(Entity entity) {
         Image new_image = new Image(entity.getImagePath());
         ImageView new_view = new ImageView(new_image);
         new_view.setId(entity.getImageID());
@@ -123,6 +124,17 @@ public class DungeonController {
 
         initialEntities.add(new_view);
         squares.getChildren().add(new_view);
+    }
+    
+    public Pair getUniqueSpawnLocation(int x, int y) {
+        Random rand = new Random();
+        int rand_x = rand.nextInt(x);
+        int rand_y = rand.nextInt(y);
+        List<Entity> entitiesAtXY = dungeon.getEntities(rand_x, rand_y);
+        if (entitiesAtXY.size() == 0) {
+            return new Pair(rand_x, rand_y);
+        }
+        return null;
     }
 
 }
