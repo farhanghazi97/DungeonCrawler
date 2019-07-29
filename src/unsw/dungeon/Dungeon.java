@@ -66,12 +66,6 @@ public class Dungeon {
 
 		entityToMove.moveTo(newX, newY);
 
-		if (!bouldersAtCurrent.isEmpty()) {
-			// there is a boulder at currentX and currentY
-			// We will move boulder instead of player
-			entityToMove = bouldersAtCurrent.get(0);
-		}
-
 		// Calling entitesAtCurrent stepOver on a loop
 		for (Entity entity : fromEntities) {
 			if (entity.getType() != EntityType.SWITCH)
