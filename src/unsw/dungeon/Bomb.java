@@ -21,11 +21,6 @@ public class Bomb extends Entity {
 					"/BombExploding.png"
 			)
 	);
-//	
-//	public Bomb(int x , int y) {
-//		super(x , y);
-//	}
-
 	
 	public Bomb(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -58,7 +53,7 @@ public class Bomb extends Entity {
 			return false;
 		} else {
 	    	dungeon.getCollectedEntities().add(this);
-			MediatorHelper.removeEntity(this);
+			dungeon.removeEntity(this);
 			return true;
 		}
 	}
@@ -67,13 +62,13 @@ public class Bomb extends Entity {
 	// Manages image changes and bomb timer
 	public void startBombSelfDestruct(long time) {
 		
-		ArrayList<String> images = this.getImage_list();
+		ArrayList<String> images = this.getImageList();
 		Entity bomb = this;
 		Task<Void> task = new Task<Void>() {
 
 			@Override
 			protected Void call() {
-				ImageView imageToUpdate = MediatorHelper.getImageByEntity(
+				ImageView imageToUpdate = dungeon.getImageByEntity(
 						Mediator.getInstance().getImageEntities(), bomb);
 				if (imageToUpdate != null) {
 					for (int j = 0; j < images.size(); j++) {
@@ -96,7 +91,7 @@ public class Bomb extends Entity {
 			// bomb's location
 
 			
-			List<Entity> entities_to_remove = MediatorHelper.entitiesInVicinity(
+			List<Entity> entities_to_remove = dungeon.entitiesInVicinity(
 					bomb.getX(), bomb.getY(), EntityType.ENEMY,
 					EntityType.BOULDER, EntityType.PLAYER);
 			if (entities_to_remove.contains(dungeon.getPlayer())) {
@@ -112,11 +107,11 @@ public class Bomb extends Entity {
 			if (!entities_to_remove.isEmpty()) {
 				for (int i = 0; i < entities_to_remove.size(); i++) {
 					Entity enemy = entities_to_remove.get(i);
-					MediatorHelper.removeEntity(enemy);
+					dungeon.removeEntity(enemy);
 				}
 			}
 			// Remove bomb
-			MediatorHelper.removeEntity(bomb);
+			dungeon.removeEntity(bomb);
 			System.out.println("Bomb removed");
 		});
 
@@ -139,7 +134,7 @@ public class Bomb extends Entity {
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}
 	

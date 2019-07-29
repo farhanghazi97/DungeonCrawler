@@ -44,7 +44,7 @@ public class Enemy extends Entity{
 		Entity potion = dungeon.getCollected(EntityType.POTION);
 		if(potion != null) {
 			//Player has a potion -> enemy dies
-			MediatorHelper.removeEntity(this);
+			dungeon.removeEntity(this);
 		}else {
 			//Player dies -> game over
 			dungeon.markGameOver();
@@ -63,7 +63,7 @@ public class Enemy extends Entity{
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}
 	
@@ -77,7 +77,7 @@ public class Enemy extends Entity{
 		int enemyY = this.getY();
 		
 		//In Efforts to make it harder
-		List<Entity> player = MediatorHelper.entitiesInVicinity(enemyX, enemyY, EntityType.PLAYER);
+		List<Entity> player = dungeon.entitiesInVicinity(enemyX, enemyY, EntityType.PLAYER);
 		Entity potion = dungeon.getCollected(EntityType.POTION);
 		if(player.size() == 1 && potion == null) {
 			//Player is in vicinity of enemy and has no potion. 
@@ -94,9 +94,9 @@ public class Enemy extends Entity{
 		enemyX = (int) (enemyX + (1 * Math.cos(unit_vector)));
 		enemyY = (int) (enemyY + (1 * Math.sin(unit_vector)));
 		
-		List<Entity> entitiesAtCurrent = MediatorHelper.getEntities(enemyX, enemyY);
+		List<Entity> entitiesAtCurrent = dungeon.getEntities(enemyX, enemyY);
 		
-		if(MediatorHelper.outsideDungeon(enemyX, enemyY) ) {
+		if(dungeon.outsideDungeon(enemyX, enemyY) ) {
 			return;
 		}
 

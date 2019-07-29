@@ -202,7 +202,7 @@ class DungeonTests {
     	Entity entity = getEntity(3 , 0 , dungeon.getEntities() , Door.class);
     	Door door = (Door) entity;
     	assertFalse(door.stepOver());
-    	assertFalse(door.isDoorOpen());
+    	assertFalse(door.isOpen());
     }
     
 
@@ -218,7 +218,7 @@ class DungeonTests {
     	Door door = (Door) entity;
     	Mediator.getInstance().getCollectedEntities().add(key);
     	assertFalse(door.stepOver());
-    	assertFalse(door.isDoorOpen());
+    	assertFalse(door.isOpen());
     }
     
     @Test

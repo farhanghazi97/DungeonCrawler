@@ -3,11 +3,16 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 /**
  * A JavaFX controller for the dungeon.
@@ -27,20 +32,7 @@ public class DungeonController {
 
     private Dungeon dungeon;
     
-    /**
-     * Added for testability
-     * @return
-     */
-    public Dungeon getDungeon() {
-        return dungeon;
-    }
-    public GridPane getSquares() {
-        return squares;
-    }
-    public List<ImageView> getInitialEntities() {
-        return initialEntities;
-    }
-
+   // private ObservableList<Entity> list = FXCollections.observableArrayList();
     
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
@@ -63,7 +55,15 @@ public class DungeonController {
             squares.getChildren().add(entity);
         }
 
-      //Initializes Mediator class  
+//        list.addListener(new InvalidationListener() {
+//			
+//			@Override
+//			public void invalidated(Observable observable) {
+//				System.out.println("List Invalidated");
+//			}
+//		});
+        
+       //Initializes Mediator class  
        Mediator.getInstance().setDungeon(dungeon, squares , initialEntities);
       
       
@@ -104,14 +104,26 @@ public class DungeonController {
             break;
         }
     }
-    
-    public GridPane getGridPane(){
-    	return squares;
+     
+    public void removeEntity(Entity entity) {
+    	System.out.println("Controller : Removing "+ entity);
+        ImageView image = dungeon.getImageByEntity(initialEntities,  entity);
+        if (image.getId().equals(entity.getImageID())) {
+            //Removing from screen
+            squares.getChildren().remove(image);
+        }
     }
-	
-	
     
-    
+    public void setupImage(Entity entity) {
+        Image new_image = new Image(entity.getImagePath());
+        ImageView new_view = new ImageView(new_image);
+        new_view.setId(entity.getImageID());
+        GridPane.setColumnIndex(new_view, entity.getX());
+        GridPane.setRowIndex(new_view, entity.getY());
+
+        initialEntities.add(new_view);
+        squares.getChildren().add(new_view);
+    }
 
 }
 

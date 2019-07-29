@@ -54,7 +54,7 @@ public class Wall extends Entity  {
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}	
 	

@@ -39,7 +39,7 @@ public class Player extends Entity {
 			} else if(entity.getType() == EntityType.DOOR) {
 				//Since entity type is a door has been checked, we can safely cast the entity to Door type.
 				Door door = (Door) entity;
-				if (!door.isDoorOpen()){
+				if (!door.isOpen()){
 					return true;
 				}
 			}
@@ -81,7 +81,7 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}
 	

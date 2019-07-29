@@ -41,6 +41,81 @@ public class Mediator {
 //		this.goal = goal;
 	}
 
+	
+	// Called when player presses the 'B' key on keyboard
+	// Bomb timer is started
+//	public void igniteBomb(int x, int y) {
+//		System.out.println("Mediator: In ignite bomb");
+//		Entity old_bomb = dungeon.getCollected(EntityType.BOMB);
+//		if (old_bomb != null) {
+//			System.out.println("In here");
+//			dungeon.getCollectedEntities().remove(old_bomb);
+//			Bomb new_bomb = spawnBombAtCurrentLocation(x, y);
+//			new_bomb.startBombSelfDestruct(1000);
+//		}
+//	}
+
+	// Method to bring up a new bomb at (x,y) location
+//	private Bomb spawnBombAtCurrentLocation(int x, int y) {
+//		Bomb new_bomb = new Bomb(dungeon, x, y);
+//		MediatorHelper.setupImage(new_bomb);
+//		return new_bomb;
+//
+//	}
+
+	// Returns true if the player already has newEntity in collected bag
+	private boolean isCollected(Entity newEntity) {
+		for (Entity collected : collectedEntities) {
+			if (collected.getType() == newEntity.getType()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Returns entity if the player already has an entity of given type in collected bag
+	public Entity getCollected(EntityType entityType) {
+		for (Entity collected : collectedEntities) {
+			if (collected.getType() == entityType) {
+				return collected;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Getters for testability.
+	 *
+	 */
+	public Dungeon getDungeon() {
+		return dungeon;
+	}
+
+	public GridPane getSquares() {
+		return squares;
+	}
+
+	public List<ImageView> getImageEntities() {
+		return imageEntities;
+	}
+	
+	public List<Entity> getCollectedEntities() {
+		System.out.println("In mediator: getCollecetdEntitiues");
+		return collectedEntities;
+	}
+	
+	public boolean getIsCollected(Entity newEntity) {
+		return isCollected(newEntity);
+	}
+
+//	public boolean getGameOver() {
+//		return gameOver;
+//	}
+//
+//	public JSONObject getGoal() {
+//		return goal;
+//	}
+	
 //	// To move from old coordinates to new coordinates
 //	public boolean moveTo(int currentX, int currentY, int newX, int newY) {
 //
@@ -136,80 +211,6 @@ public class Mediator {
 //		}
 //	}
 	
-	
-	// Called when player presses the 'B' key on keyboard
-	// Bomb timer is started
-	public void igniteBomb(int x, int y) {
-		System.out.println("Mediator: In ignite bomb");
-		Entity old_bomb = dungeon.getCollected(EntityType.BOMB);
-		if (old_bomb != null) {
-			System.out.println("In here");
-			dungeon.getCollectedEntities().remove(old_bomb);
-			Bomb new_bomb = spawnBombAtCurrentLocation(x, y);
-			new_bomb.startBombSelfDestruct(1000);
-		}
-	}
-
-	// Method to bring up a new bomb at (x,y) location
-	private Bomb spawnBombAtCurrentLocation(int x, int y) {
-		Bomb new_bomb = new Bomb(dungeon, x, y);
-		MediatorHelper.setupImage(new_bomb);
-		return new_bomb;
-
-	}
-
-	// Returns true if the player already has newEntity in collected bag
-	private boolean isCollected(Entity newEntity) {
-		for (Entity collected : collectedEntities) {
-			if (collected.getType() == newEntity.getType()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	// Returns entity if the player already has an entity of given type in collected bag
-	public Entity getCollected(EntityType entityType) {
-		for (Entity collected : collectedEntities) {
-			if (collected.getType() == entityType) {
-				return collected;
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 * Getters for testability.
-	 *
-	 */
-	public Dungeon getDungeon() {
-		return dungeon;
-	}
-
-	public GridPane getSquares() {
-		return squares;
-	}
-
-	public List<ImageView> getImageEntities() {
-		return imageEntities;
-	}
-	
-	public List<Entity> getCollectedEntities() {
-		System.out.println("In mediator: getCollecetdEntitiues");
-		return collectedEntities;
-	}
-	
-	public boolean getIsCollected(Entity newEntity) {
-		return isCollected(newEntity);
-	}
-
-//	public boolean getGameOver() {
-//		return gameOver;
-//	}
-//
-//	public JSONObject getGoal() {
-//		return goal;
-//	}
 
 
 

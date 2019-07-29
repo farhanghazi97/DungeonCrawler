@@ -63,6 +63,6 @@ public abstract class Entity {
     public abstract EntityType getType();
     public abstract String getImageID();
     public abstract String getImagePath();
-	public abstract ArrayList<String> getImage_list();
+	public abstract ArrayList<String> getImageList();
 
 }

@@ -54,7 +54,7 @@ public class Potion extends Entity {
 				this.updatePlayerUI(player , in_effect);
 				//Start potion timer function
 				startSelfDestruct(6000 , player);
-				MediatorHelper.removeEntity(this);
+				dungeon.removeEntity(this);
 				return true;
 			}
 		}
@@ -102,12 +102,12 @@ public class Potion extends Entity {
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return null;
 	}
 	
 	private void updatePlayerUI(Entity entity , boolean in_effect) {
-		ArrayList<String> images = entity.getImage_list();
+		ArrayList<String> images = entity.getImageList();
 		
 		Image potion_effect;
 		if(in_effect) {
@@ -116,7 +116,7 @@ public class Potion extends Entity {
 			 potion_effect = new Image(images.get(0));
 		}
 		
-		ImageView image = MediatorHelper.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
+		ImageView image = dungeon.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
 		image.setImage(potion_effect);
 	}
 

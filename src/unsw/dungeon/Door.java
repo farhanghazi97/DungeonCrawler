@@ -11,7 +11,7 @@ public class Door extends Entity {
 	private String image_path = "/open_door.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
 	private int door_id;
-	private boolean is_open = false;
+	private boolean open = false;
 	
 //	public Door(int x, int y , int door_id) {
 //		super(x, y);
@@ -50,7 +50,7 @@ public class Door extends Entity {
 		if(key != null) {
 			if(matchKey(key)) {
 				//Key and Door id match
-				updateDoorUI(this);
+				//updateDoorUI(this);
 				dungeon.getCollectedEntities().remove(key);
 				this.setIs_open(true);
 				return true;
@@ -75,18 +75,18 @@ public class Door extends Entity {
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}
 
 	// Update the 'door' entity to 'open' status
-	private void updateDoorUI(Entity entity) {
-		String open_door_image_path = entity.getImagePath();
-		Image open_door = new Image(open_door_image_path);
-		System.out.println("In update door function");
-		ImageView image = MediatorHelper.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
-		image.setImage(open_door);
-	}
+//	private void updateDoorUI(Entity entity) {
+//		String open_door_image_path = entity.getImagePath();
+//		Image open_door = new Image(open_door_image_path);
+//		System.out.println("In update door function");
+//		ImageView image = MediatorHelper.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
+//		image.setImage(open_door);
+//	}
 	
 	private boolean matchKey(Key key) {
 		if(this.getDoor_id() == key.getKeyID()) {
@@ -96,12 +96,12 @@ public class Door extends Entity {
 		}
 	}
 	
-	public boolean isDoorOpen() {
-		return is_open;
+	public boolean isOpen() {
+		return open;
 	}
 
 	public void setIs_open(boolean is_open) {
-		this.is_open = is_open;
+		this.open = is_open;
 	}
 	public int getDoor_id() {
 		return door_id;
@@ -109,7 +109,7 @@ public class Door extends Entity {
 
 	@Override
 	public String toString() {
-		return "DOOR object [Door ID=" + door_id + ", Open?=" + is_open + "]";
+		return "DOOR object [Door ID=" + door_id + ", Open?=" + open + "]";
 	}
 
 

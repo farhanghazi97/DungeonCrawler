@@ -22,7 +22,6 @@ import javafx.scene.layout.GridPane;
 public class DungeonControllerLoader extends DungeonLoader {
 
     private List<ImageView> entities;
-    
 
     //Images
     private Image playerImage;
@@ -230,8 +229,15 @@ public class DungeonControllerLoader extends DungeonLoader {
      * @throws FileNotFoundException
      */
     public DungeonController loadController() throws FileNotFoundException {
-        return new DungeonController(load(), entities);
+    	
+        Dungeon dungeon = load();
+		DungeonController dc = new DungeonController(dungeon, entities);
+		dungeon.setDungeonController(dc);
+        return dc;
+        
     }
+    
+    
 
 
 }

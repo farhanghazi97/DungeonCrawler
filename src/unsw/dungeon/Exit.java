@@ -112,7 +112,7 @@ public class Exit extends Entity{
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}
 
@@ -127,15 +127,15 @@ public class Exit extends Entity{
 	
 	private boolean checkGoalMet(String goal) {
 		if(goal.equals(this.goal_requirements.get(0))) {
-			if(MediatorHelper.getEntityOfType(EntityType.TREASURE).size() == 0) {
+			if(dungeon.getEntityOfType(EntityType.TREASURE).size() == 0) {
 				return true;
 			}
 		} else if (goal.equals(this.goal_requirements.get(1))) {
-			if(MediatorHelper.getEntityOfType(EntityType.ENEMY).size() == 0) {
+			if(dungeon.getEntityOfType(EntityType.ENEMY).size() == 0) {
 				return true;
 			}
 		} else if (goal.equals(this.goal_requirements.get(2))) {
-			List<Entity> switches = MediatorHelper.getEntityOfType(EntityType.SWITCH);
+			List<Entity> switches = dungeon.getEntityOfType(EntityType.SWITCH);
 			boolean all_triggered = true;
 			for(Entity s : switches) {
 				if(!((Switch) s).isTriggered()) {

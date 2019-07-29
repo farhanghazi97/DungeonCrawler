@@ -44,7 +44,7 @@ public class Treasure extends Entity{
     		System.out.println("Dungeon is null");
     	}
     	dungeon.getCollectedEntities().add(this);
-		MediatorHelper.removeEntity(this);
+		dungeon.removeEntity(this);
 		return true;
 	}
 
@@ -65,7 +65,7 @@ public class Treasure extends Entity{
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}
 	

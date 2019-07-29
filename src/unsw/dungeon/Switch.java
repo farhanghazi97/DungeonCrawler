@@ -53,9 +53,9 @@ public class Switch extends Entity{
 		Random rand = new Random();
 		int generator_key = rand.nextInt(2);
 		if (generator_key == 0) {
-			MediatorHelper.generateObject(EntityType.TREASURE);
+			dungeon.generateObject(EntityType.TREASURE);
 		} else if (generator_key == 1) {
-			MediatorHelper.generateObject(EntityType.POTION);
+			dungeon.generateObject(EntityType.POTION);
 		}
 		return true;
 	}
@@ -71,7 +71,7 @@ public class Switch extends Entity{
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}
 

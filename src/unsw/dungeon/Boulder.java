@@ -30,7 +30,7 @@ public class Boulder extends Entity {
 			if (entity.getType() == EntityType.DOOR) {
 				//Since entity type is a door has been checked, we can safely cast the entity to Door type.
 				Door door = (Door) entity;
-				if(door.isDoorOpen()){
+				if(door.isOpen()){
 					return false;
 				}
 			} else if (entity.getType()   == EntityType.WALL	 || entity.getType()    ==EntityType.BOULDER
@@ -74,7 +74,7 @@ public class Boulder extends Entity {
 	}
 	
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}
 

@@ -62,7 +62,7 @@ public class Key extends Entity {
 			if(dungeon.getCollectedEntities().add(this)) {
 				this.collected = true;
 				System.out.println(this.toString());
-				MediatorHelper.removeEntity(this);
+				dungeon.removeEntity(this);
 				return true;
 			}
 		}
@@ -89,7 +89,7 @@ public class Key extends Entity {
 	}
 
 	@Override
-	public ArrayList<String> getImage_list() {
+	public ArrayList<String> getImageList() {
 		return image_list;
 	}
 
