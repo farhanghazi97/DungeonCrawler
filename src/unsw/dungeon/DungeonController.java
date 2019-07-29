@@ -116,5 +116,10 @@ public class DungeonController {
         return null;
     }
 
+	public List<ImageView> getInitialEntities() {
+		return initialEntities;
+	}
+
+
 }
 

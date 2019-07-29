@@ -10,9 +10,9 @@ import java.util.List;
 
 public class Bomb extends Entity {
 	
-	private String image_path = "/bomb_lit_1.png";
-	private boolean is_destroyed = false;
-	private ArrayList<String> image_list = new ArrayList<String>(Arrays.asList
+	private String imagePath = "/bomb_lit_1.png";
+	private boolean isDestroyed = false;
+	private ArrayList<String> imageList = new ArrayList<String>(Arrays.asList
 			(
 					"/bomb_lit_1.png" ,
 					"/bomb_lit_2.png",
@@ -25,6 +25,7 @@ public class Bomb extends Entity {
 	public Bomb(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
     }
+	
 	@Override
 	public EntityType getType() {
 		return EntityType.BOMB;
@@ -36,23 +37,18 @@ public class Bomb extends Entity {
 	}
 
 	@Override
-	public void postMove(List<Entity> entitiesAtNew) {
-
-	}
+	public void postMove(List<Entity> entitiesAtNew) {}
 	
-	@Override
-	public String toString( ) {
-		return String.format("BOMB object | X = %d | Y = %d" , this.getX() , this.getY());
-	}
+
 
 	@Override
 	public boolean stepOver() {
 		System.out.println("In Bomb's stepOver");
 		Entity bomb = dungeon.getInventoryEntity(EntityType.BOMB);
-		if(bomb != null && is_destroyed == false) {
+		if(bomb != null && isDestroyed == false) {
 			return false;
 		} else {
-	    	dungeon.getInventoryEntities().add(this);
+	    	dungeon.addInventory(this);
 			dungeon.removeEntity(this);
 			return true;
 		}
@@ -61,23 +57,22 @@ public class Bomb extends Entity {
 
 	// Manages image changes and bomb timer
 	public void startBombSelfDestruct(long time) {
-		
-		ArrayList<String> images = this.getImageList();
+		System.out.println("In self destruct");
 		Entity bomb = this;
 		Task<Void> task = new Task<Void>() {
 
 			@Override
 			protected Void call() {
-				ImageView imageToUpdate = dungeon.getImageByEntity(
-						Mediator.getInstance().getImageEntities(), bomb);
+				System.out.println("In call");
+				ImageView imageToUpdate = dungeon.getImageByEntity( dungeon.getImageEntities(), bomb);
 				if (imageToUpdate != null) {
-					for (int j = 0; j < images.size(); j++) {
+					for (int j = 0; j < imageList.size(); j++) {
 						try {
 							Thread.sleep(time);
 						} catch (InterruptedException e) {
 							System.out.println("Thread was interrupted!");
 						}
-						Image new_state = new Image(images.get(j));
+						Image new_state = new Image(imageList.get(j));
 						imageToUpdate.setImage(new_state);
 						System.out.println("Bomb image updated");
 					}
@@ -89,8 +84,7 @@ public class Bomb extends Entity {
 		task.setOnSucceeded(e -> {
 			// Grab all (in any) enemies , boulders , player in 3 X 3 area surrounding
 			// bomb's location
-
-			
+			System.out.println("in setOn succeded");
 			List<Entity> entities_to_remove = dungeon.entitiesInVicinity(
 					bomb.getX(), bomb.getY(), EntityType.ENEMY,
 					EntityType.BOULDER, EntityType.PLAYER);
@@ -130,12 +124,12 @@ public class Bomb extends Entity {
 	
 	@Override
 	 public String getImagePath() {
-		return this.image_path;
+		return this.imagePath;
 	}
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return imageList;
 	}
 	
 }

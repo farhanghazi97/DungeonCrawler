@@ -206,13 +206,18 @@ public class Dungeon {
 	}
 	
 	public Entity getInventoryEntity(EntityType entityType) {
-		System.out.println("In dungeons: getInventoryEntity");
+		//System.out.println("In dungeons: getInventoryEntity");
 		for (Entity collected : playerInventory) {
 			if (collected.getType() == entityType) {
 				return collected;
 			}
 		}
 		return null;
+	}
+	
+	public void addInventory(Entity entity) {
+		System.out.println("Adding to inventory:" +entity);
+		playerInventory.add(entity);
 	}
 	
 	public ImageView getImageByEntity(List<ImageView> entities, Entity e) {
@@ -226,6 +231,10 @@ public class Dungeon {
 			}
 		}
 		return image;
+	}
+	
+	public List<ImageView> getImageEntities() {
+		return dc.getInitialEntities();
 	}
 	
 	public Pair getUniqueCoordinates() {
