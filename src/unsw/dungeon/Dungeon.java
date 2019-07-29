@@ -341,7 +341,6 @@ public class Dungeon {
     
     //Returns a new unoccupied location on dungeon  
     public Pair getUniqueSpawnLocation(int x, int y) {
-//        Dungeon dungeon = Mediator.getInstance().getDungeon();
         Random rand = new Random();
         int rand_x = rand.nextInt(x);
         int rand_y = rand.nextInt(y);
@@ -352,17 +351,6 @@ public class Dungeon {
         return null;
     }
     
-    // Returns entity if the player already has an entity of given type
-    public List<Entity> getEntityOfType(EntityType entityType) {
-//        Dungeon dungeon = Mediator.getInstance().getDungeon();
-        List<Entity> list = new LinkedList<>();
-        for (Entity entity : entities) {
-            if (entity.getType() == entityType) {
-                list.add(entity);
-            }
-        }
-        return list;
-    }
 
 
 }

@@ -120,22 +120,18 @@ public class Exit extends Entity{
     public String toString() {
     	return "EXIT object";
     }
-
-	private ArrayList<String> getGoal_requirements() {
-		return goal_requirements;
-	}
 	
 	private boolean checkGoalMet(String goal) {
 		if(goal.equals(this.goal_requirements.get(0))) {
-			if(dungeon.getEntityOfType(EntityType.TREASURE).size() == 0) {
+			if(dungeon.getEntities(EntityType.TREASURE).size() == 0) {
 				return true;
 			}
 		} else if (goal.equals(this.goal_requirements.get(1))) {
-			if(dungeon.getEntityOfType(EntityType.ENEMY).size() == 0) {
+			if(dungeon.getEntities(EntityType.ENEMY).size() == 0) {
 				return true;
 			}
 		} else if (goal.equals(this.goal_requirements.get(2))) {
-			List<Entity> switches = dungeon.getEntityOfType(EntityType.SWITCH);
+			List<Entity> switches = dungeon.getEntities(EntityType.SWITCH);
 			boolean all_triggered = true;
 			for(Entity s : switches) {
 				if(!((Switch) s).isTriggered()) {
