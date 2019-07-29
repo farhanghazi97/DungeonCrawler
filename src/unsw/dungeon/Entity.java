@@ -56,7 +56,7 @@ public abstract class Entity {
     }
 
     public abstract void moveTo(int newX, int newY);
-
+    
     public abstract void postMove(List<Entity> entitiesAtNew);
     public abstract boolean stepOver();
     public abstract boolean isBlocked(List<Entity> entitiesAtNew);

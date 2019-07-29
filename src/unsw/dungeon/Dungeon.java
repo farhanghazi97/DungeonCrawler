@@ -220,17 +220,8 @@ public class Dungeon {
 		playerInventory.add(entity);
 	}
 	
-	public ImageView getImageByEntity(List<ImageView> entities, Entity e) {
-		ImageView image = new ImageView();
-		for (int i = 0; i < entities.size(); i++) {
-			image = entities.get(i);
-			if (GridPane.getColumnIndex(image) == e.getX() && GridPane.getRowIndex(image) == e.getY()) {
-				if (image.getId().equals(e.getImageID())) {
-					break;
-				}
-			}
-		}
-		return image;
+	public ImageView getImageByEntity( Entity entity) {
+		return dc.getImageByEntity(entity);
 	}
 	
 	public List<ImageView> getImageEntities() {

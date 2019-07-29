@@ -74,7 +74,7 @@ public class Door extends Entity {
 	private void updateDoorUI(Entity entity) {
 		System.out.println("In update door function");
 		Image openDoorImage = new Image(imagePath);
-		ImageView image = dungeon.getImageByEntity(dungeon.getImageEntities(), entity);
+		ImageView image = dungeon.getImageByEntity(entity);
 		image.setImage(openDoorImage);
 	}
 	
@@ -101,6 +101,5 @@ public class Door extends Entity {
 	public String toString() {
 		return "DOOR object [Door ID=" + doorId + ", Open?=" + open + "]";
 	}
-
 	
 }

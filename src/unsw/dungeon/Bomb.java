@@ -64,7 +64,7 @@ public class Bomb extends Entity {
 			@Override
 			protected Void call() {
 				System.out.println("In call");
-				ImageView imageToUpdate = dungeon.getImageByEntity( dungeon.getImageEntities(), bomb);
+				ImageView imageToUpdate = dungeon.getImageByEntity(bomb);
 				if (imageToUpdate != null) {
 					for (int j = 0; j < imageList.size(); j++) {
 						try {

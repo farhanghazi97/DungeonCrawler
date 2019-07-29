@@ -87,7 +87,7 @@ public class DungeonController {
      
     public void removeEntity(Entity entity) {
     	System.out.println("Controller : Removing "+ entity);
-        ImageView image = dungeon.getImageByEntity(initialEntities,  entity);
+        ImageView image = getImageByEntity(entity);
         if (image.getId().equals(entity.getImageID())) {
             //Removing from screen
             squares.getChildren().remove(image);
@@ -115,6 +115,19 @@ public class DungeonController {
         }
         return null;
     }
+	
+	public ImageView getImageByEntity(Entity e) {
+		ImageView image = new ImageView();
+		for (int i = 0; i < initialEntities.size(); i++) {
+			image = initialEntities.get(i);
+			if (GridPane.getColumnIndex(image) == e.getX() && GridPane.getRowIndex(image) == e.getY()) {
+				if (image.getId().equals(e.getImageID())) {
+					break;
+				}
+			}
+		}
+		return image;
+	}
 
 	public List<ImageView> getInitialEntities() {
 		return initialEntities;

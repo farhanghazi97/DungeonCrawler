@@ -208,7 +208,7 @@ public class DungeonControllerLoader extends DungeonLoader {
      * @throws FileNotFoundException
      */
     public DungeonController loadController() throws FileNotFoundException {
-    	
+ 
         Dungeon dungeon = load();
 		DungeonController dc = new DungeonController(dungeon, entities);
 		dungeon.setDungeonController(dc);
