@@ -19,13 +19,13 @@ import javafx.scene.layout.GridPane;
 public class Dungeon {
 
 	private int width, height;
-	private List<Entity> entities;
+	private boolean gameOver = false;
 	private Player player;
 	private JSONObject goal;
 	private DungeonController dc;
-	private List<Entity> collectedEntities = new LinkedList<>();
-	private boolean gameOver = false;
-
+	private List<Entity> playerInventory = new LinkedList<>();
+	private List<Entity> entities;
+	
 	public Dungeon(int width, int height, JSONObject goal) {
 		this.width = width;
 		this.height = height;
@@ -35,7 +35,6 @@ public class Dungeon {
 	}
 
 	public boolean moveTo(int currentX, int currentY, int newX, int newY) {
-		
 		if (gameOver) {
 			return false;
 		}
@@ -53,7 +52,6 @@ public class Dungeon {
 		List<Entity> bouldersAtCurrent = getEntities(currentX, currentY, Boulder.class);
 		List<Entity> enemies = getEntities(EntityType.ENEMY);
 
-
 		if (!bouldersAtCurrent.isEmpty()) {
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
@@ -68,8 +66,8 @@ public class Dungeon {
 
 		// Calling entitesAtCurrent stepOver on a loop
 		for (Entity entity : fromEntities) {
-			if (entity.getType() != EntityType.SWITCH)
-				entity.stepOver();
+			//Do not trigger if player steps on switch
+			if (entity.getType() != EntityType.SWITCH) entity.stepOver();
 		}
 
 		// Calling all enemies to move
@@ -78,13 +76,149 @@ public class Dungeon {
 				((Enemy) enemy).moveTo(newX, newY);
 			}
 		}
-
+		
 		entityToMove.postMove(toEntities);
-
 		return true;
 	}
 
-	public List<Entity> getEntities() {
+
+	public JSONObject getGoal() {
+		return goal;
+	}
+
+	public void markGameOver() {
+		System.out.println("Here");
+		gameOver = true;
+	}
+
+	// Called when player presses 'U' key on keyboard
+	// Attempts to unlock the door at current location
+	public void handleKeyPressU(int currentX, int currentY) {
+		List<Entity> doors = entitiesInFront(currentX, currentY, EntityType.DOOR);
+		if (!doors.isEmpty()) {
+			System.out.println("Found door in vicnity");
+			Entity door = doors.get(0);
+			door.stepOver();
+		}
+	}
+
+	public void handleKeyPressS(int x, int y) {
+		System.out.println("Mediator: In swing sword");
+		Entity sword = getInventoryEntity(EntityType.SWORD);
+		if (sword != null) {
+			if (((Sword) sword).swing()) {
+				// Check if enemy is in vicinity
+				List<Entity> enemies = entitiesInVicinity(x, y, EntityType.ENEMY);
+				if (enemies != null) {
+					// If true -> remove enemy
+					System.out.println(enemies);
+					for (Entity enemy : enemies) {
+						removeEntity(enemy);
+					}
+				}
+			}
+		}
+	}
+
+	// Called when player presses the 'B' key on keyboard
+	// Bomb timer is started
+	public void handleKeyPressB(int x, int y) {
+		System.out.println("Dungeon: In ignite bomb");
+		Entity oldBomb = getInventoryEntity(EntityType.BOMB);
+		if (oldBomb != null) {
+			playerInventory.remove(oldBomb);
+			
+			Bomb newBomb = new Bomb(this,x,y);
+			dc.generateImage(newBomb);
+			newBomb.startBombSelfDestruct(1000);
+		}
+	}
+
+
+	public List<Entity> entitiesInVicinity(int x, int y, EntityType... type) {
+
+		List<Entity> list = new LinkedList<>();
+
+		for (EntityType aType : type) {
+			for (Entity entity : this.getEntities()) {
+				if (entity.getType() == aType && ((entity.getX() == x + 1 && entity.getY() == y)
+						|| (entity.getX() == x + 1 && entity.getY() == y - 1)
+						|| (entity.getX() == x + 1 && entity.getY() == y + 1)
+						|| (entity.getX() == x && entity.getY() == y + 1)
+						|| (entity.getX() == x && entity.getY() == y - 1)
+						|| (entity.getX() == x - 1 && entity.getY() == y)
+						|| (entity.getX() == x - 1 && entity.getY() == y - 1)
+						|| (entity.getX() == x + 1 && entity.getY() == y + 1)
+						|| (entity.getX() == x && entity.getY() == y))) {
+					list.add(entity);
+				}
+			}
+		}
+		return list;
+	}
+	
+
+	public List<Entity> entitiesInFront(int x, int y, EntityType type) {
+
+		List<Entity> list = new LinkedList<>();
+		
+        for (Entity entity : entities) {
+            if (entity.getType() == type && ((entity.getY() == y - 1 && entity.getX() == x))) {
+                
+                    list.add(entity);
+                
+            }
+        }
+        return list;
+	}
+		
+    
+//    // Checks if there is a door in front of player
+//    public List<Entity> doorInFront(int x, int y) {
+////        Dungeon dungeon = Mediator.getInstance().getDungeon();
+//        List<Entity> list = new LinkedList<>();
+//        for (Entity entity : dungeon.getEntities()) {
+//            if (entity.getType() == EntityType.DOOR) {
+//                if (entity.getY() == y - 1 && entity.getX() == x) {
+//                    list.add(entity);
+//                }
+//            }
+//        }
+//        return list;
+//    }
+
+	public void removeEntity(Entity entity) {
+		dc.removeEntity(entity);
+		if (entities.contains(entity)) {
+			entities.remove(entity);
+		}
+	}
+	
+    public boolean outsideDungeon(int newX, int newY) {
+        if(newX == -1|| newY == -1)  return true;
+        if (newX + 1 > width || newY + 1 > height)  return true;
+        return false;
+    }
+
+    
+    // Method to generate a new entity in the maze
+    public void generateObject(EntityType type) {
+        Pair location = null;
+        while (location == null) {
+            location = dc.getUniqueMazeCoordinates();
+        }
+        Entity newObject = null;
+        if (type == EntityType.TREASURE) {
+            newObject = new Treasure(this, location.getX(), location.getY());
+        } else if (type == EntityType.POTION) {
+            newObject = new Potion(this, location.getX(), location.getY());
+        }
+        entities.add(newObject);
+        dc.generateImage(newObject);
+    }
+    
+    //Methods to get entities
+    public List<Entity> getEntities() {
 		return entities;
 	}
 
@@ -121,123 +255,23 @@ public class Dungeon {
 		}
 		return list;
 	}
-
+	
+	//Getters for inventory
 	public List<Entity> getInventoryEntities() {
 		System.out.println("In dungeons: getInventory");
-		return collectedEntities;
+		return playerInventory;
 	}
 	
 	public Entity getInventoryEntity(EntityType entityType) {
 		System.out.println("In dungeons: getInventoryEntity");
-		for (Entity collected : collectedEntities) {
+		for (Entity collected : playerInventory) {
 			if (collected.getType() == entityType) {
 				return collected;
 			}
 		}
 		return null;
 	}
-
-
-	public JSONObject getGoal() {
-		return goal;
-	}
-
-	public void markGameOver() {
-		System.out.println("Here");
-		gameOver = true;
-	}
-
-	// Called when player presses 'U' key on keyboard
-	// Attempts to unlock the door at current location
-	public void handleKeyPressU(int currentX, int currentY) {
-		List<Entity> doors = doorInFront(currentX, currentY);
-		if (!doors.isEmpty()) {
-			System.out.println("Found door in vicnity");
-			Entity door = doors.get(0);
-			door.stepOver();
-		}
-	}
-
-	public void handleKeyPressS(int x, int y) {
-		System.out.println("Mediator: In swing sword");
-		Entity sword = getInventoryEntity(EntityType.SWORD);
-		if (sword != null) {
-			if (((Sword) sword).swing()) {
-				// Check if enemy is in vicinity
-				List<Entity> enemies = entitiesInVicinity(x, y, EntityType.ENEMY);
-				if (enemies != null) {
-					// If true -> remove enemy
-					// If false ->do nothing
-					System.out.println(enemies);
-					for (Entity enemy : enemies) {
-						removeEntity(enemy);
-					}
-				}
-			}
-		}
-	}
-
-	// Called when player presses the 'B' key on keyboard
-	// Bomb timer is started
-	public void handleKeyPressB(int x, int y) {
-		System.out.println("Dungeon: In ignite bomb");
-		Entity oldBomb = getInventoryEntity(EntityType.BOMB);
-		if (oldBomb != null) {
-			collectedEntities.remove(oldBomb);
-			
-			Bomb newBomb = new Bomb(this,x,y);
-			dc.generateImage(newBomb);
-			newBomb.startBombSelfDestruct(1000);
-		}
-	}
-
-
-	public List<Entity> entitiesInVicinity(int x, int y, EntityType... type) {
-
-		List<Entity> list = new LinkedList<>();
-
-		for (EntityType aType : type) {
-			for (Entity entity : this.getEntities()) {
-				if (entity.getType() == aType && ((entity.getX() == x + 1 && entity.getY() == y)
-						|| (entity.getX() == x + 1 && entity.getY() == y - 1)
-						|| (entity.getX() == x + 1 && entity.getY() == y + 1)
-						|| (entity.getX() == x && entity.getY() == y + 1)
-						|| (entity.getX() == x && entity.getY() == y - 1)
-						|| (entity.getX() == x - 1 && entity.getY() == y)
-						|| (entity.getX() == x - 1 && entity.getY() == y - 1)
-						|| (entity.getX() == x + 1 && entity.getY() == y + 1)
-						|| (entity.getX() == x && entity.getY() == y))) {
-					list.add(entity);
-				}
-			}
-		}
-		return list;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
-	public void addEntity(Entity entity) {
-		entities.add(entity);
-	}
-
-	public void setDungeonController(DungeonController dc) {
-		this.dc = dc;
-	}
-
+	
 	public ImageView getImageByEntity(List<ImageView> entities, Entity e) {
 		ImageView image = new ImageView();
 		for (int i = 0; i < entities.size(); i++) {
@@ -250,59 +284,32 @@ public class Dungeon {
 		}
 		return image;
 	}
+	
+	public int getWidth() {
+		return width;
+	}
 
-	public void removeEntity(Entity entity) {
-		dc.removeEntity(entity);
-		if (entities.contains(entity)) {
-			entities.remove(entity);
-		}
+	public int getHeight() {
+		return height;
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 	
-    public boolean outsideDungeon(int newX, int newY) {
-        if(newX == -1|| newY == -1) {
-        	//If there was an entity , and it was destroyed, then coordinates change to -1
-        	return true;
-        }
-        if (newX + 1 > width || newY + 1 > height) {
-            return true;
-        }
-        return false;
-    }
-    
-    // Checks if there is a door in front of player
-    public List<Entity> doorInFront(int x, int y) {
-        Dungeon dungeon = Mediator.getInstance().getDungeon();
-        List<Entity> list = new LinkedList<>();
-        for (Entity entity : dungeon.getEntities()) {
-            if (entity.getType() == EntityType.DOOR) {
-                if (entity.getY() == y - 1 && entity.getX() == x) {
-                    list.add(entity);
-                }
-            }
-        }
-        return list;
-    }
-    
-    // Method to generate a new entity in the maze
-    public void generateObject(EntityType type) {
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 
-        Pair location = null;
-        while (location == null) {
-            location = dc.getUniqueMazeCoordinates();
-        }
 
-        Entity newObject = null;
-        if (type == EntityType.TREASURE) {
-            newObject = new Treasure(this, location.getX(), location.getY());
-        } else if (type == EntityType.POTION) {
-            newObject = new Potion(this, location.getX(), location.getY());
-        }
+	public void setDungeonController(DungeonController dc) {
+		this.dc = dc;
+	}
+	
+	public void addEntity(Entity entity) {
+		entities.add(entity);
+	}
 
-        entities.add(newObject);
-
-        dc.generateImage(newObject);
-
-    }
    
 
 }
