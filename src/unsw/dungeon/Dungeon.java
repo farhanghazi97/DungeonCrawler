@@ -105,19 +105,7 @@ public class Dungeon {
 	public void handleKeyPressS(int x, int y) {
 		System.out.println("Mediator: In swing sword");
 		Entity sword = getInventoryEntity(EntityType.SWORD);
-		if (sword != null) {
-			if (((Sword) sword).swing()) {
-				// Check if enemy is in vicinity
-				List<Entity> enemies = entitiesInVicinity(x, y, EntityType.ENEMY);
-				if (enemies != null) {
-					// If true -> remove enemy
-					System.out.println(enemies);
-					for (Entity enemy : enemies) {
-						removeEntity(enemy);
-					}
-				}
-			}
-		}
+		if (sword != null)  ((Sword) sword).swing(x,y);
 	}
 
 	// Called when player presses the 'B' key on keyboard
@@ -164,28 +152,11 @@ public class Dungeon {
 		
         for (Entity entity : entities) {
             if (entity.getType() == type && ((entity.getY() == y - 1 && entity.getX() == x))) {
-                
                     list.add(entity);
-                
             }
         }
         return list;
 	}
-		
-    
-//    // Checks if there is a door in front of player
-//    public List<Entity> doorInFront(int x, int y) {
-////        Dungeon dungeon = Mediator.getInstance().getDungeon();
-//        List<Entity> list = new LinkedList<>();
-//        for (Entity entity : dungeon.getEntities()) {
-//            if (entity.getType() == EntityType.DOOR) {
-//                if (entity.getY() == y - 1 && entity.getX() == x) {
-//                    list.add(entity);
-//                }
-//            }
-//        }
-//        return list;
-//    }
 
 	public void removeEntity(Entity entity) {
 		dc.removeEntity(entity);

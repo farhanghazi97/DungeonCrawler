@@ -62,7 +62,17 @@ public class Sword extends Entity {
 	}
 	
 	//Swings sword once and reduces swingsRemaining
-	public boolean swing() {
+	public boolean swing(int x, int y) {
+		// Check if enemy is in vicinity
+		List<Entity> enemies = dungeon.entitiesInVicinity(x, y, EntityType.ENEMY);
+		if (enemies != null) {
+			// If true -> remove enemy
+			System.out.println(enemies);
+			for (Entity enemy : enemies) {
+				dungeon.removeEntity(enemy);
+			}
+		}
+		
 		swingsRemaining--;
 		if(swingsRemaining > 0) {
 			System.out.println(this.toString());
