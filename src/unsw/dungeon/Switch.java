@@ -44,6 +44,7 @@ public class Switch extends Entity{
 
     @Override
 	public boolean stepOver() {
+   	
     	if(triggered) {
     		//The switch has already been triggered previously
     		return false;
@@ -53,12 +54,24 @@ public class Switch extends Entity{
 		Random rand = new Random();
 		int generator_key = rand.nextInt(2);
 		if (generator_key == 0) {
-			dungeon.generateObject(EntityType.TREASURE);
+			switchEvent(EntityType.TREASURE);
 		} else if (generator_key == 1) {
-			dungeon.generateObject(EntityType.POTION);
+			switchEvent(EntityType.POTION);
 		}
 		return true;
 	}
+    
+    public void switchEvent(EntityType type) {
+        Pair coordinates = dungeon.getUniqueCoordinates();
+        Entity newObject = null;
+        if (type == EntityType.TREASURE) {
+            newObject = new Treasure(dungeon, coordinates.getX(), coordinates.getY());
+        } else if (type == EntityType.POTION) {
+            newObject = new Potion(dungeon, coordinates.getX(), coordinates.getY());
+        }
+        dungeon.addEntity(newObject);
+        dungeon.generateEntity(newObject);
+    }
 
 	@Override
 	public String getImageID() {

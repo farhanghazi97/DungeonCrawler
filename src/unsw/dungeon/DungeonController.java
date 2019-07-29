@@ -128,11 +128,11 @@ public class DungeonController {
     
     public Pair getUniqueMazeCoordinates() {
         Random rand = new Random();
-        int rand_x = rand.nextInt(dungeon.getWidth());
-        int rand_y = rand.nextInt(dungeon.getHeight());
-        List<Entity> entitiesAtXY = dungeon.getEntities(rand_x, rand_y);
+        int randX = rand.nextInt(dungeon.getWidth());
+        int randY = rand.nextInt(dungeon.getHeight());
+        List<Entity> entitiesAtXY = dungeon.getEntities(randX, randY);
         if (entitiesAtXY.size() == 0) {
-            return new Pair(rand_x, rand_y);
+            return new Pair(randX, randY);
         }
         return null;
     }
