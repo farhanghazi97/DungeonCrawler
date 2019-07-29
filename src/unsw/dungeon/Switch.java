@@ -13,14 +13,6 @@ public class Switch extends Entity{
 	public Switch(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
     }
-//	public Switch(int x, int y) {
-//        super(x, y);
-//    }
-
-	@Override
-	public String toString() {
-		return "SWITCH object";
-	}
 	
     @Override
     public EntityType getType() {
@@ -33,14 +25,10 @@ public class Switch extends Entity{
     }
 
 	@Override
-	public void moveTo(int newX, int newY) {
-		//Nothing here
-	}
+	public void moveTo(int newX, int newY) {}
 
     @Override
-    public void postMove(List<Entity> entitiesAtNew) {
-
-    }
+    public void postMove(List<Entity> entitiesAtNew) {}
 
     @Override
 	public boolean stepOver() {
@@ -51,6 +39,7 @@ public class Switch extends Entity{
     	}
     	
     	triggered = true;
+ 
 		Random rand = new Random();
 		int generator_key = rand.nextInt(2);
 		if (generator_key == 0) {
@@ -91,11 +80,4 @@ public class Switch extends Entity{
 	public boolean isTriggered() {
 		return triggered;
 	}
-
-	public void setTriggered(boolean triggered) {
-		this.triggered = triggered;
-	}
-	
-	
-
 }
