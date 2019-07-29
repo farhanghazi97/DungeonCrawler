@@ -115,7 +115,7 @@ public class DungeonController {
         }
     }
     
-    public void generateEntity(Entity entity) {
+    public void generateImage(Entity entity) {
         Image new_image = new Image(entity.getImagePath());
         ImageView new_view = new ImageView(new_image);
         new_view.setId(entity.getImageID());
@@ -126,16 +126,40 @@ public class DungeonController {
         squares.getChildren().add(new_view);
     }
     
-    public Pair getUniqueSpawnLocation(int x, int y) {
+    public Pair getUniqueMazeCoordinates() {
         Random rand = new Random();
-        int rand_x = rand.nextInt(x);
-        int rand_y = rand.nextInt(y);
+        int rand_x = rand.nextInt(dungeon.getWidth());
+        int rand_y = rand.nextInt(dungeon.getHeight());
         List<Entity> entitiesAtXY = dungeon.getEntities(rand_x, rand_y);
         if (entitiesAtXY.size() == 0) {
             return new Pair(rand_x, rand_y);
         }
         return null;
     }
+//    
+//    // Method to generate a new entity in the maze
+//    public void generateObject(EntityType type) {
+//        Pair location = null;
+//        
+//        while (location == null) {
+//            location = getUniqueSpawnLocation(dungeon.getWidth(), dungeon.getHeight());
+//        }
+//
+//        Entity newObject = null;
+//        if (type == EntityType.TREASURE) {
+//            newObject = new Treasure(dungeon, location.getX(), location.getY());
+//        } else if (type == EntityType.POTION) {
+//            newObject = new Potion(dungeon, location.getX(), location.getY());
+//        }
+//        
+//        
+//        dungeon.addEntity(newObject);
+//
+//        generateImage(newObject);
+//
+//    }
+    
+    
 
 }
 

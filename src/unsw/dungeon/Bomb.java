@@ -138,6 +138,4 @@ public class Bomb extends Entity {
 		return image_list;
 	}
 	
-	
-
 }

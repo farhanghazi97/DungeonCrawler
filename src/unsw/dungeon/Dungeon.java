@@ -194,7 +194,7 @@ public class Dungeon {
 			collectedEntities.remove(oldBomb);
 			
 			Bomb newBomb = new Bomb(this,x,y);
-			dc.generateEntity(newBomb);
+			dc.generateImage(newBomb);
 			newBomb.startBombSelfDestruct(1000);
 		}
 	}
@@ -298,7 +298,7 @@ public class Dungeon {
 
         Pair location = null;
         while (location == null) {
-            location = dc.getUniqueSpawnLocation(width, height);
+            location = dc.getUniqueMazeCoordinates();
         }
 
         Entity newObject = null;
@@ -310,7 +310,7 @@ public class Dungeon {
 
         entities.add(newObject);
 
-        dc.generateEntity(newObject);
+        dc.generateImage(newObject);
 
     }
    
