@@ -7,18 +7,9 @@ public class Boulder extends Entity {
 
 	private String image_path = "/boulder.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
-	
-//	public Boulder(int x , int y) {
-//		super(x , y);
-//	}
 
 	public Boulder(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
-    }
-	
-	@Override
-    public String toString() {
-		return String.format("BOULDER object");
     }
 
 	@Override
@@ -77,5 +68,10 @@ public class Boulder extends Entity {
 	public ArrayList<String> getImageList() {
 		return image_list;
 	}
+	
+	@Override
+    public String toString() {
+		return String.format("BOULDER object");
+    }
 
 }

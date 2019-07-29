@@ -8,19 +8,14 @@ import java.util.List;
 
 public class Door extends Entity {
 
-	private String image_path = "/open_door.png";
-	private ArrayList<String> image_list = new ArrayList<String>();
-	private int door_id;
+	private String imagePath = "/open_door.png";
+	private ArrayList<String> imageList = new ArrayList<String>();
+	private int doorId;
 	private boolean open = false;
 	
-//	public Door(int x, int y , int door_id) {
-//		super(x, y);
-//		this.door_id = door_id;
-//	}
-
 	public Door(Dungeon dungeon, int x, int y, int door_id) {
         super(dungeon, x, y);
-        this.door_id = door_id;
+        this.doorId = door_id;
     }
 	
 	@Override
@@ -34,14 +29,10 @@ public class Door extends Entity {
 	}
 
 	@Override
-	public void moveTo(int newX, int newY) {
-		//Nothing here
-	}
+	public void moveTo(int newX, int newY) {}
 
 	@Override
-	public void postMove(List<Entity> entitiesAtNew) {
-		
-	}
+	public void postMove(List<Entity> entitiesAtNew) {}
 
 	@Override
 	public boolean stepOver() {
@@ -52,7 +43,7 @@ public class Door extends Entity {
 				//Key and Door id match
 				updateDoorUI(this);
 				dungeon.getInventoryEntities().remove(key);
-				this.setIs_open(true);
+				this.setIsOpen(true);
 				return true;
 			} else {
 				//Key and door ID do not match
@@ -71,25 +62,24 @@ public class Door extends Entity {
 	
 	@Override
 	 public String getImagePath() {
-		return this.image_path;
+		return this.imagePath;
 	}
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return imageList;
 	}
 
 	// Update the 'door' entity to 'open' status
 	private void updateDoorUI(Entity entity) {
-		String open_door_image_path = entity.getImagePath();
-		Image open_door = new Image(open_door_image_path);
 		System.out.println("In update door function");
-		ImageView image = dungeon.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
-		image.setImage(open_door);
+		Image openDoorImage = new Image(imagePath);
+		ImageView image = dungeon.getImageByEntity(dungeon.getImageEntities(), entity);
+		image.setImage(openDoorImage);
 	}
 	
 	private boolean matchKey(Key key) {
-		if(this.getDoor_id() == key.getKeyID()) {
+		if(this.getDoorId() == key.getKeyID()) {
 			return true;
 		} else {
 			return false;
@@ -100,19 +90,17 @@ public class Door extends Entity {
 		return open;
 	}
 
-	public void setIs_open(boolean is_open) {
+	public void setIsOpen(boolean is_open) {
 		this.open = is_open;
 	}
-	public int getDoor_id() {
-		return door_id;
+	public int getDoorId() {
+		return doorId;
 	}
 
 	@Override
 	public String toString() {
-		return "DOOR object [Door ID=" + door_id + ", Open?=" + open + "]";
+		return "DOOR object [Door ID=" + doorId + ", Open?=" + open + "]";
 	}
 
-
-	
 	
 }

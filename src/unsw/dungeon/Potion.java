@@ -116,7 +116,7 @@ public class Potion extends Entity {
 			 potion_effect = new Image(images.get(0));
 		}
 		
-		ImageView image = dungeon.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
+		ImageView image = dungeon.getImageByEntity(dungeon.getImageEntities(), entity);
 		image.setImage(potion_effect);
 	}
 
