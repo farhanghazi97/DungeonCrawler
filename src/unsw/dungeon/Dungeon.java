@@ -1,6 +1,3 @@
-/**
- *
- */
 package unsw.dungeon;
 
 import java.util.ArrayList;
@@ -132,11 +129,12 @@ public class Dungeon {
 	}
 
 	public List<Entity> getInventoryEntities() {
-		System.out.println("In dungeons: getCollectedEntitytes");
+		System.out.println("In dungeons: getInventory");
 		return collectedEntities;
 	}
 	
 	public Entity getInventoryEntity(EntityType entityType) {
+		System.out.println("In dungeons: getInventoryEntity");
 		for (Entity collected : collectedEntities) {
 			if (collected.getType() == entityType) {
 				return collected;
@@ -267,9 +265,6 @@ public class Dungeon {
 	}
 	
     public boolean outsideDungeon(int newX, int newY) {
-        Dungeon dungeon = Mediator.getInstance().getDungeon();
-        int width = dungeon.getWidth();
-        int height = dungeon.getHeight();
         if(newX == -1|| newY == -1) {
         	//If there was an entity , and it was destroyed, then coordinates change to -1
         	return true;
@@ -279,6 +274,7 @@ public class Dungeon {
         }
         return false;
     }
+    
     // Checks if there is a door in front of player
     public List<Entity> doorInFront(int x, int y) {
         Dungeon dungeon = Mediator.getInstance().getDungeon();

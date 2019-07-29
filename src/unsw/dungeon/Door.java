@@ -50,7 +50,7 @@ public class Door extends Entity {
 		if(key != null) {
 			if(matchKey(key)) {
 				//Key and Door id match
-				//updateDoorUI(this);
+				updateDoorUI(this);
 				dungeon.getInventoryEntities().remove(key);
 				this.setIs_open(true);
 				return true;
@@ -80,13 +80,13 @@ public class Door extends Entity {
 	}
 
 	// Update the 'door' entity to 'open' status
-//	private void updateDoorUI(Entity entity) {
-//		String open_door_image_path = entity.getImagePath();
-//		Image open_door = new Image(open_door_image_path);
-//		System.out.println("In update door function");
-//		ImageView image = MediatorHelper.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
-//		image.setImage(open_door);
-//	}
+	private void updateDoorUI(Entity entity) {
+		String open_door_image_path = entity.getImagePath();
+		Image open_door = new Image(open_door_image_path);
+		System.out.println("In update door function");
+		ImageView image = dungeon.getImageByEntity(Mediator.getInstance().getImageEntities(), entity);
+		image.setImage(open_door);
+	}
 	
 	private boolean matchKey(Key key) {
 		if(this.getDoor_id() == key.getKeyID()) {
