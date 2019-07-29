@@ -3,17 +3,12 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
+
 
 /**
  * A JavaFX controller for the dungeon.
@@ -32,8 +27,7 @@ public class DungeonController {
     private Player player;
 
     private Dungeon dungeon;
-    
-   // private ObservableList<Entity> list = FXCollections.observableArrayList();
+
     
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
@@ -51,25 +45,10 @@ public class DungeonController {
                 squares.add(new ImageView(ground), x, y);
             }
         }
-
         for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
         }
-
-//        list.addListener(new InvalidationListener() {
-//			
-//			@Override
-//			public void invalidated(Observable observable) {
-//				System.out.println("List Invalidated");
-//			}
-//		});
-        
-       //Initializes Mediator class  
-       Mediator.getInstance().setDungeon(dungeon, squares , initialEntities);
-      
-      
-       
-
+ 
     }
     
     @FXML
@@ -136,30 +115,6 @@ public class DungeonController {
         }
         return null;
     }
-//    
-//    // Method to generate a new entity in the maze
-//    public void generateObject(EntityType type) {
-//        Pair location = null;
-//        
-//        while (location == null) {
-//            location = getUniqueSpawnLocation(dungeon.getWidth(), dungeon.getHeight());
-//        }
-//
-//        Entity newObject = null;
-//        if (type == EntityType.TREASURE) {
-//            newObject = new Treasure(dungeon, location.getX(), location.getY());
-//        } else if (type == EntityType.POTION) {
-//            newObject = new Potion(dungeon, location.getX(), location.getY());
-//        }
-//        
-//        
-//        dungeon.addEntity(newObject);
-//
-//        generateImage(newObject);
-//
-//    }
-    
-    
 
 }
 

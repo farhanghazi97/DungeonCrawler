@@ -70,8 +70,6 @@ public class Enemy extends Entity{
 	//OUR AMAZING LOGIC FOR MOVING ENEMY
 	@Override
 	public void moveTo(int playerX, int playerY){
-		
-		//Mediator m = Mediator.getInstance();
 	
 		int enemyX = this.getX();
 		int enemyY = this.getY();

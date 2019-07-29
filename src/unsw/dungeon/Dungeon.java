@@ -228,6 +228,19 @@ public class Dungeon {
 		return image;
 	}
 	
+	public Pair getUniqueCoordinates() {
+		Pair coordinates = null;
+		while (coordinates == null) {
+			coordinates = dc.getUniqueMazeCoordinates();
+		}
+		return coordinates;
+	}
+	
+	public void generateEntity(Entity entity) {
+		dc.generateImage(entity);
+	}
+
+	
 	public int getWidth() {
 		return width;
 	}
@@ -257,16 +270,4 @@ public class Dungeon {
 		return goal;
 	}
 	
-	public Pair getUniqueCoordinates() {
-		Pair coordinates = null;
-		while (coordinates == null) {
-			coordinates = dc.getUniqueMazeCoordinates();
-		}
-		return coordinates;
-	}
-	
-	public void generateEntity(Entity entity) {
-		dc.generateImage(entity);
-	}
-
 }

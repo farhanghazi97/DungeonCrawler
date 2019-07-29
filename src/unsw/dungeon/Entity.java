@@ -65,4 +65,5 @@ public abstract class Entity {
     public abstract String getImagePath();
 	public abstract ArrayList<String> getImageList();
 
+
 }
