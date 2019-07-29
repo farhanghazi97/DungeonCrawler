@@ -86,105 +86,84 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
-        view.setId(player.getImageID());
+        view.setId("Player image");
         addEntity(player, view);
     }
 
     @Override
     public void onLoad(Wall wall) {
         ImageView view = new ImageView(wallImage);
-        view.setId(wall.getImageID());
+        view.setId("Wall image");
         addEntity(wall, view);
     }
     
     @Override
     public void onLoad(Boulder boulder) {
     	ImageView view = new ImageView(boulderimage);
-    	view.setId(boulder.getImageID());
+    	view.setId("Boulder image");
     	addEntity(boulder, view);
     }
 
     @Override
     public void onLoad(Switch s) {
     	ImageView view = new ImageView(switchimage);
-    	view.setId(s.getImageID());
+    	view.setId("Switch image");
     	addEntity(s , view);
     }
     
     @Override
     public void onLoad(Sword s) {
-    	ImageView view;
-    	if(rand.nextInt(3) == 1) {
-    		view = new ImageView(swordimage0);
-    	} else if(rand.nextInt(3) == 2) {
-    		view = new ImageView(swordimage1);
-    	} else {
-    		view = new ImageView(swordimage2);
-    	}
-    	view.setId(s.getImageID());
+    	ImageView view = new ImageView(swordimage0);
+    	view.setId("Sword image");
     	addEntity(s , view);
     }
     
     @Override
     public void onLoad(Treasure t) {
     	ImageView view = new ImageView(treasureimage);
-    	view.setId(t.getImageID());
+    	view.setId("Treasure image");
     	addEntity(t , view);
     }
     
     @Override
     public void onLoad(Potion p) {
-    	ImageView view;
-    	if(rand.nextInt(3) == 1) {
-    		view = new ImageView(potionimage0);
-    	} else if(rand.nextInt(3) == 2) {
-    		view = new ImageView(potionimage1);
-    	} else {
-    		view = new ImageView(potionimage2);
-    	}
-    	view.setId(p.getImageID());
+    	ImageView view = new ImageView(potionimage0);  	
+    	view.setId("Potion image");
     	addEntity(p , view);
     }
     
     @Override
     public void onLoad(Bomb b) {
     	ImageView view = new ImageView(bombimage_unlit);
-    	view.setId(b.getImageID());
+    	view.setId("Bomb image");
     	addEntity(b , view);
     }
 
     @Override
     public void onLoad(Exit exit) {
         ImageView view = new ImageView(exitimage);
-        view.setId(exit.getImageID());
+        view.setId("Exit image");
         addEntity(exit , view);
     }
 
     @Override
     public void onLoad(Key key) {
     	ImageView view = new ImageView(keyimage);
-    	view.setId(key.getImageID());
+    	view.setId("Key image");
     	addEntity(key , view);
     }
     
     @Override
     public void onLoad(Enemy enemy) {
-    	ImageView view;
-    	if(rand.nextInt(3) == 1) {
-    		view = new ImageView(enemyimage0);
-    	} else if(rand.nextInt(3) == 2) {
-    		view = new ImageView(enemyimage2);
-    	} else {
-    		view = new ImageView(enemyimage1);
-    	}
-    	view.setId(enemy.getImageID());
+    	ImageView view= new ImageView(enemyimage0);;
+    	view.setId("Enemy image");
     	addEntity(enemy,view);
     }
 
     @Override
     public void onLoad(Door door) {
         ImageView view = new ImageView(doorimage);
-        view.setId(door.getImageID());
+        view.setId("Door image");
         addEntity(door, view);
     }
     
