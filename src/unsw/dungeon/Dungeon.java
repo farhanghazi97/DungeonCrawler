@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,12 +28,16 @@ public class Dungeon {
 	private List<Entity> playerInventory = new LinkedList<>();
 	private List<Entity> entities;
 	
+	private Instant gameStart;
+	private Instant gameFinish;
+	
 	public Dungeon(int width, int height, JSONObject goal) {
 		this.width = width;
 		this.height = height;
 		this.entities = new ArrayList<>();
 		this.player = null;
 		this.goal = goal;
+		gameStart = Instant.now();
 	}
 
 	public boolean moveTo(int currentX, int currentY, int newX, int newY) {
@@ -84,7 +90,9 @@ public class Dungeon {
 	public void markGameOver() {
 		System.out.println("Game Over");
 		gameOver = true;
-		dc.showWinnerBox("You've beat the game!", "Congratulations", null);
+		gameFinish = Instant.now();
+		long timeElapsed = Duration.between(gameStart, gameFinish).getSeconds();
+		dc.showWinnerBox("You've beat the game!\n Time Taken (sec) :" + timeElapsed, "Congratulations!", null);
 	}
 	
     public boolean outsideDungeon(int newX, int newY) {
