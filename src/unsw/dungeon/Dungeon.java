@@ -82,8 +82,9 @@ public class Dungeon {
 	}
 
 	public void markGameOver() {
-		System.out.println("Here");
+		System.out.println("Game Over");
 		gameOver = true;
+		dc.showWinnerBox("You've beat the game!", "Congratulations", null);
 	}
 	
     public boolean outsideDungeon(int newX, int newY) {

@@ -3,11 +3,15 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 /**
@@ -84,6 +88,19 @@ public class DungeonController {
             break;
         }
     }
+    
+    /*
+     * When this method is called, it will change teh scene to winnerView
+     */
+    public void showWinnerBox(String infoMessage, String titleBar, String headerMessage)  {
+
+    	 Alert alert = new Alert(AlertType.INFORMATION);
+         alert.setTitle(titleBar);
+         alert.setHeaderText(headerMessage);
+         alert.setContentText(infoMessage);
+         alert.showAndWait();
+    	    
+    }
      
     public void removeEntity(Entity entity) {
     	System.out.println("Controller : Removing "+ entity);
@@ -133,6 +150,14 @@ public class DungeonController {
 		return initialEntities;
 	}
 
+//	Parent winnerViewParent = FXMLLoader.load(getClass().getResource("WinnerView.fxml"));
+//	Scene winnerViewScene = new Scene(winnerViewParent);
+//	
+//	//Now get the stage information
+//	Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
+//	
+//	window.setScene(winnerViewScene);
+//	window.show();
 
 }
 
