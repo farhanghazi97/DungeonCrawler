@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
-import java.util.Optional;
 
 
 /**
@@ -179,6 +178,16 @@ public class DungeonController {
 		}else if(clickButton.get() == hard) {
 			dungeon.setEnemyDifficulty(3);
 		}
+	}
+
+	public void showLoserBox(String infoMessage, String titleBar, String headerMessage) {
+		// TODO Auto-generated method stub
+
+   	 Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.setContentText(infoMessage);
+        alert.showAndWait();
 	}
 	
 	

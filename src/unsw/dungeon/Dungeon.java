@@ -92,8 +92,16 @@ public class Dungeon {
 		System.out.println("Game Over");
 		gameOver = true;
 		gameFinish = Instant.now();
+		
 		long timeElapsed = Duration.between(gameStart, gameFinish).getSeconds();
-		dc.showWinnerBox("You've beat the game!\n Time Taken (sec) :" + timeElapsed, "Congratulations!", null);
+		List<Entity> exits = getEntities(EntityType.EXIT);
+		Exit exit = (Exit) exits.get(0);
+		if(player.getX() == exit.getX() && player.getY() == exit.getY() ) {
+			dc.showWinnerBox("You've beat the game!\n Time Taken (sec) :" + timeElapsed, "Congratulations!", null);
+		}else {
+			dc.showLoserBox("Looks like you died!\n GamePlay time (sec) :" + timeElapsed, "Sorry!", null);
+		}
+		
 	}
 	
     public boolean outsideDungeon(int newX, int newY) {
