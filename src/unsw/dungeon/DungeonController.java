@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import javafx.fxml.FXML;
@@ -11,7 +12,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import java.util.Optional;
 
 
 /**
@@ -149,6 +152,37 @@ public class DungeonController {
 	public List<ImageView> getInitialEntities() {
 		return initialEntities;
 	}
+
+	public void launchStarterDialog() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Welcome to the Dungeon");
+		alert.setHeaderText("Before you begin, please choose an enemy difficulty level");
+		alert.setContentText(null);
+
+		ButtonType easy = new ButtonType("Easy");
+		ButtonType medium = new ButtonType("Medium");
+		ButtonType hard = new ButtonType("Hard");
+
+		alert.getButtonTypes().setAll(easy, medium, hard);
+		
+		Optional<ButtonType> clickButton = alert.showAndWait();
+		
+		
+		handleDifficultyBtn(easy, medium, hard, clickButton);
+	}
+
+	private void handleDifficultyBtn(ButtonType easy, ButtonType medium, ButtonType hard, Optional<ButtonType> clickButton) {
+		if (clickButton.get() == easy) {
+			dungeon.setEnemyDifficulty(1);
+		}else if(clickButton.get() == medium) {
+			dungeon.setEnemyDifficulty(2);
+		}else if(clickButton.get() == hard) {
+			dungeon.setEnemyDifficulty(3);
+		}
+	}
+	
+	
+	
 
 //	Parent winnerViewParent = FXMLLoader.load(getClass().getResource("WinnerView.fxml"));
 //	Scene winnerViewScene = new Scene(winnerViewParent);

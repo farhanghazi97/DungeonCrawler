@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Enemy extends Entity{
-
+	
+	private int difficultyLevel = 1;
 	private ArrayList<String> image_list = new ArrayList<String>();
+
 	private String image_path = "/enemy.png";
 
 	public Enemy(Dungeon dungeon, int x, int y) {
@@ -89,8 +91,8 @@ public class Enemy extends Entity{
 
 		double unit_vector = Math.atan2(dirY , dirX);
 		
-		enemyX = (int) (enemyX + (1 * Math.cos(unit_vector)));
-		enemyY = (int) (enemyY + (1 * Math.sin(unit_vector)));
+		enemyX = (int) (enemyX + (difficultyLevel * Math.cos(unit_vector)));
+		enemyY = (int) (enemyY + (difficultyLevel * Math.sin(unit_vector)));
 		
 		List<Entity> entitiesAtCurrent = dungeon.getEntities(enemyX, enemyY);
 		
@@ -106,6 +108,14 @@ public class Enemy extends Entity{
 			}
 		}
 		return;
+	}
+	
+	public int getDifficultyLevel() {
+		return difficultyLevel;
+	}
+
+	public void setDifficultyLevel(int difficultyLevel) {
+		this.difficultyLevel = difficultyLevel;
 	}
 
 }

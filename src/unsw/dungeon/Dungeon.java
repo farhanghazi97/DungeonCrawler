@@ -30,6 +30,7 @@ public class Dungeon {
 	
 	private Instant gameStart;
 	private Instant gameFinish;
+	 
 	
 	public Dungeon(int width, int height, JSONObject goal) {
 		this.width = width;
@@ -100,7 +101,15 @@ public class Dungeon {
         if (newX + 1 > width || newY + 1 > height)  return true;
         return false;
     }
-
+    
+    public void setEnemyDifficulty(int difficulty) {
+    	List<Entity> enemies = getEntities(EntityType.ENEMY);
+    	if(enemies.size() > 0) {
+    		for(Entity enemy: enemies) {
+    			((Enemy)enemy).setDifficultyLevel(difficulty);
+    		}
+    	}
+    }
 
 	// Called when player presses 'U' key on keyboard
 	// Attempts to unlock the door at current location
