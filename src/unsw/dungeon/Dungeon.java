@@ -22,6 +22,7 @@ public class Dungeon {
 
 	private int width, height;
 	private boolean gameOver = false;
+
 	private Player player;
 	private JSONObject goal;
 	private DungeonController dc;
@@ -88,22 +89,22 @@ public class Dungeon {
 		return true;
 	}
 
-	public void markGameOver() {
-		System.out.println("Game Over");
-		gameOver = true;
-		gameFinish = Instant.now();
-		
-		long timeElapsed = Duration.between(gameStart, gameFinish).getSeconds();
-		List<Entity> exits = getEntities(EntityType.EXIT);
-		Exit exit = (Exit) exits.get(0);
-		if(player.getX() == exit.getX() && player.getY() == exit.getY() ) {
-			dc.showWinnerBox("You've beat the game!\n Time Taken (sec) :" + timeElapsed, "Congratulations!", null);
-		}else {
-			dc.showLoserBox("Looks like you died!\n GamePlay time (sec) :" + timeElapsed, "Sorry!", null);
+	public void postGameOver() {
+		if (isGameOver()) {
+			System.out.println("Game Over");
+			gameFinish = Instant.now();
+			long timeElapsed = Duration.between(gameStart, gameFinish).getSeconds();
+			List<Entity> exits = getEntities(EntityType.EXIT);
+			Exit exit = (Exit) exits.get(0);
+			if (player.getX() == exit.getX() && player.getY() == exit.getY()) {
+				dc.showWinnerBox("You've beat the game!\n Time Taken (sec) :" + timeElapsed, "Congratulations!", null);
+			} else {
+				dc.showLoserBox("Looks like you died!\n GamePlay time (sec) :" + timeElapsed, "Sorry!", null);
+			}
 		}
-		
+
 	}
-	
+
     public boolean outsideDungeon(int newX, int newY) {
         if(newX == -1|| newY == -1)  return true;
         if (newX + 1 > width || newY + 1 > height)  return true;
@@ -295,5 +296,13 @@ public class Dungeon {
 	public JSONObject getGoal() {
 		return goal;
 	}
-	
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+		postGameOver();
+	}
 }

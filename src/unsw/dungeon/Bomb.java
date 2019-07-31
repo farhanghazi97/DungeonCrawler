@@ -92,7 +92,7 @@ public class Bomb extends Entity {
 				Entity potion = dungeon.getInventoryEntity(EntityType.POTION);
 				// If player does not have potion, bomb effective
 				if (potion == null) {
-					dungeon.markGameOver();
+					dungeon.postGameOver();
 				} else {
 					entities_to_remove.remove(dungeon.getPlayer());
 				}

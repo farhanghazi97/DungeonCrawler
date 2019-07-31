@@ -49,7 +49,7 @@ public class Enemy extends Entity{
 			dungeon.removeEntity(this);
 		}else {
 			//Player dies -> game over
-			dungeon.markGameOver();
+			dungeon.setGameOver(true);
 		}
 		return true;
 	}

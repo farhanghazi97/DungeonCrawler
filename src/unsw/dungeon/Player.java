@@ -61,7 +61,7 @@ public class Player extends Entity {
 		for (Entity entity : entitiesAtNew) {
 			if (entity.getType()==EntityType.EXIT){
 				if(entity.stepOver()) {
-					dungeon.markGameOver();
+					dungeon.setGameOver(true);
 					break;
 				}
 			}
