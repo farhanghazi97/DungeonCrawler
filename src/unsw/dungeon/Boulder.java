@@ -6,7 +6,6 @@ import java.util.List;
 public class Boulder extends Entity {
 
 	private String image_path = "/boulder.png";
-	private ArrayList<String> image_list = new ArrayList<String>();
 
 	public Boulder(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -66,12 +65,8 @@ public class Boulder extends Entity {
 	
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return null;
 	}
-	
-	@Override
-    public String toString() {
-		return String.format("BOULDER object");
-    }
+
 
 }

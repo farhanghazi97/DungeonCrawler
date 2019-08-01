@@ -6,20 +6,11 @@ import java.util.List;
 public class Wall extends Entity  {
 
 	private String image_path = "/brick_brown.png";
-	private ArrayList<String> image_list = new ArrayList<String>();
-    
-//	public Wall(int x, int y) {
-//        super(x, y);
-//    }
-	
+
 	public Wall(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
     }
-    @Override
-    public String toString() {
-		return String.format("WALL object");
-    }
-
+  
     @Override
     public EntityType getType(){return EntityType.WALL;}
 
@@ -29,14 +20,10 @@ public class Wall extends Entity  {
     }
 
 	@Override
-	public void moveTo(int newX, int newY) {
-		//Nothing here
-	}
+	public void moveTo(int newX, int newY) {}
 
     @Override
-    public void postMove(List<Entity> entitiesAtNew) {
-        
-    }
+    public void postMove(List<Entity> entitiesAtNew) {}
 
     @Override
 	public boolean stepOver() {
@@ -55,7 +42,7 @@ public class Wall extends Entity  {
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return null;
 	}	
 	
 }

@@ -7,7 +7,6 @@ import java.util.Random;
 public class Switch extends Entity{
 
 	private String image_path = "/pressure_plate.png";
-	private ArrayList<String> image_list = new ArrayList<String>();
 	private boolean triggered = false;
 
 	public Switch(Dungeon dungeon, int x, int y) {
@@ -74,7 +73,7 @@ public class Switch extends Entity{
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return null;
 	}
 
 	public boolean isTriggered() {

@@ -11,7 +11,6 @@ public class Potion extends Entity {
 
 	private boolean collected = false;
 	private String image_path = "/brilliant_blue_new.png";
-	private boolean in_effect = false;
 
 	public Potion(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -28,19 +27,13 @@ public class Potion extends Entity {
     }
 
     @Override
-    public void postMove(List<Entity> entitiesAtNew) {
-    	
-    }
+    public void postMove(List<Entity> entitiesAtNew) {}
 
     @Override
-	public void moveTo(int newX, int newY) {
-		//Nothing here
-	}
+	public void moveTo(int newX, int newY) {}
 
     @Override
-	public boolean stepOver() {
-    	System.out.println("Inside Potion's stepOver");
-    
+	public boolean stepOver() { 
 		Entity tempPotion = dungeon.getInventoryEntity(EntityType.POTION);
 		Entity player = dungeon.getPlayer();
 		
@@ -50,8 +43,8 @@ public class Potion extends Entity {
 		}else {
 			//Add new potion
 			if(dungeon.getInventoryEntities().add(this)) {
-				this.in_effect = true;
-				this.updatePlayerUI(player , in_effect);
+				collected = true;
+				this.updatePlayerUI();
 				//Start potion timer function
 				startSelfDestruct(6000 , player);
 				dungeon.removeEntity(this);
@@ -78,18 +71,12 @@ public class Potion extends Entity {
         task.setOnSucceeded(e -> {
         	dungeon.getInventoryEntities().remove(this);
         	System.out.println("After destroying: "+ dungeon.getInventoryEntities());
-        	this.in_effect = false;
-            this.updatePlayerUI(entity , in_effect);
+        	collected = false;
+            this.updatePlayerUI();
         });
 
         new Thread(task).start();
     }
-
-	@Override
-	public String toString() {
-		return "POTION object [collected=" + collected + "]";
-	}
-	
 
 	@Override
 	public String getImageID() {
@@ -106,17 +93,18 @@ public class Potion extends Entity {
 		return null;
 	}
 	
-	private void updatePlayerUI(Entity entity , boolean in_effect) {
-		ArrayList<String> images = entity.getImageList();
+	private void updatePlayerUI() {
+		Player player = dungeon.getPlayer();
+		ArrayList<String> images = player.getImageList();
 		
 		Image potion_effect;
-		if(in_effect) {
+		if(collected) {
 			potion_effect = new Image(images.get(1));
 		} else {
 			 potion_effect = new Image(images.get(0));
 		}
 		
-		ImageView image = dungeon.getImageByEntity(entity);
+		ImageView image = dungeon.getImageByEntity(player);
 		image.setImage(potion_effect);
 	}
 

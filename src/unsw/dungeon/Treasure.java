@@ -5,10 +5,8 @@ import java.util.List;
 
 public class Treasure extends Entity{
 
-	private static int treasureCoins = 0;
+	private int treasureCoins = 0;
 	private String image_path = "gold_pile.png";
-	private ArrayList<String> image_list = new ArrayList<String>();
-	//Dungeon dungeon;
 	
 	public Treasure(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -25,34 +23,19 @@ public class Treasure extends Entity{
     }
 
 	@Override
-	public void moveTo(int newX, int newY) {
-		//Nothing here
-	}
+	public void moveTo(int newX, int newY) {}
 
     @Override
-    public void postMove(List<Entity> entitiesAtNew) {
-
-    }
+    public void postMove(List<Entity> entitiesAtNew) {}
 
     @Override
 	public boolean stepOver() {
-    	
-    	System.out.println("In Treasure's stepOver");
-    	Treasure.treasureCoins++;
-    	System.out.println(toString());
-    	if(dungeon == null) {
-    		System.out.println("Dungeon is null");
-    	}
+    
+    	treasureCoins++;
     	dungeon.getInventoryEntities().add(this);
 		dungeon.removeEntity(this);
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "TREASURE object [Count =" + treasureCoins + ", collected=" + treasureCoins + "]";
-	}
-	
 
 	@Override
 	public String getImageID() {
@@ -66,7 +49,7 @@ public class Treasure extends Entity{
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return null;
 	}
 	
 }

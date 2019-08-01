@@ -13,8 +13,8 @@ import javafx.scene.image.ImageView;
  */
 public class Player extends Entity {
 	
-    private String image_path = "/human_new.png";
-    private ArrayList<String> image_list = new ArrayList<String>(Arrays.asList("/human_new.png" , "/daeva.png", "/human_sword.png"));
+    private String imagePath = "/human_new.png";
+    private ArrayList<String> imageList = new ArrayList<String>(Arrays.asList("/human_new.png" , "/daeva.png", "/human_sword.png"));
     
     /**
      * Create a player positioned in square (x,y)
@@ -26,11 +26,6 @@ public class Player extends Entity {
         //this.dungeon = dungeon;
     }
     
-    @Override
-    public String toString() {
-    	return "PLAYER object";
-    }
-
 	@Override
 	public EntityType getType(){return EntityType.PLAYER;}
 
@@ -80,12 +75,12 @@ public class Player extends Entity {
 	
 	@Override
 	 public String getImagePath() {
-		return this.image_path;
+		return this.imagePath;
 	}
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return imageList;
 	}
 	
 }

@@ -6,19 +6,11 @@ import java.util.List;
 public class Enemy extends Entity{
 	
 	private int difficultyLevel = 1;
-	private ArrayList<String> image_list = new ArrayList<String>();
-
-	private String image_path = "/enemy.png";
+	private ArrayList<String> imageList = new ArrayList<String>();
 
 	public Enemy(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
     }
-	
-	@Override
-	public String toString() {
-		return "ENEMY object " + this.getX() + " | " + this.getY();
-		
-	}
 	
 	@Override
 	public EntityType getType() {
@@ -36,9 +28,7 @@ public class Enemy extends Entity{
 	}
 
 	@Override
-	public void postMove(List<Entity> entitiesAtNew) {
-		
-	}
+	public void postMove(List<Entity> entitiesAtNew) {}
 
 	@Override
 	public boolean stepOver() {
@@ -60,13 +50,13 @@ public class Enemy extends Entity{
 	}
 	
 	@Override
-	 public String getImagePath() {
-		return "";
+	public String getImagePath() {
+		return null;
 	}
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return imageList;
 	}
 	
 	//OUR AMAZING LOGIC FOR MOVING ENEMY

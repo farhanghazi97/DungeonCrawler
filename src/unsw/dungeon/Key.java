@@ -8,21 +8,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Key extends Entity {
 
 	private String image_path = "/key.png";
-	private ArrayList<String> image_list = new ArrayList<String>();
 	
 	private int keyID;
 	private boolean collected = false;
-	
 
-//	public Key(int x, int y, int keyId) {
-//		super(x, y);
-//		this.keyID = keyId;
-//	}
-	
-	//Dungeon dungeon;
 	public Key(Dungeon dungeon, int x, int y, int keyId) {
         super(dungeon, x, y);
-        //this.dungeon = dungeon;
         this.keyID = keyId;
     }
 
@@ -37,20 +28,13 @@ public class Key extends Entity {
 	}
 
 	@Override
-	public void moveTo(int newX, int newY) {
-		//Nothing here
-	}
+	public void moveTo(int newX, int newY) {}
 
 	@Override
-	public void postMove(List<Entity> entitiesAtNew) {
-		
-	}
+	public void postMove(List<Entity> entitiesAtNew) {}
 
 	@Override
 	public boolean stepOver() {
-		System.out.println("In Key's stepOver");
-		
-	
 		//Add sword to collected entities
 		Entity tempKey = dungeon.getInventoryEntity(EntityType.KEY);
 		
@@ -69,11 +53,6 @@ public class Key extends Entity {
 		return false;
 	}
 	
-	@Override
-	public String toString() {
-		return "KEY object [Key ID=" + keyID + ", collected=" + collected + "]";
-	}
-
 	public int getKeyID() {
 		return keyID;
 	}
@@ -90,7 +69,7 @@ public class Key extends Entity {
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return null;
 	}
 
 }

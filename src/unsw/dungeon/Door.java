@@ -9,7 +9,6 @@ import java.util.List;
 public class Door extends Entity {
 
 	private String imagePath = "/open_door.png";
-	private ArrayList<String> imageList = new ArrayList<String>();
 	private int doorId;
 	private boolean open = false;
 	
@@ -67,7 +66,7 @@ public class Door extends Entity {
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return imageList;
+		return null;
 	}
 
 	// Update the 'door' entity to 'open' status
@@ -97,9 +96,5 @@ public class Door extends Entity {
 		return doorId;
 	}
 
-	@Override
-	public String toString() {
-		return "DOOR object [Door ID=" + doorId + ", Open?=" + open + "]";
-	}
 	
 }

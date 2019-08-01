@@ -10,10 +10,9 @@ import org.json.JSONObject;
 
 public class Exit extends Entity{
 	
-	private String image_path = "/exit.png";
-	private ArrayList<String> image_list = new ArrayList<String>();
-	private ArrayList<String> goal_conditions = new ArrayList<String>(Arrays.asList("AND" , "OR"));
-	private ArrayList<String> goal_requirements = new ArrayList<String>(Arrays.asList
+	private String imagePath = "/exit.png";
+	private ArrayList<String> goalConditions = new ArrayList<String>(Arrays.asList("AND" , "OR"));
+	private ArrayList<String> goalRequirements = new ArrayList<String>(Arrays.asList
 			(
 					"treasure" ,
 					"enemies",
@@ -38,66 +37,63 @@ public class Exit extends Entity{
     }
 
     @Override
-    public void moveTo(int newX, int newY) {
-        //Nothing here
-    }
+    public void moveTo(int newX, int newY) {}
 
     @Override
-    public void postMove(List<Entity> entitiesAtNew) {
-    	//Nothing here
-    }
+    public void postMove(List<Entity> entitiesAtNew) {}
 
     @Override
 	public boolean stepOver() {
 		
     	JSONObject goal = dungeon.getGoal();
-		String goal_condition = goal.getString("goal");
-		JSONArray player_goal_requirements = null;
+		String goalCondition = goal.getString("goal");
+		System.out.println(goalCondition);
+		JSONArray playerGoalReqs = null;
 		
-		boolean goals_met = false;
+		boolean isGoalMet = false;
 		
 		try {
 			// More than one goal
-			player_goal_requirements = goal.getJSONArray("subgoals");
+			playerGoalReqs = goal.getJSONArray("subgoals");
 		} catch (JSONException e) {
 			// Single goal
-			if(checkGoalMet(goal_condition)) {
-				goals_met = true;
-				return goals_met;
+			if(checkGoalMet(goalCondition)) {
+				isGoalMet = true;
+				return isGoalMet;
 			} else {
-				return goals_met;
+				return isGoalMet;
 			}
 		}
 		
-		if(goal_condition.equals(this.goal_conditions.get(0))) {
-			for(int i = 0; i < player_goal_requirements.length(); i++) {
-				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(i);
+		if(goalCondition.equals(this.goalConditions.get(0))) {
+			for(int i = 0; i < playerGoalReqs.length(); i++) {
+				JSONObject goal_cond_obj = playerGoalReqs.getJSONObject(i);
 				String goal_cond = goal_cond_obj.getString("goal");
-				if(this.goal_requirements.contains(goal_cond)) {
+				if(this.goalRequirements.contains(goal_cond)) {
 					if(checkGoalMet(goal_cond)) {
-						goals_met = true;
+						isGoalMet = true;
 					} else {
-						goals_met = false;
-						return goals_met;
+						isGoalMet = false;
+						return isGoalMet;
 					}
 				}
 			}
 		} 
 		
-		if (goal_condition.equals(this.goal_conditions.get(1))) {
-			for(int j = 0; j < player_goal_requirements.length(); j++) {
-				JSONObject goal_cond_obj = player_goal_requirements.getJSONObject(j);
+		if (goalCondition.equals(this.goalConditions.get(1))) {
+			for(int j = 0; j < playerGoalReqs.length(); j++) {
+				JSONObject goal_cond_obj = playerGoalReqs.getJSONObject(j);
 				String goal_cond = goal_cond_obj.getString("goal");
-				if(this.goal_requirements.contains(goal_cond)) {
+				if(this.goalRequirements.contains(goal_cond)) {
 					if(checkGoalMet(goal_cond)) {
-						goals_met = true;
-						return goals_met;
+						isGoalMet = true;
+						return isGoalMet;
 					} 
 				}
 			}
 		}
 		
-		return goals_met;
+		return isGoalMet;
 	
     }
 
@@ -108,12 +104,12 @@ public class Exit extends Entity{
 	
 	@Override
 	 public String getImagePath() {
-		return this.image_path;
+		return this.imagePath;
 	}
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return null;
 	}
 
     @Override
@@ -122,15 +118,15 @@ public class Exit extends Entity{
     }
 	
 	private boolean checkGoalMet(String goal) {
-		if(goal.equals(this.goal_requirements.get(0))) {
+		if(goal.equals(goalRequirements.get(0))) {
 			if(dungeon.getEntities(EntityType.TREASURE).size() == 0) {
 				return true;
 			}
-		} else if (goal.equals(this.goal_requirements.get(1))) {
+		} else if (goal.equals(this.goalRequirements.get(1))) {
 			if(dungeon.getEntities(EntityType.ENEMY).size() == 0) {
 				return true;
 			}
-		} else if (goal.equals(this.goal_requirements.get(2))) {
+		} else if (goal.equals(this.goalRequirements.get(2))) {
 			List<Entity> switches = dungeon.getEntities(EntityType.SWITCH);
 			boolean all_triggered = true;
 			for(Entity s : switches) {
