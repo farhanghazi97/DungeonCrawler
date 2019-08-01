@@ -49,9 +49,8 @@ public class Sword extends Entity {
 		}else {
 			//Add new sword
 			if(dungeon.getInventoryEntities().add(this)) {
-				
+				Entity player = dungeon.getPlayer();
 				this.collected = true;
-	
 				updatePlayerUI(player);
 				System.out.println(this.toString());
 				dungeon.removeEntity(this);
