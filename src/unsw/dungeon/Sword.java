@@ -43,15 +43,12 @@ public class Sword extends Entity {
 		
 		if(tempSword != null) {
 			//Player already has a sword
-			Entity player = dungeon.getPlayer();
-			updatePlayerUI(player);
 			return false;
 		}else {
 			//Add new sword
 			if(dungeon.getInventoryEntities().add(this)) {
-				Entity player = dungeon.getPlayer();
 				this.collected = true;
-				updatePlayerUI(player);
+				updatePlayerUI();
 				System.out.println(this.toString());
 				dungeon.removeEntity(this);
 				return true;
@@ -78,20 +75,14 @@ public class Sword extends Entity {
 			return true;
 		}else {
 			//Remove sword from player's collected entities
-			Entity player = dungeon.getPlayer();
 			this.collected = false;
-			updatePlayerUI(player);
+			updatePlayerUI();
 			dungeon.getInventoryEntities().remove(this);
 			System.out.println(this.toString());
 			return false;
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "SWORD object [swingsRemaining=" + swingsRemaining + ", collected=" + collected + "]";
-	}
-	
 	@Override
 	public String getImageID() {
 		return "Sword image";
@@ -112,9 +103,9 @@ public class Sword extends Entity {
 	}
 	
 	
-	private void updatePlayerUI(Entity entity ) {
-		System.out.println("In update player UIs");
-		ArrayList<String> images = entity.getImageList();
+	private void updatePlayerUI( ) {
+		Player player = dungeon.getPlayer();
+		ArrayList<String> images = player.getImageList();
 		
 		Image humanSword;
 		if(collected) {
@@ -122,8 +113,8 @@ public class Sword extends Entity {
 		} else {
 			humanSword = new Image(images.get(0));
 		}
-		
-		ImageView image = dungeon.getImageByEntity(entity);
+
+		ImageView image = dungeon.getImageByEntity(player);
 		image.setImage(humanSword);
 	}
 

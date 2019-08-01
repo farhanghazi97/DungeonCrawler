@@ -21,17 +21,15 @@ import javafx.scene.layout.GridPane;
 public class Dungeon {
 
 	private int width, height;
-	private boolean gameOver = false;
-
 	private Player player;
-	private JSONObject goal;
 	private DungeonController dc;
-	private List<Entity> playerInventory = new LinkedList<>();
-	private List<Entity> entities;
-	
+	private JSONObject goal;
 	private Instant gameStart;
 	private Instant gameFinish;
-	 
+	private boolean gameOver = false;
+	
+	private List<Entity> playerInventory = new LinkedList<>();
+	private List<Entity> entities;
 	
 	public Dungeon(int width, int height, JSONObject goal) {
 		this.width = width;
@@ -42,7 +40,7 @@ public class Dungeon {
 		gameStart = Instant.now();
 	}
 
-	public boolean moveTo(int currentX, int currentY, int newX, int newY) {
+	public	 boolean moveTo(int currentX, int currentY, int newX, int newY) {
 		if (gameOver) {
 			return false;
 		}
@@ -233,7 +231,6 @@ public class Dungeon {
 	}
 	
 	public Entity getInventoryEntity(EntityType entityType) {
-		//System.out.println("In dungeons: getInventoryEntity");
 		for (Entity collected : playerInventory) {
 			if (collected.getType() == entityType) {
 				return collected;
@@ -243,7 +240,6 @@ public class Dungeon {
 	}
 	
 	public void addInventory(Entity entity) {
-		System.out.println("Adding to inventory:" +entity);
 		playerInventory.add(entity);
 	}
 	

@@ -43,7 +43,6 @@ public class Bomb extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		System.out.println("In Bomb's stepOver");
 		Entity bomb = dungeon.getInventoryEntity(EntityType.BOMB);
 		if(bomb != null && isDestroyed == false) {
 			return false;
@@ -114,9 +113,7 @@ public class Bomb extends Entity {
 	}
 
 	@Override
-	public void moveTo(int newX, int newY) {
-		//Nothing here
-	}
+	public void moveTo(int newX, int newY) {}
 
 	@Override
 	public String getImageID() {

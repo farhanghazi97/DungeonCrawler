@@ -17,7 +17,7 @@ public abstract class Entity {
 	
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
-	Dungeon dungeon;
+	public Dungeon dungeon;
     private IntegerProperty x, y;
     /**
      * Create an entity positioned in square (x,y)

@@ -31,25 +31,19 @@ public class DungeonControllerLoader extends DungeonLoader {
     
     private Image swordimage0;
     private Image swordimage1;
-    private Image swordimage2;
     
     private Image treasureimage;
     
     private Image potionimage0;
-    private Image potionimage1;
-    private Image potionimage2;
+
     
     private Image bombimage_unlit;
     private Image keyimage;
     
     private Image enemyimage0;
-    private Image enemyimage1;
-    private Image enemyimage2;
     
     private Image doorimage;
     private Image exitimage;
-
-    Random rand = new Random();
     
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -62,22 +56,17 @@ public class DungeonControllerLoader extends DungeonLoader {
         switchimage = new Image("/pressure_plate.png");
         
         swordimage0 = new Image("/greatsword_1_new.png");
-        swordimage1 = new Image("/scimitar1.png");
-        swordimage2 = new Image("/human_sword.png");
+        swordimage1 = new Image("/human_sword.png");
          
         treasureimage = new Image("/gold_pile.png");
         
         potionimage0 = new Image("/brilliant_blue_new.png");
-        potionimage1 = new Image("/bubbly.png");
-        potionimage2 = new Image("/magenta.png");
         
         bombimage_unlit = new Image("/bomb_unlit.png");
         exitimage = new Image("/exit.png");
         keyimage = new Image("/key.png");
         
         enemyimage0 = new Image("/deep_elf_master_archer.png");
-        enemyimage1 = new Image("/kenku_winged.png");
-        enemyimage2 = new Image("/spriggan_defender_shieldless.png");
         
         doorimage = new Image("/closed_door.png");
         
