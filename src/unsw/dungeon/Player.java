@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 public class Player extends Entity {
 	
     private String image_path = "/human_new.png";
-    private ArrayList<String> image_list = new ArrayList<String>(Arrays.asList("/human_new.png" , "/daeva.png"));
+    private ArrayList<String> image_list = new ArrayList<String>(Arrays.asList("/human_new.png" , "/daeva.png", "/human_sword.png"));
     
     /**
      * Create a player positioned in square (x,y)

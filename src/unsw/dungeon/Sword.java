@@ -3,6 +3,9 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Sword extends Entity {
 	
 	private String image_path = "greatsword_1_new.png";
@@ -11,10 +14,6 @@ public class Sword extends Entity {
 	private int swingsRemaining = 5;
 	private boolean collected = false;
 	
-//	public Sword(int x, int y) {
-//        super(x, y);
-//    }
-
 	public Sword(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
     }
@@ -30,14 +29,10 @@ public class Sword extends Entity {
     }
 
 	@Override
-	public void moveTo(int newX, int newY) {
-		//Nothing here
-	}
+	public void moveTo(int newX, int newY) {}
 
     @Override
-    public void postMove(List<Entity> entitiesAtNew) {
-
-    }
+    public void postMove(List<Entity> entitiesAtNew) {}
     
 	@Override
 	public boolean stepOver() {
@@ -48,11 +43,16 @@ public class Sword extends Entity {
 		
 		if(tempSword != null) {
 			//Player already has a sword
+			Entity player = dungeon.getPlayer();
+			updatePlayerUI(player);
 			return false;
 		}else {
 			//Add new sword
 			if(dungeon.getInventoryEntities().add(this)) {
+				
 				this.collected = true;
+	
+				updatePlayerUI(player);
 				System.out.println(this.toString());
 				dungeon.removeEntity(this);
 				return true;
@@ -79,7 +79,9 @@ public class Sword extends Entity {
 			return true;
 		}else {
 			//Remove sword from player's collected entities
+			Entity player = dungeon.getPlayer();
 			this.collected = false;
+			updatePlayerUI(player);
 			dungeon.getInventoryEntities().remove(this);
 			System.out.println(this.toString());
 			return false;
@@ -110,5 +112,20 @@ public class Sword extends Entity {
 		return image_list;
 	}
 	
+	
+	private void updatePlayerUI(Entity entity ) {
+		System.out.println("In update player UIs");
+		ArrayList<String> images = entity.getImageList();
+		
+		Image humanSword;
+		if(collected) {
+			humanSword = new Image(images.get(2));
+		} else {
+			humanSword = new Image(images.get(0));
+		}
+		
+		ImageView image = dungeon.getImageByEntity(entity);
+		image.setImage(humanSword);
+	}
 
 }

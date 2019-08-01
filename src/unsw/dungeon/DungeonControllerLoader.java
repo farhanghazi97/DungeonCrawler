@@ -63,7 +63,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         
         swordimage0 = new Image("/greatsword_1_new.png");
         swordimage1 = new Image("/scimitar1.png");
-        swordimage2 = new Image("/battle_axe2.png");
+        swordimage2 = new Image("/human_sword.png");
          
         treasureimage = new Image("/gold_pile.png");
         
