@@ -135,11 +135,11 @@ public class DungeonController {
 	private void handleDifficultyBtn(ButtonType easy, ButtonType medium, ButtonType hard,
 			Optional<ButtonType> clickButton) {
 		if (clickButton.get() == easy) {
-			dungeon.setEnemyDifficulty(1);
+			dungeon.setDifficulty(1);
 		} else if (clickButton.get() == medium) {
-			dungeon.setEnemyDifficulty(2);
+			dungeon.setDifficulty(2);
 		} else if (clickButton.get() == hard) {
-			dungeon.setEnemyDifficulty(3);
+			dungeon.setDifficulty(3);
 		}
 	}
 

@@ -109,7 +109,7 @@ public class Dungeon {
         return false;
     }
     
-    public void setEnemyDifficulty(int difficulty) {
+    public void setDifficulty(int difficulty) {
     	List<Entity> enemies = getEntities(EntityType.ENEMY);
     	if(enemies.size() > 0) {
     		for(Entity enemy: enemies) {
