@@ -86,6 +86,9 @@ public class DungeonController {
         case B:
         	dungeon.handleKeyPressB(player.getX() , player.getY());
         	break;
+        case I:
+        	dungeon.handleKeyPressI(player.getX(), player.getY());
+        	break;
         default:
             break;
         }

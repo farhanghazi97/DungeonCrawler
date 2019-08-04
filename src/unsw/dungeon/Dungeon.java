@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONObject;
+
+import javafx.concurrent.Task;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
@@ -27,6 +30,7 @@ public class Dungeon {
 	private DungeonController dc;
 	private List<Entity> playerInventory = new LinkedList<>();
 	private List<Entity> entities;
+	private boolean enemy_stalled = false;
 	
 	private Instant gameStart;
 	private Instant gameFinish;
@@ -69,7 +73,7 @@ public class Dungeon {
 			return false;
 		}
 
-		entityToMove.moveTo(newX, newY);
+		entityToMove.moveTo(newX, newY , false);
 
 		// Calling entitesAtCurrent stepOver on a loop
 		for (Entity entity : fromEntities) {
@@ -79,8 +83,10 @@ public class Dungeon {
 
 		// Calling all enemies to move
 		if (!enemies.isEmpty()) {
-			for (Entity enemy : enemies) {
-				((Enemy) enemy).moveTo(newX, newY);
+			if (!this.enemy_stalled) {
+				for (Entity enemy : enemies) {
+					((Enemy) enemy).moveTo(newX, newY , false);
+				}
 			}
 		}
 		
@@ -90,7 +96,7 @@ public class Dungeon {
 
 	public void markGameOver() {
 		System.out.println("Game Over");
-		gameOver = true;
+		gameOver = true;	
 		gameFinish = Instant.now();
 		
 		long timeElapsed = Duration.between(gameStart, gameFinish).getSeconds();
@@ -146,8 +152,15 @@ public class Dungeon {
 			newBomb.startBombSelfDestruct(1000);
 		}
 	}
-
-
+	
+	public void handleKeyPressI(int x , int y) {
+		System.out.println("Dungeon: In ActivateIceBomb");
+		Entity iceBall = this.getInventoryEntity(EntityType.ICEBALL);
+		if(iceBall != null) {
+			((IceBall) iceBall).activateIceBomb(5000);
+		}
+	}
+	
 	public List<Entity> entitiesInVicinity(int x, int y, EntityType... type) {
 		List<Entity> list = new LinkedList<>();
 		for (EntityType aType : type) {
@@ -295,5 +308,16 @@ public class Dungeon {
 	public JSONObject getGoal() {
 		return goal;
 	}
+
+	public boolean isEnemy_stalled() {
+		return enemy_stalled;
+	}
+
+	public void setEnemy_stalled(boolean enemy_stalled) {
+		this.enemy_stalled = enemy_stalled;
+	}
+	
+	
+	
 	
 }

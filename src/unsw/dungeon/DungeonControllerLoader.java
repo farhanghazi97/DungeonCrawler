@@ -32,6 +32,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image swordimage0;
     private Image swordimage1;
     private Image swordimage2;
+    private Image ice_weapon;
     
     private Image treasureimage;
     
@@ -64,6 +65,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         swordimage0 = new Image("/greatsword_1_new.png");
         swordimage1 = new Image("/scimitar1.png");
         swordimage2 = new Image("/battle_axe2.png");
+        ice_weapon = new Image("/misc_crystal.png");
          
         treasureimage = new Image("/gold_pile.png");
         
@@ -80,6 +82,8 @@ public class DungeonControllerLoader extends DungeonLoader {
         enemyimage2 = new Image("/spriggan_defender_shieldless.png");
         
         doorimage = new Image("/closed_door.png");
+        
+        Random rand = new Random();
         
     }
 
@@ -116,6 +120,13 @@ public class DungeonControllerLoader extends DungeonLoader {
     	ImageView view = new ImageView(swordimage0);
     	view.setId("Sword image");
     	addEntity(s , view);
+    }
+    
+    @Override
+    public void onLoad(IceBall i) {
+    	ImageView view = new ImageView(ice_weapon);
+    	view.setId("IceBall Image");
+    	addEntity(i , view);
     }
     
     @Override

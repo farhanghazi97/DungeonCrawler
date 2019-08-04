@@ -71,43 +71,46 @@ public class Enemy extends Entity{
 	
 	//OUR AMAZING LOGIC FOR MOVING ENEMY
 	@Override
-	public void moveTo(int playerX, int playerY){
+	public void moveTo(int playerX, int playerY , boolean flag){
 	
-		int enemyX = this.getX();
-		int enemyY = this.getY();
-		
-		//In Efforts to make it harder
-		List<Entity> player = dungeon.entitiesInVicinity(enemyX, enemyY, EntityType.PLAYER);
-		Entity potion = dungeon.getInventoryEntity(EntityType.POTION);
-		if(player.size() == 1 && potion == null) {
-			//Player is in vicinity of enemy and has no potion. 
-			x().set(playerX);
-			y().set(playerY);
-			return;
-		}
-		
-		int dirX = playerX - enemyX;
-		int dirY = playerY - enemyY;
-
-		double unit_vector = Math.atan2(dirY , dirX);
-		
-		enemyX = (int) (enemyX + (difficultyLevel * Math.cos(unit_vector)));
-		enemyY = (int) (enemyY + (difficultyLevel * Math.sin(unit_vector)));
-		
-		List<Entity> entitiesAtCurrent = dungeon.getEntities(enemyX, enemyY);
-		
-		if(dungeon.outsideDungeon(enemyX, enemyY) ) {
-			return;
-		}
-
-		if(entitiesAtCurrent.size() == 0) {
-			if(this.isBlocked(entitiesAtCurrent) == false) {
-				x().set(enemyX);
-				y().set(enemyY);
+		if(flag == false) {
+			int enemyX = this.getX();
+			int enemyY = this.getY();
+			
+			//In Efforts to make it harder
+			List<Entity> player = dungeon.entitiesInVicinity(enemyX, enemyY, EntityType.PLAYER);
+			Entity potion = dungeon.getInventoryEntity(EntityType.POTION);
+			if(player.size() == 1 && potion == null) {
+				//Player is in vicinity of enemy and has no potion. 
+				x().set(playerX);
+				y().set(playerY);
 				return;
 			}
+			
+			int dirX = playerX - enemyX;
+			int dirY = playerY - enemyY;
+	
+			double unit_vector = Math.atan2(dirY , dirX);
+			
+			enemyX = (int) (enemyX + (difficultyLevel * Math.cos(unit_vector)));
+			enemyY = (int) (enemyY + (difficultyLevel * Math.sin(unit_vector)));
+			
+			List<Entity> entitiesAtCurrent = dungeon.getEntities(enemyX, enemyY);
+			
+			if(dungeon.outsideDungeon(enemyX, enemyY) ) {
+				return;
+			}
+	
+			if(entitiesAtCurrent.size() == 0) {
+				if(this.isBlocked(entitiesAtCurrent) == false) {
+					x().set(enemyX);
+					y().set(enemyY);
+					return;
+				}
+			}
+		} else {
+			return;
 		}
-		return;
 	}
 	
 	public int getDifficultyLevel() {

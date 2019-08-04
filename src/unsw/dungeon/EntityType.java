@@ -12,5 +12,6 @@ public enum EntityType {
     EXIT, 
     ENEMY,
     DOOR,
-    KEY;
+    KEY,
+	ICEBALL;
 }

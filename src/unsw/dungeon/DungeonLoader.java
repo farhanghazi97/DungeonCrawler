@@ -136,7 +136,13 @@ public abstract class DungeonLoader {
 			onLoad(door);
 			entity = door;
 			break;
-		
+			
+		case "ice":
+			IceBall iceBall = new IceBall(dungeon,x,y);
+			onLoad(iceBall);
+			entity = iceBall;
+			break;
+			
         }
         dungeon.addEntity(entity);
     }
@@ -146,6 +152,7 @@ public abstract class DungeonLoader {
 	public abstract void onLoad (Boulder boulder);
 	public abstract void onLoad (Switch s) ;
 	public abstract void onLoad (Sword s);
+	public abstract void onLoad (IceBall i);
 	public abstract void onLoad (Treasure s);
 	public abstract void onLoad (Potion s);
 	public abstract void onLoad (Bomb b);

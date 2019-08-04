@@ -25,7 +25,7 @@ public class Switch extends Entity{
     }
 
 	@Override
-	public void moveTo(int newX, int newY) {}
+	public void moveTo(int newX, int newY , boolean flag) {}
 
     @Override
     public void postMove(List<Entity> entitiesAtNew) {}

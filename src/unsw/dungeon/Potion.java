@@ -33,7 +33,7 @@ public class Potion extends Entity {
     }
 
     @Override
-	public void moveTo(int newX, int newY) {
+	public void moveTo(int newX, int newY , boolean flag) {
 		//Nothing here
 	}
 
