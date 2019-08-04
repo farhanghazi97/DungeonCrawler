@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 public class Sword extends Entity {
 	
 	private String image_path = "greatsword_1_new.png";
-	private ArrayList<String> image_list = new ArrayList<String>();
 	
 	private int swingsRemaining = 5;
 	private boolean collected = false;
@@ -101,7 +100,7 @@ public class Sword extends Entity {
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return null;
 	}
 	
 	

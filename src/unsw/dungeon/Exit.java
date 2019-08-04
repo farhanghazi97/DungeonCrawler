@@ -116,11 +116,6 @@ public class Exit extends Entity{
 		return null;
 	}
 
-    @Override
-    public String toString() {
-    	return "EXIT object";
-    }
-	
 	private boolean checkGoalMet(String goal) {
 		if(goal.equals(goalRequirements.get(0))) {
 			if(dungeon.getEntities(EntityType.TREASURE).size() == 0) {
