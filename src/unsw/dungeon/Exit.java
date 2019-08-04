@@ -11,7 +11,6 @@ import org.json.JSONObject;
 public class Exit extends Entity{
 	
 	private String imagePath = "/exit.png";
-	private ArrayList<String> goalConditions = new ArrayList<String>(Arrays.asList("AND" , "OR"));
 	private ArrayList<String> goalRequirements = new ArrayList<String>(Arrays.asList
 			(
 					"treasure" ,
@@ -50,8 +49,7 @@ public class Exit extends Entity{
 	public boolean stepOver() {
 		
     	JSONObject goal = dungeon.getGoal();
-		String goalCondition = goal.getString("goal");
-		System.out.println(goalCondition);
+		String operator = goal.getString("goal"); //AND/OR
 		JSONArray playerGoalReqs = null;
 		
 		boolean isGoalMet = false;
@@ -61,7 +59,7 @@ public class Exit extends Entity{
 			playerGoalReqs = goal.getJSONArray("subgoals");
 		} catch (JSONException e) {
 			// Single goal
-			if(checkGoalMet(goalCondition)) {
+			if(checkGoalMet(operator)) {
 				isGoalMet = true;
 				return isGoalMet;
 			} else {
@@ -69,7 +67,7 @@ public class Exit extends Entity{
 			}
 		}
 		
-		if(goalCondition.equals(this.goalConditions.get(0))) {
+		if(operator.equals("AND")) {
 			for(int i = 0; i < playerGoalReqs.length(); i++) {
 				JSONObject goal_cond_obj = playerGoalReqs.getJSONObject(i);
 				String goal_cond = goal_cond_obj.getString("goal");
@@ -84,7 +82,7 @@ public class Exit extends Entity{
 			}
 		} 
 		
-		if (goalCondition.equals(this.goalConditions.get(1))) {
+		if (operator.equals("OR")) {
 			for(int j = 0; j < playerGoalReqs.length(); j++) {
 				JSONObject goal_cond_obj = playerGoalReqs.getJSONObject(j);
 				String goal_cond = goal_cond_obj.getString("goal");
