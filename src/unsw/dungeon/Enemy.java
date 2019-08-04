@@ -1,14 +1,16 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Enemy extends Entity{
 	
 	private int difficultyLevel = 1;
-	private boolean enemy_stalled = false;
-	private ArrayList<String> image_list = new ArrayList<String>();
-	private String image_path = "/enemy.png";
+	private boolean enemyStalled = false;
+	private ArrayList<String> imageList = new ArrayList<String>(Arrays.asList("/deep_elf_master_archer.png"));
+	private String imagePath = "/enemy.png";
+	private String enemyAltImage = "/ice_form.png";
 
 	public Enemy(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -61,12 +63,12 @@ public class Enemy extends Entity{
 	
 	@Override
 	public String getImagePath() {
-		return null;
+		return this.enemyAltImage;
 	}
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return imageList;
 	}
 	
 
@@ -87,7 +89,7 @@ public class Enemy extends Entity{
 	@Override
 	public void moveTo(int playerX, int playerY , boolean flag){
 	
-		if(enemy_stalled == false) {
+		if(enemyStalled == false) {
 			int enemyX = this.getX();
 			int enemyY = this.getY();
 			
@@ -132,11 +134,11 @@ public class Enemy extends Entity{
 	}
 
 	public boolean isEnemy_stalled() {
-		return enemy_stalled;
+		return enemyStalled;
 	}
 
 	public void setEnemy_stalled(boolean enemy_stalled) {
-		this.enemy_stalled = enemy_stalled;
+		this.enemyStalled = enemy_stalled;
 	}
 
 }
