@@ -8,7 +8,6 @@ public class Enemy extends Entity{
 	private int difficultyLevel = 1;
 	private boolean enemy_stalled = false;
 	private ArrayList<String> image_list = new ArrayList<String>();
-	private String image_path = "/enemy.png";
 
 	public Enemy(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
