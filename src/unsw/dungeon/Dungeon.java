@@ -223,7 +223,8 @@ public class Dungeon {
 	public List<Entity> entitiesInFront(int x, int y, EntityType type) {
 		List<Entity> list = new LinkedList<>();
         for (Entity entity : entities) {
-            if (entity.getType() == type && ((entity.getY() == y - 1 && entity.getX() == x))) {
+            if (entity.getType() == type &&  ((entity.getY() == y-1 && entity.getX() == x)
+            	|| (entity.getY() == y+1 && entity.getX() == x) )) {
                     list.add(entity);
             }
         }
