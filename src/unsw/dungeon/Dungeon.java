@@ -30,7 +30,6 @@ public class Dungeon {
 	private DungeonController dc;
 	private List<Entity> playerInventory = new LinkedList<>();
 	private List<Entity> entities;
-	private boolean enemy_stalled = false;
 	
 	private Instant gameStart;
 	private Instant gameFinish;
@@ -83,8 +82,8 @@ public class Dungeon {
 
 		// Calling all enemies to move
 		if (!enemies.isEmpty()) {
-			if (!this.enemy_stalled) {
-				for (Entity enemy : enemies) {
+			for (Entity enemy : enemies) {
+				if(!((Enemy) enemy).isEnemy_stalled()) {
 					((Enemy) enemy).moveTo(newX, newY , false);
 				}
 			}
@@ -308,16 +307,5 @@ public class Dungeon {
 	public JSONObject getGoal() {
 		return goal;
 	}
-
-	public boolean isEnemy_stalled() {
-		return enemy_stalled;
-	}
-
-	public void setEnemy_stalled(boolean enemy_stalled) {
-		this.enemy_stalled = enemy_stalled;
-	}
-	
-	
-	
 	
 }

@@ -6,8 +6,8 @@ import java.util.List;
 public class Enemy extends Entity{
 	
 	private int difficultyLevel = 1;
+	private boolean enemy_stalled = false;
 	private ArrayList<String> image_list = new ArrayList<String>();
-
 	private String image_path = "/enemy.png";
 
 	public Enemy(Dungeon dungeon, int x, int y) {
@@ -73,7 +73,7 @@ public class Enemy extends Entity{
 	@Override
 	public void moveTo(int playerX, int playerY , boolean flag){
 	
-		if(flag == false) {
+		if(enemy_stalled == false) {
 			int enemyX = this.getX();
 			int enemyY = this.getY();
 			
@@ -119,6 +119,14 @@ public class Enemy extends Entity{
 
 	public void setDifficultyLevel(int difficultyLevel) {
 		this.difficultyLevel = difficultyLevel;
+	}
+
+	public boolean isEnemy_stalled() {
+		return enemy_stalled;
+	}
+
+	public void setEnemy_stalled(boolean enemy_stalled) {
+		this.enemy_stalled = enemy_stalled;
 	}
 
 }

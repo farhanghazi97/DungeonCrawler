@@ -78,22 +78,33 @@ public class IceBall extends Entity {
 	
 	public void activateIceBomb(long time) {
 		System.out.println("In activateIceBomb()");
-		dungeon.setEnemy_stalled(true);
-		Task<Void> task = new Task<Void>() {
-			@Override
-			protected Void call() {
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						System.out.println("Thread was interrupted!");
+		Entity tempIB =dungeon.getInventoryEntity(EntityType.ICEBALL);
+		List<Entity> enemies = dungeon.getEntities(EntityType.ENEMY);
+		if (tempIB != null) {
+			for (Entity e : enemies) {
+				((Enemy) e).setEnemy_stalled(true);
+			}
+			Task<Void> task = new Task<Void>() {
+				@Override
+				protected Void call() {
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+							System.out.println("Thread was interrupted!");
+						}
+						return null;
 					}
-					return null;
+			};
+			task.setOnSucceeded(e -> {
+				System.out.println("Enemies can move now!");
+				dungeon.getInventoryEntities().remove(this);
+				for (Entity en : enemies) {
+					((Enemy) en).setEnemy_stalled(false);
 				}
-		};
-		task.setOnSucceeded(e -> {
-			System.out.println("Enemies can move now!");
-			dungeon.setEnemy_stalled(false);
-		});
-		new Thread(task).start();
+			});
+			new Thread(task).start();
+		} else {
+			return;
+		}
 	}
 }
