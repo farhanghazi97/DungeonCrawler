@@ -27,17 +27,15 @@ public class IceBall extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		System.out.println("IN ICEBALL STEPOVER()");
-		Entity tempIB =dungeon.getInventoryEntity(EntityType.ICEBALL);
+		Entity tempIceBall =dungeon.getInventoryEntity(EntityType.ICEBALL);
 		
-		if(tempIB != null) {
+		if(tempIceBall != null) {
 			//Player already has a ice ball
 			return false;
 		}else {
 			//Add new iceball
 			if(dungeon.getInventoryEntities().add(this)) {
 				this.collected = true;
-				System.out.println(this.toString());
 				dungeon.removeEntity(this);
 				return true;
 			}
@@ -68,11 +66,6 @@ public class IceBall extends Entity {
 	@Override
 	public ArrayList<String> getImageList() {
 		return null;
-	}
-	
-	@Override
-	public String toString() {
-		return "ICEBALL object [X=" + this.getX() + ", Y=" + this.getY() + "]";
 	}
 	
 	public void activateIceBomb(long time) {

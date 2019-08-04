@@ -3,7 +3,6 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.property.SimpleIntegerProperty;
 
 public class Key extends Entity {
 
