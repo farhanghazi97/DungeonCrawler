@@ -27,9 +27,9 @@ public class IceBall extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		Entity tempIceBall =dungeon.getInventoryEntity(EntityType.ICEBALL);
+		Entity tempIB =dungeon.getInventoryEntity(EntityType.ICEBALL);
 		
-		if(tempIceBall != null) {
+		if(tempIB != null) {
 			//Player already has a ice ball
 			return false;
 		}else {
@@ -68,8 +68,9 @@ public class IceBall extends Entity {
 		return null;
 	}
 	
+	
 	public void activateIceBomb(long time) {
-		System.out.println("In activateIceBomb()");
+		
 		Entity tempIB =dungeon.getInventoryEntity(EntityType.ICEBALL);
 		List<Entity> enemies = dungeon.getEntities(EntityType.ENEMY);
 		if (tempIB != null) {
@@ -88,15 +89,12 @@ public class IceBall extends Entity {
 					}
 			};
 			task.setOnSucceeded(e -> {
-				System.out.println("Enemies can move now!");
 				dungeon.getInventoryEntities().remove(this);
 				for (Entity en : enemies) {
 					((Enemy) en).setEnemy_stalled(false);
 				}
 			});
 			new Thread(task).start();
-		} else {
-			return;
-		}
+		} 
 	}
 }
