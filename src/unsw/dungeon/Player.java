@@ -13,8 +13,8 @@ import javafx.scene.image.ImageView;
  */
 public class Player extends Entity {
 	
-    private String image_path = "/human_new.png";
-    private ArrayList<String> image_list = new ArrayList<String>(Arrays.asList("/human_new.png" , "/daeva.png"));
+    private String imagePath = "/human_new.png";
+    private ArrayList<String> imageList = new ArrayList<String>(Arrays.asList("/human_new.png" , "/daeva.png", "/human_sword.png"));
     
     /**
      * Create a player positioned in square (x,y)
@@ -23,17 +23,16 @@ public class Player extends Entity {
      */
     public Player(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
-        //this.dungeon = dungeon;
     }
     
-    @Override
-    public String toString() {
-    	return "PLAYER object";
-    }
-
 	@Override
 	public EntityType getType(){return EntityType.PLAYER;}
 
+	/**
+	 * Method to check if player is blocked by entitesAtNew
+	 * @param entitiesAtNew
+	 * @return true if blocked, false otherwise
+	 */
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {
@@ -61,7 +60,7 @@ public class Player extends Entity {
 		for (Entity entity : entitiesAtNew) {
 			if (entity.getType()==EntityType.EXIT){
 				if(entity.stepOver()) {
-					dungeon.markGameOver();
+					dungeon.setGameOver(true);
 					break;
 				}
 			}
@@ -80,12 +79,12 @@ public class Player extends Entity {
 	
 	@Override
 	 public String getImagePath() {
-		return this.image_path;
+		return this.imagePath;
 	}
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return imageList;
 	}
 	
 }

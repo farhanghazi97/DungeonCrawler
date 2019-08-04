@@ -32,9 +32,9 @@ public abstract class DungeonLoader {
         int width = json.getInt("width");
         int height = json.getInt("height");
         
-        JSONObject goal_object = json.getJSONObject("goal-condition");
+        JSONObject goalConditions = json.getJSONObject("goal-condition");
 
-        Dungeon dungeon = new Dungeon(width, height , goal_object);
+        Dungeon dungeon = new Dungeon(width, height , goalConditions);
 
         JSONArray jsonEntities = json.getJSONArray("entities");
 

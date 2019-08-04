@@ -3,6 +3,9 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Sword extends Entity {
 	
 	private String image_path = "greatsword_1_new.png";
@@ -11,10 +14,6 @@ public class Sword extends Entity {
 	private int swingsRemaining = 5;
 	private boolean collected = false;
 	
-//	public Sword(int x, int y) {
-//        super(x, y);
-//    }
-
 	public Sword(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
     }
@@ -35,9 +34,7 @@ public class Sword extends Entity {
 	}
 
     @Override
-    public void postMove(List<Entity> entitiesAtNew) {
-
-    }
+    public void postMove(List<Entity> entitiesAtNew) {}
     
 	@Override
 	public boolean stepOver() {
@@ -53,6 +50,7 @@ public class Sword extends Entity {
 			//Add new sword
 			if(dungeon.getInventoryEntities().add(this)) {
 				this.collected = true;
+				updatePlayerUI();
 				System.out.println(this.toString());
 				dungeon.removeEntity(this);
 				return true;
@@ -80,17 +78,13 @@ public class Sword extends Entity {
 		}else {
 			//Remove sword from player's collected entities
 			this.collected = false;
+			updatePlayerUI();
 			dungeon.getInventoryEntities().remove(this);
 			System.out.println(this.toString());
 			return false;
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "SWORD object [swingsRemaining=" + swingsRemaining + ", collected=" + collected + "]";
-	}
-	
 	@Override
 	public String getImageID() {
 		return "Sword image";
@@ -110,5 +104,20 @@ public class Sword extends Entity {
 		return image_list;
 	}
 	
+	
+	private void updatePlayerUI( ) {
+		Player player = dungeon.getPlayer();
+		ArrayList<String> images = player.getImageList();
+		
+		Image humanSword;
+		if(collected) {
+			humanSword = new Image(images.get(2));
+		} else {
+			humanSword = new Image(images.get(0));
+		}
+
+		ImageView image = dungeon.getImageByEntity(player);
+		image.setImage(humanSword);
+	}
 
 }

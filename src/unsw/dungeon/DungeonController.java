@@ -15,13 +15,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
-
 /**
  * A JavaFX controller for the dungeon.
+ * 
  * @author Robert Clifton-Everest
  *
  */
-
 
 public class DungeonController {
 
@@ -137,7 +136,7 @@ public class DungeonController {
         }
         return null;
     }
-	
+
 	public ImageView getImageByEntity(Entity e) {
 		ImageView image = new ImageView();
 		for (int i = 0; i < initialEntities.size(); i++) {
@@ -151,11 +150,11 @@ public class DungeonController {
 		return image;
 	}
 
-	public List<ImageView> getInitialEntities() {
-		return initialEntities;
-	}
-
+	/**
+	 * Method to launch the startup message asking the user to choose their desired level of difficulty
+	 */
 	public void launchStarterDialog() {
+
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Welcome to the Dungeon");
 		alert.setHeaderText("Before you begin, please choose an enemy difficulty level");
@@ -166,44 +165,49 @@ public class DungeonController {
 		ButtonType hard = new ButtonType("Hard");
 
 		alert.getButtonTypes().setAll(easy, medium, hard);
-		
+
 		Optional<ButtonType> clickButton = alert.showAndWait();
-		
-		
+
 		handleDifficultyBtn(easy, medium, hard, clickButton);
 	}
 
-	private void handleDifficultyBtn(ButtonType easy, ButtonType medium, ButtonType hard, Optional<ButtonType> clickButton) {
+
+	/**
+	 * Method to handle onClick for various buttons in the popup box
+	 * @param easy difficulty level
+	 * @param medium difficulty level
+	 * @param hard difficulty level
+	 * @param clickButton is an array of type ButtonType
+	 */
+	private void handleDifficultyBtn(ButtonType easy, ButtonType medium, ButtonType hard,
+			Optional<ButtonType> clickButton) {
 		if (clickButton.get() == easy) {
-			dungeon.setEnemyDifficulty(1);
-		}else if(clickButton.get() == medium) {
-			dungeon.setEnemyDifficulty(2);
-		}else if(clickButton.get() == hard) {
-			dungeon.setEnemyDifficulty(3);
+			dungeon.setDifficulty(1);
+		} else if (clickButton.get() == medium) {
+			dungeon.setDifficulty(2);
+		} else if (clickButton.get() == hard) {
+			dungeon.setDifficulty(3);
 		}
 	}
 
-	public void showLoserBox(String infoMessage, String titleBar, String headerMessage) {
-		// TODO Auto-generated method stub
-
-   	 Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(titleBar);
-        alert.setHeaderText(headerMessage);
-        alert.setContentText(infoMessage);
-        alert.showAndWait();
+	/**
+	 * Method to display the a popup with provided message
+	 * @param infoMessage
+	 * @param titleBar
+	 * @param headerMessage
+	 */
+	public void showMessageBox(String infoMessage, String titleBar, String headerMessage) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(titleBar);
+		alert.setHeaderText(headerMessage);
+		alert.setContentText(infoMessage);
+		alert.showAndWait();
+		
 	}
-	
-	
-	
 
-//	Parent winnerViewParent = FXMLLoader.load(getClass().getResource("WinnerView.fxml"));
-//	Scene winnerViewScene = new Scene(winnerViewParent);
-//	
-//	//Now get the stage information
-//	Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
-//	
-//	window.setScene(winnerViewScene);
-//	window.show();
+
+	public List<ImageView> getInitialEntities() {
+		return initialEntities;
+	}
 
 }
-

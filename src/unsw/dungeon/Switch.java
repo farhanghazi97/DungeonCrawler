@@ -7,7 +7,6 @@ import java.util.Random;
 public class Switch extends Entity{
 
 	private String image_path = "/pressure_plate.png";
-	private ArrayList<String> image_list = new ArrayList<String>();
 	private boolean triggered = false;
 
 	public Switch(Dungeon dungeon, int x, int y) {
@@ -30,7 +29,12 @@ public class Switch extends Entity{
     @Override
     public void postMove(List<Entity> entitiesAtNew) {}
 
-    @Override
+	/**
+	 * Method to perform required action on a switch.
+	 * It generates a new entity if switch is triggered
+	 * @return true if triggered, false if not successful
+	 */
+	@Override
 	public boolean stepOver() {
    	
     	if(triggered) {
@@ -49,7 +53,7 @@ public class Switch extends Entity{
 		}
 		return true;
 	}
-    
+
     public void switchEvent(EntityType type) {
         Pair coordinates = dungeon.getUniqueCoordinates();
         Entity newObject = null;
@@ -74,7 +78,7 @@ public class Switch extends Entity{
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return null;
 	}
 
 	public boolean isTriggered() {
