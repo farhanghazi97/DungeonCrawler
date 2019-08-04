@@ -23,12 +23,16 @@ public class Player extends Entity {
      */
     public Player(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
-        //this.dungeon = dungeon;
     }
     
 	@Override
 	public EntityType getType(){return EntityType.PLAYER;}
 
+	/**
+	 * Method to check if player is blocked by entitesAtNew
+	 * @param entitiesAtNew
+	 * @return true if blocked, false otherwise
+	 */
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {

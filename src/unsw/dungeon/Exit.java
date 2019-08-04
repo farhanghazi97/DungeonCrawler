@@ -42,7 +42,11 @@ public class Exit extends Entity{
     @Override
     public void postMove(List<Entity> entitiesAtNew) {}
 
-    @Override
+	/**
+	 * Method to check if exit goal has been met and if so, trigger the required logic
+	 * @return
+	 */
+	@Override
 	public boolean stepOver() {
 		
     	JSONObject goal = dungeon.getGoal();

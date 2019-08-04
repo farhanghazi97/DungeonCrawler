@@ -17,6 +17,11 @@ public class Enemy extends Entity{
 		return EntityType.ENEMY;
 	}
 
+	/**
+	 * Method to check if enemy is blocked by entitesAtNew
+	 * @param entitiesAtNew
+	 * @return true if blocked, false otherwise
+	 */
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew) {
 		for (Entity entity : entitiesAtNew) {
@@ -30,9 +35,12 @@ public class Enemy extends Entity{
 	@Override
 	public void postMove(List<Entity> entitiesAtNew) {}
 
+	/**
+	 * Method to perform the required action if a player moves on an enemy
+	 * @return true
+	 */
 	@Override
 	public boolean stepOver() {
-		System.out.println("In Enemy's stepOver");
 		Entity potion = dungeon.getInventoryEntity(EntityType.POTION);
 		if(potion != null) {
 			//Player has a potion -> enemy dies
@@ -59,7 +67,21 @@ public class Enemy extends Entity{
 		return imageList;
 	}
 	
-	//OUR AMAZING LOGIC FOR MOVING ENEMY
+
+	/**
+	 * Method to advance the enemy closer to the player's location (playerX, playerY)
+	 *
+	 * This method uses some math logic and tries to advance enemy closer to player.
+	 * Site Referenced (https://stackoverflow.com/questions/2625021/game-enemy-move-towards-player)
+	 *
+	 * 1) If player is in vicinity of enemy, the enemy will try to move to the player's new location
+	 * 2) Else, the enemy will try to move closer to player
+	 *
+	 * The difficulty level variable is responsible for number of sqaures the enemy can "jump" through so as to
+	 * get to the player
+	 * @param playerX
+	 * @param playerY
+	 */
 	@Override
 	public void moveTo(int playerX, int playerY){
 	
@@ -75,7 +97,8 @@ public class Enemy extends Entity{
 			y().set(playerY);
 			return;
 		}
-		
+
+		//Math logic for enemy movement
 		int dirX = playerX - enemyX;
 		int dirY = playerY - enemyY;
 
@@ -98,10 +121,6 @@ public class Enemy extends Entity{
 			}
 		}
 		return;
-	}
-	
-	public int getDifficultyLevel() {
-		return difficultyLevel;
 	}
 
 	public void setDifficultyLevel(int difficultyLevel) {

@@ -32,11 +32,14 @@ public class Potion extends Entity {
     @Override
 	public void moveTo(int newX, int newY) {}
 
+	/**
+	 * Method to add a potion to the player's inventory bag and perform required action on it
+	 * @return true if potion successfully added, false otherwise
+	 */
     @Override
 	public boolean stepOver() { 
 		Entity tempPotion = dungeon.getInventoryEntity(EntityType.POTION);
-		Entity player = dungeon.getPlayer();
-		
+
 		if(tempPotion != null ) {
 			//Player already has a potion
 			return false;
@@ -46,17 +49,20 @@ public class Potion extends Entity {
 				collected = true;
 				this.updatePlayerUI();
 				//Start potion timer function
-				startSelfDestruct(6000 , player);
+				startSelfDestruct(6000);
 				dungeon.removeEntity(this);
 				return true;
 			}
 		}
 		return false;
 	}
-    
-    //Method to limit potion usage to ~ 5 seconds
-    private void startSelfDestruct(long time , Entity entity) {
-    	//System.out.println("Here");
+
+	/**
+	 * Method to manage potion usage timer of ~ 5 seconds from time of pickup
+	 * @param time
+	 */
+    private void startSelfDestruct(long time) {
+		Player entity = dungeon.getPlayer();
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() {
@@ -70,7 +76,6 @@ public class Potion extends Entity {
        
         task.setOnSucceeded(e -> {
         	dungeon.getInventoryEntities().remove(this);
-        	System.out.println("After destroying: "+ dungeon.getInventoryEntities());
         	collected = false;
             this.updatePlayerUI();
         });
@@ -92,7 +97,10 @@ public class Potion extends Entity {
 	public ArrayList<String> getImageList() {
 		return null;
 	}
-	
+
+	/**
+	 * Method to update UI as potion is collected
+	 */
 	private void updatePlayerUI() {
 		Player player = dungeon.getPlayer();
 		ArrayList<String> images = player.getImageList();

@@ -29,7 +29,12 @@ public class Switch extends Entity{
     @Override
     public void postMove(List<Entity> entitiesAtNew) {}
 
-    @Override
+	/**
+	 * Method to perform required action on a switch.
+	 * It generates a new entity if switch is triggered
+	 * @return true if triggered, false if not successful
+	 */
+	@Override
 	public boolean stepOver() {
    	
     	if(triggered) {
@@ -48,7 +53,7 @@ public class Switch extends Entity{
 		}
 		return true;
 	}
-    
+
     public void switchEvent(EntityType type) {
         Pair coordinates = dungeon.getUniqueCoordinates();
         Entity newObject = null;

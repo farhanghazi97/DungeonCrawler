@@ -25,7 +25,8 @@ public class Bomb extends Entity {
 	public Bomb(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
     }
-	
+
+
 	@Override
 	public EntityType getType() {
 		return EntityType.BOMB;
@@ -38,9 +39,14 @@ public class Bomb extends Entity {
 
 	@Override
 	public void postMove(List<Entity> entitiesAtNew) {}
-	
 
 
+	/**
+	 * Method to add bomb to player's inventory bag and to remove it from the entities list
+	 *
+	 * This method ensures the player can carry 1 bomb at a time
+	 * @return true if bomb added to inventory succesfully, false otherwise
+	 */
 	@Override
 	public boolean stepOver() {
 		Entity bomb = dungeon.getInventoryEntity(EntityType.BOMB);
@@ -53,8 +59,11 @@ public class Bomb extends Entity {
 		}
 	}
 
+	/**
+	 * Manages bomb image changes and bomb timer
+	 * @param time
+	 */
 
-	// Manages image changes and bomb timer
 	public void startBombSelfDestruct(long time) {
 		System.out.println("In self destruct");
 		Entity bomb = this;

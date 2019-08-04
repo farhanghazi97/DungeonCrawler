@@ -14,6 +14,11 @@ public class Boulder extends Entity {
 	@Override
 	public EntityType getType(){return EntityType.BOULDER;}
 
+	/**
+	 * Method to check if a boulder is blocked by any entity from the given entitesAtNew list
+	 * @param entitiesAtNew
+	 * @return true if not blocked, false otherwise
+	 */
 	@Override
 	public boolean isBlocked(List<Entity> entitiesAtNew){
 		for (Entity entity : entitiesAtNew) {
@@ -33,12 +38,19 @@ public class Boulder extends Entity {
 		return false;
 	}
 
+	/**
+	 * Moves boulder to (newX, newY) location
+	 */
 	@Override
 	public void moveTo(int newX, int newY) {
 		x().set(newX);
 		y().set(newY);
 	}
 
+	/**
+	 * Method to trigger switch if boulder moved on it
+	 * @param entitiesAtNew are the entities at the new location
+	 */
 	@Override
 	public void postMove(List<Entity> entitiesAtNew) {
 		for (Entity entity: entitiesAtNew) {

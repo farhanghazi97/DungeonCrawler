@@ -28,7 +28,11 @@ public class Treasure extends Entity{
     @Override
     public void postMove(List<Entity> entitiesAtNew) {}
 
-    @Override
+	/**
+	 * Method to collect and add player's treasure.
+	 * @return
+	 */
+	@Override
 	public boolean stepOver() {
     
     	treasureCoins++;

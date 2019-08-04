@@ -33,19 +33,21 @@ public class Key extends Entity {
 	@Override
 	public void postMove(List<Entity> entitiesAtNew) {}
 
+	/**
+	 * Method to add a key to the player's inventory and bag and remove it from the dungeon entites.
+	 * This method ensures only one key is added at a time
+	 * @return true is key succesfully added
+	 */
 	@Override
 	public boolean stepOver() {
-		//Add sword to collected entities
 		Entity tempKey = dungeon.getInventoryEntity(EntityType.KEY);
 		
 		if(tempKey != null) {
-			//Player already has a key
 			return false;
 		}else {
 			//Pick up key
 			if(dungeon.getInventoryEntities().add(this)) {
 				this.collected = true;
-				System.out.println(this.toString());
 				dungeon.removeEntity(this);
 				return true;
 			}
