@@ -92,19 +92,6 @@ public class DungeonController {
             break;
         }
     }
-    
-    /*
-     * When this method is called, it will change teh scene to winnerView
-     */
-    public void showWinnerBox(String infoMessage, String titleBar, String headerMessage)  {
-
-    	 Alert alert = new Alert(AlertType.INFORMATION);
-         alert.setTitle(titleBar);
-         alert.setHeaderText(headerMessage);
-         alert.setContentText(infoMessage);
-         alert.showAndWait();
-    	    
-    }
      
     public void removeEntity(Entity entity) {
     	System.out.println("Controller : Removing "+ entity);
