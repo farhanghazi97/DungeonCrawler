@@ -85,17 +85,24 @@ public class DungeonController {
 		}
 	}
 
-
-	public void removeEntity(Entity entity) {
-		System.out.println("Controller : Removing " + entity);
+	/**
+	 * Method to remove an entity ImageView from maze
+	 * @param entity to be removed
+	 */
+	public void removeEntity(Entity entity){
 		ImageView image = getImageByEntity(entity);
 		if (image.getId().equals(entity.getImageID())) {
 			// Removing from screen
 			squares.getChildren().remove(image);
 		}
 	}
-	
 
+	/**
+	 * Method to get a new (x,y) location in the maze. The location returned is randomised
+	 * and can be any location on the maze regardless of whether that location is occupied by
+	 * an other entity
+	 * @return Pair (x,y)
+	 */
 	public Pair getUniqueMazeCoordinates() {
 		Random rand = new Random();
 		int randX = rand.nextInt(dungeon.getWidth());
@@ -107,6 +114,10 @@ public class DungeonController {
 		return null;
 	}
 
+	/**
+	 * Method to create an entity image on the board
+	 * @param entity whose image is to be generated
+	 */
 	public void generateImage(Entity entity) {
 		Image new_image = new Image(entity.getImagePath());
 		ImageView new_view = new ImageView(new_image);
@@ -118,7 +129,11 @@ public class DungeonController {
 		squares.getChildren().add(new_view);
 	}
 
-
+	/**
+	 * Method to get an entity's corresponding ImageView object
+	 * @param e
+	 * @return the ImageView of entity e
+	 */
 	public ImageView getImageByEntity(Entity e) {
 		ImageView image = new ImageView();
 		for (int i = 0; i < initialEntities.size(); i++) {
@@ -132,38 +147,12 @@ public class DungeonController {
 		return image;
 	}
 
-	private void handleDifficultyBtn(ButtonType easy, ButtonType medium, ButtonType hard,
-			Optional<ButtonType> clickButton) {
-		if (clickButton.get() == easy) {
-			dungeon.setDifficulty(1);
-		} else if (clickButton.get() == medium) {
-			dungeon.setDifficulty(2);
-		} else if (clickButton.get() == hard) {
-			dungeon.setDifficulty(3);
-		}
-	}
 
-	public void showLoserBox(String infoMessage, String titleBar, String headerMessage) {
-
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle(titleBar);
-		alert.setHeaderText(headerMessage);
-		alert.setContentText(infoMessage);
-		alert.showAndWait();
-	}
-	
-	public void showWinnerBox(String infoMessage, String titleBar, String headerMessage) {
-
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle(titleBar);
-		alert.setHeaderText(headerMessage);
-		alert.setContentText(infoMessage);
-		alert.showAndWait();
-
-	}
-	
-
+	/**
+	 * Method to launch the startup message asking the user to choose their desired level of difficulty
+	 */
 	public void launchStarterDialog() {
+
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Welcome to the Dungeon");
 		alert.setHeaderText("Before you begin, please choose an enemy difficulty level");
@@ -179,7 +168,41 @@ public class DungeonController {
 
 		handleDifficultyBtn(easy, medium, hard, clickButton);
 	}
-	
+
+
+	/**
+	 * Method to handle onClick for various buttons in the popup box
+	 * @param easy difficulty level
+	 * @param medium difficulty level
+	 * @param hard difficulty level
+	 * @param clickButton is an array of type ButtonType
+	 */
+	private void handleDifficultyBtn(ButtonType easy, ButtonType medium, ButtonType hard,
+			Optional<ButtonType> clickButton) {
+		if (clickButton.get() == easy) {
+			dungeon.setDifficulty(1);
+		} else if (clickButton.get() == medium) {
+			dungeon.setDifficulty(2);
+		} else if (clickButton.get() == hard) {
+			dungeon.setDifficulty(3);
+		}
+	}
+
+	/**
+	 * Method to display the a popup with provided message
+	 * @param infoMessage
+	 * @param titleBar
+	 * @param headerMessage
+	 */
+	public void showMessageBox(String infoMessage, String titleBar, String headerMessage) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(titleBar);
+		alert.setHeaderText(headerMessage);
+		alert.setContentText(infoMessage);
+		alert.showAndWait();
+		
+	}
+
 
 	public List<ImageView> getInitialEntities() {
 		return initialEntities;
