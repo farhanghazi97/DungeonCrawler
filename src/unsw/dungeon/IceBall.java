@@ -8,7 +8,6 @@ import javafx.concurrent.Task;
 public class IceBall extends Entity {
 
 	private String imagePath = "/misc_crystal.png";
-	private ArrayList<String> imageList = new ArrayList<String>();
 	private boolean collected = false;
 	
 	public IceBall(Dungeon dungeon, int x, int y) {
@@ -68,7 +67,7 @@ public class IceBall extends Entity {
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return this.imageList;
+		return null;
 	}
 	
 	@Override
