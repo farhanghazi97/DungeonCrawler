@@ -40,7 +40,11 @@ public class Dungeon {
 	private MediaPlayer mediaPlayer;
 	
 	private String gameWin = "game_win.wav";
+	private String boulderMove = "boulder_move.wav";
+	
 	Media gameWinSound = new Media(new File(gameWin).toURI().toString());
+	Media boulderMoveSound = new Media(new File(boulderMove).toURI().toString());
+	
 	MediaPlayer game_win_sound = new MediaPlayer(gameWinSound);
 	
 	private List<Entity> playerInventory = new LinkedList<>();
@@ -85,6 +89,9 @@ public class Dungeon {
 		List<Entity> enemies = getEntities(EntityType.ENEMY);
 
 		if (!bouldersAtCurrent.isEmpty()) {
+			MediaPlayer boulder_move_sound = new MediaPlayer(boulderMoveSound);
+			boulder_move_sound.setVolume(0.50);
+			boulder_move_sound.play();
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
 			entityToMove = bouldersAtCurrent.get(0);

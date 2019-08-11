@@ -37,6 +37,7 @@ public abstract class DungeonLoader {
         String musicFile = "Medieval Music - Dark Dungeon.mp3"; 
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setVolume(0.30);
         mediaPlayer.play();
     	
         int width = json.getInt("width");
