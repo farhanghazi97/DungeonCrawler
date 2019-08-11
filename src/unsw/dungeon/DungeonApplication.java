@@ -22,7 +22,7 @@ public class DungeonApplication extends Application {
 
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        //mediaPlayer.play();
+        mediaPlayer.play();
         
         DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("all_entities.json");
         DungeonController controller = dungeonLoader.loadController();

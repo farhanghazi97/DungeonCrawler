@@ -1,14 +1,21 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Switch extends Entity{
 
 	private String image_path = "/pressure_plate.png";
 	private boolean triggered = false;
-
+	private String floorSwitch = "switch.wav";
+	Media switch_sound = new Media(new File(floorSwitch).toURI().toString());
+	MediaPlayer switch_sound_player = new MediaPlayer(switch_sound);
+	
 	public Switch(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
     }
@@ -55,6 +62,7 @@ public class Switch extends Entity{
 	}
 
     public void switchEvent(EntityType type) {
+    	switch_sound_player.play();
         Pair coordinates = dungeon.getUniqueCoordinates();
         Entity newObject = null;
         if (type == EntityType.TREASURE) {

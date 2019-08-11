@@ -20,7 +20,7 @@ public class Sword extends Entity {
 	Media swing_sound = new Media(new File(swingSword).toURI().toString());
     
 	MediaPlayer pick_up_sword = new MediaPlayer(pick_up_sound);
-	MediaPlayer hit_sword = new MediaPlayer(swing_sound);
+
 	
 	private int swingsRemaining = 5;
 	private boolean collected = false;
@@ -73,10 +73,11 @@ public class Sword extends Entity {
 	
 	//Swings sword once and reduces swingsRemaining
 	public boolean swing(int x, int y) {
+		MediaPlayer hit_sword = new MediaPlayer(swing_sound);
+		hit_sword.play();
 		// Check if enemy is in vicinity
 		List<Entity> enemies = dungeon.entitiesInVicinity(x, y, EntityType.ENEMY);
 		if (enemies != null) {
-			hit_sword.play();
 			// If true -> remove enemy
 			System.out.println(enemies);
 			for (Entity enemy : enemies) {
