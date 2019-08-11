@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -7,6 +8,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class DungeonApplication extends Application {
@@ -15,6 +18,12 @@ public class DungeonApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Dungeon");
 
+        String musicFile = "Medieval Music - Dark Dungeon.mp3"; 
+
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        //mediaPlayer.play();
+        
         DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("all_entities.json");
         DungeonController controller = dungeonLoader.loadController();
         

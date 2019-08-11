@@ -1,12 +1,20 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Treasure extends Entity{
 
 	private int treasureCoins = 0;
 	private String image_path = "gold_pile.png";
+	private String musicFile = "pick-up-item.wav"; 
+	
+	Media sound = new Media(new File(musicFile).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
 	
 	public Treasure(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -37,6 +45,8 @@ public class Treasure extends Entity{
 	@Override
 	public boolean stepOver() {
     
+        mediaPlayer.play();
+		
     	treasureCoins++;
     	dungeon.getInventoryEntities().add(this);
 		dungeon.removeEntity(this);

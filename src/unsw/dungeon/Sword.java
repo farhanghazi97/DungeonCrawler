@@ -1,15 +1,26 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Sword extends Entity {
 	
 	private String image_path = "greatsword_1_new.png";
 	private ArrayList<String> image_list = new ArrayList<String>();
+	private String pickupSword = "sword.wav"; 
+	private String swingSword = "sword_hit.wav";
+	
+	Media pick_up_sound = new Media(new File(pickupSword).toURI().toString());
+	Media swing_sound = new Media(new File(swingSword).toURI().toString());
+    
+	MediaPlayer pick_up_sword = new MediaPlayer(pick_up_sound);
+	MediaPlayer hit_sword = new MediaPlayer(swing_sound);
 	
 	private int swingsRemaining = 5;
 	private boolean collected = false;
@@ -48,6 +59,7 @@ public class Sword extends Entity {
 			return false;
 		}else {
 			//Add new sword
+			pick_up_sword.play();
 			if(dungeon.getInventoryEntities().add(this)) {
 				this.collected = true;
 				updatePlayerUI();
@@ -64,6 +76,7 @@ public class Sword extends Entity {
 		// Check if enemy is in vicinity
 		List<Entity> enemies = dungeon.entitiesInVicinity(x, y, EntityType.ENEMY);
 		if (enemies != null) {
+			hit_sword.play();
 			// If true -> remove enemy
 			System.out.println(enemies);
 			for (Entity enemy : enemies) {
