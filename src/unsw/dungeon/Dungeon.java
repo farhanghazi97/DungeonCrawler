@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 /**
@@ -36,6 +38,10 @@ public class Dungeon {
 	private Instant gameFinish;
 	private boolean gameOver = false;
 	private MediaPlayer mediaPlayer;
+	
+	private String gameWin = "game_win.wav";
+	Media gameWinSound = new Media(new File(gameWin).toURI().toString());
+	MediaPlayer game_win_sound = new MediaPlayer(gameWinSound);
 	
 	private List<Entity> playerInventory = new LinkedList<>();
 	private List<Entity> entities;
@@ -119,6 +125,7 @@ public class Dungeon {
 			List<Entity> exits = getEntities(EntityType.EXIT);
 			Exit exit = (Exit) exits.get(0);
 			if (player.getX() == exit.getX() && player.getY() == exit.getY()) {
+				game_win_sound.play();
 				dc.showMessageBox("You've beat the game!\n Time Taken (sec) : " + timeElapsed, "Congratulations!", null);
 			} else {
 				dc.showMessageBox("The developers have beat you!\n GamePlay time (sec) : " + timeElapsed, "Sorry!", null);
