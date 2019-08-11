@@ -1,8 +1,12 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Enemy extends Entity{
 	
@@ -11,6 +15,10 @@ public class Enemy extends Entity{
 	private ArrayList<String> imageList = new ArrayList<String>(Arrays.asList("/deep_elf_master_archer.png"));
 	private String imagePath = "/enemy.png";
 	private String enemyAltImage = "/ice_form.png";
+	
+	private String gameOver = "game_over.wav";
+	Media gameOverSound = new Media(new File(gameOver).toURI().toString());
+	MediaPlayer game_over_sound = new MediaPlayer(gameOverSound);
 
 	public Enemy(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -51,6 +59,7 @@ public class Enemy extends Entity{
 			dungeon.removeEntity(this);
 		}else {
 			//Player dies -> game over
+			game_over_sound.play();
 			dungeon.setGameOver(true);
 		}
 		return true;

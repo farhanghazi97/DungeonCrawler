@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * A dungeon in the interactive dungeon player.
@@ -34,16 +35,18 @@ public class Dungeon {
 	private Instant gameStart;
 	private Instant gameFinish;
 	private boolean gameOver = false;
+	private MediaPlayer mediaPlayer;
 	
 	private List<Entity> playerInventory = new LinkedList<>();
 	private List<Entity> entities;
 	
-	public Dungeon(int width, int height, JSONObject goal) {
+	public Dungeon(int width, int height, JSONObject goal , MediaPlayer MP) {
 		this.width = width;
 		this.height = height;
 		this.entities = new ArrayList<>();
 		this.player = null;
 		this.goal = goal;
+		this.mediaPlayer = MP;
 		gameStart = Instant.now();
 	}
 
@@ -413,6 +416,7 @@ public class Dungeon {
 	}
 
 	public void setGameOver(boolean gameOver) {
+		this.mediaPlayer.stop();
 		this.gameOver = gameOver;
 		postGameOver();
 	}

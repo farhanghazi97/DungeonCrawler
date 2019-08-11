@@ -17,12 +17,6 @@ public class DungeonApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Dungeon");
-
-        String musicFile = "Medieval Music - Dark Dungeon.mp3"; 
-
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
         
         DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("all_entities.json");
         DungeonController controller = dungeonLoader.loadController();

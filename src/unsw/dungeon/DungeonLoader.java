@@ -1,11 +1,15 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Loads a dungeon from a .json file.
@@ -29,12 +33,18 @@ public abstract class DungeonLoader {
      * @return
      */
     public Dungeon load() {
+    	
+        String musicFile = "Medieval Music - Dark Dungeon.mp3"; 
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    	
         int width = json.getInt("width");
         int height = json.getInt("height");
         
         JSONObject goalConditions = json.getJSONObject("goal-condition");
 
-        Dungeon dungeon = new Dungeon(width, height , goalConditions);
+        Dungeon dungeon = new Dungeon(width, height , goalConditions , mediaPlayer);
 
         JSONArray jsonEntities = json.getJSONArray("entities");
 
