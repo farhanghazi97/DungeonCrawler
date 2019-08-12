@@ -1,9 +1,12 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Key extends Entity {
 
@@ -11,6 +14,9 @@ public class Key extends Entity {
 	
 	private int keyID;
 	private boolean collected = false;
+	private String Key = "pick-up-item.wav";
+	Media keySound = new Media(new File(Key).toURI().toString());
+	MediaPlayer key_sound_player = new MediaPlayer(keySound);
 
 	public Key(Dungeon dungeon, int x, int y, int keyId) {
         super(dungeon, x, y);
@@ -48,6 +54,7 @@ public class Key extends Entity {
 			return false;
 		}else {
 			//Pick up key
+			key_sound_player.play();
 			if(dungeon.getInventoryEntities().add(this)) {
 				this.collected = true;
 				dungeon.removeEntity(this);

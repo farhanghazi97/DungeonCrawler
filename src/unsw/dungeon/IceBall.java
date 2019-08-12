@@ -1,17 +1,25 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class IceBall extends Entity {
 
 	private String imagePath = "/misc_crystal.png";
 	private ArrayList<String> imageList = new ArrayList<String>();
 	private boolean collected = false;
+	
+	private String ice_bomb_trigger = "ice.wav"; 
+	
+	Media iceSound = new Media(new File(ice_bomb_trigger).toURI().toString());
+    MediaPlayer ice_sound_player = new MediaPlayer(iceSound);
 	
 	public IceBall(Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
@@ -79,6 +87,7 @@ public class IceBall extends Entity {
 	}
 	
 	public void activateIceBomb(long time) {
+		ice_sound_player.play();
 		System.out.println("In activateIceBomb()");
 		Entity tempIB =dungeon.getInventoryEntity(EntityType.ICEBALL);
 		List<Entity> enemies = dungeon.getEntities(EntityType.ENEMY);

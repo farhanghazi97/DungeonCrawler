@@ -11,7 +11,7 @@ public class Treasure extends Entity{
 
 	private int treasureCoins = 0;
 	private String image_path = "gold_pile.png";
-	private String musicFile = "pick-up-item.wav"; 
+	private String musicFile = "treasure.wav"; 
 	
 	Media sound = new Media(new File(musicFile).toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
