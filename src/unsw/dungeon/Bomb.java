@@ -76,7 +76,6 @@ public class Bomb extends Entity {
 	 * Manages bomb image changes and bomb timer
 	 * @param time
 	 */
-
 	public void startBombSelfDestruct(long time) {
 		System.out.println("In self destruct");
 		Entity bomb = this;

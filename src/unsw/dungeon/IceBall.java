@@ -13,7 +13,6 @@ import javafx.scene.media.MediaPlayer;
 public class IceBall extends Entity {
 
 	private String imagePath = "/misc_crystal.png";
-	private ArrayList<String> imageList = new ArrayList<String>();
 	private boolean collected = false;
 	
 	private String ice_bomb_trigger = "ice.wav"; 
@@ -38,7 +37,6 @@ public class IceBall extends Entity {
 
 	@Override
 	public boolean stepOver() {
-		System.out.println("IN ICEBALL STEPOVER()");
 		Entity tempIB =dungeon.getInventoryEntity(EntityType.ICEBALL);
 		
 		if(tempIB != null) {
@@ -48,7 +46,6 @@ public class IceBall extends Entity {
 			//Add new iceball
 			if(dungeon.getInventoryEntities().add(this)) {
 				this.collected = true;
-				System.out.println(this.toString());
 				dungeon.removeEntity(this);
 				return true;
 			}
@@ -78,17 +75,15 @@ public class IceBall extends Entity {
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return this.imageList;
+		return null;
 	}
 	
-	@Override
-	public String toString() {
-		return "ICEBALL object [X=" + this.getX() + ", Y=" + this.getY() + "]";
-	}
 	
 	public void activateIceBomb(long time) {
+
 		ice_sound_player.play();
 		System.out.println("In activateIceBomb()");
+
 		Entity tempIB =dungeon.getInventoryEntity(EntityType.ICEBALL);
 		List<Entity> enemies = dungeon.getEntities(EntityType.ENEMY);
 		if (tempIB != null) {
@@ -109,7 +104,6 @@ public class IceBall extends Entity {
 					}
 			};
 			task.setOnSucceeded(e -> {
-				System.out.println("Enemies can move now!");
 				dungeon.getInventoryEntities().remove(this);
 				for (Entity en : enemies) {
 					ArrayList<String> images = en.getImageList();
@@ -119,8 +113,6 @@ public class IceBall extends Entity {
 				}
 			});
 			new Thread(task).start();
-		} else {
-			return;
-		}
+		} 
 	}
 }

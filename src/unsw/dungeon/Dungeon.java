@@ -8,8 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONObject;
 
-import javafx.concurrent.Task;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -173,7 +171,6 @@ public class Dungeon {
 	public void handleKeyPressU(int currentX, int currentY) {
 		List<Entity> doors = entitiesInFront(currentX, currentY, EntityType.DOOR);
 		if (!doors.isEmpty()) {
-			System.out.println("Found door in vicnity");
 			Entity door = doors.get(0);
 			door.stepOver();
 		}
@@ -186,7 +183,6 @@ public class Dungeon {
 	 * @param y
 	 */
 	public void handleKeyPressS(int x, int y) {
-		System.out.println("Dungeon: In handleKeyPressS");
 		Entity sword = getInventoryEntity(EntityType.SWORD);
 		if (sword != null)  ((Sword) sword).swing(x,y);
 	}
@@ -198,7 +194,6 @@ public class Dungeon {
 	 * @param y
 	 */
 	public void handleKeyPressB(int x, int y) {
-		System.out.println("Dungeon: In ignite bomb");
 		Entity oldBomb = getInventoryEntity(EntityType.BOMB);
 		if (oldBomb != null) {
 			playerInventory.remove(oldBomb);
@@ -209,7 +204,6 @@ public class Dungeon {
 	}
 	
 	public void handleKeyPressI(int x , int y) {
-		System.out.println("Dungeon: In ActivateIceBomb");
 		Entity iceBall = this.getInventoryEntity(EntityType.ICEBALL);
 		if(iceBall != null) {
 			((IceBall) iceBall).activateIceBomb(5000);

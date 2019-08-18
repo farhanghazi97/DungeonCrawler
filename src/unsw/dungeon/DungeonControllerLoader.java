@@ -30,9 +30,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image switchimage;
     
     private Image swordimage0;
-    private Image swordimage1;
-
-    private Image swordimage2;
+    
     private Image ice_weapon;
     
     private Image treasureimage;
@@ -59,8 +57,6 @@ public class DungeonControllerLoader extends DungeonLoader {
         switchimage = new Image("/pressure_plate.png");
         
         swordimage0 = new Image("/greatsword_1_new.png");
-        swordimage1 = new Image("/scimitar1.png");
-        swordimage2 = new Image("/battle_axe2.png");
         
         ice_weapon = new Image("/misc_crystal.png");
 

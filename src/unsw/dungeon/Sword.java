@@ -18,11 +18,9 @@ public class Sword extends Entity {
 	
 	Media pick_up_sound = new Media(new File(pickupSword).toURI().toString());
 	Media swing_sound = new Media(new File(swingSword).toURI().toString());
-    
 	MediaPlayer pick_up_sword = new MediaPlayer(pick_up_sound);
-
 	
-	private int swingsRemaining = 5;
+  private int swingsRemaining = 5;
 	private boolean collected = false;
 	
 	public Sword(Dungeon dungeon, int x, int y) {
@@ -115,7 +113,7 @@ public class Sword extends Entity {
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return image_list;
+		return null;
 	}
 	
 	

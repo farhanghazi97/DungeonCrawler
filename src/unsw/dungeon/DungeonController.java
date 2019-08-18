@@ -61,19 +61,15 @@ public class DungeonController {
 
         switch (event.getCode()) {
         case UP:
-            //Mediator.getInstance().moveTo(player.getX(), player.getY(), player.getX(), player.getY() - 1);
         	dungeon.moveTo(player.getX(), player.getY(), player.getX(), player.getY() - 1);
             break;
         case DOWN:
-            //Mediator.getInstance().moveTo(player.getX(), player.getY(), player.getX(), player.getY() + 1);
         	dungeon.moveTo(player.getX(), player.getY(), player.getX(), player.getY() + 1);
             break;
         case LEFT:
-            //Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()-1, player.getY());
         	dungeon.moveTo(player.getX(), player.getY(),player.getX()-1, player.getY());
             break;
-        case RIGHT:
-            //Mediator.getInstance().moveTo(player.getX(), player.getY(),player.getX()+1, player.getY()); 
+        case RIGHT: 
             dungeon.moveTo(player.getX(), player.getY(),player.getX()+1, player.getY());
             break;
         case U:
@@ -92,7 +88,11 @@ public class DungeonController {
             break;
         }
     }
-     
+    
+    /**
+	 * Method to remove an entity ImageView from maze
+	 * @param entity to be removed
+	 */
     public void removeEntity(Entity entity) {
     	System.out.println("Controller : Removing "+ entity);
         ImageView image = getImageByEntity(entity);
@@ -102,6 +102,10 @@ public class DungeonController {
         }
     }
     
+    /**
+	 * Method to create an entity image on the board
+	 * @param entity whose image is to be generated
+	 */
     public void generateImage(Entity entity) {
         Image new_image = new Image(entity.getImagePath());
         ImageView new_view = new ImageView(new_image);
@@ -113,6 +117,12 @@ public class DungeonController {
         squares.getChildren().add(new_view);
     }
     
+    /**
+	 * Method to get a new (x,y) location in the maze. The location returned is randomised
+	 * and can be any location on the maze regardless of whether that location is occupied by
+	 * an other entity
+	 * @return Pair (x,y)
+	 */
     public Pair getUniqueMazeCoordinates() {
         Random rand = new Random();
         int randX = rand.nextInt(dungeon.getWidth());
@@ -124,6 +134,11 @@ public class DungeonController {
         return null;
     }
 
+    /**
+	 * Method to get an entity's corresponding ImageView object
+	 * @param e
+	 * @return the ImageView of entity e
+	 */
 	public ImageView getImageByEntity(Entity e) {
 		ImageView image = new ImageView();
 		for (int i = 0; i < initialEntities.size(); i++) {

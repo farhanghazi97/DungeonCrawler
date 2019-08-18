@@ -11,6 +11,7 @@ import javafx.scene.media.MediaPlayer;
 public class Enemy extends Entity{
 	
 	private int difficultyLevel = 1;
+
 	private boolean enemyStalled = false;
 	private ArrayList<String> imageList = new ArrayList<String>(Arrays.asList("/deep_elf_master_archer.png"));
 	private String imagePath = "/enemy.png";
@@ -19,6 +20,9 @@ public class Enemy extends Entity{
 	private String gameOver = "game_over.wav";
 	Media gameOverSound = new Media(new File(gameOver).toURI().toString());
 	MediaPlayer game_over_sound = new MediaPlayer(gameOverSound);
+
+	private boolean enemy_stalled = false;
+
 
 	public Enemy(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -78,6 +82,7 @@ public class Enemy extends Entity{
 	@Override
 	public ArrayList<String> getImageList() {
 		return imageList;
+
 	}
 	
 
