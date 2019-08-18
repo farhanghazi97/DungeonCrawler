@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -8,6 +9,8 @@ import java.util.List;
 import org.json.JSONObject;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * A dungeon in the interactive dungeon player.
@@ -32,16 +35,26 @@ public class Dungeon {
 	private Instant gameStart;
 	private Instant gameFinish;
 	private boolean gameOver = false;
+	private MediaPlayer mediaPlayer;
+	
+	private String gameWin = "game_win.wav";
+	private String boulderMove = "boulder_move.wav";
+	
+	Media gameWinSound = new Media(new File(gameWin).toURI().toString());
+	Media boulderMoveSound = new Media(new File(boulderMove).toURI().toString());
+	
+	MediaPlayer game_win_sound = new MediaPlayer(gameWinSound);
 	
 	private List<Entity> playerInventory = new LinkedList<>();
 	private List<Entity> entities;
 	
-	public Dungeon(int width, int height, JSONObject goal) {
+	public Dungeon(int width, int height, JSONObject goal , MediaPlayer MP) {
 		this.width = width;
 		this.height = height;
 		this.entities = new ArrayList<>();
 		this.player = null;
 		this.goal = goal;
+		this.mediaPlayer = MP;
 		gameStart = Instant.now();
 	}
 
@@ -74,6 +87,9 @@ public class Dungeon {
 		List<Entity> enemies = getEntities(EntityType.ENEMY);
 
 		if (!bouldersAtCurrent.isEmpty()) {
+			MediaPlayer boulder_move_sound = new MediaPlayer(boulderMoveSound);
+			boulder_move_sound.setVolume(0.50);
+			boulder_move_sound.play();
 			// there is a boulder at currentX and currentY
 			// We will move boulder instead of player
 			entityToMove = bouldersAtCurrent.get(0);
@@ -114,6 +130,7 @@ public class Dungeon {
 			List<Entity> exits = getEntities(EntityType.EXIT);
 			Exit exit = (Exit) exits.get(0);
 			if (player.getX() == exit.getX() && player.getY() == exit.getY()) {
+				game_win_sound.play();
 				dc.showMessageBox("You've beat the game!\n Time Taken (sec) : " + timeElapsed, "Congratulations!", null);
 			} else {
 				dc.showMessageBox("The developers have beat you!\n GamePlay time (sec) : " + timeElapsed, "Sorry!", null);
@@ -407,6 +424,7 @@ public class Dungeon {
 	}
 
 	public void setGameOver(boolean gameOver) {
+		this.mediaPlayer.stop();
 		this.gameOver = gameOver;
 		postGameOver();
 	}

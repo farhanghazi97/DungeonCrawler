@@ -1,12 +1,28 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Enemy extends Entity{
 	
 	private int difficultyLevel = 1;
+
+	private boolean enemyStalled = false;
+	private ArrayList<String> imageList = new ArrayList<String>(Arrays.asList("/deep_elf_master_archer.png"));
+	private String imagePath = "/enemy.png";
+	private String enemyAltImage = "/ice_form.png";
+	
+	private String gameOver = "game_over.wav";
+	Media gameOverSound = new Media(new File(gameOver).toURI().toString());
+	MediaPlayer game_over_sound = new MediaPlayer(gameOverSound);
+
 	private boolean enemy_stalled = false;
+
 
 	public Enemy(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -47,6 +63,7 @@ public class Enemy extends Entity{
 			dungeon.removeEntity(this);
 		}else {
 			//Player dies -> game over
+			game_over_sound.play();
 			dungeon.setGameOver(true);
 		}
 		return true;
@@ -59,12 +76,13 @@ public class Enemy extends Entity{
 	
 	@Override
 	public String getImagePath() {
-		return null;
+		return this.enemyAltImage;
 	}
 
 	@Override
 	public ArrayList<String> getImageList() {
-		return null;
+		return imageList;
+
 	}
 	
 
@@ -85,7 +103,7 @@ public class Enemy extends Entity{
 	@Override
 	public void moveTo(int playerX, int playerY , boolean flag){
 	
-		if(enemy_stalled == false) {
+		if(enemyStalled == false) {
 			int enemyX = this.getX();
 			int enemyY = this.getY();
 			
@@ -130,11 +148,11 @@ public class Enemy extends Entity{
 	}
 
 	public boolean isEnemy_stalled() {
-		return enemy_stalled;
+		return enemyStalled;
 	}
 
 	public void setEnemy_stalled(boolean enemy_stalled) {
-		this.enemy_stalled = enemy_stalled;
+		this.enemyStalled = enemy_stalled;
 	}
 
 }

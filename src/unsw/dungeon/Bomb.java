@@ -3,7 +3,10 @@ package unsw.dungeon;
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +24,15 @@ public class Bomb extends Entity {
 					"/BombExploding.png"
 			)
 	);
+	
+	private String bomb_drop = "bomb.mp3"; 
+	private String bomb_pick_up = "bomb_pick_up.aiff"; 
+	
+	Media bombSound = new Media(new File(bomb_drop).toURI().toString());
+    MediaPlayer bomb_sound_player = new MediaPlayer(bombSound);
+    
+    Media bombSound2 = new Media(new File(bomb_pick_up).toURI().toString());
+    MediaPlayer bomb_sound_player_2 = new MediaPlayer(bombSound2);
 	
 	public Bomb(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -53,6 +65,7 @@ public class Bomb extends Entity {
 		if(bomb != null && isDestroyed == false) {
 			return false;
 		} else {
+			bomb_sound_player_2.play();
 	    	dungeon.addInventory(this);
 			dungeon.removeEntity(this);
 			return true;
@@ -83,6 +96,7 @@ public class Bomb extends Entity {
 						imageToUpdate.setImage(new_state);
 						System.out.println("Bomb image updated");
 					}
+					bomb_sound_player.play();
 				}
 				return null;
 			}

@@ -1,14 +1,24 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.concurrent.Task;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class IceBall extends Entity {
 
 	private String imagePath = "/misc_crystal.png";
 	private boolean collected = false;
+	
+	private String ice_bomb_trigger = "ice.wav"; 
+	
+	Media iceSound = new Media(new File(ice_bomb_trigger).toURI().toString());
+    MediaPlayer ice_sound_player = new MediaPlayer(iceSound);
 	
 	public IceBall(Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
@@ -70,11 +80,16 @@ public class IceBall extends Entity {
 	
 	
 	public void activateIceBomb(long time) {
-		
+
+		ice_sound_player.play();
+		System.out.println("In activateIceBomb()");
+
 		Entity tempIB =dungeon.getInventoryEntity(EntityType.ICEBALL);
 		List<Entity> enemies = dungeon.getEntities(EntityType.ENEMY);
 		if (tempIB != null) {
 			for (Entity e : enemies) {
+				ImageView imageToUpdate = dungeon.getImageByEntity(e);
+				imageToUpdate.setImage(new Image(e.getImagePath()));
 				((Enemy) e).setEnemy_stalled(true);
 			}
 			Task<Void> task = new Task<Void>() {
@@ -91,7 +106,10 @@ public class IceBall extends Entity {
 			task.setOnSucceeded(e -> {
 				dungeon.getInventoryEntities().remove(this);
 				for (Entity en : enemies) {
+					ArrayList<String> images = en.getImageList();
 					((Enemy) en).setEnemy_stalled(false);
+					ImageView imageToUpdate = dungeon.getImageByEntity(en);
+					imageToUpdate.setImage(new Image(images.get(0)));
 				}
 			});
 			new Thread(task).start();

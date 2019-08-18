@@ -2,7 +2,10 @@ package unsw.dungeon;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +14,9 @@ public class Door extends Entity {
 	private String imagePath = "/open_door.png";
 	private int doorId;
 	private boolean open = false;
+	private String doorOpen = "door_opening.wav";
+	Media door_open_sound = new Media(new File(doorOpen).toURI().toString());
+	MediaPlayer open_door = new MediaPlayer(door_open_sound);
 	
 	public Door(Dungeon dungeon, int x, int y, int door_id) {
         super(dungeon, x, y);
@@ -79,6 +85,7 @@ public class Door extends Entity {
 	 * @param entity
 	 */
 	private void updateDoorUI(Entity entity) {
+		open_door.play();
 		System.out.println("In update door function");
 		Image openDoorImage = new Image(imagePath);
 		ImageView image = dungeon.getImageByEntity(entity);

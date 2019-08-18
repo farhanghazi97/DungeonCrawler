@@ -1,16 +1,23 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Potion extends Entity {
 
 	private boolean collected = false;
 	private String image_path = "/brilliant_blue_new.png";
+	private String musicFile = "potion.wav"; 
+	
+	Media sound = new Media(new File(musicFile).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
 	public Potion(Dungeon dungeon, int x, int y) {
         super(dungeon, x, y);
@@ -46,6 +53,7 @@ public class Potion extends Entity {
 			//Player already has a potion
 			return false;
 		}else {
+			mediaPlayer.play();
 			//Add new potion
 			if(dungeon.getInventoryEntities().add(this)) {
 				collected = true;
